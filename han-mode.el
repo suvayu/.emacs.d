@@ -1,6 +1,24 @@
 ;;; han-mode.el --- This is a major mode for editing HAN configuration files
 ;;;		    for ATLAS Data Quality Monitoring
 
+;; Copyright (C) 2010 by Suvayu Ali
+;; Author: Suvayu Ali <fatkasuvayuNOSPAM(at)gmail(dot)com>
+
+;; This file is not a part of any emacsen.
+
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 ;;; Commentary:
 ;; This mode is a very basic major mode for editing HAN configuration files.
 ;; It does syntax highlighting, and recognises comments.  I wrote this in one
@@ -9,7 +27,7 @@
 ;;; History:
 ;; 
 ;;  26/03/10 - font-lock-mode cannot distinguish between keywords and attributes.
-;;
+;;  28/03/10 - fixed commenting bug and included more distinctive faces.
 
 ;;; Code:
 
@@ -36,7 +54,7 @@
    '("\\<\\(algorithm\\|display\\|error\\|file\\|libnames?\\|name\\|output\\|path\\|re\\(?:ference\\|gex\\)\\|subalgs\\|thresholds\\|w\\(?:arning\\|eight\\)\\)\\> *="
      . font-lock-builtin-face) ; attributes
    '("\\<\\(all_in_dir\\|false\\|no\\|same_name\\|t\\(?:op_level\\|rue\\)\\|yes\\)\\>"
-     . font-lock-string-face) ; special tokes
+     . font-lock-string-face) ; special tokens
    '("\\([,@|]\\)" . font-lock-warning-face)) ; operators
   "Keyword highlighting for HAN configuration files.")
 
