@@ -32,12 +32,12 @@
 (defconst han-font-lock-keywords
   (list
    '("\\<\\(algorithm\\|composite\\(?:[Aa]lgorithm\\)\\|dir\\|hist\\|limits\\|metadata\\|output\\|reference\\|thresholds\\)\\>"
-     . font-lock-builtin-face) ; keywords
+     . font-lock-keyword-face) ; keywords
    '("\\<\\(algorithm\\|display\\|error\\|file\\|libnames?\\|name\\|output\\|path\\|re\\(?:ference\\|gex\\)\\|subalgs\\|thresholds\\|w\\(?:arning\\|eight\\)\\)\\> *="
-     . font-lock-function-name-face) ; attributes
+     . font-lock-builtin-face) ; attributes
    '("\\<\\(all_in_dir\\|false\\|no\\|same_name\\|t\\(?:op_level\\|rue\\)\\|yes\\)\\>"
-     . font-lock-warning-face) ; special tokes
-   '("\\([@\\|]\\)" . font-lock-warning-face)) ; operators
+     . font-lock-string-face) ; special tokes
+   '("\\([,@|]\\)" . font-lock-warning-face)) ; operators
   "Keyword highlighting for HAN configuration files.")
 
 ;; syntax table
@@ -61,7 +61,16 @@
   ;; (set-syntax-table han-mode-syntax-table)
 
   (use-local-map han-mode-map)
-  (set (make-local-variable 'font-lock-defaults) '(han-font-lock-keywords)))
+  (set (make-local-variable 'font-lock-defaults) '(han-font-lock-keywords))
+
+  ;; Commenting
+  (make-local-variable 'comment-start)
+  (make-local-variable 'comment-end)
+  (make-local-variable 'comment-column)
+
+  (setq comment-start "# "
+	comment-end ""
+	comment-column 48))
 
   ;; ;; not required when derived from another mode
   ;; (setq major-mode 'han-mode)

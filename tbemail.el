@@ -113,10 +113,10 @@
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults '(tbemail-font-lock-keywords nil t nil nil))
 
-;; Comment stuff.
+  ;; Comment stuff.
   (make-local-variable 'comment-start)
   (make-local-variable 'comment-end)
-  (make-local-variable 'comment-start-skip)
+  ;; (make-local-variable 'comment-start-skip)
   (make-local-variable 'comment-column)
 
   (setq comment-start "> "
