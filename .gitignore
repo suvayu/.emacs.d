@@ -1,0 +1,24 @@
+# Can ignore specific files
+#.DS_Store
+
+# Use wildcards as well
+*~
+*.elc
+*.gz
+bookmark*
+dired*
+firefox*
+hexrgb*
+icicles*
+icomplete*
+lacarte*
+linkd*
+session*
+synonyms*
+tabbar*
+
+# Can also ignore all directories and files in a directory.
+cedet/*
+ecb/*
+emacs-bookmark-extension/*
+wanderlust/*
