@@ -104,7 +104,7 @@
 ;; regex to match earlier `{' "^\\s-*\\<\\(algorithm\\|composite\\(?:[Aa]lgorithm\\)\\|dir\\|hist\\|limits\\|metadata\\|output\\|reference\\|thresholds\\)\\> +\\w+ *{"
 ;; (concat "^\\s-*" han-keywords " +\\w+ *{")
 
-(define-derived-mode han-mode c++-mode "HAN"
+(define-derived-mode han-mode fundamental-mode "HAN"
   "Major mode for editing HAN configuration files."
   (use-local-map han-mode-map)
   (set (make-local-variable 'font-lock-defaults) '(han-font-lock-keywords))
