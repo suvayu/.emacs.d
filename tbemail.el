@@ -92,18 +92,20 @@
   "Face for email underlined text" )
 
 (defvar tbemail-font-lock-keywords
-      (list '("^> \\(.*\\)$"           1 'tbemail-email-quote1)
-            '("^>> \\(.*\\)$"          1 'tbemail-email-quote2)
-            '("^>>> \\(.*\\)$"         1 'tbemail-email-quote3)
-            '("^>>>> \\(.*\\)$"        1 'tbemail-email-quote4)
-            '("^>>>>> \\(.*\\)$"       1 'tbemail-email-quote5)
-            '("^>>>>>> \\(.*\\)$"      1 'tbemail-email-quote6)
-            '("^>>>>>>> \\(.*\\)$"     1 'tbemail-email-quote7)
-            '("^>>>>>>>> \\(.*\\)$"    1 'tbemail-email-quote8)
-            '("^>>>>>>>>> \\(.*\\)$"   1 'tbemail-email-quote9)
+      (list '("^> +\\(.*\\)$"           1 'tbemail-email-quote1)
+            '("^>> +\\(.*\\)$"          1 'tbemail-email-quote2)
+            '("^>>> +\\(.*\\)$"         1 'tbemail-email-quote3)
+            '("^>>>> +\\(.*\\)$"        1 'tbemail-email-quote4)
+            '("^>>>>> +\\(.*\\)$"       1 'tbemail-email-quote5)
+            '("^>>>>>> +\\(.*\\)$"      1 'tbemail-email-quote6)
+            '("^>>>>>>> +\\(.*\\)$"     1 'tbemail-email-quote7)
+            '("^>>>>>>>> +\\(.*\\)$"    1 'tbemail-email-quote8)
+            '("^>>>>>>>>> +\\(.*\\)$"   1 'tbemail-email-quote9)
             '("/\\(\\b\\w*\\b\\)/"     1 'tbemail-email-italic)
             '("\\*\\(\\b\\w*\\b\\)\\*" 1 'tbemail-email-bold)
             '("[_]\\(\\b\\w*\\b\\)[_]" 1 'tbemail-email-underline)
+	    '("\"\\([^\"]\\)+\"" . 'font-lock-string-face) ; quoting with newlines
+	    '("`\\([^`'\n]\\)+'" . 'font-lock-string-face) ; quoting excluding newlines
             ))
 
 (defun tbemail-mode ()
