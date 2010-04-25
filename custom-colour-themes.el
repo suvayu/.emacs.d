@@ -154,3 +154,4 @@
      (secondary-selection ((t (:background "blue"))))
      (show-paren-match-face ((t (:background "SlateBlue1"))))
      (show-paren-mismatch-face ((t (:background "magenta" :foreground "white")))))))
+;; testing git
