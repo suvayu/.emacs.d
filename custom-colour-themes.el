@@ -77,7 +77,8 @@
      (show-paren-mismatch-face ((t (:background "magenta" :foreground "white")))))))
 
 (eval-after-load "color-theme"
-  (color-theme-zwz))
+  (when (window-system)
+    (color-theme-zwz)))
 
 (defun color-theme-nw ()
   "Color theme derived from tty-dark.
