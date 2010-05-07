@@ -67,6 +67,9 @@
 (setq rootsys "/opt/root/include")
 (semantic-add-system-include rootsys 'c++-mode)
 
+(setq rootmacros "~/codebaby/macros")
+(semantic-add-system-include rootmacros 'c++-mode)
+
 ;; 4 Athena
 
 (defun ntuplemaker(server)

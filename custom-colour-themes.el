@@ -77,8 +77,17 @@
      (show-paren-mismatch-face ((t (:background "magenta" :foreground "white")))))))
 
 (eval-after-load "color-theme"
-  (when (window-system)
-    (color-theme-zwz)))
+(progn
+  (setq color-theme-is-global nil)
+  (when (window-system) ; needed for the first frame
+    (color-theme-zwz))))
+(add-hook 'after-make-frame-functions
+	  '(lambda (f)
+	     (with-selected-frame f
+	       (if (window-system f)
+		   (color-theme-zwz)
+		 ;; (color-theme-emacs-nw)
+		 ))))
 
 (defun color-theme-nw ()
   "Color theme derived from tty-dark.
@@ -154,4 +163,3 @@
      (secondary-selection ((t (:background "blue"))))
      (show-paren-match-face ((t (:background "SlateBlue1"))))
      (show-paren-mismatch-face ((t (:background "magenta" :foreground "white")))))))
-;; testing git

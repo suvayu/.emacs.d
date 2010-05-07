@@ -78,7 +78,7 @@
 ;; syntax table
 (defvar han-mode-syntax-table
   (let ((han-mode-syntax-table (make-syntax-table)))
-    (modify-syntax-entry ?_ "w" han-mode-syntax-table)
+    ;; (modify-syntax-entry ?_ "w" han-mode-syntax-table)
     (modify-syntax-entry ?# "<" han-mode-syntax-table)
     (modify-syntax-entry ?\n ">" han-mode-syntax-table)
     (modify-syntax-entry ?{ "(" han-mode-syntax-table)
