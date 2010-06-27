@@ -4,6 +4,7 @@
 *~
 *.elc
 *.gz
+\#*\#
 bookmark*
 dired*
 firefox*
@@ -15,6 +16,26 @@ linkd*
 session*
 synonyms*
 tabbar*
+
+# might possibly change these in the future
+auto-install*.el
+color-theme-6.6.0/*
+color-theme-autoloads.el
+color-theme.el
+doxymacs.el
+mirror.el
+mtorus.el
+root-help.el
+themes/
+xml-parse.el
+boxquote.el
+browse-kill-ring+.el
+browse-kill-ring.el
+git*.el
+multi-scratch.el
+tempo-c-cpp.el
+undo-tree.el
+
 
 # Can also ignore all directories and files in a directory.
 cedet/*

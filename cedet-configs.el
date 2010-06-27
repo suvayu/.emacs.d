@@ -8,8 +8,63 @@
 ;; & Emacs Code Browser					 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Doxymacs
-;; (require 'doxymacs)
+;;; Notes:
+;; Parsing
+;; add or remove system include paths with either of these
+;; `semantic-customize-system-include-path' ; only for c-mode
+;; `semantic-add-system-include'
+;; `semantic-remove-system-include'
+;; `semanticdb-find-default-throttle' ; controls what to parse
+
+;; Projects
+;; use this variable to specify your own functions to determine project roots
+;; functions given one directory, and it returns a string or a list of strings
+;; root directories for various projects (or use EDE)
+;; `semanticdb-project-root-functions'
+;; modifies this variable `semanticdb-project-roots'
+
+;; Suggestion by Eric M. Ludlam <eric at siege-engine dot com> on the
+;; cedet-semantic mailiing list. (07 May 2010)
+;; ,----
+;; | If you are comfortable with writing a little bit of lisp code, you can 
+;; | probably write a little function to derive the include directories.  For 
+;; | example, if the eclipse generated makefile has a variable called:
+;; |
+;; | INCLUDES=this that theother
+;; |
+;; | then you could write something like this:
+;; |
+;; | (defun getincludesfromelicpse (fname)
+;; |    "Get includes from the makefile in FNAME."
+;; |    (let ((buff (find-file-noselect fname))
+;; | 	(var nil))
+;; |      (save-excursion
+;; |        (set-buffer buff)
+;; |        (setq var (semantic-find-tags-by-name "INCLUDES" (current-buffer)))
+;; |        (semantic-tag-variable-default (car var))
+;; |        )))
+;; |
+;; | and use that to initialize your include directory list.
+;; `----
+
+;; Debugging
+;; `semanticdb-dump-all-table-summary' to dump DB for include dirs
+;; `semanticdb-find-test-translate-path' to test specific tables found
+;; for includes not found - `semanticdb-find-adebug-lost-includes'
+;; first tune search path, then search throttle
+
+;; Completions
+;; `semantic-complete-analyze-inline-idle' performs completion in buffer
+;; `semantic-complete-inline-analyzer-idle-displayor-class' determines completion
+;; type. e.g. semantic-displayor-ghost, or tooltip or completions buffer
+
+;; Analyzer
+;; `semantic-analyze-current-context' - useful for debugging analyser 
+;; `semantic-ia-show-summary', `semantic-ia-show-doc' &
+;; `semantic-ia-describe-class'
+;; `semantic-ia-fast-jump' - jump to tag 
+;; `semantic-ia-fast-mouse-jump' - bind to mouse event
+;; e.g. (global-set-key '[(S-mouse-1)] 'mouse-jump)
 
 ;; CEDET load
 (load-file "~/.emacs.d/elisp/cedet/common/cedet.elc")
@@ -30,10 +85,11 @@
 (add-to-list 'eassist-header-switches '("C" "cxx" "h"))
 
 ;;; custom hooks
-(defun my-c-mode-common-hook ()
+(defun my-cedet-c-mode-common-hook ()
+  "My c-mode-common-hook for CEDET settings."
   ;; ;; tabs with respect to the previous non-blank line
   ;; (define-key c-mode-base-map (kbd "S-<iso-lefttab>") 'indent-relative)
-  (flyspell-prog-mode)
+  ;; (flyspell-prog-mode)
   ;; eassist keybinds
   (define-key c-mode-base-map (kbd "M-o") 'eassist-switch-h-cpp)
   (define-key c-mode-base-map (kbd "M-m") 'eassist-list-methods)
@@ -41,30 +97,34 @@
   (define-key c-mode-base-map (kbd "M-p") 'semantic-analyze-proto-impl-toggle)
   ;; `C-<tab>' completes symbol with semantic loaded
   (define-key c-mode-base-map (kbd "C-<tab>") 'semantic-ia-complete-symbol-menu)
-  (define-key c-mode-base-map (kbd "s-<tab>") 'semantic-ia-complete-symbol)
-  (define-key c-mode-base-map (kbd "s-h") 'semantic-decoration-include-visit)
-  (define-key c-mode-base-map (kbd "s-d") 'semantic-ia-show-doc))
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+  (define-key c-mode-base-map (kbd "C-x <backtab>") 'semantic-ia-complete-symbol)
+  (define-key c-mode-base-map (kbd "C-c v") 'semantic-ia-show-variants)
+  (define-key c-mode-base-map (kbd "C-c h") 'semantic-decoration-include-visit)
+  (define-key c-mode-base-map (kbd "C-c d") 'semantic-ia-show-doc))
+(add-hook 'c-mode-common-hook 'my-cedet-c-mode-common-hook)
 
-(defun my-python-mode-hook ()
-  (flyspell-prog-mode)  
+(defun my-cedet-python-mode-hook ()
+  "My python-mode-hook for CEDET settings."
+  ;; (flyspell-prog-mode)  
   (define-key python-mode-map (kbd "M-m") 'eassist-list-methods))
-(add-hook 'python-mode-hook 'my-python-mode-hook)
+(add-hook 'python-mode-hook 'my-cedet-python-mode-hook)
 
-(defun my-lisp-mode-hook ()
-  (flyspell-prog-mode)
-  (eldoc-mode t)
-  (define-key lisp-mode-shared-map (kbd "C-<tab>") 'semantic-ia-complete-symbol-menu)
-  (define-key lisp-mode-shared-map (kbd "s-<tab>") 'semantic-ia-complete-symbol)
-  (define-key lisp-mode-shared-map (kbd "M-m") 'eassist-list-methods))
-(add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
-(add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
+(defun my-cedet-lisp-mode-hook ()
+  "My lisp-mode-hook for CEDET settings."
+  ;; (flyspell-prog-mode)
+  (unless (eq major-mode 'lisp-interaction-mode)
+    (define-key lisp-mode-shared-map (kbd "C-<tab>") 'semantic-ia-complete-symbol-menu)
+    (define-key lisp-mode-shared-map (kbd "C-x <backtab>") 'semantic-ia-complete-symbol)
+    ;; (define-key lisp-mode-shared-map (kbd "C-c v") semantic-ia-show-variants)
+    (define-key lisp-mode-shared-map (kbd "M-m") 'eassist-list-methods)))
+(add-hook 'lisp-mode-hook 'my-cedet-lisp-mode-hook)
+(add-hook 'emacs-lisp-mode-hook 'my-cedet-lisp-mode-hook)
 
 
 ;; CEDET parsing customisations
 ;; 4 ROOT
 ;; use local ROOT
-(setq rootsys "/opt/root/include")
+(setq rootsys "/opt/root-5.27/include")
 (semantic-add-system-include rootsys 'c++-mode)
 
 (setq rootmacros "~/codebaby/macros")
@@ -72,22 +132,22 @@
 
 ;; 4 Athena
 
-(defun ntuplemaker(server)
-  "Setup include path for the Ntuplemaker package.
-  Takes the location of the package as `server'. If `server' is \"local\",
-  ignores it, sets up the include path according to `server' otherwise."
-  (interactive "s remote server: ")
-  ;; NtupleMaker packages
-  (setq ntuplemaker-basic (concat server "~/athena/15.5.0/NtupleMaker/BasicNtupleTools"))
-  (semantic-add-system-include ntuplemaker-basic 'c++-mode)
-  (setq ntuplemaker-detail (concat server "~/athena/15.5.0/NtupleMaker/DetailedNtupleTools"))
-  (semantic-add-system-include ntuplemaker-detail 'c++-mode)
-  (setq ntuplemaker-CBNTalgs (concat server "~/athena/15.5.0/NtupleMaker/CBNTAlgs"))
-  (semantic-add-system-include ntuplemaker-CBNTalgs 'c++-mode)
-  (setq ntuplemaker-utils (concat server "~/athena/15.5.0/NtupleMaker/NtupleUtils"))
-  (semantic-add-system-include ntuplemaker-utils 'c++-mode)
-  (setq ntuplemaker-trigger (concat server "~/athena/15.5.0/NtupleMaker/TriggerNtupleTools"))
-  (semantic-add-system-include ntuplemaker-trigger 'c++-mode))
+;; (defun ntuplemaker(server)
+;;   "Setup include path for the Ntuplemaker package.
+;;   Takes the location of the package as `server'. If `server' is \"local\",
+;;   ignores it, sets up the include path according to `server' otherwise."
+;;   (interactive "s remote server: ")
+;;   ;; NtupleMaker packages
+;;   (setq ntuplemaker-basic (concat server "~/athena/15.5.0/NtupleMaker/BasicNtupleTools"))
+;;   (semantic-add-system-include ntuplemaker-basic 'c++-mode)
+;;   (setq ntuplemaker-detail (concat server "~/athena/15.5.0/NtupleMaker/DetailedNtupleTools"))
+;;   (semantic-add-system-include ntuplemaker-detail 'c++-mode)
+;;   (setq ntuplemaker-CBNTalgs (concat server "~/athena/15.5.0/NtupleMaker/CBNTAlgs"))
+;;   (semantic-add-system-include ntuplemaker-CBNTalgs 'c++-mode)
+;;   (setq ntuplemaker-utils (concat server "~/athena/15.5.0/NtupleMaker/NtupleUtils"))
+;;   (semantic-add-system-include ntuplemaker-utils 'c++-mode)
+;;   (setq ntuplemaker-trigger (concat server "~/athena/15.5.0/NtupleMaker/TriggerNtupleTools"))
+;;   (semantic-add-system-include ntuplemaker-trigger 'c++-mode))
 
 (defun package(server)
   "Setup include path for your package.
