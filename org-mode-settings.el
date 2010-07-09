@@ -12,27 +12,37 @@
 
 ;; `org-mode' variable customisations
 ;; directory to look for agenda files matching `org-agenda-file-regexp'
-(setq org-agenda-files '("~/org"))
-;; modifying behaviour of C-a/<home> & C-e/<end>
-(setq org-special-ctrl-a/e t)
+(setq org-agenda-files '("~/org")
+      ;; modifying behaviour of C-a/<home> & C-e/<end>
+      org-special-ctrl-a/e t
+      ;; log time for TODO state changes
+      org-log-done 'time
+      ;; update TODO cookies recursively
+      ;; use property, ":COOKIE_DATA: todo recursive"
+      ;; to set this only for a single subtree
+      org-hierarchical-todo-statistics nil)
 
 
 ;; TODO keywords
 ;; @ - time stamp with note
 ;; ! - only time stamp
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "DLAY(l@)" "CONT(c!)" "|" "DONE(d!)" "CNCL(n@)")
+      '((sequence "TODO(t)" "DLAY(l@/!)" "CONT(c)" "|" "DONE(d!)" "CNCL(n@/!)")
 	(sequence "WInP(w)" "DBUG(b)" "|" "CMIT(m@)")
-	(type "PBUG(p@)" "CBUG(c@)" "SEGF(s@)" "|" "FIXD(f@)")))
-;; ;; TODO keyword faces
-;; (setq org-todo-keyword-faces
-;;       '(("" . ())
-;; 	))
+	(type "PBUG(p@)" "CBUG(c@)" "SEGF(s@/@)" "|" "FIXD(f@/!)")))
+
+;; TODO keyword faces
+(setq org-todo-keyword-faces
+      '(("PBUG" . (:background "gold" :foreground "IndianRed3" :weight bold))
+	("CBUG" . (:background "gold" :foreground "IndianRed3" :weight bold))
+	("SEGF" . (:background "gold" :foreground "IndianRed3" :weight bold))
+	("CNCL" . (:background "snow3" :foreground "black" :weight bold))))
 
 
 ;; TAG faces
 (setq org-tag-faces
-      '(("PROJ" :background "firebrick3" :foreground "cornsilk2" :weight bold)))
+      '(("PROJ" :background "indianred3" :foreground "cornsilk2" :weight bold)
+	))
 ;; (setq org-tag-persistent-alist
 ;;       '(("physics-bug" . 112)
 ;; 	("code-bug" . 99)
