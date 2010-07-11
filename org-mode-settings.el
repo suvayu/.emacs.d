@@ -50,6 +50,26 @@
 ;; 	("Project" . 80)))
 
 
+;; defadvising org-mode commands
+(defadvice outline-forward-same-level
+  (around outline-forward-same-level-or-next-visible (arg))
+  "If its the last outline sibling, move to the next visible outline heading."
+  (if (save-excursion
+	 (outline-get-next-sibling))
+      ad-do-it
+    (outline-next-visible-heading arg)))
+(ad-activate 'outline-forward-same-level)
+
+(defadvice outline-backward-same-level
+  (around outline-backward-same-level-or-previous-visible (arg))
+  "If its the last outline sibling, move to the previous visible outline heading."
+  (if (save-excursion
+	 (outline-get-last-sibling))
+      ad-do-it
+    (outline-previous-visible-heading arg)))
+(ad-activate 'outline-backward-same-level)
+
+
 ;; custom keymap
 (defun my-org-mode-keymap()
   "My `org-mode' keymap."
