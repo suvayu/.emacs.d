@@ -17,6 +17,8 @@
       org-special-ctrl-a/e t
       ;; log time for TODO state changes
       org-log-done 'time
+      ;; log time on rescheduling
+      org-log-reschedule 'time
       ;; update TODO cookies recursively
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
@@ -27,15 +29,15 @@
 ;; @ - time stamp with note
 ;; ! - only time stamp
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "DLAY(l@/!)" "CONT(c)" "|" "DONE(d!)" "CNCL(n@/!)")
-	(sequence "WInP(w)" "DBUG(b)" "|" "CMIT(m@)")
+      '((sequence "TODO(t)" "DLAY(l@/!)" "CONT(c!)" "|" "DONE(d@)" "CNCL(n@/!)")
+	(sequence "WInP(w!)" "DBUG(b!)" "|" "CMIT(m@)")
 	(type "PBUG(p@)" "CBUG(c@)" "SEGF(s@/@)" "|" "FIXD(f@/!)")))
 
 ;; TODO keyword faces
 (setq org-todo-keyword-faces
-      '(("PBUG" . (:background "gold" :foreground "IndianRed3" :weight bold))
-	("CBUG" . (:background "gold" :foreground "IndianRed3" :weight bold))
-	("SEGF" . (:background "gold" :foreground "IndianRed3" :weight bold))
+      '(("PBUG" . (:background "gold" :foreground "indianred3" :weight bold))
+	("CBUG" . (:background "gold" :foreground "indianred3" :weight bold))
+	("SEGF" . (:background "gold" :foreground "indianred3" :weight bold))
 	("CNCL" . (:background "snow3" :foreground "black" :weight bold))))
 
 
@@ -50,6 +52,7 @@
 ;; 	("Project" . 80)))
 
 
+;; changing org-mode behaviour
 ;; defadvising org-mode commands
 (defadvice outline-forward-same-level
   (around outline-forward-same-level-or-next-visible (arg))
@@ -70,7 +73,11 @@
 (ad-activate 'outline-backward-same-level)
 
 
-;; custom keymap
+;; global keymaps
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c l") 'org-store-link)
+
+;; `org-mode' keymaps
 (defun my-org-mode-keymap()
   "My `org-mode' keymap."
   (local-set-key (kbd "C-<left>") 'outline-up-heading)
@@ -94,5 +101,20 @@
   ;; turn on auto-fill
   (turn-on-auto-fill)
   (my-org-mode-keymap))
+
+
+;; Setup `org-babel' for emacs-lisp, gnuplot, latex and shell-script.
+ (org-babel-do-load-languages
+  'org-babel-load-languages
+  '((ditaa . t)
+    (emacs-lisp . t)
+    (gnuplot . t)
+    (python . t)
+    (sh . t)))
+
+;; (defun setup-org-babel()
+;;   (interactive)
+;;   (org-babel-load-library-of-babel))
+
 
 ;;; org-mode-settings.el ends here
