@@ -95,22 +95,35 @@
   (visual-line-mode t))
 (add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
 
+;; FIXME
+(defun yas-org-setup
+  "Activate yasnippet keybinds."
+  (make-variable-buffer-local 'yas/trigger-key)
+  (setq yas/trigger-key [tab])
+  (define-key yas/keymap [tab] 'yas/next-field-group))
+
 ;; `org-mode' hook
 (defun my-org-mode-hook()
   "My `org-mode' hook."
   ;; turn on auto-fill
   (turn-on-auto-fill)
-  (my-org-mode-keymap))
+  (flyspell-mode t)
+  (my-org-mode-keymap)
+  ;; FIXME
+  (make-variable-buffer-local 'yas/trigger-key)
+  (setq yas/trigger-key [tab])
+  (define-key yas/keymap [tab] 'yas/next-field-group))
+;  (yas-org-setup))
 
 
 ;; Setup `org-babel' for emacs-lisp, gnuplot, latex and shell-script.
- (org-babel-do-load-languages
-  'org-babel-load-languages
-  '((ditaa . t)
-    (emacs-lisp . t)
-    (gnuplot . t)
-    (python . t)
-    (sh . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ditaa . t)
+   (emacs-lisp . t)
+   (gnuplot . t)
+   (python . t)
+   (sh . t)))
 
 ;; (defun setup-org-babel()
 ;;   (interactive)
