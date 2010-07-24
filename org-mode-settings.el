@@ -24,6 +24,20 @@
       ;; to set this only for a single subtree
       org-hierarchical-todo-statistics nil)
 
+;; show links as inline images using `iimage-mode'
+(load-library "iimage")
+(add-to-list 'iimage-mode-image-regex-alist
+             (cons (concat "\\[\\[file:\\(~?" iimage-mode-image-filename-regex
+                           "\\)\\]")  1))
+
+(defun org-toggle-iimage-in-org ()
+  "display images in your org file"
+  (interactive)
+  (if (face-underline-p 'org-link)
+      (set-face-underline-p 'org-link nil)
+      (set-face-underline-p 'org-link t))
+  (iimage-mode))
+
 
 ;; TODO keywords
 ;; @ - time stamp with note
