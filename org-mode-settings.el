@@ -45,7 +45,7 @@
 (setq org-todo-keywords
       '((sequence "TODO(t)" "DLAY(l@/!)" "CONT(c!)" "|" "DONE(d@)" "CNCL(n@/!)")
 	(sequence "WInP(w!)" "DBUG(b!)" "|" "CMIT(m@)")
-	(type "PBUG(p@)" "CBUG(c@)" "SEGF(s@/@)" "|" "FIXD(f@/!)")))
+	(type "PBUG(p@)" "CBUG(r@)" "SEGF(s@/@)" "|" "FIXD(f@/!)")))
 
 ;; TODO keyword faces
 (setq org-todo-keyword-faces
