@@ -114,7 +114,7 @@
   "Activate yasnippet keybinds."
   (make-variable-buffer-local 'yas/trigger-key)
   (setq yas/trigger-key [tab])
-  (define-key yas/keymap [tab] 'yas/next-field-group))
+  (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand))
 
 ;; `org-mode' hook
 (defun my-org-mode-hook()
@@ -125,8 +125,8 @@
   (my-org-mode-keymap)
   ;; FIXME
   (make-variable-buffer-local 'yas/trigger-key)
-  (setq yas/trigger-key [tab])
-  (define-key yas/keymap [tab] 'yas/next-field-group))
+  (org-set-local 'yas/trigger-key [tab])
+  (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand))
 ;  (yas-org-setup))
 
 
