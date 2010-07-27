@@ -90,6 +90,7 @@
 ;; global keymaps
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c f") 'org-footnote-action)
 
 ;; `org-mode' keymaps
 (defun my-org-mode-keymap()
@@ -119,8 +120,6 @@
 ;; `org-mode' hook
 (defun my-org-mode-hook()
   "My `org-mode' hook."
-  ;; turn on auto-fill
-  (turn-on-auto-fill)
   (flyspell-mode t)
   (my-org-mode-keymap)
   ;; FIXME

@@ -18,7 +18,9 @@
   ;; (toggle-truncate-lines t)
   (unless (org-mode-p)
     ;; turn on orgtbl minor mode
-    (orgtbl-mode t)
+    (turn-on-orgtbl)
+    ;; turn on enhanced orgstruct minor mode
+    (turn-on-orgstruct++)
     ;; line folding w/o actually folding it
     (visual-line-mode t))
   ;; turn on flyspell (spell checker)
