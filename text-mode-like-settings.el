@@ -24,7 +24,7 @@
     ;; line folding w/o actually folding it
     (visual-line-mode t))
   ;; turn on flyspell (spell checker)
-  (flyspell-mode t)
+  ;; (flyspell-mode t)
   ;; text mode abbreviations
   (setq local-abbrev-table text-mode-abbrev-table))
 

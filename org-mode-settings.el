@@ -121,7 +121,7 @@
 ;; `org-mode' hook
 (defun my-org-mode-hook()
   "My `org-mode' hook."
-  (flyspell-mode t)
+  ;; (flyspell-mode t)
   (my-org-mode-keymap)
   ;; FIXME
   (make-variable-buffer-local 'yas/trigger-key)
