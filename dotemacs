@@ -60,9 +60,6 @@
  '(iswitchb-mode t)
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point nil)
- '(rcirc-authinfo (quote (("freenode" nickserv "jallad" "worm@irc"))))
- '(rcirc-startup-channels-alist (quote (("^irc.freenode.net$" "#fedora"))))
- '(rcirc-track-minor-mode t)
  '(savehist-mode t nil (savehist))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
@@ -75,17 +72,17 @@
  '(w3m-use-cookies t))
 
 ;; load path for elisp files
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/elisp"))
-;; (add-to-list 'load-path (expand-file-name "~sali/.emacs.d/elisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+;; (add-to-list 'load-path (expand-file-name "~sali/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "/opt/emacs-lisp/share/emacs/site-lisp"))
-(add-to-list 'load-path "~/.emacs.d/elisp/yasnippet")
+(add-to-list 'load-path "~/.emacs.d/lisp/yasnippet")
 
 ;; Info directory
 (add-to-list 'Info-default-directory-list 
 	     (expand-file-name "/opt/emacs-lisp/share/info"))
 
 ;; colour themes using color-theme.el
-(load-file "~/.emacs.d/elisp/custom-colour-themes.el")
+(load-file "~/.emacs.d/lisp/custom-colour-themes.el")
 
 ;; hostname and buffer-name in frame title
 ;; code originally written by Michael Albinus
@@ -185,11 +182,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Skeletons (and abbrev customisations)
-(load-file "~/.emacs.d/elisp/skeletons.el")
+(load-file "~/.emacs.d/lisp/skeletons.el")
 
 ;; Abbreviations
 ;; location of the abbreviation definition file
-(setq abbrev-file-name (expand-file-name "~/.emacs.d/elisp/abbrev_defs"))
+(setq abbrev-file-name (expand-file-name "~/.emacs.d/lisp/abbrev_defs"))
 (setq save-abbrevs nil)
 
 ;; this hook wraps around the `expand-abbrev' function call
@@ -201,7 +198,7 @@
 (when (string= (getenv "USER") "jallad")
   (require 'yasnippet)
   (yas/initialize)
-  (yas/load-directory "~/.emacs.d/elisp/yasnippet/snippets"))
+  (yas/load-directory "~/.emacs.d/lisp/yasnippet/snippets"))
 
 
 
@@ -210,8 +207,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; `text-mode' and `org-mode' madness ;)
-(load-file "~/.emacs.d/elisp/org-mode-settings.el")
-(load-file "~/.emacs.d/elisp/text-mode-like-settings.el")
+(load-file "~/.emacs.d/lisp/org-mode-settings.el")
+(load-file "~/.emacs.d/lisp/text-mode-like-settings.el")
 
 (defun my-text-mode-like-hook()
   "My customisations for all `text-mode' like modes."
@@ -264,9 +261,9 @@
 
 ;; auto-install settings (not in vanilla Emacs)
 (eval-after-load 'auto-install
-  (setq auto-install-directory "~/.emacs.d/elisp/"))
+  (setq auto-install-directory "~/.emacs.d/lisp/"))
 ;; (eval-after-load 'auto-install
-;;   (setq auto-install-directory "~sali/.emacs.d/elisp/"))
+;;   (setq auto-install-directory "~sali/.emacs.d/lisp/"))
 ;; the "/" at the end of the path is absolutely essential,
 ;; otherwise the elisp files are saved as elisp*.el instead of elisp/*.el
 

@@ -1,0 +1,61 @@
+# ignore specific files
+root-help.el
+
+# backup files
+*~
+.org-id-locations
+
+# autosave files
+\#*
+
+# other auto generated files
+image-dired/
+tramp
+url/
+history
+
+# binary files
+*.elc
+*.gz
+
+# packages from emacswiki or elsewhere
+emacs-init.el
+elpa/
+google-weather-el/
+libs/
+bookmark*
+dired*
+firefox*
+hexrgb*
+icicles*
+icomplete*
+lacarte*
+linkd*
+session*
+synonyms*
+tabbar*
+auto-install*.el
+color-theme-6.6.0/*
+color-theme-autoloads.el
+color-theme.el
+doxymacs.el
+mirror.el
+mtorus.el
+themes/
+xml-parse.el
+boxquote.el
+browse-kill-ring+.el
+browse-kill-ring.el
+git*.el
+multi-scratch.el
+tempo-c-cpp.el
+undo-tree.el
+
+# other directories
+lisp/cedet/*
+lisp/emacs-bookmark-extension/*
+lisp/wanderlust/*
+lisp/yasnippet*
+lisp/vm*/*
+lisp/minimal.el
+elisp/
