@@ -2,6 +2,8 @@
 
 ;; since using org-mode in /opt/emacs-lisp
 (require 'org-install)
+(require 'google-weather)
+(require 'org-google-weather)
 
 ;;; Code:
 
