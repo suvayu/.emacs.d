@@ -67,7 +67,7 @@
 ;; e.g. (global-set-key '[(S-mouse-1)] 'mouse-jump)
 
 ;; CEDET load
-(load-file "~/.emacs.d/elisp/cedet/common/cedet.elc")
+(load-file "~/.emacs.d/lisp/cedet/common/cedet.elc")
 ;; (load-file "/usr/share/emacs/23.1/lisp/cedet/common/cedet.elc")
 (setq semantic-load-turn-useful-things-on t)
 (semantic-load-enable-gaudy-code-helpers)
