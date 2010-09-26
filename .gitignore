@@ -22,7 +22,6 @@ history
 emacs-init.el
 elpa/
 google-weather-el/
-libs/
 bookmark*
 dired*
 firefox*
@@ -50,12 +49,15 @@ git*.el
 multi-scratch.el
 tempo-c-cpp.el
 undo-tree.el
+grep*
+minimal.el
+irc*
 
 # other directories
-lisp/cedet/*
-lisp/emacs-bookmark-extension/*
-lisp/wanderlust/*
-lisp/yasnippet*
-lisp/vm*/*
-lisp/minimal.el
+cedet*
+emacs-bookmark-extension*
+wanderlust*
+yasnippet*
+vm*/*
 elisp/
+extensions/
