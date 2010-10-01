@@ -55,6 +55,7 @@
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(flyspell-default-dictionary "en_GB")
+ '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
  '(inhibit-startup-screen t)
  '(isearch-allow-scroll t)
  '(iswitchb-mode t)
