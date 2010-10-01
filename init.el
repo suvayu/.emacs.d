@@ -60,6 +60,8 @@
  '(iswitchb-mode t)
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point nil)
+ '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/"))))
  '(savehist-mode t nil (savehist))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
@@ -236,7 +238,7 @@
 ;; version control related customisations
 
 ;; auto-revert-mode for files under version control
-(add-hook 'find-file-hook 
+(add-hook 'find-file-hook
 	  (lambda ()
 	    (if (vc-working-revision (buffer-file-name))
 		(auto-revert-mode t))))
