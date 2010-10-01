@@ -74,11 +74,16 @@
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 ;; (add-to-list 'load-path (expand-file-name "~sali/.emacs.d/lisp"))
-(add-to-list 'load-path (expand-file-name "/opt/emacs-lisp/share/emacs/site-lisp"))
+(add-to-list 'load-path (expand-file-name "/opt/emacs-lisp/share/emacs/contrib"))
 (add-to-list 'load-path "~/.emacs.d/lisp/yasnippet")
 
+;; Emacs 23 stuff
+(when (string-match "23.2" emacs-version)
+  (add-to-list 'load-path (expand-file-name "/opt/emacs-lisp/share/emacs/24.0.50/lisp/org"))
+  (require 'org-install))
+
 ;; Info directory
-(add-to-list 'Info-default-directory-list 
+(add-to-list 'Info-default-directory-list
 	     (expand-file-name "/opt/emacs-lisp/share/info"))
 
 ;; colour themes using color-theme.el
