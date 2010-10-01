@@ -15,12 +15,21 @@
 ;; `org-mode' variable customisations
 ;; directory to look for agenda files matching `org-agenda-file-regexp'
 (setq org-agenda-files '("~/org")
+      ;; List of extra files to be searched by text search commands.
+      org-agenda-text-search-extra-files
+      (append '(agenda-archives)	; archived agenda files
+	      (directory-files "~/org/talks" t "^[^.#].*\\.org$") ; org files from talks
+	      (directory-files "~/org/Worg" t "^[^.#].*\\.org$") ; org files from Worg
+	;      (directory-files "~/org" t "^[^.#].*\\.txt$") ; text files in org directory
+	      )
       ;; modifying behaviour of C-a/<home> & C-e/<end>
       org-special-ctrl-a/e t
       ;; log time for TODO state changes
       org-log-done 'time
       ;; log time on rescheduling
       org-log-reschedule 'time
+      ;; turn on speed keys for headlines
+      org-use-speed-commands t
       ;; update TODO cookies recursively
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
