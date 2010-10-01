@@ -98,6 +98,8 @@
 ;; `org-mode' keymaps
 (defun my-org-mode-keymap()
   "My `org-mode' keymap."
+  ;; ;; overload default `fill-paragraph' keybind to use org specific command
+  ;; (local-set-key (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
   (local-set-key (kbd "C-<left>") 'outline-up-heading)
   ;; (local-set-key '[(C-right)] 'outline-back-to-heading) ; this one is not interactive
   (local-set-key (kbd "C-<up>") 'outline-previous-visible-heading)
@@ -107,17 +109,17 @@
 
 
 ;; hooks
-;; `org-agenda-mode' hook
-(defun my-org-agenda-mode-hook()
-  "My `org-agenda-mode' hook."
-  (visual-line-mode t))
-(add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
+;; ;; `org-agenda-mode' hook
+;; (defun my-org-agenda-mode-hook()
+;;   "My `org-agenda-mode' hook."
+;;   (visual-line-mode t))
+;; (add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
 
 ;; FIXME
 (defun yas-org-setup
   "Activate yasnippet keybinds."
   (make-variable-buffer-local 'yas/trigger-key)
-  (setq yas/trigger-key [tab])
+  (org-set-local yas/trigger-key [tab])
   (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand))
 
 ;; `org-mode' hook
@@ -125,11 +127,20 @@
   "My `org-mode' hook."
   ;; (flyspell-mode t)
   (my-org-mode-keymap)
+  ;; line folding w/o actually folding it, use `M-q' to wrap.
+  (visual-line-mode t)
   ;; FIXME
   (make-variable-buffer-local 'yas/trigger-key)
   (org-set-local 'yas/trigger-key [tab])
   (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand))
 ;  (yas-org-setup))
+
+
+;; Make windmove work in org-mode:
+;; (add-hook 'org-metaup-hook 'windmove-up)
+;; (add-hook 'org-metaleft-hook 'windmove-left)
+;; (add-hook 'org-metadown-hook 'windmove-down)
+;; (add-hook 'org-metaright-hook 'windmove-right)
 
 
 ;; Setup `org-babel' for emacs-lisp, gnuplot, latex and shell-script.
