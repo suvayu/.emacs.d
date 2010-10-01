@@ -47,14 +47,16 @@
 (setq org-todo-keywords
       '((sequence "TODO(t)" "DLAY(l@/!)" "CONT(c!)" "|" "DONE(d@)" "CNCL(n@/!)")
 	(sequence "WInP(w!)" "DBUG(b!)" "|" "CMIT(m@)")
-	(type "PBUG(p@)" "CBUG(r@)" "SEGF(s@/@)" "|" "FIXD(f@/!)")))
+	(type "PBUG(p@)" "CBUG(r@)" "SEGF(s@/@)" "|" "FIXD(f@/!)")
+	))
 
 ;; TODO keyword faces
 (setq org-todo-keyword-faces
       '(("PBUG" . (:background "gold" :foreground "indianred3" :weight bold))
 	("CBUG" . (:background "gold" :foreground "indianred3" :weight bold))
 	("SEGF" . (:background "gold" :foreground "indianred3" :weight bold))
-	("CNCL" . (:background "snow3" :foreground "black" :weight bold))))
+	("CNCL" . (:background "snow3" :foreground "black" :weight bold))
+	))
 
 
 ;; TAG faces
