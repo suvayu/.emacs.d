@@ -19,8 +19,8 @@
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
 	      (directory-files "~/org/talks" t "^[^.#].*\\.org$") ; org files from talks
-	      (directory-files "~/org/Worg" t "^[^.#].*\\.org$") ; org files from Worg
-	;      (directory-files "~/org" t "^[^.#].*\\.txt$") ; text files in org directory
+	      ;; (directory-files "~/org/Worg" t "^[^.#].*\\.org$") ; org files from Worg
+	      ;; (directory-files "~/org" t "^[^.#].*\\.txt$") ; text files in org directory
 	      )
       ;; modifying behaviour of C-a/<home> & C-e/<end>
       org-special-ctrl-a/e t
@@ -28,6 +28,8 @@
       org-log-done 'time
       ;; log time on rescheduling
       org-log-reschedule 'time
+      ;; To put notes inside LOGBOOK drawer
+      org-log-into-drawer t
       ;; turn on speed keys for headlines
       org-use-speed-commands t
       ;; update TODO cookies recursively
