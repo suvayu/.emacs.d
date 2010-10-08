@@ -32,6 +32,11 @@
       org-log-into-drawer t
       ;; turn on speed keys for headlines
       org-use-speed-commands t
+      ;; temporary setting to circumvent bug in texi2dvi
+      ;; file a bug report on bugzilla
+      ;; debug original value like this
+      ;; org-latex-to-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f")
+      org-latex-to-pdf-process '("pdflatex %f" "bibtex %f" "pdflatex %f" "pdflatex %f")
       ;; update TODO cookies recursively
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
