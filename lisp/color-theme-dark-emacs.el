@@ -1,7 +1,7 @@
 ;; Colour theme for Emacs
 (eval-when-compile    (require 'color-theme))
 
-(defun colour-theme-dark-emacs ()
+(defun color-theme-dark-emacs ()
   "Dark Emacs is designed to be give a look and feel similar to
 `emacs --no-window-system'. It is based on a theme made by the
 emacswiki user, ZWZ. The original can be found at
@@ -10,7 +10,7 @@ http://www.emacswiki.org/emacs/zwz.
 Color theme by Suvayu Ali, created 2010-10-10."
   (interactive)
   (color-theme-install
-   '(colour-theme-dark-emacs
+   '(color-theme-dark-emacs
      ((background-color . "black")
       (background-mode . dark)
       (border-color . "blue")
@@ -174,5 +174,4 @@ Color theme by Suvayu Ali, created 2010-10-10."
      (widget-field ((t (:background "dim gray"))))
      (widget-inactive ((t (:foreground "grey70"))))
      (widget-single-line-field ((t (:background "dim gray")))))))
-(add-to-list 'color-themes '(colour-theme-dark-emacs  "dark-emacs" "Suvayu Ali"))
-
+(add-to-list 'color-themes '(color-theme-dark-emacs  "dark-emacs" "Suvayu Ali"))
