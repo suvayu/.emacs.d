@@ -89,25 +89,27 @@
   "My c-mode-common-hook for CEDET settings."
   ;; ;; tabs with respect to the previous non-blank line
   ;; (define-key c-mode-base-map (kbd "S-<iso-lefttab>") 'indent-relative)
-  ;; (flyspell-prog-mode)
   ;; eassist keybinds
   (define-key c-mode-base-map (kbd "M-o") 'eassist-switch-h-cpp)
   (define-key c-mode-base-map (kbd "M-m") 'eassist-list-methods)
   ;; switches b/w the implementation and prototype declaration
   (define-key c-mode-base-map (kbd "M-p") 'semantic-analyze-proto-impl-toggle)
   ;; `C-<tab>' completes symbol with semantic loaded
-  (define-key c-mode-base-map (kbd "C-<tab>") 'semantic-ia-complete-symbol-menu)
-  (define-key c-mode-base-map (kbd "C-x <backtab>") 'semantic-ia-complete-symbol)
+  ;; (define-key c-mode-base-map (kbd "C-<tab>") 'semantic-ia-complete-symbol-menu)
+  ;; (define-key c-mode-base-map (kbd "C-x <backtab>") 'semantic-ia-complete-symbol)
+  (define-key c-mode-base-map (kbd "C-<return>") 'semantic-ia-complete-symbol-menu)
+  (define-key c-mode-base-map (kbd "C-c ?") 'semantic-ia-complete-symbol)
   (define-key c-mode-base-map (kbd "C-c v") 'semantic-ia-show-variants)
   (define-key c-mode-base-map (kbd "C-c h") 'semantic-decoration-include-visit)
-  (define-key c-mode-base-map (kbd "C-c d") 'semantic-ia-show-doc))
+  (define-key c-mode-base-map (kbd "C-c d") 'semantic-ia-show-doc)
+  (define-key c-mode-base-map (kbd "C-c s") 'semantic-ia-show-summary))
 (add-hook 'c-mode-common-hook 'my-cedet-c-mode-common-hook)
 
-(defun my-cedet-python-mode-hook ()
-  "My python-mode-hook for CEDET settings."
-  ;; (flyspell-prog-mode)  
-  (define-key python-mode-map (kbd "M-m") 'eassist-list-methods))
-(add-hook 'python-mode-hook 'my-cedet-python-mode-hook)
+;; (defun my-cedet-python-mode-hook ()
+;;   "My python-mode-hook for CEDET settings."
+;;   ;; (flyspell-prog-mode)  
+;;   (define-key python-mode-map (kbd "M-m") 'eassist-list-methods))
+;; (add-hook 'python-mode-hook 'my-cedet-python-mode-hook)
 
 (defun my-cedet-lisp-mode-hook ()
   "My lisp-mode-hook for CEDET settings."
@@ -124,11 +126,13 @@
 ;; CEDET parsing customisations
 ;; 4 ROOT
 ;; use local ROOT
-(setq rootsys "/opt/root-5.27/include")
+(setq rootsys "/opt/root-dev/include")
 (semantic-add-system-include rootsys 'c++-mode)
 
 (setq rootmacros "~/codebaby/macros")
 (semantic-add-system-include rootmacros 'c++-mode)
+
+
 
 ;; 4 Athena
 
@@ -149,68 +153,70 @@
 ;;   (setq ntuplemaker-trigger (concat server "~/athena/15.5.0/NtupleMaker/TriggerNtupleTools"))
 ;;   (semantic-add-system-include ntuplemaker-trigger 'c++-mode))
 
-(defun package(server)
-  "Setup include path for your package.
-  Takes the location of the package as `server'. If `server' is \"local\",
-  ignores it, sets up the include path according to `server' otherwise."
-  (interactive "s remote server: ")
-  (if (string-equal server "local")
-      (setq server "")
-    (setq server (concat "/ssh:" server ":")))
-  ;; Global Monitoring
-  (setq DQT (concat server "~sali/public/athena/15.6.5.3/DataQuality/DataQualityTools"))
-  (semantic-add-system-include DQT 'c++-mode)
-  ;; Muon monitoring
-  (setq muon-mon (concat server "~sali/public/athena/15.6.5.3/Reconstruction/MuonIdentification/MuonCombinedValidation/MuonCombinedTrackMon"))
-  (semantic-add-system-include muon-mon 'c++-mode))
+;; (defun package(server)
+;;   "Setup include path for your package.
+;;   Takes the location of the package as `server'. If `server' is \"local\",
+;;   ignores it, sets up the include path according to `server' otherwise."
+;;   (interactive "s remote server: ")
+;;   (if (string-equal server "local")
+;;       (setq server "")
+;;     (setq server (concat "/ssh:" server ":")))
+;;   ;; Global Monitoring
+;;   (setq DQT (concat server "~sali/public/athena/15.6.5.3/DataQuality/DataQualityTools"))
+;;   (semantic-add-system-include DQT 'c++-mode)
+;;   ;; Muon monitoring
+;;   (setq muon-mon (concat server "~sali/public/athena/15.6.5.3/Reconstruction/MuonIdentification/MuonCombinedValidation/MuonCombinedTrackMon"))
+;;   (semantic-add-system-include muon-mon 'c++-mode))
 
-(defun athena(server)
-  "Setup include path for useful athena packages.
-  Takes the location of the package as `server'. If `server' is \"local\",
-  ignores it, sets up the include path according to `server' otherwise."
-  (interactive "s remote server: ")
-  ;; Track, TrkExInterface & TrkToolInterface                                                                                                                        
-  (if (string-equal server "local")
-      (setq server "")
-    (setq server (concat "/ssh:" server ":")))
-  (setq track (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Tracking/TrkEvent/TrkTrack"))
-  (setq trackparticle (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/Particle"))
-  (setq trkparameter (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasConditions/15.6.3/Tracking/TrkEvent/TrkParameters"))
-  (setq trksummary (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Tracking/TrkEvent/TrkTrackSummary"))
-  (setq trkex-int (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Tracking/TrkExtrapolation/TrkExInterfaces"))
-  (setq trktool-int (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasReconstruction/15.6.3/Tracking/TrkTools/TrkToolInterfaces"))
-  (semantic-add-system-include track 'c++-mode)
-  (semantic-add-system-include trackparticle 'c++-mode)
-  (semantic-add-system-include trkparameter 'c++-mode)
-  (semantic-add-system-include trksummary 'c++-mode)
-  (semantic-add-system-include trkex-int 'c++-mode)
-  (semantic-add-system-include trktool-int 'c++-mode)
+;; (defun athena(server)
+;;   "Setup include path for useful athena packages.
+;;   Takes the location of the package as `server'. If `server' is \"local\",
+;;   ignores it, sets up the include path according to `server' otherwise."
+;;   (interactive "s remote server: ")
+;;   ;; Track, TrkExInterface & TrkToolInterface                                                                                                                        
+;;   (if (string-equal server "local")
+;;       (setq server "")
+;;     (setq server (concat "/ssh:" server ":")))
+;;   (setq track (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Tracking/TrkEvent/TrkTrack"))
+;;   (setq trackparticle (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/Particle"))
+;;   (setq trkparameter (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasConditions/15.6.3/Tracking/TrkEvent/TrkParameters"))
+;;   (setq trksummary (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Tracking/TrkEvent/TrkTrackSummary"))
+;;   (setq trkex-int (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Tracking/TrkExtrapolation/TrkExInterfaces"))
+;;   (setq trktool-int (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasReconstruction/15.6.3/Tracking/TrkTools/TrkToolInterfaces"))
+;;   (semantic-add-system-include track 'c++-mode)
+;;   (semantic-add-system-include trackparticle 'c++-mode)
+;;   (semantic-add-system-include trkparameter 'c++-mode)
+;;   (semantic-add-system-include trksummary 'c++-mode)
+;;   (semantic-add-system-include trkex-int 'c++-mode)
+;;   (semantic-add-system-include trktool-int 'c++-mode)
 
-  ;; JetEvent
-  (setq jet (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/Jet/JetEvent"))
-  (semantic-add-system-include jet 'c++-mode)
-  ;; egammaEvent
-  (setq egamma (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/egamma/egammaEvent"))
-  (semantic-add-system-include egamma 'c++-mode)
-  ;; MissingETEvent
-  (setq met (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/MissingETEvent"))
-  (semantic-add-system-include met 'c++-mode)
-  ;; muonEvent
-  (setq muon (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/MuonIdentification/muonEvent"))
-  (semantic-add-system-include muon 'c++-mode)
-  ;; EventInfo
-  (setq event-info (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasCore/15.6.3/Event/EventInfo"))
-  (semantic-add-system-include event-info 'c++-mode)
+;;   ;; JetEvent
+;;   (setq jet (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/Jet/JetEvent"))
+;;   (semantic-add-system-include jet 'c++-mode)
+;;   ;; egammaEvent
+;;   (setq egamma (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/egamma/egammaEvent"))
+;;   (semantic-add-system-include egamma 'c++-mode)
+;;   ;; MissingETEvent
+;;   (setq met (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/MissingETEvent"))
+;;   (semantic-add-system-include met 'c++-mode)
+;;   ;; muonEvent
+;;   (setq muon (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Reconstruction/MuonIdentification/muonEvent"))
+;;   (semantic-add-system-include muon 'c++-mode)
+;;   ;; EventInfo
+;;   (setq event-info (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasCore/15.6.3/Event/EventInfo"))
+;;   (semantic-add-system-include event-info 'c++-mode)
 
-  ;; StoreGate
-  (setq storegate (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasCore/15.6.3/Control/StoreGate"))
-  (semantic-add-system-include storegate 'c++-mode)
-  ;; GaudiKernel
-  (setq gaudikernel (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/GAUDI/v20r4p6-LCG56d/GaudiKernel"))
-  (semantic-add-system-include gaudikernel 'c++-mode)
-  ;; AthenaMonitoring
-  (setq athenamonitoring (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Control/AthenaMonitoring"))
-  (semantic-add-system-include athenamonitoring 'c++-mode))
+;;   ;; StoreGate
+;;   (setq storegate (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasCore/15.6.3/Control/StoreGate"))
+;;   (semantic-add-system-include storegate 'c++-mode)
+;;   ;; GaudiKernel
+;;   (setq gaudikernel (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/GAUDI/v20r4p6-LCG56d/GaudiKernel"))
+;;   (semantic-add-system-include gaudikernel 'c++-mode)
+;;   ;; AthenaMonitoring
+;;   (setq athenamonitoring (concat server "/country/switzerland/atlas-sw/ATLASLocalRootBase/i686/Athena/Kits_SL4/15.6.3/AtlasEvent/15.6.3/Control/AthenaMonitoring"))
+;;   (semantic-add-system-include athenamonitoring 'c++-mode))
+
+
 
 ;; ECB
 ;; ECB load path
