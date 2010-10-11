@@ -96,14 +96,14 @@
   (progn
     (setq color-theme-is-global nil)
     (when (window-system) ; needed for the first frame
-      (colour-theme-dark-emacs)
+      (color-theme-dark-emacs)
       )))
 
 (add-hook 'after-make-frame-functions
 	  '(lambda (f)
 	     (with-selected-frame f
 	       (if (window-system f)
-		   (colour-theme-dark-emacs)
+		   (color-theme-dark-emacs)
 		 ))))
 
 ;; alternate theming API, supported by native Emacs >=24

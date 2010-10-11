@@ -18,10 +18,12 @@ history
 *.elc
 *.gz
 
-# packages from emacswiki or elsewhere
+# packages/themes from emacswiki or elsewhere
+colour-themes/
 emacs-init.el
 elpa/
 google-weather-el/
+minimal/
 bookmark*
 dired*
 firefox*
@@ -51,6 +53,7 @@ tempo-c-cpp.el
 undo-tree.el
 grep*
 minimal.el
+screencast.el
 irc*
 
 # other directories
@@ -61,3 +64,6 @@ yasnippet*
 vm*/*
 elisp/
 extensions/
+
+# other files
+lisp/Makefile
