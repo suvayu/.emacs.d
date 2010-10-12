@@ -4,10 +4,24 @@
 ;; functions I wrote for my convenience ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; insert Emacs version
+(defun which-emacs ()
+  "Inserts a shortened output of the `emacs-version' at point."
+  (interactive)
+  (setq str (emacs-version))
+  (insert (substring
+	   str 0 (string-match "(.+)" str))
+	  (format
+	   "(%s)" (progn
+		    (string-match "[0-9]+-[0-9]+-[0-9]+" str)
+		    (match-string 0 str)
+		    ))))
+
+
 ;; make ATLAS GoodRunList
 (defun make-GRL (beg end)
-  "Convert the marked region of a ATLAS GoodRunList
-XML to C if..else source blocks."
+  "Convert the marked region of a ATLAS GoodRunList XML to C
+if..else source blocks."
   (interactive "r")
   (if (> beg end) (let (mid) (setq mid beg beg end end mid)))
   (save-excursion
@@ -28,3 +42,7 @@ XML to C if..else source blocks."
     (remove-overlays beg end)
     (message "Coverted GRL XML to C if..else blocks.")
     ))
+
+(provide 'nifty)
+
+;;; end of nifty.el
