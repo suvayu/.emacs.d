@@ -7,7 +7,6 @@
   (unless (or (featurep 'cedet) 
 	      (eq major-mode 'lisp-interaction-mode))
     (message "Loading CEDET settings.")
-    ;; (when (string= (getenv "USER") "jallad")
     (load-file "~/.emacs.d/lisp/cedet-configs.el")
     ;; setup CEDET for lisp
     (if (or (eq major-mode 'emacs-lisp-mode)
