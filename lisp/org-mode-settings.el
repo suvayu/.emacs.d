@@ -18,7 +18,7 @@
       ;; List of extra files to be searched by text search commands.
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
-	      (directory-files "~/org/talks" t "^[^.#].*\\.org$") ; org files from talks
+	      (directory-files "~/org/projects/Wprime" t "^[^.#].*\\.org$") ; org files from talks
 	      ;; (directory-files "~/org/Worg" t "^[^.#].*\\.org$") ; org files from Worg
 	      ;; (directory-files "~/org" t "^[^.#].*\\.txt$") ; text files in org directory
 	      )
