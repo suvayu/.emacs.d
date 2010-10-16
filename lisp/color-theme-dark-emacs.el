@@ -11,17 +11,19 @@ Color theme by Suvayu Ali, created 2010-10-10."
   (interactive)
   (color-theme-install
    '(color-theme-dark-emacs
+     ;; Frame parameters
      ((background-color . "black")
       (background-mode . dark)
       (border-color . "blue")
       (cursor-color . "red")
-      (foreground-color . "ivory2")
-      (mouse-color . "black"))
+      (foreground-color . "ivory2"))
+     ;; Variable settings
      ((list-matching-lines-buffer-name-face . underline)
       (list-matching-lines-face . match)
       (org-goto-interface . outline)
-      (view-highlight-face . highlight)
-      (widget-mouse-face . highlight))
+      (view-highlight-face . highlight))
+     ;; (widget-mouse-face . highlight))
+     ;; Face definitions
      (default ((t (:background "black" :foreground "ivory2"))))
      (bold ((t (:bold t :foreground "ivory2" :background "black" :weight bold ))))
      (bold-italic ((t (:italic t :bold t :slant italic :foreground "blanched almond" :background "black" :weight bold ))))
@@ -174,4 +176,4 @@ Color theme by Suvayu Ali, created 2010-10-10."
      (widget-field ((t (:background "dim gray"))))
      (widget-inactive ((t (:foreground "grey70"))))
      (widget-single-line-field ((t (:background "dim gray")))))))
-(add-to-list 'color-themes '(color-theme-dark-emacs  "dark-emacs" "Suvayu Ali"))
+(add-to-list 'color-themes '(color-theme-dark-emacs  "Dark Emacs" "Suvayu Ali"))
