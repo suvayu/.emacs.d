@@ -72,7 +72,8 @@
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
- '(w3m-use-cookies t))
+ '(w3m-use-cookies t)
+ '(x-select-enable-clipboard nil))
 
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
