@@ -266,6 +266,7 @@
 ;; version control related customisations
 
 ;; auto-revert-mode for files under version control
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . text-mode))
 (add-hook 'find-file-hook
 	  (lambda ()
 	    (if (vc-working-revision (buffer-file-name))
