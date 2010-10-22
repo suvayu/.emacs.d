@@ -76,14 +76,9 @@
 
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-;; (add-to-list 'load-path (expand-file-name "~sali/.emacs.d/lisp"))
-(add-to-list 'load-path (expand-file-name "/opt/emacs-lisp/share/emacs/contrib"))
+(add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
+(add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib"))
 (add-to-list 'load-path "~/.emacs.d/lisp/yasnippet")
-
-;; Emacs 23 stuff
-(when (string-match "23.2" emacs-version)
-  (add-to-list 'load-path (expand-file-name "/opt/emacs-lisp/share/emacs/24.0.50/lisp/org"))
-  (require 'org-install))
 
 ;; Info directory
 (add-to-list 'Info-default-directory-list
@@ -244,14 +239,9 @@
 (load-file "~/.emacs.d/lisp/org-mode-settings.el")
 (load-file "~/.emacs.d/lisp/text-mode-like-settings.el")
 
-(defun my-text-mode-like-hook()
-  "My customisations for all `text-mode' like modes."
-  (if (org-mode-p)
-      (my-org-mode-hook)
-    (my-text-mode-hook)))
-(add-hook 'text-mode-hook 'my-text-mode-like-hook)
-(add-hook 'muse-mode-hook 'my-text-mode-like-hook)
-(add-hook 'org-mode-hook 'my-text-mode-like-hook)
+;; (add-hook 'muse-mode-hook 'my-text-mode-hook)
+(add-hook 'text-mode-hook 'my-text-mode-hook)
+(add-hook 'org-mode-hook 'my-org-mode-hook)
 
 ;; w3m
 (add-hook 'w3m-mode-hook 'my-w3m-mode-hook)
@@ -265,11 +255,13 @@
 ;; version control related customisations
 
 ;; auto-revert-mode for files under version control
-(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . text-mode))
+;; (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . text-mode))
 (add-hook 'find-file-hook
 	  (lambda ()
 	    (if (vc-working-revision (buffer-file-name))
-		(auto-revert-mode t))))
+		(auto-revert-mode t))
+	    (if (string-match "COMMIT_EDITMSG" (buffer-file-name))
+		(turn-on-orgstruct++))))
 
 
 ;; ;; special buffers
@@ -344,7 +336,7 @@
 (autoload 'tbemail-mode "tbemail"
   "Mode to be used with the external editor plugin for Thunderbird." t)
 (add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'tbemail-mode))
-(add-hook 'tbemail-mode-hook 'my-text-mode-like-hook)
+(add-hook 'tbemail-mode-hook 'my-text-mode-hook)
 
 
 

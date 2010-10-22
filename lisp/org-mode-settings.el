@@ -1,6 +1,6 @@
 ;;; org-mode-settings.el --- `org-mode' settings and customisations.
 
-;; since using org-mode in /opt/emacs-lisp
+;; since using org-mode in ~/build/org-mode
 (require 'org-install)
 (require 'google-weather)
 (require 'org-google-weather)
@@ -36,7 +36,7 @@
       ;; file a bug report on bugzilla
       ;; debug original value like this
       ;; org-latex-to-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f")
-      org-latex-to-pdf-process '("pdflatex %f" "bibtex %f" "pdflatex %f" "pdflatex %f")
+      ;; org-latex-to-pdf-process '("pdflatex %f" "bibtex %f" "pdflatex %f" "pdflatex %f")
       ;; update TODO cookies recursively
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
@@ -47,14 +47,6 @@
 (add-to-list 'iimage-mode-image-regex-alist
              (cons (concat "\\[\\[file:\\(~?" iimage-mode-image-filename-regex
                            "\\)\\]")  1))
-
-(defun org-toggle-iimage-in-org ()
-  "display images in your org file"
-  (interactive)
-  (if (face-underline-p 'org-link)
-      (set-face-underline-p 'org-link nil)
-      (set-face-underline-p 'org-link t))
-  (iimage-mode))
 
 
 ;; TODO keywords
@@ -118,6 +110,8 @@
   "My `org-mode' keymap."
   ;; ;; overload default `fill-paragraph' keybind to use org specific command
   ;; (local-set-key (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
+  ;; toggle inline images with iimage
+  ;; (local-set-key (kbd "") 'org-toggle-inline-images)
   (local-set-key (kbd "C-<left>") 'outline-up-heading)
   ;; (local-set-key '[(C-right)] 'outline-back-to-heading) ; this one is not interactive
   (local-set-key (kbd "C-<up>") 'outline-previous-visible-heading)
@@ -147,6 +141,8 @@
   (my-org-mode-keymap)
   ;; line folding w/o actually folding it, use `M-q' to wrap.
   (visual-line-mode t)
+  ;; dynamic abbreviations for org-mode
+  (setq local-abbrev-table text-mode-abbrev-table)
   ;; FIXME
   (make-variable-buffer-local 'yas/trigger-key)
   (org-set-local 'yas/trigger-key [tab])
