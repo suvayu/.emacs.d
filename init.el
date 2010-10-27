@@ -242,6 +242,7 @@
 ;; (add-hook 'muse-mode-hook 'my-text-mode-hook)
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 (add-hook 'org-mode-hook 'my-org-mode-hook)
+(add-to-list 'auto-mode-alist '("/mutt-" . message-mode))
 
 ;; w3m
 (add-hook 'w3m-mode-hook 'my-w3m-mode-hook)
