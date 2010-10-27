@@ -163,7 +163,9 @@
  '((ditaa . t)
    (emacs-lisp . t)
    (gnuplot . t)
+   (latex . t)
    (python . t)
+   (R . t)
    (sh . t)))
 
 ;; (defun setup-org-babel()
