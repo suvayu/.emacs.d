@@ -21,10 +21,6 @@
     (turn-on-orgtbl)
     ;; turn on enhanced orgstruct minor mode
     (turn-on-orgstruct++)
-    ;; use footnote-mode from footnote.el
-    (footnote-mode)
-    (define-key footnote-minor-mode-map (kbd "C-c f") 'Footnote-add-footnote)
-    (define-key footnote-minor-mode-map (kbd "C-c m") 'Footnote-back-to-message)
     ;; line folding w/o actually folding it
     (visual-line-mode t))
   ;; turn on flyspell (spell checker)
