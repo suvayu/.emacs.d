@@ -150,11 +150,11 @@
 ;  (yas-org-setup))
 
 
-;; Make windmove work in org-mode:
-;; (add-hook 'org-metaup-hook 'windmove-up)
-;; (add-hook 'org-metaleft-hook 'windmove-left)
-;; (add-hook 'org-metadown-hook 'windmove-down)
-;; (add-hook 'org-metaright-hook 'windmove-right)
+;; Make windmove work in org-mode with 'shift as modifier:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 
 ;; Setup `org-babel' for emacs-lisp, gnuplot, latex and shell-script.
