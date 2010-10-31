@@ -160,12 +160,16 @@
 ;; Setup `org-babel' for emacs-lisp, gnuplot, latex and shell-script.
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((ditaa . t)
+ '((calc . t)
+   (ditaa . t)
    (emacs-lisp . t)
    (gnuplot . t)
    (latex . t)
+   (octave .t)
    (python . t)
+   (ruby . t)
    (R . t)
+   (ruby . t)
    (sh . t)))
 
 ;; (defun setup-org-babel()
