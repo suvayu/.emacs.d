@@ -67,12 +67,12 @@
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
  '(speedbar-use-images nil)
- '(tool-bar-mode nil)
  '(tramp-default-method "ssh")
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
- '(w3m-use-cookies t))
+ '(w3m-use-cookies t)
+ '(windmove-wrap-around t))
 
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
