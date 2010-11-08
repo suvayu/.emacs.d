@@ -121,11 +121,11 @@
 
 
 ;; hooks
-;; ;; `org-agenda-mode' hook
-;; (defun my-org-agenda-mode-hook()
-;;   "My `org-agenda-mode' hook."
-;;   (visual-line-mode t))
-;; (add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
+;; `org-agenda-mode' hook
+(defun my-org-agenda-mode-hook()
+  "My `org-agenda-mode' hook."
+  (visual-line-mode t))
+(add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
 
 ;; FIXME
 (defun yas-org-setup
