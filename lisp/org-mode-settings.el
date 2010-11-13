@@ -4,6 +4,7 @@
 (require 'org-install)
 (require 'google-weather)
 (require 'org-google-weather)
+(require 'org-inlinetask)
 
 ;;; Code:
 
