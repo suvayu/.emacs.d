@@ -43,8 +43,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(abbrev-mode t)
+ '(abbrev-mode t t)
  '(browse-url-browser-function (quote (("http.*emacswiki.org/.*" . w3m-browse-url) ("." . browse-url-default-browser))))
+ '(calendar-date-style (quote iso))
  '(case-fold-search nil)
  '(column-number-mode t)
  '(dabbrev-case-replace nil)
@@ -150,6 +151,8 @@
 
 
 ;; Editing
+;; prefer utf-8
+(prefer-coding-system 'utf-8)
 ;; enabling disabled commands
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
