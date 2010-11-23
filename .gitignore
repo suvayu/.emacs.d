@@ -52,7 +52,6 @@ multi-scratch.el
 tempo-c-cpp.el
 undo-tree.el
 grep*
-minimal.el
 screencast.el
 irc*
 
