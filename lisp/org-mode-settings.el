@@ -25,6 +25,8 @@
 	      )
       ;; modifying behaviour of C-a/<home> & C-e/<end>
       org-special-ctrl-a/e t
+      ;; on links `RET' follows the link
+      org-return-follows-link t
       ;; log time for TODO state changes
       org-log-done 'time
       ;; log time on rescheduling
