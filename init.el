@@ -63,6 +63,7 @@
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point nil)
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
+ '(org-google-weather-format "%i %c %L, [%l,%h] %s")
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/"))))
  '(savehist-mode t nil (savehist))
  '(set-mark-command-repeat-pop t)
