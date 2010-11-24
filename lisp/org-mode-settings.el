@@ -5,6 +5,7 @@
 (require 'google-weather)
 (require 'org-google-weather)
 (require 'org-inlinetask)
+(require 'org2blog)
 
 ;;; Code:
 
@@ -19,7 +20,7 @@
       ;; List of extra files to be searched by text search commands.
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
-	      (directory-files "~/org/projects/Wprime" t "^[^.#].*\\.org$") ; org files from talks
+	      (directory-files "~/org/Wprime" t "^[^.#].*\\.org$") ; org files from talks
 	      ;; (directory-files "~/org/Worg" t "^[^.#].*\\.org$") ; org files from Worg
 	      ;; (directory-files "~/org" t "^[^.#].*\\.txt$") ; text files in org directory
 	      )
@@ -43,7 +44,12 @@
       ;; update TODO cookies recursively
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
-      org-hierarchical-todo-statistics nil)
+      org-hierarchical-todo-statistics nil
+      ;; org2blog settings
+      org2blog-server-url "http://suvayu.wordpress.com/xmlrpc.php"
+      org2blog-server-user "suvayu"
+      org2blog-server-weblog-id "")
+
 
 ;; show links as inline images using `iimage-mode'
 (load-library "iimage")
