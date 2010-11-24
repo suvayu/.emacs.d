@@ -1,0 +1,1 @@
+../org2blog/org2blog.el
