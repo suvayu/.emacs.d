@@ -1,0 +1,1 @@
+../org2blog/metaweblog.el
