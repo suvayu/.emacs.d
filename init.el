@@ -394,8 +394,14 @@
 ;; include things like (setup-cedet)
 
 ;; hooks
-(add-hook 'c-mode-common-hook 'setup-cedet)
+;; (add-hook 'c-mode-common-hook 'setup-cedet)
 ;; (add-hook 'c-mode-common-hook 'c-mode-common-keymaps)
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (setup-cedet)
+	    (font-lock-add-keywords
+	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)
+		   ))))
 
 ;; Documentation tools
 ;; doxymacs
