@@ -64,6 +64,7 @@
  '(mouse-yank-at-point nil)
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(org-google-weather-format "%i %c %L, [%l,%h] %s")
+ '(org-stuck-projects (quote ("+LEVEL<=2&PROJ/!-DONE" ("CONT" "WInP") nil "")))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/"))))
  '(savehist-mode t nil (savehist))
  '(set-mark-command-repeat-pop t)
@@ -340,7 +341,7 @@
 ;; thunderbird external editor mode `tbemail-mode'
 (autoload 'tbemail-mode "tbemail"
   "Mode to be used with the external editor plugin for Thunderbird." t)
-(add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'tbemail-mode))
+(add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'message-mode))
 (add-hook 'tbemail-mode-hook 'my-text-mode-hook)
 
 
