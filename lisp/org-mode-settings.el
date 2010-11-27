@@ -136,7 +136,7 @@
   (visual-line-mode t))
 (add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
 
-;; FIXME
+;; FIXME:
 (defun yas-org-setup
   "Activate yasnippet keybinds."
   (make-variable-buffer-local 'yas/trigger-key)
@@ -152,10 +152,11 @@
   (visual-line-mode t)
   ;; dynamic abbreviations for org-mode
   (setq local-abbrev-table text-mode-abbrev-table)
-  ;; FIXME
-  (make-variable-buffer-local 'yas/trigger-key)
-  (org-set-local 'yas/trigger-key [tab])
-  (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand))
+  ;; FIXME:
+  ;; (make-variable-buffer-local 'yas/trigger-key)
+  ;; (org-set-local 'yas/trigger-key [tab])
+  ;; (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand)
+  )
 ;  (yas-org-setup))
 
 
