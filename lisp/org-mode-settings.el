@@ -121,6 +121,10 @@
   ;; (local-set-key (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
   ;; toggle inline images with iimage
   ;; (local-set-key (kbd "") 'org-toggle-inline-images)
+  ;; navigating list items
+  (local-set-key (kbd "C-c C-x N") 'org-next-item)
+  (local-set-key (kbd "C-c C-x P") 'org-previous-item)
+  ;; navigating headlines
   (local-set-key (kbd "C-<left>") 'outline-up-heading)
   ;; (local-set-key '[(C-right)] 'outline-back-to-heading) ; this one is not interactive
   (local-set-key (kbd "C-<up>") 'outline-previous-visible-heading)
