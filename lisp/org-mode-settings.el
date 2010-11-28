@@ -132,11 +132,18 @@
   (local-set-key (kbd "s-<up>") 'outline-backward-same-level)
   (local-set-key (kbd "s-<down>") 'outline-forward-same-level))
 
+;; `org-agenda-mode' keymaps
+(defun my-org-agenda-mode-keymap()
+  "My `org-agenda-mode' keymap."
+  ;; month view
+  (local-set-key (kbd "C-c m") 'org-agenda-month-view))
+
 
 ;; hooks
 ;; `org-agenda-mode' hook
 (defun my-org-agenda-mode-hook()
   "My `org-agenda-mode' hook."
+  (my-org-agenda-mode-keymap)
   (visual-line-mode t))
 (add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
 
