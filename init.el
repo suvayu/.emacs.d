@@ -59,6 +59,7 @@
  '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
  '(inhibit-startup-screen t)
  '(isearch-allow-scroll t)
+ '(ispell-dictionary "en_GB")
  '(iswitchb-mode t)
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point nil)
