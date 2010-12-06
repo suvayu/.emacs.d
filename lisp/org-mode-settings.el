@@ -108,6 +108,7 @@
 (ad-activate 'outline-backward-same-level)
 
 
+;; Keymaps:
 ;; global keymaps
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -132,22 +133,20 @@
   (local-set-key (kbd "s-<up>") 'outline-backward-same-level)
   (local-set-key (kbd "s-<down>") 'outline-forward-same-level))
 
+;; `org-agenda-mode' keymaps
+(defun my-org-agenda-mode-keymap()
+  "My `org-agenda-mode' keymap."
+  ;; month view
+  (local-set-key (kbd "C-c m") 'org-agenda-month-view))
+
 
 ;; org-agenda config
-
 ;; This function is used to insert current time in the agenda buffer
 ;; Thanks to Julien Danjou
 (defun jd:org-current-time ()
   "Return current-time if date is today."
   (when (equal date (calendar-current-date))
     (format-time-string "%H:%M Current time" (current-time))))
-
-
-;; `org-agenda-mode' keymaps
-(defun my-org-agenda-mode-keymap()
-  "My `org-agenda-mode' keymap."
-  ;; month view
-  (local-set-key (kbd "C-c m") 'org-agenda-month-view))
 
 
 ;; hooks
@@ -158,29 +157,15 @@
   (visual-line-mode t))
 (add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
 
-;; FIXME:
-(defun yas-org-setup
-  "Activate yasnippet keybinds."
-  (make-variable-buffer-local 'yas/trigger-key)
-  (org-set-local yas/trigger-key [tab])
-  (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand))
-
 ;; `org-mode' hook
 (defun my-org-mode-hook()
   "My `org-mode' hook."
-  ;; (flyspell-mode t)
-  (my-org-mode-keymap)
-  ;; line folding w/o actually folding it, use `M-q' to wrap.
-  (visual-line-mode t)
-  ;; dynamic abbreviations for org-mode
-  (setq local-abbrev-table text-mode-abbrev-table)
-  ;; FIXME:
-  ;; (make-variable-buffer-local 'yas/trigger-key)
-  ;; (org-set-local 'yas/trigger-key [tab])
-  ;; (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand)
-  )
-;  (yas-org-setup))
-
+   ; (flyspell-mode t)
+   (my-org-mode-keymap)
+   ;; line folding w/o actually folding it, use `M-q' to wrap.
+   (visual-line-mode t)
+   ;; dynamic abbreviations for org-mode
+   (setq local-abbrev-table text-mode-abbrev-table))
 
 ;; Make windmove work in org-mode with 'shift as modifier:
 (add-hook 'org-shiftup-final-hook 'windmove-up)
