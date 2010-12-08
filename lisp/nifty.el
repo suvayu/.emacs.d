@@ -1,8 +1,9 @@
 ;; -*- mode: emacs-lisp; -*-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; This file contains some nifty lisp   ;;
-;; functions I wrote for my convenience ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This file contains some nifty lisp    ;;
+;; functions I wrote for my convenience  ;;
+;; or I got it from somewhere (credited) ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; insert Emacs version
 (defun which-emacs ()
@@ -42,6 +43,41 @@ if..else source blocks."
     (remove-overlays beg end)
     (message "Coverted GRL XML to C if..else blocks.")
     ))
+
+
+;; modify opacity of emacs frame
+;; works with compositing capable window managers
+;; Source: http://emacs-fu.blogspot.com/2009/02/transparent-emacs.html
+(defun djcb-opacity-modify (&optional dec)
+  "Modify the transparency of the emacs frame; if DEC is t,
+decrease the transparency, otherwise increase it in 5% steps."
+  (let* ((alpha-or-nil (frame-parameter nil 'alpha)) ; nil before setting
+	 (oldalpha (if alpha-or-nil alpha-or-nil
+		     100))
+	 (newalpha (if dec (- oldalpha 5)
+		     (+ oldalpha 5))))
+    (when (and (>= newalpha frame-alpha-lower-limit)
+	       (<= newalpha 100))
+      (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
+
+ ;; C-+ will increase opacity (== decrease transparency)
+(global-set-key (kbd "C-+")
+		'(lambda()
+		   (interactive)
+		   (djcb-opacity-modify)))
+
+ ;; C-- will decrease opacity (== increase transparency
+(global-set-key (kbd "C--")
+		'(lambda()
+		   (interactive)
+		   (djcb-opacity-modify t)))
+
+ ;; C-0 will returns the state to normal
+(global-set-key (kbd "C-0")
+		'(lambda()
+		   (interactive)
+		   (modify-frame-parameters nil `((alpha . 100)))))
+
 
 (provide 'nifty)
 

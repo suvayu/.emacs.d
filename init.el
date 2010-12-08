@@ -136,7 +136,7 @@
 (setq minimal-zap-mode-line nil)
 (setq minimal-zap-menu-bar nil)
 (minimal-mode)
-
+(load-library "nifty")
 
 ;; Navigation
 ;; side scrolling on
