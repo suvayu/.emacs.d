@@ -45,6 +45,11 @@
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
       org-hierarchical-todo-statistics nil
+      org-google-weather-format "%i %c %L, [%l,%h] %s"
+      org-refile-targets '((org-agenda-files :maxlevel . 5))
+      org-refile-use-outline-path 'file
+      org-refile-allow-creating-parent-nodes 'confirm
+      org-stuck-projects '("+LEVEL<=2&PROJ/!-DONE" ("CONT" "WInP") nil "")
       ;; org2blog settings
       org2blog-server-url "http://suvayu.wordpress.com/xmlrpc.php"
       org2blog-server-user "suvayu"
@@ -87,6 +92,17 @@
 ;; 	("Project" . 80)))
 
 
+;; templates for `org-capture'
+(setq org-capture-templates
+      '(("m" "Meeting" entry (file+headline "~/org/notes.org" "Meetings")
+	 "** %?%^{CATEGORY}p\n%^t" :prepend t :empty-lines 1)
+	("t" "TODO Item" entry (file+headline "~/org/notes.org" "TODOs")
+	 "** %^{prompt|TODO|WInP} %? %^G\n   %^t" :prepend t :empty-lines 1)
+	("r" "Reading material" entry (file+headline "~/org/notes.org" "Reading")
+	 "** %?%^{CATEGORY}p %^G\n   %^t" :prepend t :empty-lines 1 :unnarrowed t)
+	))
+
+
 ;; changing org-mode behaviour
 ;; defadvising org-mode commands
 (defadvice outline-forward-same-level
@@ -114,6 +130,7 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c f") 'org-footnote-action)
 (global-set-key (kbd "C-c b") 'org-switchb)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; `org-mode' keymaps
 (defun my-org-mode-keymap()
@@ -136,6 +153,8 @@
 ;; `org-agenda-mode' keymaps
 (defun my-org-agenda-mode-keymap()
   "My `org-agenda-mode' keymap."
+  ;; set property
+  (local-set-key (kbd "C-p") 'org-agenda-set-property)
   ;; month view
   (local-set-key (kbd "C-c m") 'org-agenda-month-view))
 
@@ -146,7 +165,8 @@
 (defun jd:org-current-time ()
   "Return current-time if date is today."
   (when (equal date (calendar-current-date))
-    (format-time-string "%H:%M Current time" (current-time))))
+    (propertize (format-time-string "%H:%M Current time") 'font-lock-face
+		'(:weight bold :foreground "DodgerBlue4" :background "snow"))))
 
 
 ;; hooks
