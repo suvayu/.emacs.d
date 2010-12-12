@@ -165,7 +165,7 @@
 (defun jd:org-current-time ()
   "Return current-time if date is today."
   (when (equal date (calendar-current-date))
-    (propertize (format-time-string "%H:%M Current time") 'font-lock-face
+    (propertize (format-time-string "%H:%M Current time") 'face
 		'(:weight bold :foreground "DodgerBlue4" :background "snow"))))
 
 
