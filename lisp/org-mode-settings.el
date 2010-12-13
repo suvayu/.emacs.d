@@ -45,6 +45,10 @@
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
       org-hierarchical-todo-statistics nil
+      org-agenda-current-time-string "- - - NOW! - - -"
+      org-agenda-time-grid '((daily today)
+			     "----------------"
+			     (800 1000 1200 1400 1600 1800 2000))
       org-google-weather-format "%i %c %L, [%l,%h] %s"
       org-refile-targets '((org-agenda-files :maxlevel . 5))
       org-refile-use-outline-path 'file
