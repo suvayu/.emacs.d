@@ -31,6 +31,7 @@
  '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))))
  '(info-xref ((t (:bold t :foreground "powder blue" :weight bold))))
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
+ '(org-agenda-current-time ((t (:inherit org-time-grid :background "snow" :foreground "DodgerBlue4" :weight bold))) t)
  '(org-done ((t (:background "ForestGreen" :foreground "DarkSeaGreen2" :slant oblique :weight bold))))
  '(org-todo ((t (:background "royalblue4" :foreground "thistle" :weight bold))))
  '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
