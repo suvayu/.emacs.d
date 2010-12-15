@@ -1,5 +1,10 @@
 (deftheme dark-emacs
-  "Dark Emacs is designed to be give the same look and feel as `emacs --no-window-system'. Created 2010-10-10.")
+  "Dark Emacs is designed to be give the same look and feel as
+  `emacs --no-window-system'. It is based on a theme made by the
+  emacswiki user, ZWZ. The original can be found at
+  http://www.emacswiki.org/emacs/zwz.
+
+  Color theme by Suvayu Ali. Created 2010-10-10.")
 
 (custom-theme-set-variables
  'dark-emacs
@@ -8,16 +13,16 @@
 (custom-theme-set-faces
  'dark-emacs
  '(completions-common-part ((t (:foreground "forest green"))))
- '(completions-first-difference ((t (:bold t :weight bold :foreground "salmon"))))
- '(info-menu-header ((t (:bold t :family "Sans Serif" :foreground "tomato" :weight bold))))
- '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))))
- '(info-xref ((t (:bold t :foreground "powder blue" :weight bold))))
+ '(completions-first-difference ((t (:weight bold :foreground "salmon"))))
+ '(info-menu-header ((t (:family "Sans Serif" :foreground "tomato" :weight bold))))
+ '(info-node ((t (:foreground "gold" :slant italic :weight bold))))
+ '(info-xref ((t (:foreground "powder blue" :weight bold))))
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
  '(org-done ((t (:background "ForestGreen" :foreground "DarkSeaGreen2" :slant oblique :weight bold))))
  '(org-todo ((t (:background "royalblue4" :foreground "thistle" :weight bold))))
  '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
- '(woman-bold ((t (:bold t :weight bold :foreground "forest green"))))
- '(woman-italic ((t (:italic t :slant italic :foreground "salmon"))))
+ '(woman-bold ((t (:weight bold :foreground "forest green"))))
+ '(woman-italic ((t (:slant italic :foreground "salmon"))))
  '(cursor ((t (:background "red"))))
  '(show-paren-mismatch ((t (:foreground "white" :background "magenta"))))
  '(show-paren-match ((t (:background "SlateBlue1"))))
