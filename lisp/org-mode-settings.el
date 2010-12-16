@@ -53,6 +53,7 @@
       org-refile-targets '((org-agenda-files :maxlevel . 5))
       org-refile-use-outline-path 'file
       org-refile-allow-creating-parent-nodes 'confirm
+      org-reverse-note-order t
       org-stuck-projects '("+LEVEL<=2&PROJ/!-DONE" ("CONT" "WInP") nil "")
       ;; org2blog settings
       org2blog-server-url "http://suvayu.wordpress.com/xmlrpc.php"
@@ -98,12 +99,27 @@
 
 ;; templates for `org-capture'
 (setq org-capture-templates
-      '(("m" "Meeting" entry (file+headline "~/org/notes.org" "Meetings")
-	 "** %?%^{CATEGORY}p\n%^t" :prepend t :empty-lines 1)
-	("t" "TODO Item" entry (file+headline "~/org/notes.org" "TODOs")
-	 "** %^{prompt|TODO|WInP} %? %^G\n   %^t" :prepend t :empty-lines 1)
+      '(("m" "Select meeting templates")
+	("ms" "Schedule a meeting" entry (file+headline "~/org/meetings.org" "Meetings")
+	 "** %? %^t%^{CATEGORY}p\n"
+	 :prepend t :empty-lines 1)
+	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
+	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
+	 :clock-in :empty-lines 1)
+	("mt" "Add to clocked meeting minutes" item (clock)
+	 "" :unnarrowed t)
+	("mn" "Meeting notes" entry (file+datetree "~/org/meetings.org")
+	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
+	 :prepend t :empty-lines 1)
+	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
+	 "** %^{prompt}%^{CATEGORY}p %^G\n\n   %?"
+	 :prepend t :empty-lines 1 :unnarrowed t)
 	("r" "Reading material" entry (file+headline "~/org/notes.org" "Reading")
-	 "** %?%^{CATEGORY}p %^G\n   %^t" :prepend t :empty-lines 1 :unnarrowed t)
+	 "** %?%^{CATEGORY}p %^G\n   %^t"
+	 :prepend t :empty-lines 1 :unnarrowed t)
+	("t" "TODO Item" entry (file+headline "~/org/notes.org" "TODOs")
+	 "** %^{prompt|TODO|WInP} %? %^G\n   %^t"
+	 :prepend t :empty-lines 1)
 	))
 
 
@@ -216,6 +232,9 @@
 ;; (defun setup-org-babel()
 ;;   (interactive)
 ;;   (org-babel-load-library-of-babel))
+
+;; `org-mode' hook
+(add-hook 'org-mode-hook 'my-org-mode-hook)
 
 
 ;;; org-mode-settings.el ends here
