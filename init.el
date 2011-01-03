@@ -276,6 +276,8 @@
 ;; (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . text-mode))
 (add-hook 'find-file-hook
 	  (lambda ()
+	    (font-lock-add-keywords
+	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
 	    (if (vc-working-revision (buffer-file-name))
 		(auto-revert-mode t))
 	    (if (string-match "COMMIT_EDITMSG" (buffer-file-name))
@@ -381,8 +383,6 @@
 (defun my-lisp-mode-hook ()
   (eldoc-mode t)
   (setup-cedet)
-  (font-lock-add-keywords
-   nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
   )
 (add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
@@ -408,8 +408,6 @@
 (add-hook 'c-mode-common-hook
 	  (lambda ()
 	    (setup-cedet)
-	    (font-lock-add-keywords
-	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
 	    ))
 
 ;; Documentation tools
