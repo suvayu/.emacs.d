@@ -15,7 +15,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Code:
-;; (setq debug-on-error t)
+(setq debug-on-error t)
       ;; debug-on-signal t
       ;; debug-on-quit t)
 
@@ -29,14 +29,18 @@
  '(completions-first-difference ((t (:bold t :weight bold :foreground "salmon"))))
  '(info-menu-header ((t (:bold t :family "Sans Serif" :foreground "tomato" :weight bold))))
  '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))))
- '(info-xref ((t (:bold t :foreground "powder blue" :weight bold))))
+ '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))))
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :background "snow" :foreground "DodgerBlue4" :weight bold))) t)
  '(org-done ((t (:background "ForestGreen" :foreground "DarkSeaGreen2" :slant oblique :weight bold))))
  '(org-todo ((t (:background "royalblue4" :foreground "thistle" :weight bold))))
- '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
+ '(rst-level-1-face ((t (:background "grey85" :foreground "black"))))
  '(woman-bold ((t (:bold t :weight bold :foreground "forest green"))))
  '(woman-italic ((t (:italic t :slant italic :foreground "salmon")))))
+
+;; if $TERM=xterm-256color
+;; '(mode-line ((t (:background "brightwhite" :foreground "black" :box (:line-width -1 :style released-button)))))
+
 
 ;; configs
 (custom-set-variables
@@ -65,7 +69,7 @@
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point nil)
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
- '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/"))))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/") ("Sunrise-Commander" . "http://joseito.republika.pl/sunrise-commander/"))))
  '(savehist-mode t nil (savehist))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
@@ -87,6 +91,9 @@
 (add-to-list 'Info-default-directory-list
 	     (expand-file-name "/opt/emacs-lisp/share/info"))
 
+;; Emacs C source directory
+(setq find-function-C-source-directory "~/build/emacs/src")
+
 ;; colour themes using color-theme.el
 (load-file "~/.emacs.d/lisp/color-theme-dark-emacs.el")
 
@@ -104,7 +111,10 @@
 		   (color-theme-dark-emacs)
 		 ))))
 
-;; alternate theming API, supported by native Emacs >=24
+;; ;; alternate theming API, supported by native Emacs >=24
+;; ;; colour theme using internal emacs theming
+;; (load-theme 'dark-emacs)
+
 ;; (when (window-system) ; needed for the first frame
 ;;   (load-theme 'dark-emacs))
 
@@ -150,6 +160,8 @@
 (define-key global-map (kbd "s-a") 'back-to-indentation)
 ;; Completion
 (define-key global-map (kbd "s-<tab>") 'completion-at-point)
+;; mouse support on an xterm
+(xterm-mouse-mode t)
 
 
 ;; Editing
@@ -228,11 +240,11 @@
 	  (lambda ()
 	    (add-hook 'abbrev-expand-functions 'expand-abbrev-in-context nil t)))
 
-;; yasnippet tempaltes
-(when (string= (getenv "USER") "jallad")
-  (require 'yasnippet)
-  (yas/initialize)
-  (yas/load-directory "~/.emacs.d/lisp/yasnippet/snippets"))
+;; ;; yasnippet tempaltes
+;; (when (string= (getenv "USER") "jallad")
+;;   (require 'yasnippet)
+;;   (yas/initialize)
+;;   (yas/load-directory "~/.emacs.d/lisp/yasnippet/snippets"))
 
 
 
@@ -246,8 +258,8 @@
 
 ;; (add-hook 'muse-mode-hook 'my-text-mode-hook)
 (add-hook 'text-mode-hook 'my-text-mode-hook)
-(add-hook 'org-mode-hook 'my-org-mode-hook)
 (add-to-list 'auto-mode-alist '("/mutt-" . message-mode))
+(add-to-list 'auto-mode-alist '("/tmpmsg." . message-mode))
 
 ;; w3m
 (add-hook 'w3m-mode-hook 'my-w3m-mode-hook)
@@ -274,10 +286,6 @@
 ;; (setq special-display-buffer-names
 ;;	 '("*grep*" "*tex-shell*" "*compilation*" "*find*"))
 
-;; ;; create a backup file directory
-;; (defun make-backup-file-name (file)
-;; (concat “~/.emacs_backups/” (file-name-nondirectory file) “~”))
-
 ;; start a server and make sure it has a name
 ;; (require 'server)
 ;; (setq server-host (system-name)
@@ -295,8 +303,6 @@
 ;; auto-install settings (not in vanilla Emacs)
 (eval-after-load 'auto-install
   (setq auto-install-directory "~/.emacs.d/lisp/"))
-;; (eval-after-load 'auto-install
-;;   (setq auto-install-directory "~sali/.emacs.d/lisp/"))
 ;; the "/" at the end of the path is absolutely essential,
 ;; otherwise the elisp files are saved as elisp*.el instead of elisp/*.el
 
@@ -335,13 +341,12 @@
 
 
 ;; File associations
-;; conf-mode for .*rc files
-;; (add-to-list 'auto-mode-alist (cons "\\.*rc\\'" 'conf-mode))
+;; compose email
+(add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'message-mode))
 
 ;; thunderbird external editor mode `tbemail-mode'
 (autoload 'tbemail-mode "tbemail"
   "Mode to be used with the external editor plugin for Thunderbird." t)
-(add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'message-mode))
 (add-hook 'tbemail-mode-hook 'my-text-mode-hook)
 
 
@@ -375,9 +380,13 @@
 ;; Lisp/Elisp customisations
 (defun my-lisp-mode-hook ()
   (eldoc-mode t)
-  (setup-cedet))
+  (setup-cedet)
+  (font-lock-add-keywords
+   nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
+  )
 (add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
+
 
 ;; C++ customisations
 ;; force `c++-mode' for `*.h' header files
@@ -400,8 +409,8 @@
 	  (lambda ()
 	    (setup-cedet)
 	    (font-lock-add-keywords
-	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)
-		   ))))
+	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
+	    ))
 
 ;; Documentation tools
 ;; doxymacs
