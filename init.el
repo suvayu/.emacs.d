@@ -273,15 +273,22 @@
 ;; version control related customisations
 
 ;; auto-revert-mode for files under version control
-;; (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . text-mode))
 (add-hook 'find-file-hook
 	  (lambda ()
 	    (font-lock-add-keywords
 	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
 	    (if (vc-working-revision (buffer-file-name))
 		(auto-revert-mode t))
-	    (if (string-match "COMMIT_EDITMSG" (buffer-file-name))
-		(turn-on-orgstruct++))))
+	    ))
+
+;; mode to edit git commit message
+(autoload 'git-commit-mode "git-commit"
+  "Major mode for editing git commit messages." t)
+
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . git-commit-mode))
+(add-hook 'git-commit-mode-hook
+	  (lambda ()
+	    (turn-on-orgstruct++)))
 
 
 ;; ;; special buffers
