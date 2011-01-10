@@ -48,7 +48,7 @@ decrease the transparency, otherwise increase it in 5% steps."
       (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
 
  ;; C-+ will increase opacity (== decrease transparency)
-(global-set-key (kbd "C-+")
+(global-set-key (kbd "C-=")
 		'(lambda()
 		   (interactive)
 		   (djcb-opacity-modify)))
