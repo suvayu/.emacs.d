@@ -105,7 +105,7 @@
 	 :prepend t :empty-lines 1)
 	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
-	 :clock-in :empty-lines 1)
+	 :clock-in t :empty-lines 1)
 	("mt" "Add to clocked meeting minutes" item (clock)
 	 "" :unnarrowed t)
 	("mn" "Meeting notes" entry (file+datetree "~/org/meetings.org")
