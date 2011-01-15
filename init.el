@@ -86,7 +86,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib"))
-(add-to-list 'load-path "~/.emacs.d/lisp/yasnippet")
+;; (add-to-list 'load-path "~/.emacs.d/lisp/yasnippet")
 
 ;; Info directory
 (add-to-list 'Info-default-directory-list
