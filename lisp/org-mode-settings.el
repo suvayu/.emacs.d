@@ -20,7 +20,13 @@
       ;; List of extra files to be searched by text search commands.
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
-	      (directory-files "~/org/Wprime" t "^[^.#].*\\.org$") ; org files from talks
+	      (directory-files "~/org/Wprime/kfactor" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
+	      (directory-files "~/org/Wprime/note" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
+	      (directory-files "~/org/Wprime/qcdfit_plots" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
+	      (directory-files "~/org/Wprime/recoil_smearing" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
+	      (directory-files "~/org/Wprime/talks" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
+	      (directory-files "~/org/masters-thesis" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; thesis org files
+	      (directory-files "~/org/not-physics" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; other stuff
 	      ;; (directory-files "~/org/Worg" t "^[^.#].*\\.org$") ; org files from Worg
 	      ;; (directory-files "~/org" t "^[^.#].*\\.txt$") ; text files in org directory
 	      )
