@@ -30,11 +30,12 @@
  '(info-menu-header ((t (:bold t :family "Sans Serif" :foreground "tomato" :weight bold))))
  '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))))
  '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))))
+ '(info-xref-visited ((t (:foreground "violet" :underline t :weight bold))))
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :background "snow" :foreground "DodgerBlue4" :weight bold))) t)
  '(org-done ((t (:background "ForestGreen" :foreground "DarkSeaGreen2" :slant oblique :weight bold))))
  '(org-todo ((t (:background "royalblue4" :foreground "thistle" :weight bold))))
- '(rst-level-1-face ((t (:background "grey85" :foreground "black"))))
+ '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
  '(woman-bold ((t (:bold t :weight bold :foreground "forest green"))))
  '(woman-italic ((t (:italic t :slant italic :foreground "salmon")))))
 
@@ -85,7 +86,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib"))
-(add-to-list 'load-path "~/.emacs.d/lisp/yasnippet")
+;; (add-to-list 'load-path "~/.emacs.d/lisp/yasnippet")
 
 ;; Info directory
 (add-to-list 'Info-default-directory-list
