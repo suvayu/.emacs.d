@@ -161,8 +161,8 @@
 (define-key global-map (kbd "s-a") 'back-to-indentation)
 ;; Completion
 (define-key global-map (kbd "s-<tab>") 'completion-at-point)
-;; mouse support on an xterm
-(xterm-mouse-mode t)
+;; ;; mouse support on an xterm
+;; (xterm-mouse-mode t)
 
 
 ;; Editing
