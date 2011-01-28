@@ -68,7 +68,7 @@
  '(ispell-dictionary "en_GB")
  '(iswitchb-mode t)
  '(mouse-avoidance-mode (quote exile) nil (avoid))
- '(mouse-yank-at-point nil)
+ '(mouse-yank-at-point t)
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/") ("Sunrise-Commander" . "http://joseito.republika.pl/sunrise-commander/"))))
  '(savehist-mode t nil (savehist))
