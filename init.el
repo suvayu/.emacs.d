@@ -72,6 +72,7 @@
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/") ("Sunrise-Commander" . "http://joseito.republika.pl/sunrise-commander/"))))
  '(savehist-mode t nil (savehist))
+ '(sentence-end-double-space nil)
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
  '(speedbar-use-images nil)
