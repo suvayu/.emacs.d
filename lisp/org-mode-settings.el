@@ -163,27 +163,27 @@
 (defun my-org-mode-keymap()
   "My `org-mode' keymap."
   ;; ;; overload default `fill-paragraph' keybind to use org specific command
-  ;; (local-set-key (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
+  ;; (org-defkey org-mode-map (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
   ;; toggle inline images with iimage
-  ;; (local-set-key (kbd "") 'org-toggle-inline-images)
+  ;; (org-defkey org-mode-map (kbd "") 'org-toggle-inline-images)
   ;; navigating list items
-  (local-set-key (kbd "C-c C-x N") 'org-next-item)
-  (local-set-key (kbd "C-c C-x P") 'org-previous-item)
+  (org-defkey org-mode-map (kbd "C-c C-x N") 'org-next-item)
+  (org-defkey org-mode-map (kbd "C-c C-x P") 'org-previous-item)
   ;; navigating headlines
-  (local-set-key (kbd "C-<left>") 'outline-up-heading)
+  (org-defkey org-mode-map (kbd "C-<left>") 'outline-up-heading)
   ;; (local-set-key '[(C-right)] 'outline-back-to-heading) ; this one is not interactive
-  (local-set-key (kbd "C-<up>") 'outline-previous-visible-heading)
-  (local-set-key (kbd "C-<down>") 'outline-next-visible-heading)
-  (local-set-key (kbd "s-<up>") 'outline-backward-same-level)
-  (local-set-key (kbd "s-<down>") 'outline-forward-same-level))
+  (org-defkey org-mode-map (kbd "C-<up>") 'outline-previous-visible-heading)
+  (org-defkey org-mode-map (kbd "C-<down>") 'outline-next-visible-heading)
+  (org-defkey org-mode-map (kbd "s-<up>") 'outline-backward-same-level)
+  (org-defkey org-mode-map (kbd "s-<down>") 'outline-forward-same-level))
 
 ;; `org-agenda-mode' keymaps
 (defun my-org-agenda-mode-keymap()
   "My `org-agenda-mode' keymap."
   ;; set property
-  (local-set-key (kbd "C-p") 'org-agenda-set-property)
+  (org-defkey org-agenda-mode-map (kbd "C-p") 'org-agenda-set-property)
   ;; month view
-  (local-set-key (kbd "C-c m") 'org-agenda-month-view))
+  (org-defkey org-agenda-mode-map (kbd "C-c m") 'org-agenda-month-view))
 
 
 ;; org-agenda config
