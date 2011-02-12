@@ -42,6 +42,8 @@
       org-log-into-drawer t
       ;; turn on speed keys for headlines
       org-use-speed-commands t
+      ;; fontify code blocks by default
+      org-src-fontify-natively t
       ;; temporary setting to circumvent bug in texi2dvi
       ;; file a bug report on bugzilla
       ;; debug original value like this
