@@ -24,7 +24,7 @@
 ;; 	 (backward-char)) 0)
 ;;   )
 
-(define-abbrev-table 'c-mode-abbrev-table 
+(define-abbrev-table 'c-mode-abbrev-table
   '(
     ;; ("for" "" c++-for-skel)
     ;; ("if" "" c++-if-skel)
@@ -36,7 +36,16 @@
 
 (define-abbrev-table 'shell-mode-abbrev-table '(    ))
 
-(define-abbrev-table 'basic-text-mode-abbrev-table 
+(define-abbrev-table 'org-mode-abbrev-table
+  '(("SU3" "\\(SU(3)\\)" nil 0)
+    ("SU2" "\\(SU(2)\\)" nil 0)
+    ("U1" "\\(U(1)\\)" nil 0)
+    ))
+
+    ;; ("\(" "\(\)" (lambda() (backward-char 2)) 0)
+    ;; ("ilatex" "src_latex{}" (lambda() (backward-char 1)) 0)
+
+(define-abbrev-table 'basic-text-mode-abbrev-table
   '(("bg" "background" nil 0)
     ("distrib" "distribution" nil 0)
     ))
