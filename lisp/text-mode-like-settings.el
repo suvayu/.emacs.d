@@ -22,10 +22,9 @@
     ;; turn on enhanced orgstruct minor mode
     (turn-on-orgstruct++)
     ;; line folding w/o actually folding it
-    (visual-line-mode t))
-  ;; turn on flyspell (spell checker)
-  ;; (flyspell-mode t)
-  ;; text mode abbreviations
-  (setq local-abbrev-table text-mode-abbrev-table))
+    (visual-line-mode t)
+    ;; text mode abbreviations
+    (setq local-abbrev-table text-mode-abbrev-table)
+    ))
 
 ;;; text-mode-like-settings.el ends here
