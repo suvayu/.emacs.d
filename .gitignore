@@ -20,9 +20,11 @@ history
 
 # packages/themes from emacswiki or elsewhere
 colour-themes/
+emacs-*
 emacs-init.el
 elpa/
 google-weather-el/
+git-*
 minimal/
 bookmark*
 dired*
