@@ -70,6 +70,15 @@
       ;; org2blog-server-weblog-id "")
 
 
+;; org to latex customisations
+;; hack for error free latex export with amsmath
+;; remove when defaults are changed in the future
+(add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
+(setcar 
+ (rassoc '("wasysym" t)
+	 org-export-latex-default-packages-alist) "nointegrals")
+
+
 ;; show links as inline images using `iimage-mode'
 (load-library "iimage")
 (add-to-list 'iimage-mode-image-regex-alist
