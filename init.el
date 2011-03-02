@@ -49,7 +49,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(abbrev-mode t)
+ '(abbrev-mode t t)
  '(browse-url-browser-function (quote (("http.*emacswiki.org/.*" . w3m-browse-url) ("." . browse-url-default-browser))))
  '(calendar-date-style (quote iso))
  '(case-fold-search nil)
@@ -61,7 +61,6 @@
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(flyspell-default-dictionary "en_GB")
  '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
  '(inhibit-startup-screen t)
  '(isearch-allow-scroll t)
@@ -87,7 +86,7 @@
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
-(add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib"))
+(add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/yasnippet")
 
 ;; Info directory
