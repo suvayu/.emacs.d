@@ -73,7 +73,7 @@
 ;; org to latex customisations
 ;; hack for error free latex export with amsmath
 ;; remove when defaults are changed in the future
-(add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
+;; (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
 (setcar 
  (rassoc '("wasysym" t)
 	 org-export-latex-default-packages-alist) "nointegrals")
