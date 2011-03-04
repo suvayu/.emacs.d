@@ -185,32 +185,7 @@
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
-;; FIXME:
-;; marking region with `C-M-@' and trying to comment with
-;; `comment-dwim' with `M-;' invokes `delete-region'
-;; same error when marking regions with starting and ending on
-;; the first column and invoking `comment-dwim'.
-;; advising delete-char to delete-region
-;; marking a region from lower row to upper row triggers it
-(defadvice delete-char
-  (around delete-char-maybe (arg &optional killflag))
-  ;; arguments compatible with the arg list for delete-char
-  "If mark is active, run `delete-region' instead."
-  (if (and transient-mark-mode mark-active)
-      (delete-region (region-beginning) (region-end))
-    ad-do-it))
-(ad-activate 'delete-char)
-
-;; advising backward-delete-char-untabify to delete-region
-(defadvice backward-delete-char-untabify
-  (around backward-delete-char-untabify-maybe (arg &optional killflag))
-  ;; arguments compatible with the arg list for backward-delete-char-untabify
-  "If mark is active, run `delete-region' instead."
-  (if (and transient-mark-mode mark-active)
-      (delete-region (region-beginning) (region-end))
-    ad-do-it))
-(ad-activate 'backward-delete-char-untabify)
-
+;; ;; FIXME:
 ;; (defadvice isearch-yank-kill
 ;; (around toggle-case-fold-search-maybe)
 ;; "If case-fold-search is t toggle it. Restore it after isearch finishes."
