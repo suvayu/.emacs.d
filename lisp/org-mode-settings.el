@@ -74,7 +74,7 @@
 ;; hack for error free latex export with amsmath
 ;; remove when defaults are changed in the future
 ;; (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
-(setcar 
+(setcar
  (rassoc '("wasysym" t)
 	 org-export-latex-default-packages-alist) "nointegrals")
 
@@ -130,13 +130,13 @@
 	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
 	 :prepend t :empty-lines 1)
 	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
-	 "** %^{prompt}%^{CATEGORY}p %^G\n\n   %?"
-	 :prepend t :empty-lines 1 :unnarrowed t)
+	 "** %^{prompt}%^{CATEGORY}p\n\n   %?"
+	 :prepend t :empty-lines 1)
 	("r" "Reading material" entry (file+headline "~/org/notes.org" "Reading")
 	 "** %?%^{CATEGORY}p %^G\n   %^t"
-	 :prepend t :empty-lines 1 :unnarrowed t)
+	 :prepend t :empty-lines 1) ; :unnarrowed t
 	("t" "TODO Item" entry (file+headline "~/org/notes.org" "TODOs")
-	 "** %^{prompt|TODO|WInP} %? %^G\n   %^t"
+	 "** %^{prompt|TODO|WInP} %?\n   %^t"
 	 :prepend t :empty-lines 1)
 	))
 
