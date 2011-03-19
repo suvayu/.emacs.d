@@ -17,6 +17,22 @@
 ;; `org-mode' variable customisations
 ;; directory to look for agenda files matching `org-agenda-file-regexp'
 (setq org-agenda-files '("~/org")
+      ;; Custom agenda commands
+      org-agenda-custom-commands '(("p" . "Pending tasks of various kinds")
+				   ("pl" "Pending entries in thesis timeline"
+				    tags "CATEGORY=\"thesis\"+SCHEDULED<\"<today>\"-TODO={DONE\\|CNCL}"
+				    ((org-agenda-overriding-header "Thesis future timeline")
+				     (org-agenda-sorting-strategy (quote (time-up)))))
+				   ("po" "Other pending thesis entries"
+				    tags "CATEGORY=\"thesis\"+TIMESTAMP<\"<today>\""
+				    ((org-agenda-overriding-header "Thesis pointers")
+				     (org-agenda-sorting-strategy (quote (time-up)))))
+				   ("pt" "Pending dated tasks"
+				    tags-todo "TIMESTAMP<\"<today>\"-TODO={DONE\\|CNCL}"
+				    ((org-agenda-overriding-header "Pending tasks")))
+				   ("D" "Progress of PhD apps"
+				    tags "CATEGORY=\"apps\"-TODO={DONE\\|CNCL}"
+				    ((org-agenda-overriding-header "Future tasks for PhD applications"))))
       ;; List of extra files to be searched by text search commands.
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
@@ -62,12 +78,10 @@
       org-refile-use-outline-path 'file
       org-refile-allow-creating-parent-nodes 'confirm
       org-reverse-note-order t
-      ;; org-stuck-projects '("+LEVEL<=2&PROJ/!-DONE" ("CONT" "WInP") nil "")
+      org-stuck-projects '("+LEVEL<=4&+TIMESTAMP<\"<today>\"/-DONE" ("DONE" "FIXD" "CNCL") nil "")
+      org-beamer-environments-extra '("only" "o" "\\only%a{%h%x" "}")
+      ;; not sure about %x above, double check
       )
-      ;; ;; org2blog settings
-      ;; org2blog-server-url "http://suvayu.wordpress.com/xmlrpc.php"
-      ;; org2blog-server-user "suvayu"
-      ;; org2blog-server-weblog-id "")
 
 
 ;; org to latex customisations
@@ -77,6 +91,9 @@
 (setcar
  (rassoc '("wasysym" t)
 	 org-export-latex-default-packages-alist) "nointegrals")
+
+;; (add-to-list 'org-beamer-environments-extra
+;; 	     '("only" "o" "\\only%a{%h%x" "}"))
 
 
 ;; show links as inline images using `iimage-mode'
@@ -128,6 +145,10 @@
 	 "" :unnarrowed t)
 	("mn" "Meeting notes" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
+	 :prepend t :empty-lines 1)
+	("c" "Conferences and Workshops" entry
+	 (file+headline "~/org/meetings.org" "Workshops - Conferences")
+	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n\n   %?"
 	 :prepend t :empty-lines 1)
 	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
 	 "** %^{prompt}%^{CATEGORY}p\n\n   %?"
