@@ -141,6 +141,14 @@
 	))
 
 
+;; compatibility with session.el
+(defadvice session-jump-to-last-change (after org-expand activate compile)
+  "Reveal hidden point after jumping."
+  (when (and (eq major-mode 'org-mode)
+	     (outline-invisible-p))
+    (org-reveal)))
+
+
 ;; changing org-mode behaviour
 ;; defadvising org-mode commands
 (defadvice outline-forward-same-level
