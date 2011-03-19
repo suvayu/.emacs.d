@@ -62,7 +62,7 @@
       org-refile-use-outline-path 'file
       org-refile-allow-creating-parent-nodes 'confirm
       org-reverse-note-order t
-      ;; org-stuck-projects '("+LEVEL<=2&PROJ/!-DONE" ("CONT" "WInP") nil "")
+      org-stuck-projects '("+LEVEL<=4&+TIMESTAMP<\"<today>\"/-DONE" ("DONE" "FIXD" "CNCL") nil "")
       )
 
 
