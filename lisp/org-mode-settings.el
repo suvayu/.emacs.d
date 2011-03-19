@@ -63,6 +63,8 @@
       org-refile-allow-creating-parent-nodes 'confirm
       org-reverse-note-order t
       org-stuck-projects '("+LEVEL<=4&+TIMESTAMP<\"<today>\"/-DONE" ("DONE" "FIXD" "CNCL") nil "")
+      org-beamer-environments-extra '("only" "o" "\\only%a{%h%x" "}")
+      ;; not sure about %x above, double check
       )
 
 
@@ -73,6 +75,9 @@
 (setcar
  (rassoc '("wasysym" t)
 	 org-export-latex-default-packages-alist) "nointegrals")
+
+;; (add-to-list 'org-beamer-environments-extra
+;; 	     '("only" "o" "\\only%a{%h%x" "}"))
 
 
 ;; show links as inline images using `iimage-mode'
