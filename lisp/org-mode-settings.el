@@ -130,6 +130,10 @@
 	("mn" "Meeting notes" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
 	 :prepend t :empty-lines 1)
+	("c" "Conferences and Workshops" entry
+	 (file+headline "~/org/meetings.org" "Workshops - Conferences")
+	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n\n   %?"
+	 :prepend t :empty-lines 1)
 	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
 	 "** %^{prompt}%^{CATEGORY}p\n\n   %?"
 	 :prepend t :empty-lines 1)
