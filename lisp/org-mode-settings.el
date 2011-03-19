@@ -64,10 +64,6 @@
       org-reverse-note-order t
       ;; org-stuck-projects '("+LEVEL<=2&PROJ/!-DONE" ("CONT" "WInP") nil "")
       )
-      ;; ;; org2blog settings
-      ;; org2blog-server-url "http://suvayu.wordpress.com/xmlrpc.php"
-      ;; org2blog-server-user "suvayu"
-      ;; org2blog-server-weblog-id "")
 
 
 ;; org to latex customisations
