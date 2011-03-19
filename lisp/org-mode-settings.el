@@ -17,6 +17,22 @@
 ;; `org-mode' variable customisations
 ;; directory to look for agenda files matching `org-agenda-file-regexp'
 (setq org-agenda-files '("~/org")
+      ;; Custom agenda commands
+      org-agenda-custom-commands '(("p" . "Pending tasks of various kinds")
+				   ("pl" "Pending entries in thesis timeline"
+				    tags "CATEGORY=\"thesis\"+SCHEDULED<\"<today>\"-TODO={DONE\\|CNCL}"
+				    ((org-agenda-overriding-header "Thesis future timeline")
+				     (org-agenda-sorting-strategy (quote (time-up)))))
+				   ("po" "Other pending thesis entries"
+				    tags "CATEGORY=\"thesis\"+TIMESTAMP<\"<today>\""
+				    ((org-agenda-overriding-header "Thesis pointers")
+				     (org-agenda-sorting-strategy (quote (time-up)))))
+				   ("pt" "Pending dated tasks"
+				    tags-todo "TIMESTAMP<\"<today>\"-TODO={DONE\\|CNCL}"
+				    ((org-agenda-overriding-header "Pending tasks")))
+				   ("D" "Progress of PhD apps"
+				    tags "CATEGORY=\"apps\"-TODO={DONE\\|CNCL}"
+				    ((org-agenda-overriding-header "Future tasks for PhD applications"))))
       ;; List of extra files to be searched by text search commands.
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
