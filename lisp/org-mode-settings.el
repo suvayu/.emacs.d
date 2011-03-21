@@ -198,6 +198,15 @@
     (outline-previous-visible-heading arg)))
 (ad-activate 'outline-backward-same-level)
 
+(defadvice org-footnote-action
+  (around org-footnote-action-plain-or-fn (&optional SPECIAL))
+  "Check if in `org-mode', if not use plain footnote style."
+  (if (not (org-mode-p))
+      (let ((org-footnote-auto-label 'plain))
+	ad-do-it)
+    ad-do-it))
+(ad-activate 'org-footnote-action)
+
 
 ;; Keymaps:
 ;; global keymaps
