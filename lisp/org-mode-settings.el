@@ -63,8 +63,11 @@
       org-refile-allow-creating-parent-nodes 'confirm
       org-reverse-note-order t
       org-stuck-projects '("+LEVEL<=4&+TIMESTAMP<\"<today>\"/-DONE" ("DONE" "FIXD" "CNCL") nil "")
-      org-beamer-environments-extra '("only" "o" "\\only%a{%h%x" "}")
-      ;; not sure about %x above, double check
+      org-beamer-environments-extra
+      '(("only" "O" "\\only%a{%x" "}")
+	("onlyH" "H" "\\only%a{%h%x" "}")
+	("visible" "+" "\\visible%a{%h%x" "}")
+	("invisible" "-" "\\invisible%a{%h%x" "}"))
       )
 
 
