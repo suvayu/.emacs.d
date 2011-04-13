@@ -403,20 +403,17 @@
 ;;   (define-key c-mode-base-map '[(C-c d)] doxymacs-))
 
 
-;; ATLAS specific modes
-;; `cmt-mode' for CMT requirements files
-(autoload 'cmt-mode "cmt-mode"
-  "Mode to fontify and syntax highlight buffer while editing CMT requirements file." t)
-(add-to-list 'auto-mode-alist (cons "\\requirements\\'" 'cmt-mode))
+;; ;; ATLAS specific modes
+;; ;; `cmt-mode' for CMT requirements files
+;; (autoload 'cmt-mode "cmt-mode"
+;;   "Mode to fontify and syntax highlight buffer while editing CMT requirements file." t)
+;; (add-to-list 'auto-mode-alist (cons "\\requirements\\'" 'cmt-mode))
 
-;; `han-mode' for HAN configuration files
-(autoload 'han-mode "han-mode"
-  "Major mode for editing HAN configuration files" t)
-(add-to-list 'auto-mode-alist
-	     (cons "\\(run\\|minutes[0-9]\\{1,3\\}\\).config\\'" 'han-mode))
-
-
-
+;; ;; `han-mode' for HAN configuration files
+;; (autoload 'han-mode "han-mode"
+;;   "Major mode for editing HAN configuration files" t)
+;; (add-to-list 'auto-mode-alist
+;; 	     (cons "\\(run\\|minutes[0-9]\\{1,3\\}\\).config\\'" 'han-mode))
 
 
 ;; get directory of a file in the current buffer
