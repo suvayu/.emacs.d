@@ -324,6 +324,8 @@
 ;; session management (not in vanilla Emacs)
 (require 'session)
 (add-hook 'after-init-hook 'session-initialize)
+;; coding system to use when writing `session-save-file'
+(setq session-save-file-coding-system 'utf-8)
 
 
 ;; File associations
