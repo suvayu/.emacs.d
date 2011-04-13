@@ -155,7 +155,7 @@
 ;; narrow-to-region enabled
 (put 'narrow-to-region 'disabled nil)
 ;; window configuration undo support
-(winner-mode t)
+;; (winner-mode t)
 ;; navigate thru windows using M-<arrow>
 (windmove-default-keybindings 'meta)
 ;; Move point to the first non-whitespace character on this line.
