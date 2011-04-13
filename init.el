@@ -417,22 +417,6 @@
 
 
 
-;;; Keyboard macros
-;; kmacro to insert comment block in python
-(fset 'comment-block-python
-      (lambda (&optional arg)
-	"Keyboard macro to insert comment block in python."
-	(interactive "p")
-	(kmacro-exec-ring-item
-	 (quote ([35 21 53 48 45 return 35 return 35 21 53 48 45 return] 0 "%d")) arg)))
-
-;; kmacro to insert a block of comment
-(fset 'block-comment
-      (lambda (&optional arg)
-        "Keyboard macro to insert a block of comment."
-        (interactive "p")
-        (kmacro-exec-ring-item
-         (quote ([47 47 21 51 48 45 return 47 47 45 45 32 return 47 47 21 51 48 45 return] 0 "%d")) arg)))
 
 
 ;; get directory of a file in the current buffer
