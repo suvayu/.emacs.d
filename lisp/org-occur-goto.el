@@ -98,7 +98,10 @@
        (if buf
            (with-current-buffer buf
              (unless (= (buffer-size) 0)
-               (setq marker (occur-mode-find-occurrence)))))))
+               (setq marker (if (eq (line-number-at-pos (point)) 1)
+				(progn (forward-line)
+				       (occur-mode-find-occurrence))
+			      (occur-mode-find-occurrence))))))))
 
    (switch-to-buffer (marker-buffer marker))
    (goto-char marker)
