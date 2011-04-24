@@ -90,7 +90,7 @@
 
      (unwind-protect
          (let ((minibuffer-local-map oog-map))
-           (read-string "string: "))
+           (read-string "string: " nil 'oog-history-list))
 
        (remove-hook 'post-command-hook 'oog-check-input))
 
