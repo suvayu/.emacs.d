@@ -5,6 +5,7 @@
 (require 'google-weather)
 (require 'org-google-weather)
 (require 'org-inlinetask)
+(require 'org-occur-goto)
 ;; (require 'org2blog)
 
 ;;; Code:
