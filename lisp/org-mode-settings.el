@@ -36,8 +36,9 @@
       org-return-follows-link t
       ;; log time for TODO state changes
       org-log-done 'time
-      ;; log time on rescheduling
+      ;; log time on rescheduling and changing deadlines
       org-log-reschedule 'time
+      org-log-redeadline 'time
       ;; To put notes inside LOGBOOK drawer
       org-log-into-drawer t
       ;; turn on speed keys for headlines
