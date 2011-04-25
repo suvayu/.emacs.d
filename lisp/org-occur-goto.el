@@ -91,7 +91,7 @@ keymap `oog-map' to bind alternate keys."
 
      (unwind-protect
          (let ((minibuffer-local-map oog-map))
-           (read-string "string: " nil 'oog-history-list))
+           (read-string "string: "))
 
        (remove-hook 'post-command-hook 'oog-check-input))
 
