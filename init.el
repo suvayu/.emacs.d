@@ -19,6 +19,20 @@
       ;; debug-on-signal t
       ;; debug-on-quit t)
 
+
+;; load path for elisp files
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+(add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
+(add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
+
+;; Info directory
+(add-to-list 'Info-default-directory-list
+	     (expand-file-name "/opt/emacs-lisp/share/info"))
+
+;; Emacs C source directory
+(setq find-function-C-source-directory "~/build/emacs/src")
+
+
 ;; faces
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -73,6 +87,8 @@
  '(safe-local-variable-values (quote ((org-export-allow-BIND . t))))
  '(savehist-mode t nil (savehist))
  '(sentence-end-double-space nil)
+ '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|root.*/include/.+")
+ '(session-use-package t nil (session))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
  '(speedbar-use-images nil)
@@ -83,18 +99,6 @@
  '(w3m-use-cookies t)
  '(windmove-wrap-around t))
 
-;; load path for elisp files
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-(add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
-(add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
-;; (add-to-list 'load-path "~/.emacs.d/lisp/yasnippet")
-
-;; Info directory
-(add-to-list 'Info-default-directory-list
-	     (expand-file-name "/opt/emacs-lisp/share/info"))
-
-;; Emacs C source directory
-(setq find-function-C-source-directory "~/build/emacs/src")
 
 ;; colour themes using color-theme.el
 (load-file "~/.emacs.d/lisp/color-theme-dark-emacs.el")
