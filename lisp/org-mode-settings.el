@@ -84,6 +84,16 @@
 ;; (add-to-list 'org-beamer-environments-extra
 ;; 	     '("only" "o" "\\only%a{%h%x" "}"))
 
+(defun my-org-export-remove-tagged-headlines (tag)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward (concat ":" tag ":") nil t)
+      (delete-region (point-at-bol) (point-at-eol)))))
+
+(add-hook 'org-export-preprocess-hook
+	  (lambda ()
+	    (my-org-export-remove-tagged-headlines "ignoreheading")))
+
 
 ;; show links as inline images using `iimage-mode'
 (load-library "iimage")
