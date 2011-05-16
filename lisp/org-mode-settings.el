@@ -55,6 +55,8 @@
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
       org-hierarchical-todo-statistics nil
+      ;; Block parent TODOs if child is not completed
+      org-enforce-todo-dependencies t
       org-agenda-current-time-string "- - - NOW! - - -"
       org-agenda-time-grid '((daily today)
 			     "----------------"
