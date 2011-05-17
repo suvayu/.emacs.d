@@ -155,7 +155,7 @@
 (setq org-agenda-custom-commands
       '(("p" . "Pending tasks of various kinds")
 	("pl" "Pending entries in thesis timeline"
-	 tags "CATEGORY=\"thesis\"+SCHEDULED<\"<today>\"-TODO={DONE\\|CNCL}"
+	 tags "CATEGORY=\"thesis\"+SCHEDULED<=\"<today>\"-TODO={DONE\\|CNCL}"
 	 ((org-agenda-overriding-header "Thesis future timeline")
 	  (org-agenda-sorting-strategy '(time-up))))
 	("pd" "Thesis deadlines"
@@ -163,7 +163,7 @@
 	 ((org-agenda-overriding-header "Thesis deadlines")
 	  (org-agenda-sorting-strategy '(time-up))))
 	("po" "Other pending thesis entries"
-	 tags "CATEGORY=\"thesis\"+TIMESTAMP<\"<today>\""
+	 tags "CATEGORY=\"thesis\"+TIMESTAMP<=\"<today>\""
 	 ((org-agenda-overriding-header "Thesis pointers")
 	  (org-agenda-sorting-strategy '(time-up))))
 	("pt" "Pending dated tasks"
