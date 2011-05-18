@@ -265,6 +265,8 @@
   ;; (org-defkey org-mode-map (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
   ;; toggle inline images with iimage
   ;; (org-defkey org-mode-map (kbd "") 'org-toggle-inline-images)
+  ;; keybinding for oog (`org-occur-goto') for quick navigation
+  (org-defkey org-mode-map (kbd "C-M-g") 'oog)
   ;; navigating list items
   (org-defkey org-mode-map (kbd "C-c C-x N") 'org-next-item)
   (org-defkey org-mode-map (kbd "C-c C-x P") 'org-previous-item)
