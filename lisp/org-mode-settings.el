@@ -267,6 +267,9 @@
   ;; (org-defkey org-mode-map (kbd "") 'org-toggle-inline-images)
   ;; keybinding for oog (`org-occur-goto') for quick navigation
   (org-defkey org-mode-map (kbd "C-M-g") 'oog)
+  ;; table copy paste
+  (org-defkey org-mode-map (kbd "C-M-w") 'org-table-copy-region)
+  (org-defkey org-mode-map (kbd "C-M-y") 'org-table-paste-rectangle)
   ;; navigating list items
   (org-defkey org-mode-map (kbd "C-c C-x N") 'org-next-item)
   (org-defkey org-mode-map (kbd "C-c C-x P") 'org-previous-item)
