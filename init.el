@@ -169,6 +169,8 @@
 ;; ;; mouse support on an xterm
 ;; (xterm-mouse-mode t)
 
+;; `occur-mode' customisations
+(define-key occur-mode-map (kbd "TAB") 'occur-mode-display-occurrence)
 
 ;; Editing
 ;; prefer utf-8
