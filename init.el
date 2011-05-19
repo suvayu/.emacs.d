@@ -338,10 +338,10 @@
 ;; compose email
 (add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'message-mode))
 
-;; thunderbird external editor mode `tbemail-mode'
-(autoload 'tbemail-mode "tbemail"
-  "Mode to be used with the external editor plugin for Thunderbird." t)
-(add-hook 'tbemail-mode-hook 'my-text-mode-hook)
+;; ;; thunderbird external editor mode `tbemail-mode'
+;; (autoload 'tbemail-mode "tbemail"
+;;   "Mode to be used with the external editor plugin for Thunderbird." t)
+;; (add-hook 'tbemail-mode-hook 'my-text-mode-hook)
 
 
 
