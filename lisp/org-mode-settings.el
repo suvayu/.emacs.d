@@ -46,6 +46,7 @@
       org-use-speed-commands t
       ;; fontify code blocks by default
       org-src-fontify-natively t
+      org-src-tab-acts-natively t
       ;; temporary setting to circumvent bug in texi2dvi
       ;; file a bug report on bugzilla
       ;; debug original value like this
