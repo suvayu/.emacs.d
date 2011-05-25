@@ -106,20 +106,14 @@
 
 ;; reftex setup
 (defun setup-reftex ()
-  "Load and setup `reftex'. Bind \"C-c C-g\" to
-  `reftex-citation'."
+  "Load and setup `reftex'."
   (interactive)
-  (when (and (buffer-file-name)
+  (when (and (not (featurep 'reftex))
+	     (buffer-file-name)
 	     (file-exists-p (buffer-file-name)))
-    (load-library "reftex")
+    (reftex-mode)
     (reftex-parse-all)
-    ;; (reftex-set-cite-format
-    ;;  '((?b . "[[bib::%l]]")		; needs #+LINK: bib file:~/path/to/bibfile.bib::%s
-    ;;    (?c . "\\cite{%l}")
-    ;;    (?l . "\\cite[]{%l}")))	; this one didn't work
-    )
-  (org-defkey org-mode-map "\C-c\C-g" 'reftex-citation)
-  )
+    ))
 
 
 ;; TODO keywords
