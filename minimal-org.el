@@ -1,7 +1,7 @@
 ;;; Minimal setup to load latest `org-mode'
 
 ;;; Code
-(load-file "minimal-init.el")
+(load-file "~/.emacs.d/minimal-init.el")
 
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
@@ -16,6 +16,12 @@
 ;; autoload, useful to check if `org-mode' is loaded
 (autoload 'org-mode-p "org-macs"
   "Check if the current buffer is in Org-mode." t)
+
+(setq org-latex-to-pdf-process
+      '("pdflatex -interaction nonstopmode %b"
+	"/usr/bin/bibtex %b"
+	"pdflatex -interaction nonstopmode %b"
+	"pdflatex -interaction nonstopmode %b"))
 
 ;;; org-mode-settings.el --- complete `org-mode' settings and customisations.
 ;; (load-file "~/.emacs.d/lisp/org-mode-settings.el")

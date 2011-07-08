@@ -5,6 +5,9 @@
       debug-on-signal nil
       debug-on-quit nil)
 
+;; because of XFCE clipboard manager bug
+;; (setq x-select-enable-clipboard-manager nil)
+
 ;; faces
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -33,11 +36,7 @@
  '(windmove-wrap-around t))
 
 ;; load org-mode
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-
-;; Info directory
-(add-to-list 'Info-default-directory-list
-	     (expand-file-name "/opt/emacs-lisp/share/info"))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
 ;; navigate thru windows using M-<arrow>
 (windmove-default-keybindings 'meta)
