@@ -207,6 +207,9 @@
 ;; Skeletons, Templates, Abbreviations and Keyboard Macros ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ;; Load CEDET (do not move later, conflicts with eieio bundled with Emacs 24)
+;; (load-file "~/.emacs.d/lisp/cedet-configs.el")
+
 ;; Skeletons (and abbrev customisations)
 (load-file "~/.emacs.d/lisp/skeletons.el")
 
@@ -334,15 +337,7 @@
 ;; & Emacs Code Browser	and many more customisations ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; load and setup CEDET
-(autoload 'setup-cedet "autoloads"
-  "Setup CEDET if it is already not loaded" t)
-;; (autoload 'semantic-default-elisp-setup "semantic-el"
-;;   "Setup hook function for Emacs Lisp files and Semantic.")
-
-
 ;; Python customisations
-;; (add-hook 'python-mode-hook 'setup-cedet)
 
 ;; Pymacs setup
 (autoload 'pymacs-apply "pymacs")
@@ -356,16 +351,14 @@
 
 ;; Lisp/Elisp customisations
 (defun my-lisp-mode-hook ()
-  (eldoc-mode t)
-  (setup-cedet)
-  )
+  (eldoc-mode t))
 (add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
 
 
 ;; C++ customisations
 ;; force `c++-mode' for `*.h' header files
-(add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
+;; (add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
 
 ;; keybindings
 ;; (defun c-mode-common-keymaps()
@@ -374,16 +367,9 @@
 ;;   (define-key c-mode-base-map (kbd "C-c f") 'c++-for-skel)
 ;;   (define-key c-mode-base-map (kbd "C-c i") 'c++-if-skel))
 
-;; define my-c-mode-common-hook here
-;; include things like (setup-cedet)
 
 ;; hooks
-;; (add-hook 'c-mode-common-hook 'setup-cedet)
 ;; (add-hook 'c-mode-common-hook 'c-mode-common-keymaps)
-(add-hook 'c-mode-common-hook
-	  (lambda ()
-	    (setup-cedet)
-	    ))
 
 ;; Documentation tools
 ;; doxymacs
