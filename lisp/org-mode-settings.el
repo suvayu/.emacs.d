@@ -109,12 +109,17 @@
 (defun setup-reftex ()
   "Load and setup `reftex'."
   (interactive)
-  (when (and (not (featurep 'reftex))
-	     (buffer-file-name)
-	     (file-exists-p (buffer-file-name)))
-    (reftex-mode)
-    (reftex-parse-all)
-    ))
+  ;; (when (and (not (featurep 'reftex))
+  ;; 	     (buffer-file-name)
+  ;; 	     (file-exists-p (buffer-file-name)))
+  ;;   (reftex-mode)
+  ;;   (reftex-parse-all))
+  (load-library "reftex")
+  (and (buffer-file-name)
+       (file-exists-p (buffer-file-name))
+       (reftex-parse-all))
+  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+    )
 
 
 ;; TODO keywords

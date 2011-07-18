@@ -25,9 +25,9 @@
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
 
-;; Info directory
-(add-to-list 'Info-default-directory-list
-	     (expand-file-name "/opt/emacs-lisp/share/info"))
+;; ;; Info directory
+;; (add-to-list 'Info-default-directory-list
+;; 	     (expand-file-name "/opt/emacs-lisp/share/info"))
 
 ;; Emacs C source directory
 (setq find-function-C-source-directory "~/build/emacs/src")
@@ -41,13 +41,14 @@
  ;; If there is more than one, they won't work right.
  '(completions-common-part ((t (:foreground "forest green"))))
  '(completions-first-difference ((t (:bold t :weight bold :foreground "salmon"))))
- '(info-menu-header ((t (:bold t :family "Sans Serif" :foreground "tomato" :weight bold))))
- '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))))
- '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))))
- '(info-xref-visited ((t (:foreground "violet" :underline t :weight bold))))
+ '(info-menu-header ((t (:bold t :family "Sans Serif" :foreground "tomato" :weight bold))) t)
+ '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))) t)
+ '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))) t)
+ '(info-xref-visited ((t (:foreground "violet" :underline t :weight bold))) t)
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :background "snow" :foreground "DodgerBlue4" :weight bold))) t)
  '(org-done ((t (:background "ForestGreen" :foreground "DarkSeaGreen2" :slant oblique :weight bold))))
+ '(org-level-3 ((t (:inherit outline-3 :foreground "sandy brown" :weight bold))))
  '(org-todo ((t (:background "royalblue4" :foreground "thistle" :weight bold))))
  '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
  '(woman-bold ((t (:bold t :weight bold :foreground "forest green"))))
@@ -71,7 +72,6 @@
  '(dabbrev-case-replace nil)
  '(diff-switches "-u")
  '(dired-listing-switches "-alh")
- '(ecb-options-version "2.40")
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
@@ -135,16 +135,15 @@
 ;; hostname and buffer-name in frame title
 ;; code originally written by Michael Albinus
 ;; and a post in emacs-fu.blogspot.com (dotemacs trickery)
-(setq-default
- frame-title-format
- '(:eval
-   (if (string-match-p "^\\*.+\\*$" (buffer-name))
-       "%b" ; buffer name
-     ;; (format "%s@%s:%s"
-     ;; 	(or (file-remote-p default-directory 'user) user-login-name)
-     (format "%s:%s"
-	     (or (file-remote-p default-directory 'host) system-name)
-	     (buffer-name)))))
+(setq-default frame-title-format
+	      '(:eval
+		(if (string-match-p "^\\*.+\\*$" (buffer-name)) "%b" ; buffer name
+		  (format "%s:%s"
+			  (or (file-remote-p default-directory 'host) system-name)
+			  (buffer-name)))))
+		  ;; (format "%s@%s:%s"
+		  ;; 	(or (file-remote-p default-directory 'user) user-login-name)
+
 
 ;; `minimal-mode' customisation
 (load-library "minimal")
@@ -158,8 +157,6 @@
 (put 'scroll-left 'disabled nil)
 ;; narrow-to-region enabled
 (put 'narrow-to-region 'disabled nil)
-;; window configuration undo support
-;; (winner-mode t)
 ;; navigate thru windows using M-<arrow>
 (windmove-default-keybindings 'meta)
 ;; Move point to the first non-whitespace character on this line.
@@ -223,12 +220,6 @@
 	  (lambda ()
 	    (add-hook 'abbrev-expand-functions 'expand-abbrev-in-context nil t)))
 
-;; ;; yasnippet tempaltes
-;; (when (string= (getenv "USER") "jallad")
-;;   (require 'yasnippet)
-;;   (yas/initialize)
-;;   (yas/load-directory "~/.emacs.d/lisp/yasnippet/snippets"))
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -241,8 +232,10 @@
 
 ;; (add-hook 'muse-mode-hook 'my-text-mode-hook)
 (add-hook 'text-mode-hook 'my-text-mode-hook)
-(add-to-list 'auto-mode-alist '("/mutt-" . message-mode))
-(add-to-list 'auto-mode-alist '("/tmpmsg." . message-mode))
+;; File associations (email)
+(add-to-list 'auto-mode-alist '("/mutt-" . message-mode)) ; mutt
+(add-to-list 'auto-mode-alist '("/tmpmsg." . message-mode)) ; claws
+(add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'message-mode)) ; GMail w/ "It's all text!"
 
 ;; w3m
 (add-hook 'w3m-mode-hook 'my-w3m-mode-hook)
@@ -334,16 +327,6 @@
 (setq session-save-file-coding-system 'utf-8)
 
 
-;; File associations
-;; compose email
-(add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'message-mode))
-
-;; ;; thunderbird external editor mode `tbemail-mode'
-;; (autoload 'tbemail-mode "tbemail"
-;;   "Mode to be used with the external editor plugin for Thunderbird." t)
-;; (add-hook 'tbemail-mode-hook 'my-text-mode-hook)
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Development tools:				     ;;
@@ -409,11 +392,12 @@
 ;;   (define-key c-mode-base-map '[(C-c d)] doxymacs-))
 
 
-;; ;; ATLAS specific modes
-;; ;; `cmt-mode' for CMT requirements files
-;; (autoload 'cmt-mode "cmt-mode"
-;;   "Mode to fontify and syntax highlight buffer while editing CMT requirements file." t)
-;; (add-to-list 'auto-mode-alist (cons "\\requirements\\'" 'cmt-mode))
+;; ATLAS specific modes
+;; `cmt-mode' for CMT requirements files
+(autoload 'cmt-mode "cmt-mode"
+  "Mode to fontify and syntax highlight buffer while editing
+ CMT requirements file." t)
+(add-to-list 'auto-mode-alist (cons "\\requirements\\'" 'cmt-mode))
 
 ;; ;; `han-mode' for HAN configuration files
 ;; (autoload 'han-mode "han-mode"
