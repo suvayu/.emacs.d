@@ -82,9 +82,10 @@
  '(iswitchb-mode t)
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point t)
+ '(notmuch-saved-searches (quote (("Orgmode-recent" . "emacs-orgmode.gnu.org and \"$(($(date +%s)-5270400))..$(date +%s)\"") ("Orgmode-new" . "emacs-orgmode.gnu.org and is:unread") ("Orgmode" . "emacs-orgmode.gnu.org") ("inbox" . "tag:inbox") ("unread" . "tag:unread"))))
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/"))))
- '(safe-local-variable-values (quote ((org-export-allow-BIND . t))))
+ '(safe-local-variable-values (quote ((default-input-method . TeX) (org-export-allow-BIND . t))))
  '(savehist-mode t nil (savehist))
  '(sentence-end-double-space nil)
  '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|root.*/include/.+")
@@ -239,6 +240,9 @@
 (add-to-list 'auto-mode-alist '("/mutt-" . message-mode)) ; mutt
 (add-to-list 'auto-mode-alist '("/tmpmsg." . message-mode)) ; claws
 (add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'message-mode)) ; GMail w/ "It's all text!"
+
+;; read emails with notmuch
+(require 'notmuch)
 
 ;; w3m
 (add-hook 'w3m-mode-hook 'my-w3m-mode-hook)

@@ -6,6 +6,7 @@
 (require 'org-google-weather)
 (require 'org-inlinetask)
 (require 'org-occur-goto)
+(require 'org-notmuch)
 ;; (require 'org2blog)
 
 ;;; Code:
