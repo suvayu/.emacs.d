@@ -2,11 +2,21 @@
 
 ;; since using org-mode in ~/build/org-mode
 (require 'org-install)
+(require 'org-inlinetask)
+
+;; Google weather in agenda
 (require 'google-weather)
 (require 'org-google-weather)
-(require 'org-inlinetask)
+
 (require 'org-occur-goto)
+
+;; links to notmuch emails in org
 (require 'org-notmuch)
+
+;; Calendar view for org agenda
+(require 'calfw)
+(require 'calfw-org)
+
 ;; (require 'org2blog)
 
 ;;; Code:
@@ -183,8 +193,6 @@
 	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
 	 :clock-in t :empty-lines 1)
-	("mt" "Add to clocked meeting minutes" item (clock)
-	 "" :unnarrowed t)
 	("mn" "Meeting notes" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
 	 :prepend t :empty-lines 1)
@@ -197,6 +205,10 @@
 	 :prepend t :empty-lines 1)
 	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
 	 "** %^{prompt}%^{CATEGORY}p\n\n   %?"
+	 :prepend t :empty-lines 1)
+	("p" "Schedule a trip" entry
+	 (file+headline "~/org/notes.org" "Trips")
+	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n\n   %?"
 	 :prepend t :empty-lines 1)
 	("r" "Reading material" entry (file+headline "~/org/notes.org" "Reading")
 	 "** %?%^{CATEGORY}p %^G\n   %^t"

@@ -75,6 +75,7 @@
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(egg-buffer-hide-section-type-on-start (quote ((egg-status-buffer-mode . :hunk) (egg-commit-buffer-mode . :hunk))))
  '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
  '(inhibit-startup-screen t)
  '(isearch-allow-scroll t)
@@ -273,6 +274,10 @@
 	  (lambda ()
 	    (turn-on-orgstruct++)))
 
+;; Emacs Got Git (git frontend, magit fork)
+(require 'egg)
+(require 'egg-grep)
+;; (setq egg-auto-update t)
 
 ;; ;; special buffers
 ;; (setq special-display-buffer-names
