@@ -22,16 +22,20 @@
       ;; List of extra files to be searched by text search commands.
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
-	      (directory-files "~/org/Wprime/kfactor" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
-	      (directory-files "~/org/Wprime/note" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
-	      (directory-files "~/org/Wprime/qcdfit_plots" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
-	      (directory-files "~/org/Wprime/recoil_smearing" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
-	      (directory-files "~/org/Wprime/talks" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; notes/results
-	      (directory-files "~/org/masters-thesis" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; thesis org files
+	      (directory-files "~/org/LHCb-CKM-gamma" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; LHCb CKM gamma measurement
+	      ;; (directory-files "~/org/ATLAS-wprime/kfactor" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; ATLAS W'
+	      ;; (directory-files "~/org/ATLAS-wprime/note" t "^[^.#].*\\.\\(org$\\|org_archive\\)")
+	      ;; (directory-files "~/org/ATLAS-wprime/qcdfit_plots" t "^[^.#].*\\.\\(org$\\|org_archive\\)")
+	      ;; (directory-files "~/org/ATLAS-wprime/recoil_smearing" t "^[^.#].*\\.\\(org$\\|org_archive\\)")
+	      ;; (directory-files "~/org/ATLAS-wprime/talks" t "^[^.#].*\\.\\(org$\\|org_archive\\)")
+	      ;; (directory-files "~/org/masters-thesis" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; Master's thesis
 	      (directory-files "~/org/not-physics" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; other stuff
 	      ;; (directory-files "~/org/Worg" t "^[^.#].*\\.org$") ; org files from Worg
 	      ;; (directory-files "~/org" t "^[^.#].*\\.txt$") ; text files in org directory
 	      )
+      ;; open link in same window
+      org-link-frame-setup '((gnus . org-gnus-no-new-news)
+			     (file . find-file))
       ;; modifying behaviour of C-a/<home> & C-e/<end>
       org-special-ctrl-a/e t
       ;; on links `RET' follows the link
@@ -110,17 +114,17 @@
 (defun setup-reftex ()
   "Load and setup `reftex'."
   (interactive)
-  ;; (when (and (not (featurep 'reftex))
-  ;; 	     (buffer-file-name)
-  ;; 	     (file-exists-p (buffer-file-name)))
-  ;;   (reftex-mode)
-  ;;   (reftex-parse-all))
   (load-library "reftex")
   (and (buffer-file-name)
        (file-exists-p (buffer-file-name))
        (reftex-parse-all))
   (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
     )
+  ;; (when (and (not (featurep 'reftex))
+  ;; 	     (buffer-file-name)
+  ;; 	     (file-exists-p (buffer-file-name)))
+  ;;   (reftex-mode)
+  ;;   (reftex-parse-all))
 
 
 ;; TODO keywords
@@ -140,16 +144,10 @@
 	("CNCL" . (:background "snow3" :foreground "black" :weight bold))
 	))
 
-
 ;; TAG faces
 (setq org-tag-faces
       '(("PROJ" :background "indianred3" :foreground "cornsilk2" :weight bold)
 	))
-;; (setq org-tag-persistent-alist
-;;       '(("physics-bug" . 112)
-;; 	("code-bug" . 99)
-;; 	("segfault" . 115)
-;; 	("Project" . 80)))
 
 
 ;; Custom agenda commands
@@ -255,6 +253,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c C-l") 'org-insert-link-global)
+(global-set-key (kbd "C-c C-o") 'org-open-at-point-global)
 (global-set-key (kbd "C-c f") 'org-footnote-action)
 (global-set-key (kbd "C-c b") 'org-switchb)
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -292,13 +291,14 @@
 
 
 ;; org-agenda config
+;; not needed anymore, but kept as an example
 ;; This function is used to insert current time in the agenda buffer
 ;; Thanks to Julien Danjou
-(defun jd:org-current-time ()
-  "Return current-time if date is today."
-  (when (equal date (calendar-current-date))
-    (propertize (format-time-string "%H:%M Current time") 'face
-		'(:weight bold :foreground "DodgerBlue4" :background "snow"))))
+;; (defun jd:org-current-time ()
+;;   "Return current-time if date is today."
+;;   (when (equal date (calendar-current-date))
+;;     (propertize (format-time-string "%H:%M Current time") 'face
+;; 		'(:weight bold :foreground "DodgerBlue4" :background "snow"))))
 
 
 ;; hooks
@@ -312,12 +312,14 @@
 ;; `org-mode' hook
 (defun my-org-mode-hook()
   "My `org-mode' hook."
-   ; (flyspell-mode t)
-   (my-org-mode-keymap)
-   ;; line folding w/o actually folding it, use `M-q' to wrap.
-   (visual-line-mode t)
-   ;; dynamic abbreviations for org-mode
-   (setq local-abbrev-table text-mode-abbrev-table))
+  (local-unset-key (kbd "C-c ["))	; add/remove agenda files
+  (local-unset-key (kbd "C-c ]"))
+  ;; (flyspell-mode t)
+  (my-org-mode-keymap)
+  ;; line folding w/o actually folding it, use `M-q' to wrap.
+  (visual-line-mode t)
+  ;; dynamic abbreviations for org-mode
+  (setq local-abbrev-table text-mode-abbrev-table))
 
 ;; Make windmove work in org-mode with 'shift as modifier:
 (add-hook 'org-shiftup-final-hook 'windmove-up)
