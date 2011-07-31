@@ -35,7 +35,6 @@
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
  '(windmove-wrap-around t))
 
-;; load org-mode
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
 ;; navigate thru windows using M-<arrow>
