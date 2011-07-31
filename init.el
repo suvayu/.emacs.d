@@ -152,7 +152,6 @@
 (setq minimal-zap-mode-line nil)
 (setq minimal-zap-menu-bar nil)
 (minimal-mode)
-(load-library "nifty")
 
 ;; Navigation
 ;; side scrolling on
@@ -241,9 +240,6 @@
 (add-to-list 'auto-mode-alist '("/mutt-" . message-mode)) ; mutt
 (add-to-list 'auto-mode-alist '("/tmpmsg." . message-mode)) ; claws
 (add-to-list 'auto-mode-alist (cons "\\.eml\\'" 'message-mode)) ; GMail w/ "It's all text!"
-
-;; read emails with notmuch
-(require 'notmuch)
 
 ;; w3m
 (add-hook 'w3m-mode-hook 'my-w3m-mode-hook)

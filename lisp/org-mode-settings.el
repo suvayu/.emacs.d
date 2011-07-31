@@ -10,6 +10,8 @@
 
 (require 'org-occur-goto)
 
+;; read emails with notmuch
+(require 'notmuch)
 ;; links to notmuch emails in org
 (require 'org-notmuch)
 
@@ -17,6 +19,8 @@
 (require 'calfw)
 (require 'calfw-org)
 
+;; utilities
+(require 'nifty)
 ;; (require 'org2blog)
 
 ;;; Code:
@@ -32,16 +36,12 @@
       ;; List of extra files to be searched by text search commands.
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
-	      (directory-files "~/org/LHCb-CKM-gamma" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; LHCb CKM gamma measurement
-	      ;; (directory-files "~/org/ATLAS-wprime/kfactor" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; ATLAS W'
-	      ;; (directory-files "~/org/ATLAS-wprime/note" t "^[^.#].*\\.\\(org$\\|org_archive\\)")
-	      ;; (directory-files "~/org/ATLAS-wprime/qcdfit_plots" t "^[^.#].*\\.\\(org$\\|org_archive\\)")
-	      ;; (directory-files "~/org/ATLAS-wprime/recoil_smearing" t "^[^.#].*\\.\\(org$\\|org_archive\\)")
-	      ;; (directory-files "~/org/ATLAS-wprime/talks" t "^[^.#].*\\.\\(org$\\|org_archive\\)")
-	      ;; (directory-files "~/org/masters-thesis" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; Master's thesis
-	      (directory-files "~/org/not-physics" t "^[^.#].*\\.\\(org$\\|org_archive\\)") ; other stuff
-	      ;; (directory-files "~/org/Worg" t "^[^.#].*\\.org$") ; org files from Worg
-	      ;; (directory-files "~/org" t "^[^.#].*\\.txt$") ; text files in org directory
+	      ;; LHCb CKM gamma measurement
+	      (directory-files "~/org/LHCb-CKM-gamma" t
+			       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
+	      ;; other stuff
+	      (directory-files "~/org/not-physics" t
+			       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
 	      )
       ;; open link in same window
       org-link-frame-setup '((gnus . org-gnus-no-new-news)
@@ -66,7 +66,10 @@
       ;; file a bug report on bugzilla
       ;; debug original value like this
       ;; org-latex-to-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f")
-      ;; org-latex-to-pdf-process '("pdflatex %f" "bibtex %f" "pdflatex %f" "pdflatex %f")
+      ;; org-latex-to-pdf-process '("pdflatex -interaction nonstopmode %b"
+      ;; 				 "/usr/bin/bibtex %b"
+      ;; 				 "pdflatex -interaction nonstopmode %b"
+      ;; 				 "pdflatex -interaction nonstopmode %b")
       ;; update TODO cookies recursively
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
@@ -82,7 +85,8 @@
       org-refile-use-outline-path 'file
       org-refile-allow-creating-parent-nodes 'confirm
       org-reverse-note-order t
-      org-stuck-projects '("+LEVEL<=4&+TIMESTAMP<\"<today>\"/-DONE" ("DONE" "FIXD" "CNCL") nil "")
+      org-stuck-projects '("+LEVEL<=2&+TIMESTAMP<\"<today>\"/-DONE"
+			   ("DONE" "FIXD" "CNCL") nil "")
       org-beamer-environments-extra
       '(("only" "O" "\\only%a{%x" "}")
 	("onlyH" "H" "\\only%a{%h%x" "}")
@@ -99,9 +103,7 @@
  (rassoc '("wasysym" t)
 	 org-export-latex-default-packages-alist) "nointegrals")
 
-;; (add-to-list 'org-beamer-environments-extra
-;; 	     '("only" "o" "\\only%a{%h%x" "}"))
-
+;; ignoreheading tag for bibliographies and appendices
 (defun my-org-export-remove-tagged-headlines (tag)
   (save-excursion
     (goto-char (point-min))
