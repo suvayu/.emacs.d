@@ -106,16 +106,91 @@
 	 org-export-latex-default-packages-alist) "nointegrals")
 (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
 
-;; ignoreheading tag for bibliographies and appendices
-(defun my-org-export-remove-tagged-headlines (tag)
-  (save-excursion
-    (goto-char (point-min))
-    (while (re-search-forward (concat ":" tag ":") nil t)
-      (delete-region (point-at-bol) (point-at-eol)))))
+;; include todonotes package for latex export of inlinetasks
+(add-to-list 'org-export-latex-packages-alist
+	     '("backgroundcolor=green!40" "todonotes" nil) t)
+(add-to-list 'org-export-latex-packages-alist
+	     '("" "makerobust" nil) t)
+(add-to-list 'org-export-latex-packages-alist
+	     "\\MakeRobustCommand\\begin" t)
+(add-to-list 'org-export-latex-packages-alist
+	     "\\MakeRobustCommand\\end" t)
+(add-to-list 'org-export-latex-packages-alist
+	     "\\MakeRobustCommand\\item" t)
 
-(add-hook 'org-export-preprocess-hook
-	  (lambda ()
-	    (my-org-export-remove-tagged-headlines "ignoreheading")))
+
+;; export templates for inline tasks
+(setq org-inlinetask-export-templates
+      '((html "<div class=\"%s\"><b>%s%s</b><br />%s</div>"
+	      '("inlinetask"		; (org-entry-get nil "HTML_CONTAINER_CLASS")
+		(unless (eq todo "")
+		  (format "<span class=\"%s %s\">%s%s</span> " class todo todo priority))
+		heading content))
+	;; html template that accepts css style from HTML_CONTAINER_CLASS
+	;; doesn't work for some reason, might be a bug
+	;; (html "<div class=\"%s\"><b>%s%s</b><br />%s</div>"
+	;;       '((org-entry-get nil "HTML_CONTAINER_CLASS")
+	;; 	(unless (eq todo "")
+	;; 	  (format "<span class=\"%s %s\">%s%s</span> " class todo todo priority))
+	;; 	heading content))
+	(latex "\\todo[inline]{\\textbf{%s %s}\\protect\\linebreak{} %s}"
+		 '((unless (eq todo "")
+		     (format "\\textsc{%s%s}" todo priority))
+		   heading content))
+	;; default
+	;; (latex #("\\begin{description}\n\\item[%s%s]~%s\\end{description}" 0 51
+	;; 	 (org-protected t))
+	;;        '((unless (eq todo "")
+	;; 	   (format "\\textsc{%s%s} " todo priority))
+	;; 	 heading content))
+	(ascii "     -- %s%s%s"
+	       '((unless (eq todo "")
+		   (format "%s%s " todo priority))
+		 heading
+		 (unless (eq content "")
+		   (format "\n         ¦ %s" (mapconcat
+					      'identity
+					      (org-split-string content "\n")
+					      "\n         ¦ ")))))
+	(docbook "<variablelist>\n<varlistentry>\n<term>%s%s</term>
+<listitem><para>%s</para></listitem>\n</varlistentry>\n</variablelist>"
+		 ;; newlines entered both as \n or RET
+	  '((unless (eq todo "")
+	      (format "%s%s " todo priority))
+	    heading content))))
+
+;; ignoreheading tag for bibliographies and appendices
+(defun my-org-export-preprocess-hook ()
+  "My backend specific export preprocess hook."
+  (save-excursion
+    (if (eq org-export-current-backend 'latex)
+	(let* ((tag "ignoreheading"))
+	  ;; (goto-char (point-min))
+	  ;; (while (re-search-forward (concat ":" tag ":") nil t)
+	  ;;   (delete-region (point-at-bol) (point-at-eol)))
+	  (org-map-entries (lambda ()
+			     (delete-region (point-at-bol) (point-at-eol)))
+			   (concat ":" tag ":"))))
+    (if (eq org-export-current-backend 'html)
+	(let* ((match "Qn"))
+	  (org-map-entries (lambda ()
+			     (org-set-property "HTML_CONTAINER_CLASS"
+					       "inlinetask"))
+			   match)))))
+
+(add-hook 'org-export-preprocess-hook 'my-org-export-preprocess-hook)
+
+;; (defun my-org-export-final-hook ()
+;;   "My backend specific final export hook."
+;;   (save-excursion
+;;     (if (eq org-export-current-backend 'latex)
+;; 	;; (if (eq buffer-file-coding-system 'utf-8-unix))
+;; 	(progn (re-search-forward "inputenc")
+;; 	       (message "hook")
+;; 	       (beginning-of-line)
+;; 	       (insert "% ")))))
+
+;; (add-hook 'org-export-latex-final-hook 'my-org-export-final-hook t)
 
 
 ;; show links as inline images using `iimage-mode'
@@ -187,6 +262,14 @@
 	 tags "CATEGORY=\"apps\"-TODO={DONE\\|CNCL}"
 	 ((org-agenda-overriding-header "Future tasks for PhD applications")))
 	))
+
+(setq org-agenda-skip-function-global ; skip END entries in inline tasks
+      (lambda ()
+	(when (and (featurep 'org-inlinetask)
+		   (let ((case-fold-search t))
+		     (org-looking-at-p (concat (org-inlinetask-outline-regexp)
+					       "end[ \t]*$"))))
+	  (or (save-excursion (outline-next-heading)) (point-max)))))
 
 
 ;; templates for `org-capture'
