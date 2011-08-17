@@ -397,6 +397,34 @@
     ad-do-it))
 (ad-activate 'org-footnote-action)
 
+;; (defun org-dwim-next()
+;;   "Move to next item or headline. If at an item move to the next
+;;   item otherwise move to next headline."
+;;   (interactive)
+;;   ;; (unless (org-mode-p) (error "Not an `org-mode' buffer"))
+;;   (if (org-in-item-p)
+;;       (org-next-item)
+;;     (outline-next-visible-heading)))
+
+;; sparse-tree-undo minor-mode
+;; (defvar org-tree-state nil
+;;   "Sparse tree state in buffer.")
+;; (make-variable-buffer-local 'org-tree-state)
+
+;; (defvar org-tree-history nil
+;;   "Sparse tree state history in buffer.")
+;; (make-variable-buffer-local 'org-tree-history)
+
+;; (defun sparse-tree-undo()
+;;   "Sparse tree undo"
+;;   (let* ((buf (get-buffer (current-buffer))))
+;;     (save-excursion
+;;       (push )
+;;       (goto-char (point-min))
+;;       (outline-next-visible-heading 1)
+;;       (push (point) org-tree-state)
+
+;;       )))
 
 ;; Keymaps:
 ;; global keymaps
