@@ -242,12 +242,18 @@
 
 ;; Custom agenda commands
 (setq org-agenda-custom-commands
-      '(("p" . "Pending tasks of various kinds")
+      '(("F" "Future meetings"
+	 tags "CATEGORY=\"meetings\"+TIMESTAMP>=\"<today>\"")
+	;; ("g" "Search CKM γ project notes" search "")
+	("p" . "Pending tasks")
+	("pk" "Dated pending tasks"
+	 tags-todo "TIMESTAMP<\"<today>\"-TODO={DONE\\|CNCL}"
+	 ((org-agenda-overriding-header "Pending tasks")))
 	("pl" "Pending entries in thesis timeline"
 	 tags "CATEGORY=\"thesis\"+SCHEDULED<=\"<today>\"-TODO={DONE\\|CNCL}"
 	 ((org-agenda-overriding-header "Thesis future timeline")
 	  (org-agenda-sorting-strategy '(time-up))))
-	("pd" "Thesis deadlines"
+	("pd" "Upcoming thesis deadlines"
 	 tags "CATEGORY=\"thesis\"+DEADLINE<\"<+1m>\"-TODO={DONE\\|CNCL}"
 	 ((org-agenda-overriding-header "Thesis deadlines")
 	  (org-agenda-sorting-strategy '(time-up))))
@@ -255,12 +261,37 @@
 	 tags "CATEGORY=\"thesis\"+TIMESTAMP<=\"<today>\""
 	 ((org-agenda-overriding-header "Thesis pointers")
 	  (org-agenda-sorting-strategy '(time-up))))
-	("pt" "Pending dated tasks"
-	 tags-todo "TIMESTAMP<\"<today>\"-TODO={DONE\\|CNCL}"
-	 ((org-agenda-overriding-header "Pending tasks")))
-	("D" "Progress of PhD apps"
-	 tags "CATEGORY=\"apps\"-TODO={DONE\\|CNCL}"
-	 ((org-agenda-overriding-header "Future tasks for PhD applications")))
+	;; ("R" "Search any arbitrary directory" search ""
+	;;  ((org-agenda-files nil)
+	;;   (org-agenda-text-search-extra-files
+	;;    (find-org-file-recursively))))
+	("W" . "Search Worg")
+	("Wa" "Search all articles" search ""
+	 ((org-agenda-files nil)
+	  (org-agenda-text-search-extra-files
+	   (find-org-file-recursively "~/org/Worg"))))
+	("Wb" "Search babel articles" search ""
+	 ((org-agenda-files nil)
+	  (org-agenda-text-search-extra-files
+	   (find-org-file-recursively "~/org/Worg/org-contrib/babel"))))
+	("Wc" "Search orgmode configuration" search ""
+	 ((org-agenda-files nil)
+	  (org-agenda-text-search-extra-files
+	   (find-org-file-recursively "~/org/Worg/org-configs"))))
+	("Wp" "Search articles on contrib packages" search ""
+	 ((org-agenda-files nil)
+	  (org-agenda-text-search-extra-files
+	   (find-org-file-recursively "~/org/Worg/org-contrib"))))
+	("Wt" "Search tutorials" search ""
+	 ((org-agenda-files nil)
+	  (org-agenda-text-search-extra-files
+	   (find-org-file-recursively "~/org/Worg/org-tutorials"))))
+	("A" "Search ATLAS files" search ""
+	 ((org-agenda-files (list "~/org/analysis.org_archive"))
+	  (org-agenda-text-search-extra-files
+	   (find-org-file-recursively "~/org/ATLAS-wprime"))))
+	;; ("E" . "Search and export to temporary buffer")
+	;; ("Et" "Export tags search result to buffer" org-tags-search-to-buffer "Qn")
 	))
 
 (setq org-agenda-skip-function-global ; skip END entries in inline tasks
@@ -270,6 +301,25 @@
 		     (org-looking-at-p (concat (org-inlinetask-outline-regexp)
 					       "end[ \t]*$"))))
 	  (or (save-excursion (outline-next-heading)) (point-max)))))
+
+;; Export tags search result to a temporary buffer
+(defun org-tags-search-to-buffer(match)
+  "Do a tags search and copy the results to the temporary buffer
+  \"*temp*\"."
+  (interactive "sSearch for: " )
+  (let* ((agenda-files (org-agenda-files t)))
+    (switch-to-buffer "*temp*")
+    (org-mode)
+    (dolist (buf agenda-files)
+      (save-excursion
+	(find-file buf)
+	(org-scan-tags 'sparse-tree (cdr (org-make-tags-matcher match)))
+	(beginning-of-buffer)
+	(while (condition-case nil (org-occur-next-match 1) (error nil))
+	  (if (org-inlinetask-at-task-p) (org-copy-subtree 2)
+	    (org-copy-subtree)) (kill-append "\n" nil)
+	    (append-next-kill))))
+    (switch-to-buffer "*temp*") (goto-char (point-max)) (yank)))
 
 
 ;; templates for `org-capture'
