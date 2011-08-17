@@ -19,6 +19,8 @@
       ;; debug-on-signal t
       ;; debug-on-quit t)
 
+;; set PATH to use standalone texlive instead
+(setenv "PATH" "/opt/texlive/bin/x86_64-linux:$PATH" t)
 
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
@@ -48,6 +50,7 @@
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :background "snow" :foreground "DodgerBlue4" :weight bold))) t)
  '(org-done ((t (:background "ForestGreen" :foreground "DarkSeaGreen2" :slant oblique :weight bold))))
+ '(org-inlinetask ((t (:inherit org-level-8 :slant oblique))))
  '(org-level-3 ((t (:inherit outline-3 :foreground "sandy brown" :weight bold))))
  '(org-todo ((t (:background "royalblue4" :foreground "thistle" :weight bold))))
  '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
@@ -83,13 +86,13 @@
  '(iswitchb-mode t)
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point t)
- '(notmuch-saved-searches (quote (("Orgmode-recent" . "emacs-orgmode.gnu.org and \"$(($(date +%s)-5270400))..$(date +%s)\"") ("Orgmode-new" . "emacs-orgmode.gnu.org and is:unread") ("Orgmode" . "emacs-orgmode.gnu.org") ("inbox" . "tag:inbox") ("unread" . "tag:unread"))))
+ '(notmuch-saved-searches (quote (("Inbox-unread" . "tag:inbox and is:unread") ("NIKHEF" . "tag:nikhef") ("CERN" . "tag:cern") ("lists" . "tag:list") ("Bfys" . "tag:bfys") ("Orgmode-recent" . "emacs-orgmode.gnu.org and \"$(($(date +%s)-5270400))..$(date +%s)\"") ("Orgmode-new" . "emacs-orgmode.gnu.org and is:unread") ("Orgmode" . "emacs-orgmode.gnu.org") ("Inbox" . "tag:inbox") ("unread" . "tag:unread"))))
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/"))))
- '(safe-local-variable-values (quote ((default-input-method . TeX) (org-export-allow-BIND . t))))
+ '(safe-local-variable-values (quote ((org-latex-to-pdf-process "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f") (default-input-method . TeX) (org-export-allow-BIND . t))))
  '(savehist-mode t nil (savehist))
  '(sentence-end-double-space nil)
- '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|root.*/include/.+")
+ '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|root.*/include/.+\\|/usr/include/.+\\|~/.mozilla.*itsalltext.*\\|.+\\.eml")
  '(session-use-package t nil (session))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
@@ -98,6 +101,7 @@
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
+ '(vc-handled-backends (quote (RCS CVS SVN SCCS Bzr Hg Mtn Arch)))
  '(w3m-use-cookies t)
  '(windmove-wrap-around t))
 
@@ -166,6 +170,16 @@
 (define-key global-map (kbd "s-<tab>") 'completion-at-point)
 ;; ;; mouse support on an xterm
 ;; (xterm-mouse-mode t)
+;; minibuffer history completion
+(mapc
+    '(lambda (map)
+       (define-key map [(meta p)] 'previous-complete-history-element)
+       (define-key map [(meta n)] 'next-complete-history-element))
+    (nconc (list minibuffer-local-completion-map
+                 minibuffer-local-isearch-map
+                 minibuffer-local-map
+                 minibuffer-local-must-match-map
+		 minibuffer-local-ns-map)))
 
 ;; `occur-mode' customisations
 (define-key occur-mode-map (kbd "TAB") 'occur-mode-display-occurrence)
@@ -207,6 +221,10 @@
 ;; Emacs pimped up!					   ;;
 ;; Skeletons, Templates, Abbreviations and Keyboard Macros ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Semantic built into Emacs
+(semantic-mode 1)
+(semantic-add-system-include "/usr/include/root/" 'c++-mode)
 
 ;; ;; Load CEDET (do not move later, conflicts with eieio bundled with Emacs 24)
 ;; (load-file "~/.emacs.d/lisp/cedet-configs.el")
@@ -257,7 +275,7 @@
 	  (lambda ()
 	    (font-lock-add-keywords
 	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
-	    (if (vc-working-revision (buffer-file-name))
+	    (if (egg-buf-git-name) ; (vc-working-revision (buffer-file-name))
 		(auto-revert-mode t))
 	    ))
 
@@ -267,12 +285,12 @@
 
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . git-commit-mode))
 (add-hook 'git-commit-mode-hook
-	  (lambda ()
-	    (turn-on-orgstruct++)))
+	  (lambda () (turn-on-orgstruct++)))
 
 ;; Emacs Got Git (git frontend, magit fork)
 (require 'egg)
-(require 'egg-grep)
+(load-library "egg-grep")
+;;(require 'egg-grep) ; require doesn't work as library is not "provided"
 ;; (setq egg-auto-update t)
 
 ;; ;; special buffers
@@ -334,6 +352,8 @@
 ;; coding system to use when writing `session-save-file'
 (setq session-save-file-coding-system 'utf-8)
 
+;; Show clock in the modeline
+(display-time-mode 1)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -363,7 +383,7 @@
 
 ;; C++ customisations
 ;; force `c++-mode' for `*.h' header files
-;; (add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
+(add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
 
 ;; keybindings
 ;; (defun c-mode-common-keymaps()
