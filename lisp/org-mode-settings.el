@@ -87,6 +87,9 @@
       org-reverse-note-order t
       org-stuck-projects '("+LEVEL<=2&+TIMESTAMP<\"<today>\"/-DONE"
 			   ("DONE" "FIXD" "CNCL") nil "")
+      ;; for utf8 support, commented out because this is deprecated
+      ;; recommended solution is to move to luatex or xetex
+      ;; org-export-latex-inputenc-alist '(("utf8" . "utf8x"))
       org-beamer-environments-extra
       '(("only" "O" "\\only%a{%x" "}")
 	("onlyH" "H" "\\only%a{%h%x" "}")
@@ -98,10 +101,10 @@
 ;; org to latex customisations
 ;; hack for error free latex export with amsmath
 ;; remove when defaults are changed in the future
-;; (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
 (setcar
  (rassoc '("wasysym" t)
 	 org-export-latex-default-packages-alist) "nointegrals")
+(add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
 
 ;; ignoreheading tag for bibliographies and appendices
 (defun my-org-export-remove-tagged-headlines (tag)
