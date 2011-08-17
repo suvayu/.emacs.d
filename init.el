@@ -225,12 +225,23 @@
 ;; Semantic built into Emacs
 (semantic-mode 1)
 (semantic-add-system-include "/usr/include/root/" 'c++-mode)
+;; (global-semantic-idle-summary-mode 1)
+(add-to-list 'semantic-inhibit-functions
+	     (lambda () (not (member major-mode '(c-mode c++-mode)))))
 
 ;; ;; Load CEDET (do not move later, conflicts with eieio bundled with Emacs 24)
 ;; (load-file "~/.emacs.d/lisp/cedet-configs.el")
 
 ;; Skeletons (and abbrev customisations)
 (load-file "~/.emacs.d/lisp/skeletons.el")
+
+;; rebind as c-electric overrides global binding
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (local-set-key "(" 'skeleton-pair-insert-maybe)
+	    (local-set-key "{" 'skeleton-pair-insert-maybe)
+	    (local-set-key (kbd "M-RET") 'newline-and-indent)
+	    (c-toggle-auto-newline 1)))
 
 ;; Abbreviations
 ;; location of the abbreviation definition file
