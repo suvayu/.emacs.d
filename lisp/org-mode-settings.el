@@ -325,18 +325,19 @@
 ;; templates for `org-capture'
 (setq org-capture-templates
       '(("m" "Select meeting templates")
-	("mc" "Create a meeting" entry (file+headline "~/org/meetings.org" "Meetings")
+	("ma" "Create appointment" entry (file+headline "~/org/meetings.org" "Meetings")
 	 "** %? %^t%^{CATEGORY}p\n"
-	 :prepend t :empty-lines 1)
+	 :empty-lines 1)
+	("mc" "Create a meeting" entry (file+headline "~/org/meetings.org" "Analysis meetings")
+	 "*** %? %^t\n")
 	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
-	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
+	 "**** %^{prompt} %U%^{CATEGORY}p\n\n%?"
 	 :clock-in t :empty-lines 1)
 	("mn" "Meeting notes" entry (file+datetree "~/org/meetings.org")
-	 "**** %^{prompt} %U%^{CATEGORY}p\n\n     %?"
-	 :prepend t :empty-lines 1)
+	 "**** %^{prompt} %U%^{CATEGORY}p\n\n%?")
 	("c" "Conferences and Workshops" entry
 	 (file+headline "~/org/meetings.org" "Workshops - Conferences")
-	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n\n   %?"
+	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n\n%?"
 	 :prepend t :empty-lines 1)
 	("d" "Add TODO with a DEADLINE" entry (file+headline "~/org/notes.org" "TODOs")
 	 "** %^{prompt|TODO|WInP} %?\n   DEADLINE: %^t"
