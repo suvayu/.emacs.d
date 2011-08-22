@@ -99,11 +99,16 @@
 
 
 ;; org to latex customisations
+;; remove "inputenc" from default packages as it clashes with xelatex
+(setf org-export-latex-default-packages-alist
+      (remove '("AUTO" "inputenc" t) org-export-latex-default-packages-alist))
+;; the sexp below will also work in this case. But it is not robust as it
+;; pops the first element regardless if its a match or not.
+;; (pop org-export-latex-default-packages-alist)
+
 ;; hack for error free latex export with amsmath
 ;; remove when defaults are changed in the future
-(setcar
- (rassoc '("wasysym" t)
-	 org-export-latex-default-packages-alist) "nointegrals")
+(setcar (rassoc '("wasysym" t) org-export-latex-default-packages-alist) "nointegrals")
 (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
 
 ;; include todonotes package for latex export of inlinetasks
@@ -159,11 +164,14 @@
 	      (format "%s%s " todo priority))
 	    heading content))))
 
-;; ignoreheading tag for bibliographies and appendices
+
+;; org export hooks
+;; backend aware export preprocess hook
 (defun my-org-export-preprocess-hook ()
-  "My backend specific export preprocess hook."
+  "My backend aware export preprocess hook."
   (save-excursion
     (if (eq org-export-current-backend 'latex)
+	;; ignoreheading tag for bibliographies and appendices
 	(let* ((tag "ignoreheading"))
 	  ;; (goto-char (point-min))
 	  ;; (while (re-search-forward (concat ":" tag ":") nil t)
@@ -172,11 +180,11 @@
 			     (delete-region (point-at-bol) (point-at-eol)))
 			   (concat ":" tag ":"))))
     (if (eq org-export-current-backend 'html)
+	;; set custom css style class based on matched tag
 	(let* ((match "Qn"))
-	  (org-map-entries (lambda ()
-			     (org-set-property "HTML_CONTAINER_CLASS"
-					       "inlinetask"))
-			   match)))))
+	  (org-map-entries
+	   (lambda () (org-set-property "HTML_CONTAINER_CLASS" "inlinetask"))
+	   match)))))
 
 (add-hook 'org-export-preprocess-hook 'my-org-export-preprocess-hook)
 
