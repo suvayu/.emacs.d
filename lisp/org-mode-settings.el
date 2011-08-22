@@ -369,26 +369,66 @@
 	      (org-reveal))))
 
 
-;; changing org-mode behaviour
-;; defadvising org-mode commands
-(defadvice outline-forward-same-level
-  (around outline-forward-same-level-or-next-visible (arg))
+;; changing org-mode behaviour defadvising org-mode commands
+;; navigation commands
+
+;; don't use defadvise for fundamental commands.
+;; this advice alters basic behaviour, can lead to unpredictable behaviour
+;; (defadvice outline-forward-same-level
+;;   (around outline-forward-same-level-or-next-visible (arg))
+;;   "If its the last outline sibling, move to the next visible outline heading."
+;;   (if (save-excursion
+;; 	 (outline-get-next-sibling))
+;;       ad-do-it
+;;     (outline-next-visible-heading arg)))
+;; (ad-activate 'outline-forward-same-level)
+
+;; (defadvice outline-backward-same-level
+;;   (around outline-backward-same-level-or-previous-visible (arg))
+;;   "If its the last outline sibling, move to the previous visible outline heading."
+;;   (if (save-excursion
+;; 	 (outline-get-last-sibling))
+;;       ad-do-it
+;;     (outline-previous-visible-heading arg)))
+;; (ad-activate 'outline-backward-same-level)
+
+(defun my-outline-forward-same-level (arg)
   "If its the last outline sibling, move to the next visible outline heading."
-  (if (save-excursion
-	 (outline-get-next-sibling))
-      ad-do-it
+  (interactive "p")
+  (if (save-excursion (outline-get-next-sibling))
+      (outline-forward-same-level arg)
     (outline-next-visible-heading arg)))
-(ad-activate 'outline-forward-same-level)
 
-(defadvice outline-backward-same-level
-  (around outline-backward-same-level-or-previous-visible (arg))
+(defun my-outline-backward-same-level (arg)
   "If its the last outline sibling, move to the previous visible outline heading."
-  (if (save-excursion
-	 (outline-get-last-sibling))
-      ad-do-it
+  (interactive "p")
+  (if (save-excursion (outline-get-last-sibling))
+      (outline-backward-same-level arg)
     (outline-previous-visible-heading arg)))
-(ad-activate 'outline-backward-same-level)
 
+(defun org-dwim-next()
+  "Move to next item or headline. If at an item move to the next item
+otherwise move to next headline."
+  (interactive)
+  (unless (org-mode-p) (error "Not an `org-mode' buffer"))
+  (if (org-in-item-p)
+      (if (eq t (condition-case nil (org-next-item)
+                  (error t)))
+	  (outline-next-visible-heading 1))
+    (outline-next-visible-heading 1)))
+
+(defun org-dwim-previous()
+  "Move to next item or headline. If at an item move to the next item
+otherwise move to next headline."
+  (interactive)
+  (unless (org-mode-p) (error "Not an `org-mode' buffer"))
+  (if (org-in-item-p)
+      (if (eq t (condition-case nil (org-previous-item)
+	          (error t)))
+	  (outline-previous-visible-heading 1))
+    (outline-previous-visible-heading 1)))
+
+;; plain text footnotes in non-org-mode buffers
 (defadvice org-footnote-action
   (around org-footnote-action-plain-or-fn (&optional SPECIAL))
   "Check if in `org-mode', if not use plain footnote style."
@@ -398,14 +438,6 @@
     ad-do-it))
 (ad-activate 'org-footnote-action)
 
-;; (defun org-dwim-next()
-;;   "Move to next item or headline. If at an item move to the next
-;;   item otherwise move to next headline."
-;;   (interactive)
-;;   ;; (unless (org-mode-p) (error "Not an `org-mode' buffer"))
-;;   (if (org-in-item-p)
-;;       (org-next-item)
-;;     (outline-next-visible-heading)))
 
 ;; sparse-tree-undo minor-mode
 ;; (defvar org-tree-state nil
@@ -427,7 +459,12 @@
 
 ;;       )))
 
+
 ;; Keymaps:
+;; To specify key combinations use,
+;; + Quoted lisp vectors - '[(C-right)]
+;; + String translated to keyboard events - (kbd "C-<right>")
+
 ;; global keymaps
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -449,22 +486,25 @@
   ;; table copy paste
   (org-defkey org-mode-map (kbd "C-M-w") 'org-table-copy-region)
   (org-defkey org-mode-map (kbd "C-M-y") 'org-table-paste-rectangle)
-  ;; navigating list items
-  (org-defkey org-mode-map (kbd "C-c C-x N") 'org-next-item)
-  (org-defkey org-mode-map (kbd "C-c C-x P") 'org-previous-item)
+  ;; navigating list items / headings depending on context
+  (org-defkey org-mode-map (kbd "<XF86Forward>") 'org-dwim-next)
+  (org-defkey org-mode-map (kbd "<XF86Back>") 'org-dwim-previous)
+  ;; navigating links
+  (org-defkey org-mode-map (kbd "C-c <XF86Forward>") 'org-next-link)
+  (org-defkey org-mode-map (kbd "C-c <XF86Back>") 'org-previous-link)
   ;; navigating headlines
-  (org-defkey org-mode-map (kbd "C-<left>") 'outline-up-heading)
-  ;; (local-set-key '[(C-right)] 'outline-back-to-heading) ; this one is not interactive
-  (org-defkey org-mode-map (kbd "C-<up>") 'outline-previous-visible-heading)
-  (org-defkey org-mode-map (kbd "C-<down>") 'outline-next-visible-heading)
-  (org-defkey org-mode-map (kbd "s-<up>") 'outline-backward-same-level)
-  (org-defkey org-mode-map (kbd "s-<down>") 'outline-forward-same-level))
+  (org-defkey org-mode-map (kbd "C-c <left>") 'outline-up-heading)
+  (org-defkey org-mode-map (kbd "C-c <up>") 'outline-previous-visible-heading)
+  (org-defkey org-mode-map (kbd "C-c <down>") 'outline-next-visible-heading)
+  ;; super / windows key may not work on laptops
+  (org-defkey org-mode-map (kbd "C-<XF86Forward>") 'my-outline-backward-same-level)
+  (org-defkey org-mode-map (kbd "C-<XF86Back>") 'my-outline-forward-same-level))
 
 ;; `org-agenda-mode' keymaps
 (defun my-org-agenda-mode-keymap()
   "My `org-agenda-mode' keymap."
   ;; set property
-  (org-defkey org-agenda-mode-map (kbd "C-p") 'org-agenda-set-property)
+  (org-defkey org-agenda-mode-map (kbd "C-c p") 'org-agenda-set-property)
   ;; month view
   (org-defkey org-agenda-mode-map (kbd "C-c m") 'org-agenda-month-view))
 
@@ -486,6 +526,7 @@
   "My `org-agenda-mode' hook."
   (my-org-agenda-mode-keymap)
   (visual-line-mode t))
+
 (add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
 
 ;; `org-mode' hook
@@ -499,6 +540,8 @@
   (visual-line-mode t)
   ;; dynamic abbreviations for org-mode
   (setq local-abbrev-table text-mode-abbrev-table))
+
+(add-hook 'org-mode-hook 'my-org-mode-hook)
 
 ;; Make windmove work in org-mode with 'shift as modifier:
 (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -525,9 +568,6 @@
 ;; (defun setup-org-babel()
 ;;   (interactive)
 ;;   (org-babel-load-library-of-babel))
-
-;; `org-mode' hook
-(add-hook 'org-mode-hook 'my-org-mode-hook)
 
 
 ;;; org-mode-settings.el ends here
