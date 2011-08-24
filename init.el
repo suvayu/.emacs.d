@@ -228,6 +228,13 @@
 ;; (global-semantic-idle-summary-mode 1)
 (add-to-list 'semantic-inhibit-functions
 	     (lambda () (not (member major-mode '(c-mode c++-mode)))))
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (define-key c-mode-base-map (kbd "C-c ?") 'semantic-ia-complete-symbol)
+	    (define-key c-mode-base-map (kbd "C-c t") 'semantic-ia-complete-tip)
+	    (define-key c-mode-base-map (kbd "C-c v") 'semantic-ia-show-variants)
+	    (define-key c-mode-base-map (kbd "C-c d") 'semantic-ia-show-doc)
+	    (define-key c-mode-base-map (kbd "C-c s") 'semantic-ia-show-summary)))
 
 ;; ;; Load CEDET (do not move later, conflicts with eieio bundled with Emacs 24)
 ;; (load-file "~/.emacs.d/lisp/cedet-configs.el")
