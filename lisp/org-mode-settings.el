@@ -37,7 +37,8 @@
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
 	      ;; LHCb CKM gamma measurement
-	      (directory-files "~/org/LHCb-CKM-gamma" t
+	      ;; (find-org-file-recursively "~/org/LHCb-Bs2Dsh")
+	      (directory-files "~/org/LHCb-Bs2Dsh" t
 			       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
 	      ;; other stuff
 	      (directory-files "~/org/not-physics" t
@@ -91,10 +92,10 @@
       ;; recommended solution is to move to luatex or xetex
       ;; org-export-latex-inputenc-alist '(("utf8" . "utf8x"))
       org-beamer-environments-extra
-      '(("only" "O" "\\only%a{%x" "}")
-	("onlyH" "H" "\\only%a{%h%x" "}")
-	("visible" "+" "\\visible%a{%h%x" "}")
-	("invisible" "-" "\\invisible%a{%h%x" "}"))
+      '(("only"         "O" "\\only%a{%x"            "}")
+	("onlyH" 	"H" "\\only%a{%h%x" 	     "}")
+	("visible" 	"+" "\\visible%a{%h%x" 	     "}")
+	("invisible" 	"-" "\\invisible%a{%h%x"     "}"))
       )
 
 
@@ -505,8 +506,8 @@ otherwise move to next headline."
   (org-defkey org-mode-map (kbd "C-c <up>") 'outline-previous-visible-heading)
   (org-defkey org-mode-map (kbd "C-c <down>") 'outline-next-visible-heading)
   ;; super / windows key may not work on laptops
-  (org-defkey org-mode-map (kbd "C-<XF86Forward>") 'my-outline-backward-same-level)
-  (org-defkey org-mode-map (kbd "C-<XF86Back>") 'my-outline-forward-same-level))
+  (org-defkey org-mode-map (kbd "C-<XF86Back>") 'my-outline-backward-same-level)
+  (org-defkey org-mode-map (kbd "C-<XF86Forward>") 'my-outline-forward-same-level))
 
 ;; `org-agenda-mode' keymaps
 (defun my-org-agenda-mode-keymap()
