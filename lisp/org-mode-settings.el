@@ -126,44 +126,21 @@
 
 
 ;; export templates for inline tasks
-(setq org-inlinetask-export-templates
-      '((html "<div class=\"%s\"><b>%s%s</b><br />%s</div>"
-	      '("inlinetask"		; (org-entry-get nil "HTML_CONTAINER_CLASS")
-		(unless (eq todo "")
-		  (format "<span class=\"%s %s\">%s%s</span> " class todo todo priority))
-		heading content))
-	;; html template that accepts css style from HTML_CONTAINER_CLASS
-	;; doesn't work for some reason, might be a bug
-	;; (html "<div class=\"%s\"><b>%s%s</b><br />%s</div>"
-	;;       '((org-entry-get nil "HTML_CONTAINER_CLASS")
-	;; 	(unless (eq todo "")
-	;; 	  (format "<span class=\"%s %s\">%s%s</span> " class todo todo priority))
-	;; 	heading content))
-	(latex "\\todo[inline]{\\textbf{%s %s}\\protect\\linebreak{} %s}"
-		 '((unless (eq todo "")
-		     (format "\\textsc{%s%s}" todo priority))
-		   heading content))
-	;; default
-	;; (latex #("\\begin{description}\n\\item[%s%s]~%s\\end{description}" 0 51
-	;; 	 (org-protected t))
-	;;        '((unless (eq todo "")
-	;; 	   (format "\\textsc{%s%s} " todo priority))
-	;; 	 heading content))
-	(ascii "     -- %s%s%s"
-	       '((unless (eq todo "")
-		   (format "%s%s " todo priority))
-		 heading
-		 (unless (eq content "")
-		   (format "\n         ¦ %s" (mapconcat
-					      'identity
-					      (org-split-string content "\n")
-					      "\n         ¦ ")))))
-	(docbook "<variablelist>\n<varlistentry>\n<term>%s%s</term>
-<listitem><para>%s</para></listitem>\n</varlistentry>\n</variablelist>"
-		 ;; newlines entered both as \n or RET
-	  '((unless (eq todo "")
-	      (format "%s%s " todo priority))
-	    heading content))))
+(defun org-latex-format-inlinetask (heading content
+					    &optional todo priority tags)
+  "Generate format string for inlinetask export templates for latex."
+  (let ((color (cond ((string-match "QnA" tags)  "color=blue!40")
+		     ((string-match "Qn" tags) "color=yellow!40")
+		     (t ""))))
+    (concat (format "\\todo[inline,%s]{" color)
+	    (unless (eq todo "")
+	      (format "\\textsc{%s%s}" todo priority))
+	    (format "\\textbf{%s}\n" heading)
+	    content "}")))
+
+(setcdr (assoc 'latex org-inlinetask-export-templates)
+	'("%s" '((org-latex-format-inlinetask
+		  heading content todo priority tags))))
 
 
 ;; org export hooks
