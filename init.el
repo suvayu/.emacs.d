@@ -7,7 +7,7 @@
 ;; libraries loaded as required:					 ;;
 ;; 	cedet, semantic, easist						 ;;
 ;; libraries ready to use:						 ;;
-;; 	auto-install, ecb						 ;;
+;; 	auto-install   						         ;;
 ;; 									 ;;
 ;; NB:	the fn to set $ROOTSYS works only for network mounted		 ;;
 ;; 	directories. have to append user@host in front to make		 ;;
@@ -157,6 +157,7 @@
 (setq minimal-zap-menu-bar nil)
 (minimal-mode)
 
+
 ;; Navigation
 ;; side scrolling on
 (put 'scroll-left 'disabled nil)
@@ -164,12 +165,7 @@
 (put 'narrow-to-region 'disabled nil)
 ;; navigate thru windows using M-<arrow>
 (windmove-default-keybindings 'meta)
-;; Move point to the first non-whitespace character on this line.
-(define-key global-map (kbd "s-a") 'back-to-indentation)
-;; Completion
-(define-key global-map (kbd "s-<tab>") 'completion-at-point)
-;; ;; mouse support on an xterm
-;; (xterm-mouse-mode t)
+
 ;; minibuffer history completion
 (mapc
     '(lambda (map)
@@ -183,6 +179,7 @@
 
 ;; `occur-mode' customisations
 (define-key occur-mode-map (kbd "TAB") 'occur-mode-display-occurrence)
+
 
 ;; Editing
 ;; prefer utf-8
@@ -218,16 +215,18 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Emacs pimped up!					   ;;
+;; Emacs pimped up! (development tools)			   ;;
+;; Collection of Emacs Development Environment Tools       ;;
 ;; Skeletons, Templates, Abbreviations and Keyboard Macros ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Semantic built into Emacs
 (semantic-mode 1)
 (semantic-add-system-include "/usr/include/root/" 'c++-mode)
-;; (global-semantic-idle-summary-mode 1)
+
 (add-to-list 'semantic-inhibit-functions
 	     (lambda () (not (member major-mode '(c-mode c++-mode)))))
+
 (add-hook 'c-mode-common-hook
 	  (lambda ()
 	    (define-key c-mode-base-map (kbd "C-c ?") 'semantic-ia-complete-symbol)
@@ -374,11 +373,9 @@
 (display-time-mode 1)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Development tools:				     ;;
-;; Collection of Emacs Development Environment Tools ;;
-;; & Emacs Code Browser	and many more customisations ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Development tools: Pymacs ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Python customisations
 
@@ -435,7 +432,5 @@
 ;; 	     (cons "\\(run\\|minutes[0-9]\\{1,3\\}\\).config\\'" 'han-mode))
 
 
-;; get directory of a file in the current buffer
-;; (file-name-directory buffer-file-name)
 
 ;;; .emacs ends here
