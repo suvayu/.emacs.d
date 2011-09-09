@@ -43,6 +43,7 @@
  ;; If there is more than one, they won't work right.
  '(completions-common-part ((t (:foreground "forest green"))))
  '(completions-first-difference ((t (:bold t :weight bold :foreground "salmon"))))
+ '(font-lock-warning-face ((((type tty)) (:inherit error :weight bold))))
  '(info-menu-header ((t (:bold t :family "Sans Serif" :foreground "tomato" :weight bold))) t)
  '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))) t)
  '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))) t)
@@ -90,6 +91,7 @@
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/"))))
  '(safe-local-variable-values (quote ((org-latex-to-pdf-process "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f") (default-input-method . TeX) (org-export-allow-BIND . t))))
+ '(save-abbrevs nil)
  '(savehist-mode t nil (savehist))
  '(sentence-end-double-space nil)
  '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|root.*/include/.+\\|/usr/include/.+\\|~/.mozilla.*itsalltext.*\\|.+\\.eml")
@@ -250,10 +252,6 @@
 	    (c-toggle-auto-newline 1)))
 
 ;; Abbreviations
-;; location of the abbreviation definition file
-(setq abbrev-file-name (expand-file-name "~/.emacs.d/lisp/abbrev_defs"))
-(setq save-abbrevs nil)
-
 ;; this hook wraps around the `expand-abbrev' function call
 (add-hook 'after-change-major-mode-hook
 	  (lambda ()
