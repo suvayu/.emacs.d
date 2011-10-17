@@ -144,25 +144,75 @@
 
 
 ;; org export hooks
+(defun my-org-export-latex-wrap-todo ()
+  "Wrap heading with arbitrary latex environment."
+  (interactive)
+  (let* ((tags (org-get-tags-string))
+	 (heading (org-get-heading t))	; heading with todo
+	 (content (org-get-entry))
+	 (color (cond ((string-match ":QnA:" tags)  "color=blue!40")
+		      ((string-match ":Qn:" tags) "color=yellow!40"))))
+    (when color
+      (org-mark-subtree)
+      (delete-region (region-beginning) (region-end))
+      (insert (concat
+	       (format "\\todo[inline,%s]{\\textbf{%s}\\protect\\linebreak{}%%\n"
+		       color heading)
+	       (format "%s\n}%%\n" content))))))
+
+;; FIXME: doesn't export markup like /italics/ or *bold* and links properly
+(add-hook 'org-export-preprocess-hook
+	  (lambda ()
+	    (let ((match "QnA|Qn"))
+	      (org-map-entries (lambda () (my-org-export-latex-wrap-todo))
+			       match))))
+
+;; ;; FIXME: doesn't work with tags:nil
+;; (add-hook 'org-export-preprocess-after-blockquote-hook
+;; 	  (lambda ()
+;; 	    (let ((match "QnA|Qn"))
+;; 	      (org-map-entries (lambda () (my-org-export-latex-wrap-todo))
+;; 			       match))))
+
+;; ;; then generalise it
+;; (defun my-org-export-latex-wrap-env () ;envb enve &opt envargs)
+;;   "Wrap heading with arbitrary latex environment."
+;;   (interactive)
+;;   ;; (unless env
+;;   ;;   (setq envb (org-entry-get (point) "LATEX_envb"))
+;;   ;;   (setq enve (org-entry-get (point) "LATEX_enve")))
+;;   ;; (unless envargs
+;;   ;;   (setq envargs (org-entry-get (point) "LATEX_envargs")))
+;;   (let ((env (org-entry-get (point) "LATEX_env"))
+;; 	(envargs (org-entry-get (point) "LATEX_envargs"))
+;; 	(tags (org-get-tags))
+;; 	(heading (org-get-heading t))	; heading with todo
+;; 	(content (org-get-entry)))
+;;     (org-mark-subtree)
+;;     (delete-region (region-beginning) (region-end))
+;;     (insert (concat env "[inline, color=" envargs "]{%\n"
+;; 		    "\\textbf{" heading "}\n"
+;; 		    content "\n}%\n"))))
+
 ;; backend aware export preprocess hook
 (defun my-org-export-preprocess-hook ()
   "My backend aware export preprocess hook."
   (save-excursion
-    (if (eq org-export-current-backend 'latex)
-	;; ignoreheading tag for bibliographies and appendices
-	(let* ((tag "ignoreheading"))
-	  ;; (goto-char (point-min))
-	  ;; (while (re-search-forward (concat ":" tag ":") nil t)
-	  ;;   (delete-region (point-at-bol) (point-at-eol)))
-	  (org-map-entries (lambda ()
-			     (delete-region (point-at-bol) (point-at-eol)))
-			   (concat ":" tag ":"))))
-    (if (eq org-export-current-backend 'html)
-	;; set custom css style class based on matched tag
-	(let* ((match "Qn"))
-	  (org-map-entries
-	   (lambda () (org-set-property "HTML_CONTAINER_CLASS" "inlinetask"))
-	   match)))))
+    (when (eq org-export-current-backend 'latex)
+      ;; ignoreheading tag for bibliographies and appendices
+      (let* ((tag "ignoreheading"))
+	;; (goto-char (point-min))
+	;; (while (re-search-forward (concat ":" tag ":") nil t)
+	;;   (delete-region (point-at-bol) (point-at-eol)))
+	(org-map-entries (lambda ()
+			   (delete-region (point-at-bol) (point-at-eol)))
+			 (concat ":" tag ":"))))
+    (when (eq org-export-current-backend 'html)
+      ;; set custom css style class based on matched tag
+      (let* ((match "Qn"))
+	(org-map-entries
+	 (lambda () (org-set-property "HTML_CONTAINER_CLASS" "inlinetask"))
+	 match)))))
 
 (add-hook 'org-export-preprocess-hook 'my-org-export-preprocess-hook)
 
