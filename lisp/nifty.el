@@ -66,6 +66,22 @@ decrease the transparency, otherwise increase it in 5% steps."
 		   (modify-frame-parameters nil `((alpha . 100)))))
 
 
+;; Transpose org table (from Worg/org-hacks.org by Juan Pechiar)
+(defun org-transpose-table-at-point ()
+  "Transpose orgmode table at point, eliminate hlines"
+  (interactive)
+  (let ((contents
+         (apply #'mapcar* #'list
+                ;; remove 'hline from list
+                (remove-if-not 'listp
+                               ;; signals error if not table
+                               (org-table-to-lisp)))))
+    (delete-region (org-table-begin) (org-table-end))
+    (insert (mapconcat (lambda(x) (concat "| " (mapconcat 'identity x " | " ) "  |\n" ))
+                       contents ""))
+    (org-table-align)))
+
+
 ;; recursively find .org files in provided directory
 ;; modified from an Emacs Lisp Intro example
 (defun find-org-file-recursively (directory)
