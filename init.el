@@ -26,6 +26,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
 
 ;; ;; Info directory
 ;; (add-to-list 'Info-default-directory-list
@@ -416,12 +417,16 @@
 ;;   (define-key c-mode-base-map '[(C-c d)] doxymacs-))
 
 
-;; ATLAS specific modes
+;; HEP specific modes
 ;; `cmt-mode' for CMT requirements files
 (autoload 'cmt-mode "cmt-mode"
   "Mode to fontify and syntax highlight buffer while editing
  CMT requirements file." t)
 (add-to-list 'auto-mode-alist (cons "\\requirements\\'" 'cmt-mode))
+
+;; Mode for EvtGen decay files
+(load-library "lhcb-dec")
+(add-to-list 'auto-mode-alist (cons "\\.dec\\'" 'lhcb-dec))
 
 ;; ;; `han-mode' for HAN configuration files
 ;; (autoload 'han-mode "han-mode"
