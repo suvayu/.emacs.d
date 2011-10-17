@@ -363,9 +363,10 @@
       '(("m" "Select meeting templates")
 	("ma" "Create appointment" entry (file+headline "~/org/meetings.org" "Meetings")
 	 "** %? %^t%^{CATEGORY}p\n"
-	 :empty-lines 1)
-	("mc" "Create a meeting" entry (file+headline "~/org/meetings.org" "Analysis meetings")
-	 "*** %? %^t\n")
+	 :prepend t)
+	("mc" "Create analysis meeting" entry (file+headline "~/org/meetings.org" "Analysis meetings")
+	 "*** %? %^t %^G\n"
+	 :prepend t)
 	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U%^{CATEGORY}p\n\n%?"
 	 :clock-in t :empty-lines 1)
