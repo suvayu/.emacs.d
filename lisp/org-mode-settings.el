@@ -143,29 +143,30 @@
 		  heading content todo priority tags))))
 
 
-;; org export hooks
-(defun my-org-export-latex-wrap-todo ()
-  "Wrap heading with arbitrary latex environment."
-  (interactive)
-  (let* ((tags (org-get-tags-string))
-	 (heading (org-get-heading t))	; heading with todo
-	 (content (org-get-entry))
-	 (color (cond ((string-match ":QnA:" tags)  "color=blue!40")
-		      ((string-match ":Qn:" tags) "color=yellow!40"))))
-    (when color
-      (org-mark-subtree)
-      (delete-region (region-beginning) (region-end))
-      (insert (concat
-	       (format "\\todo[inline,%s]{\\textbf{%s}\\protect\\linebreak{}%%\n"
-		       color heading)
-	       (format "%s\n}%%\n" content))))))
+;; FIXME: interferes with ASCII export of subtree
+;; ;; org export hooks
+;; (defun my-org-export-latex-wrap-todo ()
+;;   "Wrap heading with arbitrary latex environment."
+;;   (interactive)
+;;   (let* ((tags (org-get-tags-string))
+;; 	 (heading (org-get-heading t))	; heading with todo
+;; 	 (content (org-get-entry))
+;; 	 (color (cond ((string-match ":QnA:" tags)  "color=blue!40")
+;; 		      ((string-match ":Qn:" tags) "color=yellow!40"))))
+;;     (when color
+;;       (org-mark-subtree)
+;;       (delete-region (region-beginning) (region-end))
+;;       (insert (concat
+;; 	       (format "\\todo[inline,%s]{\\textbf{%s}\\protect\\linebreak{}%%\n"
+;; 		       color heading)
+;; 	       (format "%s\n}%%\n" content))))))
 
-;; FIXME: doesn't export markup like /italics/ or *bold* and links properly
-(add-hook 'org-export-preprocess-hook
-	  (lambda ()
-	    (let ((match "QnA|Qn"))
-	      (org-map-entries (lambda () (my-org-export-latex-wrap-todo))
-			       match))))
+;; ;; FIXME: doesn't export markup like /italics/ or *bold* and links properly
+;; (add-hook 'org-export-preprocess-hook
+;; 	  (lambda ()
+;; 	    (let ((match "QnA|Qn"))
+;; 	      (org-map-entries (lambda () (my-org-export-latex-wrap-todo))
+;; 			       match))))
 
 ;; ;; FIXME: doesn't work with tags:nil
 ;; (add-hook 'org-export-preprocess-after-blockquote-hook
