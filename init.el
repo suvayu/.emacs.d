@@ -20,7 +20,7 @@
       ;; debug-on-quit t)
 
 ;; set PATH to use standalone texlive instead
-(setenv "PATH" "/opt/texlive/bin/x86_64-linux:$PATH" t)
+(setenv "PATH" "/opt/texlive/2011/bin/x86_64-linux:$PATH" t)
 
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
@@ -104,7 +104,7 @@
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
- '(vc-handled-backends (quote (RCS CVS SVN SCCS Bzr Hg Mtn Arch)))
+ '(vc-handled-backends (quote (Git RCS CVS SVN SCCS Bzr Hg Mtn Arch)))
  '(w3m-use-cookies t)
  '(windmove-wrap-around t))
 
@@ -291,7 +291,7 @@
 	  (lambda ()
 	    (font-lock-add-keywords
 	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
-	    (if (egg-buf-git-name) ; (vc-working-revision (buffer-file-name))
+	    (if (vc-working-revision (buffer-file-name)) ; (egg-buf-git-name)
 		(auto-revert-mode t))
 	    ))
 
@@ -304,8 +304,8 @@
 	  (lambda () (turn-on-orgstruct++)))
 
 ;; Emacs Got Git (git frontend, magit fork)
-(require 'egg)
-(load-library "egg-grep")
+;; (require 'egg)
+;; (load-library "egg-grep")
 ;;(require 'egg-grep) ; require doesn't work as library is not "provided"
 ;; (setq egg-auto-update t)
 
@@ -426,7 +426,7 @@
 
 ;; Mode for EvtGen decay files
 (load-library "lhcb-dec")
-(add-to-list 'auto-mode-alist (cons "\\.dec\\'" 'lhcb-dec))
+(add-to-list 'auto-mode-alist (cons "\\.dec\\'" 'lhcb-dec-mode))
 
 ;; ;; `han-mode' for HAN configuration files
 ;; (autoload 'han-mode "han-mode"
