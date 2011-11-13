@@ -125,18 +125,25 @@
 	     "\\MakeRobustCommand\\item" t)
 
 
-;; export templates for inline tasks
+;; FIXME: export templates for inline tasks
+;; (defun org-latex-format-inlinetask (heading content
+;; 					    &optional todo priority tags)
+;;   "Generate format string for inlinetask export templates for latex."
+;;   (let ((color (cond ((string-match "QnA" tags)  "color=blue!40")
+;; 		     ((string-match "Qn" tags) "color=yellow!40")
+;; 		     (t ""))))
+;;     (concat (format "\\todo[inline,%s]{" color)
+;; 	    (unless (eq todo "")
+;; 	      (format "\\textsc{%s%s}" todo priority))
+;; 	    (format "\\textbf{%s}\n" heading)
+;; 	    content "}")))
+
 (defun org-latex-format-inlinetask (heading content
 					    &optional todo priority tags)
   "Generate format string for inlinetask export templates for latex."
-  (let ((color (cond ((string-match "QnA" tags)  "color=blue!40")
-		     ((string-match "Qn" tags) "color=yellow!40")
-		     (t ""))))
-    (concat (format "\\todo[inline,%s]{" color)
-	    (unless (eq todo "")
-	      (format "\\textsc{%s%s}" todo priority))
-	    (format "\\textbf{%s}\n" heading)
-	    content "}")))
+  (concat "\\todo[inline,]{"
+	  (unless (eq todo "") (format "\\textsc{%s%s}" todo priority))
+	  (format "\\textbf{%s}\n" heading) content "}"))
 
 (setcdr (assoc 'latex org-inlinetask-export-templates)
 	'("%s" '((org-latex-format-inlinetask
@@ -180,7 +187,7 @@
 ;;   "Wrap heading with arbitrary latex environment."
 ;;   (interactive)
 ;;   ;; (unless env
-;;   ;;   (setq envb (org-entry-get (point) "LATEX_envb"))
+;;   ;;   (setq envb (org-entry-get (point) "LATEX_envb")) ; use as (org-entry-get nil "SOME_PROPERTY")
 ;;   ;;   (setq enve (org-entry-get (point) "LATEX_enve")))
 ;;   ;; (unless envargs
 ;;   ;;   (setq envargs (org-entry-get (point) "LATEX_envargs")))
