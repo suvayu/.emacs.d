@@ -376,6 +376,14 @@
 ;; Development tools: Pymacs ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/lisp/dict")
+(add-hook 'c-mode-common-hook
+	  (lambda()
+	    (add-to-list 'ac-sources 'ac-source-semantic)))
+
 ;; Python customisations
 
 ;; Pymacs setup
