@@ -25,9 +25,9 @@
 
 ;;; Code:
 
-;; autoload, useful to check if `org-mode' is loaded
-(autoload 'org-mode-p "org-macs"
-  "Check if the current buffer is in Org-mode." t)
+;; ;; autoload, useful to check if `org-mode' is loaded
+;; (autoload 'org-mode-p "org-macs"
+;;   "Check if the current buffer is in Org-mode." t)
 
 
 ;; `org-mode' variable customisations
@@ -448,7 +448,7 @@
   "Move to next item or headline. If at an item move to the next item
 otherwise move to next headline."
   (interactive)
-  (unless (org-mode-p) (error "Not an `org-mode' buffer"))
+  (unless (eq major-mode 'org-mode) (error "Not an `org-mode' buffer"))
   (if (org-in-item-p)
       (if (eq t (condition-case nil (org-next-item)
                   (error t)))
@@ -459,7 +459,7 @@ otherwise move to next headline."
   "Move to next item or headline. If at an item move to the next item
 otherwise move to next headline."
   (interactive)
-  (unless (org-mode-p) (error "Not an `org-mode' buffer"))
+  (unless (eq major-mode 'org-mode) (error "Not an `org-mode' buffer"))
   (if (org-in-item-p)
       (if (eq t (condition-case nil (org-previous-item)
 	          (error t)))
@@ -470,7 +470,7 @@ otherwise move to next headline."
 (defadvice org-footnote-action
   (around org-footnote-action-plain-or-fn (&optional SPECIAL))
   "Check if in `org-mode', if not use plain footnote style."
-  (if (not (org-mode-p))
+  (if (not (eq major-mode 'org-mode))
       (let ((org-footnote-auto-label 'plain))
 	ad-do-it)
     ad-do-it))

@@ -6,16 +6,11 @@
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
 
-
 ;; activate org
 (require 'org-install)
 ;; (require 'google-weather)
 ;; (require 'org-google-weather)
 ;; (require 'org-inlinetask)
-
-;; autoload, useful to check if `org-mode' is loaded
-(autoload 'org-mode-p "org-macs"
-  "Check if the current buffer is in Org-mode." t)
 
 ;; ;; Default: w/o bibtex
 ;; (setq org-latex-to-pdf-process

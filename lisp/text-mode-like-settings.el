@@ -16,7 +16,7 @@
   "My hook for modes which are like `text-mode'."
   ;; wrap long lines (if the window size is small)
   ;; (toggle-truncate-lines t)
-  (unless (org-mode-p)
+  (unless (eq major-mode 'org-mode)
     ;; turn on orgtbl minor mode
     (turn-on-orgtbl)
     ;; turn on enhanced orgstruct minor mode
