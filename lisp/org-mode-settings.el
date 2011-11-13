@@ -86,8 +86,9 @@
       org-refile-use-outline-path 'file
       org-refile-allow-creating-parent-nodes 'confirm
       org-reverse-note-order t
-      org-stuck-projects '("+LEVEL<=2&+TIMESTAMP<\"<today>\"/-DONE"
-			   ("DONE" "FIXD" "CNCL") nil "")
+      ;; Note that using TODO keyword/tags list matches children tasks
+      org-stuck-projects '("+LEVEL=2&+SCHEDULED<\"<-1m>\"/!-DONE"
+			   nil nil "^\\*\\+ \\+\\(DONE|FIXD|CNCL\\)")
       ;; for utf8 support, commented out because this is deprecated
       ;; recommended solution is to move to luatex or xetex
       ;; org-export-latex-inputenc-alist '(("utf8" . "utf8x"))
@@ -377,32 +378,30 @@
 	 :prepend t)
 	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U%^{CATEGORY}p\n\n%?"
-	 :clock-in t :empty-lines 1)
+	 :clock-in t)
 	("mn" "Meeting notes" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U%^{CATEGORY}p\n\n%?")
-	("c" "Conferences and Workshops" entry
-	 (file+headline "~/org/meetings.org" "Workshops - Conferences")
-	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n\n%?"
-	 :prepend t :empty-lines 1)
+	("c" "Conferences and Workshops" entry (file+headline "~/org/meetings.org" "Workshops - Conferences")
+	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n%?"
+	 :prepend t)
 	("d" "Add TODO with a DEADLINE" entry (file+headline "~/org/notes.org" "TODOs")
-	 "** %^{prompt|TODO|WInP} %?\n   DEADLINE: %^t"
-	 :prepend t :empty-lines 1)
+	 "** TODO %^{prompt}\n   DEADLINE: %^t\n%?"
+	 :prepend t)
 	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
-	 "** %^{prompt}%^{CATEGORY}p\n\n   %?"
-	 :prepend t :empty-lines 1)
-	("p" "Schedule a trip" entry
-	 (file+headline "~/org/notes.org" "Trips")
-	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n\n   %?"
-	 :prepend t :empty-lines 1)
+	 "** %^{prompt}%^{CATEGORY}p\n\n%?"
+	 :prepend t)
+	("p" "Schedule a trip" entry (file+headline "~/org/notes.org" "Trips")
+	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n%?"
+	 :prepend t)
 	("r" "Reading material" entry (file+headline "~/org/notes.org" "Reading")
 	 "** %?%^{CATEGORY}p %^G\n   %^t"
-	 :prepend t :empty-lines 1) ; :unnarrowed t
+	 :prepend t) ; :unnarrowed t
 	("s" "Schedule a TODO Item" entry (file+headline "~/org/notes.org" "TODOs")
-	 "** %^{prompt|TODO|WInP} %?\n   SCHEDULED: %^t"
-	 :prepend t :empty-lines 1)
+	 "** TODO %^{prompt}\n   SCHEDULED: %^t\n%?"
+	 :prepend t)
 	("t" "Regular TODO Item" entry (file+headline "~/org/notes.org" "TODOs")
-	 "** %^{prompt|TODO|WInP} %?\n   %^t"
-	 :prepend t :empty-lines 1)
+	 "** TODO %^{prompt}\n   %^t\n%?"
+	 :prepend t)
 	))
 
 
