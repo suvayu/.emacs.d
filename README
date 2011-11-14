@@ -1,4 +1,31 @@
+# -*- mode: org; -*-
+
+* Purpose of the repo
 Only han-mode.el is written by me, the others are not maintained any
 more and I find them very useful. In some cases I have made some
 customisations of my own. And I have customised org-mode and emacs
 quite a bit, hence this repository. :)
+
+* Disclaimer
+I use several 3rd party libraries. The configuration for these are
+included in this repo, however I don't include them here (as I don't
+want to imply I am one of the authors). The libraries outside the repo
+are simlinked from lisp/. If you want to use them, you will have to
+get them from the corresponding home pages. They are usually available
+from the emacswiki or emacswiki git mirror.
+
+* 3rd party libraries
+Here is an incomprehensive list:
+
+- auto-complete
+- dired-details
+- dired-details-plus
+- doxymacs
+- egg
+- emacs-calfw
+- git-commit-mode
+- google-contacts
+- google-weather-el
+- icicles
+- minimal
+- undo-tree
