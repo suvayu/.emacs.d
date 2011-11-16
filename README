@@ -9,14 +9,16 @@ quite a bit, hence this repository. :)
 * Disclaimer
 I use several 3rd party libraries. The configuration for these are
 included in this repo, however I don't include them here (as I don't
-want to imply I am one of the authors). The libraries outside the repo
-are simlinked from lisp/. If you want to use them, you will have to
-get them from the corresponding home pages. They are usually available
-from the emacswiki or emacswiki git mirror.
+want to imply I am one of the authors) unless the original libraries
+have been orphaned. The libraries outside the repo are simlinked from
+lisp/. If you want to use them, you will have to get them from the
+corresponding home pages. They are usually available from the
+emacswiki or emacswiki git mirror.
 
 * 3rd party libraries
 Here is an incomprehensive list:
 
+Libraries outside the repo:
 - auto-complete
 - dired-details
 - dired-details-plus
@@ -29,3 +31,12 @@ Here is an incomprehensive list:
 - icicles
 - minimal
 - undo-tree
+
+Orphaned libraries:
+- browse-kill-ring
+- session[fn:1]
+
+* Footnotes
+
+[fn:1] Since the homepage for session.el has gone offline, I have
+       added this to the repo just to serve as a mirror.
