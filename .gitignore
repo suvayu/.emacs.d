@@ -27,7 +27,7 @@ google-weather-el/
 git-*
 minimal/
 bookmark*
-dired*
+dired-sort-menu*
 firefox*
 hexrgb*
 icicles*

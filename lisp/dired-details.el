@@ -1,0 +1,1 @@
+../dired-details/dired-details.el
