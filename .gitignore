@@ -47,7 +47,6 @@ themes/
 xml-parse.el
 boxquote.el
 browse-kill-ring+.el
-browse-kill-ring.el
 multi-scratch.el
 tempo-c-cpp.el
 undo-tree.el
