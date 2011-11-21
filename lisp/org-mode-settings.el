@@ -370,21 +370,24 @@
 ;; templates for `org-capture'
 (setq org-capture-templates
       '(("m" "Select meeting templates")
-	("ma" "Create appointment" entry (file+headline "~/org/meetings.org" "Meetings")
+	("mr" "Regular appointment/meeting" entry (file+headline "~/org/meetings.org" "Meetings")
 	 "** %? %^t%^{CATEGORY}p\n"
 	 :prepend t)
-	("mc" "Create analysis meeting" entry (file+headline "~/org/meetings.org" "Analysis meetings")
-	 "*** %? %^t %^G\n"
+	("mb" "Create Bfys meeting" entry (file+headline "~/org/meetings.org" "Bfys meetings")
+	 "*** %? %^t\n"
+	 :prepend t)
+	("ma" "Create analysis meeting" entry (file+headline "~/org/meetings.org" "Analysis meetings")
+	 "*** %? analysis meeting %^t %^G\n"
 	 :prepend t)
 	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
-	 "**** %^{prompt} %U%^{CATEGORY}p\n\n%?"
+	 "**** %^{prompt} %U %^G\n\n%?"
 	 :clock-in t)
 	("mn" "Meeting notes" entry (file+datetree "~/org/meetings.org")
-	 "**** %^{prompt} %U%^{CATEGORY}p\n\n%?")
+	 "**** %^{prompt} %U %^G\n%?")
 	("c" "Conferences and Workshops" entry (file+headline "~/org/meetings.org" "Workshops - Conferences")
 	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n%?"
 	 :prepend t)
-	("d" "Add TODO with a DEADLINE" entry (file+headline "~/org/notes.org" "TODOs")
+	("d" "Add TODO with a DEADLINE" entry (file+headline "~/org/notes.org" "Tasks")
 	 "** TODO %^{prompt}\n   DEADLINE: %^t\n%?"
 	 :prepend t)
 	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
@@ -396,10 +399,10 @@
 	("r" "Reading material" entry (file+headline "~/org/notes.org" "Reading")
 	 "** %?%^{CATEGORY}p %^G\n   %^t"
 	 :prepend t) ; :unnarrowed t
-	("s" "Schedule a TODO Item" entry (file+headline "~/org/notes.org" "TODOs")
+	("s" "Schedule a TODO Item" entry (file+headline "~/org/notes.org" "Tasks")
 	 "** TODO %^{prompt}\n   SCHEDULED: %^t\n%?"
 	 :prepend t)
-	("t" "Regular TODO Item" entry (file+headline "~/org/notes.org" "TODOs")
+	("t" "Regular TODO Item" entry (file+headline "~/org/notes.org" "Tasks")
 	 "** TODO %^{prompt}\n   %^t\n%?"
 	 :prepend t)
 	))
