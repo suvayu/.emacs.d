@@ -57,14 +57,14 @@
     ;; ("ilatex" "src_latex{}" (lambda() (backward-char 1)) 0)
 
 (define-abbrev-table 'basic-text-mode-abbrev-table
-  '(("bg" "background" nil 0)
+  '(("bkg" "background" nil 0)
     ("dist" "distribution" nil 0)
     ("sig" "signal" nil 0))
   "Basic text abbreviation table for all modes.")
 
 (define-abbrev-table 'text-mode-abbrev-table
   '(("Bs" "Bs⁰" nil 0)
-    ("aBs" "anti-Bs⁰" nil 0)
+    ("aBs" "B̄s⁰" nil 0)
     ("ew" "electroweak" nil 0)
     ("MC" "Monte Carlo" nil 0)
     ("SU3" "SU(3)" nil 0)
