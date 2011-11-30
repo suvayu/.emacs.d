@@ -15,9 +15,9 @@
 ;; links to notmuch emails in org
 (require 'org-notmuch)
 
-;; Calendar view for org agenda
-(require 'calfw)
-(require 'calfw-org)
+;; ;; Calendar view for org agenda
+;; (require 'calfw)
+;; (require 'calfw-org)
 
 ;; utilities
 (require 'nifty)
