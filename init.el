@@ -285,13 +285,18 @@
 ;; ANSI colours in Emacs shell
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-;; version control related customisations
-
-;; auto-revert-mode for files under version control
+;; font-lock customisations
 (add-hook 'find-file-hook
 	  (lambda ()
 	    (font-lock-add-keywords
 	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
+	    (font-lock-add-keywords
+	     nil '(("\\<\\(TODO\\):" 1 (org-get-todo-face "TODO") prepend)))))
+
+;; version control related customisations
+;; auto-revert-mode for files under version control
+(add-hook 'find-file-hook
+	  (lambda ()
 	    (if (vc-working-revision (buffer-file-name)) ; (egg-buf-git-name)
 		(auto-revert-mode t))
 	    ))
@@ -384,6 +389,13 @@
 (add-hook 'c-mode-common-hook
 	  (lambda()
 	    (add-to-list 'ac-sources 'ac-source-semantic)))
+
+(require 'ac-math)
+(add-hook 'LaTeX-mode-hook
+	  (lambda()
+	    (add-to-list 'ac-sources 'ac-source-latex-commands)
+	    (add-to-list 'ac-sources 'ac-source-math-latex)))
+(add-to-list 'ac-modes 'latex-mode)
 
 ;; Python customisations
 
