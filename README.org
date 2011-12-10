@@ -18,23 +18,26 @@ emacswiki or emacswiki git mirror.
 * 3rd party libraries
 Here is an incomprehensive list:
 
-Libraries outside the repo:
-- auto-complete
-- dired-details
-- dired-details-plus
-- doxymacs
-- egg
-- emacs-calfw
-- git-commit-mode
-- google-contacts
-- google-weather-el
-- icicles
-- minimal
-- undo-tree
++ Libraries outside the repo:
+  - auto-complete
+  - dired-details
+  - dired-details-plus
+  - doxymacs
+  - git-commit-mode
+  - minimal
+  - undo-tree
 
-Orphaned libraries:
-- browse-kill-ring
-- session[fn:1]
++ Libraries not in lightwt:
+  - ac-math
+  - egg
+  - emacs-calfw
+  - google-contacts
+  - google-weather-el
+  - icicles
+
++ Orphaned libraries:
+  - browse-kill-ring
+  - session[fn:1]
 
 * Footnotes
 
