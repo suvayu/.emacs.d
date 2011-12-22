@@ -200,9 +200,15 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-;; browse-kill-ring (not in vanilla Emacs)
-(require 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
+;; ;; browse-kill-ring (not in vanilla Emacs)
+;; (require 'browse-kill-ring)
+;; (browse-kill-ring-default-keybindings)
+
+;; kill-ring-search
+(autoload 'kill-ring-search "kill-ring-search"
+ "Search the kill ring in the minibuffer."
+ (interactive))
+(global-set-key "\M-\C-y" 'kill-ring-search)
 
 ;; ;; FIXME:
 ;; (defadvice isearch-yank-kill
@@ -251,7 +257,8 @@
 	    (local-set-key "(" 'skeleton-pair-insert-maybe)
 	    (local-set-key "{" 'skeleton-pair-insert-maybe)
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
-	    (c-toggle-auto-newline 1)))
+	    ;; (c-toggle-auto-newline 1)
+	    ))
 
 ;; Abbreviations
 ;; this hook wraps around the `expand-abbrev' function call
