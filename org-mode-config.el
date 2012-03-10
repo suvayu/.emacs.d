@@ -3,6 +3,7 @@
 ;; since using org-mode in ~/build/org-mode
 (require 'org-install)
 (require 'org-inlinetask)
+(require 'org-export)
 
 ;; Google weather in agenda
 (require 'google-weather)
@@ -82,6 +83,7 @@
 			     "----------------"
 			     (800 1000 1200 1400 1600 1800 2000))
       org-google-weather-format "%i %c %L, [%l,%h] %s"
+      ;; org-goto-interface 'outline-path-completion
       org-refile-targets '((org-agenda-files :maxlevel . 5))
       org-refile-use-outline-path 'file
       org-refile-allow-creating-parent-nodes 'confirm
@@ -97,10 +99,20 @@
 	("onlyH" 	"H" "\\only%a{%h%x" 	     "}")
 	("visible" 	"+" "\\visible%a{%h%x" 	     "}")
 	("invisible" 	"-" "\\invisible%a{%h%x"     "}"))
+      ;; convert exported odt to pdf with soffice --convert-to pdf
+      org-export-odt-preferred-output-format "pdf"
       )
 
 
-;; org to latex customisations
+;; org to latex customisations, -shell-escape needed for minted
+(setq org-latex-to-pdf-process		; for regular export
+      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+      org-e-latex-pdf-process		; for experimental org-export
+      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 ;; remove "inputenc" from default packages as it clashes with xelatex
 (setf org-export-latex-default-packages-alist
       (remove '("AUTO" "inputenc" t) org-export-latex-default-packages-alist))
@@ -112,6 +124,15 @@
 ;; remove when defaults are changed in the future
 (setcar (rassoc '("wasysym" t) org-export-latex-default-packages-alist) "nointegrals")
 (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
+(add-to-list 'org-export-latex-packages-alist '("" "xltxtra" t)) ; for export with xelatex
+;; commented for now as preferable to set per file for now
+;; (add-to-list 'org-export-latex-packages-alist '("" "unicode-math" t))
+;; (add-to-list 'org-export-latex-packages-alist
+;; 	     "\\setmathfont{Linux Libertine}" t) ; needed for unicode-math
+
+;; for code block export with minted.sty and python program pygmentize
+(setq org-export-latex-listings 'minted)
+(add-to-list 'org-export-latex-packages-alist '("" "minted"))
 
 ;; include todonotes package for latex export of inlinetasks
 (add-to-list 'org-export-latex-packages-alist
@@ -266,15 +287,14 @@
 ;; @ - time stamp with note
 ;; ! - only time stamp
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "DLAY(l@/!)" "CONT(c!)" "|" "DONE(d@)" "CNCL(n@/!)")
-	(sequence "WInP(w!)" "DBUG(b!)" "|" "CMIT(m@)")
-	(type "PBUG(p@)" "CBUG(r@)" "SEGF(s@/@)" "|" "FIXD(f@/!)")
+      '((sequence "TODO(t)" "WInP(w!)" "DLAY(l@/!)" "|" "DONE(d@)" "CNCL(c@/!)")
+	(type "TEST(e!)" "DBUG(b@)" "LEAK(l@)" "SEGF(s@)" "|" "FIXD(f@/!)")
 	))
 
 ;; TODO keyword faces
 (setq org-todo-keyword-faces
-      '(("PBUG" . (:background "gold" :foreground "indianred3" :weight bold))
-	("CBUG" . (:background "gold" :foreground "indianred3" :weight bold))
+      '(("DBUG" . (:background "gold" :foreground "indianred3" :weight bold))
+	("LEAK" . (:background "gold" :foreground "indianred3" :weight bold))
 	("SEGF" . (:background "gold" :foreground "indianred3" :weight bold))
 	("CNCL" . (:background "snow3" :foreground "black" :weight bold))
 	))
@@ -585,6 +605,8 @@ otherwise move to next headline."
   (my-org-mode-keymap)
   ;; line folding w/o actually folding it, use `M-q' to wrap.
   (visual-line-mode t)
+  ;; imenu for org-mode buffers
+  (imenu-add-to-menubar "Headlines")
   ;; dynamic abbreviations for org-mode
   (setq local-abbrev-table text-mode-abbrev-table))
 
