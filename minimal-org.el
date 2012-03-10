@@ -8,9 +8,6 @@
 
 ;; activate org
 (require 'org-install)
-;; (require 'google-weather)
-;; (require 'org-google-weather)
-;; (require 'org-inlinetask)
 
 ;; ;; Default: w/o bibtex
 ;; (setq org-latex-to-pdf-process
@@ -24,6 +21,3 @@
 ;; 	"/usr/bin/bibtex %b"
 ;; 	"pdflatex -interaction nonstopmode %b"
 ;; 	"pdflatex -interaction nonstopmode %b"))
-
-;;; org-mode-settings.el --- complete `org-mode' settings and customisations.
-;; (load-file "~/.emacs.d/lisp/org-mode-settings.el")
