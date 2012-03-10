@@ -6,7 +6,6 @@
 (setq skeleton-pair t)
 (global-set-key "(" 'skeleton-pair-insert-maybe)
 (global-set-key "{" 'skeleton-pair-insert-maybe)
-(global-set-key "[" 'skeleton-pair-insert-maybe)
 (global-set-key "\"" 'skeleton-pair-insert-maybe)
 
 ;; (defvar skeletons-alist
@@ -53,7 +52,7 @@
 ;;; abbreviation customisations
 
 ;; expand abbrevs in context
-(defun expand-abbrev-in-context (expand)
+(defun sa-expand-abbrev-in-context (expand)
   "Expands abbreviations according to the context. Determines whether within
 comments or source by looking at the face name. If within comments the
 `text-mode-abbrev-table' is used, the major mode abbrev-table is used otherwise.

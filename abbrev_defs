@@ -52,7 +52,10 @@
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
-    ))
+    )
+  "Abbreviation table for `org-mode'. Inherits from
+  `text-mode-abbrev-table'."
+  :parents (list text-mode-abbrev-table))
     ;; ("\(" "\(\)" (lambda() (backward-char 2)) 0)
     ;; ("ilatex" "src_latex{}" (lambda() (backward-char 1)) 0)
 
@@ -73,32 +76,3 @@
   "Abbreviation table for text-mode. Inherits from
   `basic-text-mode-abbrev-table'."
   :parents (list basic-text-mode-abbrev-table))
-
-;; (("Delta" "Δ" nil 0)
-;;     ("Gamma" "Γ" nil 0)
-;;     ("Lambda" "Λ" nil 0)
-;;     ("Omega" "Ω" nil 0)
-;;     ("Phi" "Φ" nil 0)
-;;     ("Pi" "Π" nil 0)
-;;     ("Psi" "Ψ" nil 0)
-;;     ("Sigma" "Σ" nil 0)
-;;     ("Theta" "Θ" nil 0)
-;;     ("alpha" "α" nil 0)
-;;     ("beta" "β" nil 0)
-;;     ("chi" "χ" nil 0)
-;;     ("delta" "δ" nil 0)
-;;     ("epsilon" "ε" nil 0)
-;;     ("eta" "η" nil 0)
-;;     ("gamma" "γ" nil 0)
-;;     ("lambda" "λ" nil 0)
-;;     ("mu" "μ" nil 0)
-;;     ("nu" "ν" nil 0)
-;;     ("omega" "ω" nil 0)
-;;     ("phi" "φ" nil 0)
-;;     ("pi" "π" nil 0)
-;;     ("psi" "ψ" nil 0)
-;;     ("rho" "ρ" nil 0)
-;;     ("sigma" "σ" nil 0)
-;;     ("tau" "τ" nil 0)
-;;     ("theta" "θ" nil 0)
-;;     )
