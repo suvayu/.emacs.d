@@ -148,7 +148,7 @@
 
 
 ;; FIXME: export templates for inline tasks
-;; (defun org-latex-format-inlinetask (heading content
+;; (defun sa-org-latex-format-inlinetask (heading content
 ;; 					    &optional todo priority tags)
 ;;   "Generate format string for inlinetask export templates for latex."
 ;;   (let ((color (cond ((string-match "QnA" tags)  "color=blue!40")
@@ -160,7 +160,7 @@
 ;; 	    (format "\\textbf{%s}\n" heading)
 ;; 	    content "}")))
 
-(defun org-latex-format-inlinetask (heading content
+(defun sa-org-latex-format-inlinetask (heading content
 					    &optional todo priority tags)
   "Generate format string for inlinetask export templates for latex."
   (concat "\\todo[inline,]{"
@@ -168,13 +168,13 @@
 	  (format "\\textbf{%s}\n" heading) content "}"))
 
 (setcdr (assoc 'latex org-inlinetask-export-templates)
-	'("%s" '((org-latex-format-inlinetask
+	'("%s" '((sa-org-latex-format-inlinetask
 		  heading content todo priority tags))))
 
 
 ;; FIXME: interferes with ASCII export of subtree
 ;; ;; org export hooks
-;; (defun my-org-export-latex-wrap-todo ()
+;; (defun sa-org-export-latex-wrap-todo ()
 ;;   "Wrap heading with arbitrary latex environment."
 ;;   (interactive)
 ;;   (let* ((tags (org-get-tags-string))
@@ -194,18 +194,18 @@
 ;; (add-hook 'org-export-preprocess-hook
 ;; 	  (lambda ()
 ;; 	    (let ((match "QnA|Qn"))
-;; 	      (org-map-entries (lambda () (my-org-export-latex-wrap-todo))
+;; 	      (org-map-entries (lambda () (sa-org-export-latex-wrap-todo))
 ;; 			       match))))
 
 ;; ;; FIXME: doesn't work with tags:nil
 ;; (add-hook 'org-export-preprocess-after-blockquote-hook
 ;; 	  (lambda ()
 ;; 	    (let ((match "QnA|Qn"))
-;; 	      (org-map-entries (lambda () (my-org-export-latex-wrap-todo))
+;; 	      (org-map-entries (lambda () (sa-org-export-latex-wrap-todo))
 ;; 			       match))))
 
 ;; ;; then generalise it
-;; (defun my-org-export-latex-wrap-env () ;envb enve &opt envargs)
+;; (defun sa-org-export-latex-wrap-env () ;envb enve &opt envargs)
 ;;   "Wrap heading with arbitrary latex environment."
 ;;   (interactive)
 ;;   ;; (unless env
@@ -225,7 +225,7 @@
 ;; 		    content "\n}%\n"))))
 
 ;; backend aware export preprocess hook
-(defun my-org-export-preprocess-hook ()
+(defun sa-org-export-preprocess-hook ()
   "My backend aware export preprocess hook."
   (save-excursion
     (when (eq org-export-current-backend 'latex)
@@ -244,9 +244,9 @@
 	 (lambda () (org-set-property "HTML_CONTAINER_CLASS" "inlinetask"))
 	 match)))))
 
-(add-hook 'org-export-preprocess-hook 'my-org-export-preprocess-hook)
+(add-hook 'org-export-preprocess-hook 'sa-org-export-preprocess-hook)
 
-;; (defun my-org-export-final-hook ()
+;; (defun sa-org-export-final-hook ()
 ;;   "My backend specific final export hook."
 ;;   (save-excursion
 ;;     (if (eq org-export-current-backend 'latex)
@@ -256,7 +256,7 @@
 ;; 	       (beginning-of-line)
 ;; 	       (insert "% ")))))
 
-;; (add-hook 'org-export-latex-final-hook 'my-org-export-final-hook t)
+;; (add-hook 'org-export-latex-final-hook 'sa-org-export-final-hook t)
 
 
 ;; show links as inline images using `iimage-mode'
@@ -267,7 +267,7 @@
 
 
 ;; reftex setup
-(defun setup-reftex ()
+(defun sa-setup-reftex ()
   "Load and setup `reftex'."
   (interactive)
   (load-library "reftex")
@@ -368,7 +368,7 @@
 	  (or (save-excursion (outline-next-heading)) (point-max)))))
 
 ;; Export tags search result to a temporary buffer
-(defun org-tags-search-to-buffer(match)
+(defun sa-org-tags-search-to-buffer(match)
   "Do a tags search and copy the results to the temporary buffer
   \"*temp*\"."
   (interactive "sSearch for: " )
@@ -459,21 +459,21 @@
 ;;     (outline-previous-visible-heading arg)))
 ;; (ad-activate 'outline-backward-same-level)
 
-(defun my-outline-forward-same-level (arg)
+(defun sa-outline-forward-same-level (arg)
   "If its the last outline sibling, move to the next visible outline heading."
   (interactive "p")
   (if (save-excursion (outline-get-next-sibling))
       (outline-forward-same-level arg)
     (outline-next-visible-heading arg)))
 
-(defun my-outline-backward-same-level (arg)
+(defun sa-outline-backward-same-level (arg)
   "If its the last outline sibling, move to the previous visible outline heading."
   (interactive "p")
   (if (save-excursion (outline-get-last-sibling))
       (outline-backward-same-level arg)
     (outline-previous-visible-heading arg)))
 
-(defun org-dwim-next()
+(defun sa-org-dwim-next()
   "Move to next item or headline. If at an item move to the next item
 otherwise move to next headline."
   (interactive)
@@ -484,7 +484,7 @@ otherwise move to next headline."
 	  (outline-next-visible-heading 1))
     (outline-next-visible-heading 1)))
 
-(defun org-dwim-previous()
+(defun sa-org-dwim-previous()
   "Move to next item or headline. If at an item move to the next item
 otherwise move to next headline."
   (interactive)
@@ -515,7 +515,7 @@ otherwise move to next headline."
 ;;   "Sparse tree state history in buffer.")
 ;; (make-variable-buffer-local 'org-tree-history)
 
-;; (defun sparse-tree-undo()
+;; (defun sa-sparse-tree-undo()
 ;;   "Sparse tree undo"
 ;;   (let* ((buf (get-buffer (current-buffer))))
 ;;     (save-excursion
@@ -542,7 +542,7 @@ otherwise move to next headline."
 (global-set-key (kbd "C-c c") 'org-capture)
 
 ;; `org-mode' keymaps
-(defun my-org-mode-keymap()
+(defun sa-org-mode-keymap()
   "My `org-mode' keymap."
   ;; ;; overload default `fill-paragraph' keybind to use org specific command
   ;; (org-defkey org-mode-map (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
@@ -554,8 +554,8 @@ otherwise move to next headline."
   (org-defkey org-mode-map (kbd "C-M-w") 'org-table-copy-region)
   (org-defkey org-mode-map (kbd "C-M-y") 'org-table-paste-rectangle)
   ;; navigating list items / headings depending on context
-  (org-defkey org-mode-map (kbd "<XF86Forward>") 'org-dwim-next)
-  (org-defkey org-mode-map (kbd "<XF86Back>") 'org-dwim-previous)
+  (org-defkey org-mode-map (kbd "<XF86Forward>") 'sa-org-dwim-next)
+  (org-defkey org-mode-map (kbd "<XF86Back>") 'sa-org-dwim-previous)
   ;; navigating links
   (org-defkey org-mode-map (kbd "C-c <XF86Forward>") 'org-next-link)
   (org-defkey org-mode-map (kbd "C-c <XF86Back>") 'org-previous-link)
@@ -564,11 +564,11 @@ otherwise move to next headline."
   (org-defkey org-mode-map (kbd "C-c <up>") 'outline-previous-visible-heading)
   (org-defkey org-mode-map (kbd "C-c <down>") 'outline-next-visible-heading)
   ;; super / windows key may not work on laptops
-  (org-defkey org-mode-map (kbd "C-<XF86Back>") 'my-outline-backward-same-level)
-  (org-defkey org-mode-map (kbd "C-<XF86Forward>") 'my-outline-forward-same-level))
+  (org-defkey org-mode-map (kbd "C-<XF86Back>") 'sa-outline-backward-same-level)
+  (org-defkey org-mode-map (kbd "C-<XF86Forward>") 'sa-outline-forward-same-level))
 
 ;; `org-agenda-mode' keymaps
-(defun my-org-agenda-mode-keymap()
+(defun sa-org-agenda-mode-keymap()
   "My `org-agenda-mode' keymap."
   ;; set property
   (org-defkey org-agenda-mode-map (kbd "C-c p") 'org-agenda-set-property)
@@ -589,20 +589,20 @@ otherwise move to next headline."
 
 ;; hooks
 ;; `org-agenda-mode' hook
-(defun my-org-agenda-mode-hook()
+(defun sa-org-agenda-mode-hook()
   "My `org-agenda-mode' hook."
-  (my-org-agenda-mode-keymap)
+  (sa-org-agenda-mode-keymap)
   (visual-line-mode t))
 
-(add-hook 'org-agenda-mode-hook 'my-org-agenda-mode-hook)
+(add-hook 'org-agenda-mode-hook 'sa-org-agenda-mode-hook)
 
 ;; `org-mode' hook
-(defun my-org-mode-hook()
+(defun sa-org-mode-hook()
   "My `org-mode' hook."
   (local-unset-key (kbd "C-c ["))	; add/remove agenda files
   (local-unset-key (kbd "C-c ]"))
   ;; (flyspell-mode t)
-  (my-org-mode-keymap)
+  (sa-org-mode-keymap)
   ;; line folding w/o actually folding it, use `M-q' to wrap.
   (visual-line-mode t)
   ;; imenu for org-mode buffers
@@ -610,7 +610,7 @@ otherwise move to next headline."
   ;; dynamic abbreviations for org-mode
   (setq local-abbrev-table text-mode-abbrev-table))
 
-(add-hook 'org-mode-hook 'my-org-mode-hook)
+(add-hook 'org-mode-hook 'sa-org-mode-hook)
 
 ;; Make windmove work in org-mode with 'shift as modifier:
 (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -634,7 +634,7 @@ otherwise move to next headline."
    (ruby . t)
    (sh . t)))
 
-;; (defun setup-org-babel()
+;; (defun sa-setup-org-babel()
 ;;   (interactive)
 ;;   (org-babel-load-library-of-babel))
 
