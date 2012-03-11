@@ -495,16 +495,6 @@ otherwise move to next headline."
 	  (outline-previous-visible-heading 1))
     (outline-previous-visible-heading 1)))
 
-;; plain text footnotes in non-org-mode buffers
-(defadvice org-footnote-action
-  (around org-footnote-action-plain-or-fn (&optional SPECIAL))
-  "Check if in `org-mode', if not use plain footnote style."
-  (if (not (eq major-mode 'org-mode))
-      (let ((org-footnote-auto-label 'plain))
-	ad-do-it)
-    ad-do-it))
-(ad-activate 'org-footnote-action)
-
 
 ;; sparse-tree-undo minor-mode
 ;; (defvar org-tree-state nil
@@ -537,7 +527,6 @@ otherwise move to next headline."
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c C-l") 'org-insert-link-global)
 (global-set-key (kbd "C-c C-o") 'org-open-at-point-global)
-(global-set-key (kbd "C-c f") 'org-footnote-action)
 (global-set-key (kbd "C-c b") 'org-switchb)
 (global-set-key (kbd "C-c c") 'org-capture)
 

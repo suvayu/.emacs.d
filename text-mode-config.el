@@ -3,6 +3,17 @@
 
 ;;; Code:
 
+;; plain text footnotes in non-org-mode buffers
+(defadvice org-footnote-action
+  (around org-footnote-action-plain-or-fn (&optional SPECIAL))
+  "Check if in `org-mode', if not use plain footnote style."
+  (if (not (eq major-mode 'org-mode))
+      (let ((org-footnote-auto-label 'plain))
+	ad-do-it)
+    ad-do-it))
+(ad-activate 'org-footnote-action)
+(global-set-key (kbd "C-c f") 'org-footnote-action)
+
 ;; text-mode hook
 (defun sa-text-mode-hook()
   "My hook for modes which are like `text-mode'."
