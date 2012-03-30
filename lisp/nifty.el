@@ -97,36 +97,30 @@ decrease the transparency, otherwise increase it in 5% steps."
 
 ;; recursively find .org files in provided directory
 ;; modified from an Emacs Lisp Intro example
-(defun find-org-file-recursively (directory)
-  "Return .org files recursively from DIRECTORY."
+(defun find-org-file-recursively (directory &optional filext)
+  "Return .org and .org_archive files recursively from DIRECTORY.
+If FILEXT is provided, return FILEXT files instead."
   (interactive "DDirectory name: ")
   ;; Bind variables
   ;; (if (not (boundp 'directory))
   ;;     (setq directory (read-directory-name "Directory to search: ")))
   (let* (org-file-list
-	 (cur-dir-list (directory-files directory t)))
+	 (case-fold-search t)		; filesystems are case sensitive
+	 (fileregex (if filext (format "^[^.#].*\\.\\(%s$\\)" filext)
+		      "^[^.#].*\\.\\(org$\\|org_archive$\\)"))
+	 (cur-dir-list (directory-files directory t "^[^.#].*"))) ; exclude .*
     ;; loop over directory listing
-    (dolist (file-or-dir cur-dir-list org-file-list)
+    (dolist (file-or-dir cur-dir-list org-file-list) ; returns org-file-list
       (cond
-       ;; find org file
-       ((string-equal "org" (file-name-extension file-or-dir))
-	(setq org-file-list (cons file-or-dir org-file-list)))
-       ;; recurse into directory if not . or ..
-       ((and (file-directory-p file-or-dir)
-	     (not (or (string-equal "." (file-name-nondirectory file-or-dir))
-		      (string-equal ".." (file-name-nondirectory file-or-dir)))))
-	(setq org-file-list
-	      (append (find-org-file-recursively file-or-dir)
-		      org-file-list)))))))
+       ((file-regular-p file-or-dir) ; regular files
+	(if (string-match fileregex file-or-dir) ; org files
+	    (add-to-list 'org-file-list file-or-dir)))
+       ((file-directory-p file-or-dir)
+	(dolist (org-file
+		 (find-org-file-recursively file-or-dir) org-file-list) ; filext
+	  (add-to-list 'org-file-list org-file))
+	)))))
 
-;; (let* ((mslist (find-org-file-recursively "~/org/masters-thesis"))
-;;        (ntlist (find-org-file-recursively "~/org/ATLAS-wprime"))
-;;        (biglist (append mslist ntlist))
-;;        (counter 0))
-;;   (dolist (item biglist)
-;;     (set 'counter (+ 1 counter))
-;;     (message "%d %s" counter item))
-;;   )
 
 (provide 'nifty)
 
