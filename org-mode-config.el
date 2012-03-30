@@ -24,6 +24,9 @@
 (require 'nifty)
 ;; (require 'org2blog)
 
+;; temporary solution to latex export issue
+(load "tex")
+
 ;;; Code:
 
 ;; ;; autoload, useful to check if `org-mode' is loaded
@@ -101,18 +104,22 @@
 	("invisible" 	"-" "\\invisible%a{%h%x"     "}"))
       ;; convert exported odt to pdf with soffice --convert-to pdf
       org-export-odt-preferred-output-format "pdf"
+      ;; to circumvent reliance on Apache config, solution by Seb:
+      ;; http://thread.gmane.org/gmane.emacs.orgmode/53856/focus=53875
+      org-export-html-xml-declaration
+      '(("html" . "<!-- <xml version=\"1.0\" encoding=\"utf-8\"> -->"))
       )
 
 
 ;; org to latex customisations, -shell-escape needed for minted
-(setq org-latex-to-pdf-process		; for regular export
-      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
-      org-e-latex-pdf-process		; for experimental org-export
-      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+;; (setq org-latex-to-pdf-process		; for regular export
+;;       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;; 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;; 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+;;       org-e-latex-pdf-process		; for experimental org-export
+;;       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;; 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;; 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 ;; remove "inputenc" from default packages as it clashes with xelatex
 (setf org-export-latex-default-packages-alist
       (remove '("AUTO" "inputenc" t) org-export-latex-default-packages-alist))
@@ -124,7 +131,7 @@
 ;; remove when defaults are changed in the future
 (setcar (rassoc '("wasysym" t) org-export-latex-default-packages-alist) "nointegrals")
 (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
-(add-to-list 'org-export-latex-packages-alist '("" "xltxtra" t)) ; for export with xelatex
+;; (add-to-list 'org-export-latex-packages-alist '("" "xltxtra" t)) ; for export with xelatex
 ;; commented for now as preferable to set per file for now
 ;; (add-to-list 'org-export-latex-packages-alist '("" "unicode-math" t))
 ;; (add-to-list 'org-export-latex-packages-alist
