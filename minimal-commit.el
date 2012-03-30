@@ -1,12 +1,5 @@
-;; set PATH to use standalone texlive instead
-(setenv "PATH" "/opt/texlive/2011/bin/x86_64-linux:$PATH" t)
-
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-
-;; Info directory
-(add-to-list 'Info-default-directory-list
-	     (expand-file-name "/opt/emacs-lisp/share/info"))
 
 
 ;; faces
@@ -23,10 +16,6 @@
  '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))))
  '(info-xref-visited ((t (:foreground "violet" :underline t :weight bold))))
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
- '(org-agenda-current-time ((t (:inherit org-time-grid :background "snow" :foreground "DodgerBlue4" :weight bold))) t)
- '(org-done ((t (:background "ForestGreen" :foreground "DarkSeaGreen2" :slant oblique :weight bold))))
- '(org-inlinetask ((t (:inherit org-level-8 :slant oblique))))
- '(org-level-3 ((t (:inherit outline-3 :foreground "sandy brown" :weight bold))))
  '(org-todo ((t (:background "royalblue4" :foreground "thistle" :weight bold))))
  '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
  '(woman-bold ((t (:bold t :weight bold :foreground "forest green"))))
@@ -56,7 +45,6 @@
  '(iswitchb-mode t)
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point t)
- '(notmuch-saved-searches (quote (("Inbox-unread" . "tag:inbox and is:unread") ("NIKHEF" . "tag:nikhef") ("CERN" . "tag:cern") ("lists" . "tag:list") ("Bfys" . "tag:bfys") ("Orgmode" . "tag:org") ("Inbox" . "tag:inbox") ("unread" . "tag:unread"))))
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(save-abbrevs nil)
  '(savehist-mode t nil (savehist))
