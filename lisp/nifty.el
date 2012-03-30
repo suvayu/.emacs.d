@@ -6,6 +6,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;; For MakeClass code
+(defun sa-conv(beg end)
+  "Add SetBranchAddress(...)."
+  (interactive "r")
+  (save-excursion
+    (if (> beg end) (let* (mid) (setq mid beg beg end end mid)))
+    (goto-char beg)
+    (while (re-search-forward
+	    "\\( \+\\)T\\(Branch\\) \+\\*\\(b_\\)\\([a-zA-Z_0-9]\+\\)\\(\\[[\]\[0-9]\+]\\)\*;" nil t)
+      (replace-match "\\1fChain->Set\\2Address(\"\\4\", &\\4, &\\3\\4);" t))))
+
 ;; make ATLAS GoodRunList
 (defun make-GRL (beg end)
   "Convert the marked region of a ATLAS GoodRunList XML to C
@@ -77,8 +88,10 @@ decrease the transparency, otherwise increase it in 5% steps."
                                ;; signals error if not table
                                (org-table-to-lisp)))))
     (delete-region (org-table-begin) (org-table-end))
-    (insert (mapconcat (lambda(x) (concat "| " (mapconcat 'identity x " | " ) "  |\n" ))
-                       contents ""))
+    (insert (mapconcat
+	     (lambda (x)
+	       (concat "| " (mapconcat 'identity x " | " ) "  |\n" ))
+	     contents ""))
     (org-table-align)))
 
 
