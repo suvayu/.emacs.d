@@ -99,7 +99,7 @@ decrease the transparency, otherwise increase it in 5% steps."
 ;; modified from an Emacs Lisp Intro example
 (defun find-org-file-recursively (directory &optional filext)
   "Return .org and .org_archive files recursively from DIRECTORY.
-If FILEXT is provided, return FILEXT files instead."
+If FILEXT is provided, return files with extension FILEXT instead."
   (interactive "DDirectory name: ")
   ;; Bind variables
   ;; (if (not (boundp 'directory))
@@ -116,10 +116,9 @@ If FILEXT is provided, return FILEXT files instead."
 	(if (string-match fileregex file-or-dir) ; org files
 	    (add-to-list 'org-file-list file-or-dir)))
        ((file-directory-p file-or-dir)
-	(dolist (org-file
-		 (find-org-file-recursively file-or-dir) org-file-list) ; filext
-	  (add-to-list 'org-file-list org-file))
-	)))))
+	(dolist (org-file (find-org-file-recursively file-or-dir filext)
+			  org-file-list) ; add files found to result
+	  (add-to-list 'org-file-list org-file)))))))
 
 
 (provide 'nifty)
