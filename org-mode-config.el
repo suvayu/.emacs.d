@@ -316,6 +316,14 @@
 (setq org-agenda-custom-commands
       '(("F" "Future meetings"
 	 tags "CATEGORY=\"meetings\"+TIMESTAMP>=\"<today>\"")
+	("B" "Search Bs → Dsh files" search ""
+	 ((org-agenda-files (list "~/org/analysis.org" "~/org/meetings.org"))
+	  (org-agenda-text-search-extra-files
+	   (find-org-file-recursively "~/org/LHCb-Bs2Dsh"))))
+	("V" "Search Velo files" search ""
+	 ((org-agenda-files (list "~/org/analysis.org" "~/org/meetings.org"))
+	  (org-agenda-text-search-extra-files
+	   (find-org-file-recursively "~/org/LHCb-Velo"))))
 	;; ("g" "Search CKM γ project notes" search "")
 	("p" . "Pending tasks")
 	("pk" "Dated pending tasks"
@@ -359,7 +367,7 @@
 	  (org-agenda-text-search-extra-files
 	   (find-org-file-recursively "~/org/Worg/org-tutorials"))))
 	("A" "Search ATLAS files" search ""
-	 ((org-agenda-files (list "~/org/analysis.org_archive"))
+	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
 	   (find-org-file-recursively "~/org/ATLAS-wprime"))))
 	;; ("E" . "Search and export to temporary buffer")
@@ -409,7 +417,7 @@
 	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U %^G\n\n%?"
 	 :clock-in t)
-	("mn" "Meeting notes" entry (file+datetree "~/org/meetings.org")
+	("mn" "Meeting notes w/o clock" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U %^G\n%?")
 	("c" "Conferences and Workshops" entry (file+headline "~/org/meetings.org" "Workshops - Conferences")
 	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n%?"
