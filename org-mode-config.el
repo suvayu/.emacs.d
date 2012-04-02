@@ -419,9 +419,12 @@
 	 :clock-in t)
 	("mn" "Meeting notes w/o clock" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U %^G\n%?")
-	("c" "Conferences and Workshops" entry (file+headline "~/org/meetings.org" "Workshops - Conferences")
+	("l" "Talks and lectures" entry (file+headline "~/org/meetings.org" "Colloquia")
+	 "*** %^{prompt} %^t\n%^L"
+	 :prepend t :immediate-finish t)
+	("w" "Workshops and conferences" entry (file+headline "~/org/meetings.org" "Workshops - Conferences")
 	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n%?"
-	 :prepend t)
+	 :prepend t :empty-lines 1)
 	("d" "Add TODO with a DEADLINE" entry (file+headline "~/org/notes.org" "Tasks")
 	 "** TODO %^{prompt}\n   DEADLINE: %^t\n%?"
 	 :prepend t)
