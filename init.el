@@ -133,6 +133,10 @@
 (defun sa-w3m-mode-hook ()
   "Set up some w3m tabbed browsing key bindings."
   (toggle-truncate-lines t)
+  (define-key w3m-mode-map (kbd "<up>") 'previous-line)
+  (define-key w3m-mode-map (kbd "<down>") 'next-line)
+  (define-key w3m-mode-map (kbd "<left>") 'left-char)
+  (define-key w3m-mode-map (kbd "<right>") 'right-char)
   (define-key w3m-mode-map (kbd "C-<tab>") 'w3m-next-buffer)
   (define-key w3m-mode-map (kbd "C-<backtab>") 'w3m-previous-buffer)
   (define-key w3m-mode-map (kbd "C-S-<iso-lefttab>") 'w3m-previous-buffer)
@@ -196,6 +200,10 @@
 	    (add-to-list 'ac-sources 'ac-source-latex-commands)
 	    (add-to-list 'ac-sources 'ac-source-math-latex)))
 (add-to-list 'ac-modes 'latex-mode)
+
+;; project aware buffer management (uses vc directories)
+(require 'projectile)
+(projectile-global-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
