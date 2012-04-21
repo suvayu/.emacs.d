@@ -46,5 +46,9 @@
 ;; `minimal-mode' customisation
 (load-library "minimal")
 (setq minimal-zap-mode-line nil)
-(setq minimal-zap-menu-bar nil)
+;; (setq minimal-zap-menu-bar nil)
 (minimal-mode)
+
+
+;; window opacity utilities
+(require 'nifty)
