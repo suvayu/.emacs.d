@@ -298,18 +298,18 @@
 	(type "TEST(e!)" "DBUG(b@)" "LEAK(l@)" "SEGF(s@)" "|" "FIXD(f@/!)")
 	))
 
-;; TODO keyword faces
-(setq org-todo-keyword-faces
-      '(("DBUG" . (:background "gold" :foreground "indianred3" :weight bold))
-	("LEAK" . (:background "gold" :foreground "indianred3" :weight bold))
-	("SEGF" . (:background "gold" :foreground "indianred3" :weight bold))
-	("CNCL" . (:background "snow3" :foreground "black" :weight bold))
-	))
+;; ;; TODO keyword faces
+;; (setq org-todo-keyword-faces
+;;       '(("DBUG" . (:background "gold" :foreground "indianred3" :weight bold))
+;; 	("LEAK" . (:background "gold" :foreground "indianred3" :weight bold))
+;; 	("SEGF" . (:background "gold" :foreground "indianred3" :weight bold))
+;; 	("CNCL" . (:background "snow3" :foreground "black" :weight bold))
+;; 	))
 
-;; TAG faces
-(setq org-tag-faces
-      '(("PROJ" :background "indianred3" :foreground "cornsilk2" :weight bold)
-	))
+;; ;; TAG faces
+;; (setq org-tag-faces
+;;       '(("PROJ" :background "indianred3" :foreground "cornsilk2" :weight bold)
+;; 	))
 
 
 ;; Custom agenda commands
