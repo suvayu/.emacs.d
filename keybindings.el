@@ -83,9 +83,9 @@
 (add-hook 'find-file-hook
 	  (lambda ()
 	    (font-lock-add-keywords
-	     nil '(("\\<\\(FIXME\\):" 1 font-lock-warning-face prepend)))
-	    (font-lock-add-keywords
-	     nil '(("\\<\\(TODO\\):" 1 font-lock-global-todo-face prepend)))))
+	     nil '(("\\<\\(FIXME\\)[: ]" 1 font-lock-warning-face prepend)
+		   ;; ("\\<\\(NB\\|TODO\\)[: ]" 1 font-lock-global-todo-face prepend)
+		   ))))
 
 
 ;; version control related customisations
