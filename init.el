@@ -36,7 +36,7 @@
  '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))) t)
  '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))) t)
  '(info-xref-visited ((t (:foreground "violet" :underline t :weight bold))) t)
- '(link ((t (:foreground "blue" :underline t :weight extra-bold))))
+ '(link ((t (:foreground "cyan" :underline t :weight extra-bold))))
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :background "snow" :foreground "DodgerBlue4" :weight bold))) t)
  '(org-done ((t (:background "ForestGreen" :foreground "DarkSeaGreen2" :slant oblique :weight bold))))
@@ -44,8 +44,8 @@
  '(org-level-3 ((t (:inherit outline-3 :foreground "sandy brown" :weight bold))))
  '(org-todo ((t (:background "royalblue4" :foreground "thistle" :weight bold))))
  '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
- '(woman-bold ((t (:bold t :weight bold :foreground "forest green"))))
- '(woman-italic ((t (:italic t :slant italic :foreground "salmon")))))
+ '(woman-bold ((t (:bold t :weight bold :foreground "forest green"))) t)
+ '(woman-italic ((t (:italic t :slant italic :foreground "salmon"))) t))
 
 ;; if $TERM=xterm-256color
 ;; '(mode-line ((t (:background "brightwhite" :foreground "black" :box (:line-width -1 :style released-button)))))
@@ -63,6 +63,7 @@
  '(case-fold-search nil)
  '(column-number-mode t)
  '(dabbrev-case-replace nil)
+ '(default-input-method "TeX")
  '(diff-switches "-u")
  '(dired-listing-switches "-alh")
  '(ediff-custom-diff-options "-u")
