@@ -64,6 +64,7 @@
  '(column-number-mode t)
  '(custom-enabled-themes (quote (dark-emacs)))
  '(custom-safe-themes (quote ("9d04c19fa8d227f59234596060d285282599de77e0ee4f418aae5191a3bbf6bd" default)))
+ '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
  '(diff-switches "-u")
