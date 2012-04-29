@@ -1,3 +1,7 @@
+;; This theme is no longer maintained. If you liked using this, please
+;; switch to using the dark-emacs custom theme for Emacs 24. You can
+;; find it in $TOPDIR/themes/dark-emacs-theme.el
+
 ;; Colour theme for Emacs
 (eval-when-compile    (require 'color-theme))
 
