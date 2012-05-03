@@ -12,7 +12,6 @@
 	ad-do-it)
     ad-do-it))
 (ad-activate 'org-footnote-action)
-(global-set-key (kbd "C-c f") 'org-footnote-action)
 
 ;; text-mode hook
 (defun sa-text-mode-hook()
@@ -23,7 +22,9 @@
     ;; turn on orgtbl minor mode
     (turn-on-orgtbl)
     ;; turn on enhanced orgstruct minor mode
-    (turn-on-orgstruct++)
+    (turn-on-orgstruct)
+    ;; keybinding for footnotes
+    (local-set-key (kbd "C-c f") 'org-footnote-action)
     ;; line folding w/o actually folding it
     (visual-line-mode t)
     ;; text mode abbreviations
