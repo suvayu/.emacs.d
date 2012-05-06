@@ -1,1 +1,1 @@
-../auto-complete/fuzzy.el
+../fuzzy-el/fuzzy.el

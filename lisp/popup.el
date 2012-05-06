@@ -1,1 +1,1 @@
-../auto-complete/popup.el
+../popup-el/popup.el
