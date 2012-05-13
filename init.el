@@ -131,7 +131,12 @@
 (add-hook 'emacs-lisp-mode-hook 'sa-lisp-mode-hook)
 
 ;; Python customisations
-
+(add-hook 'python-mode-hook
+	  (lambda ()
+	    (local-set-key "[" 'skeleton-pair-insert-maybe)
+	    (local-set-key "'" 'skeleton-pair-insert-maybe)
+	    (local-set-key (kbd "M-RET") 'newline-and-indent)
+	    ))
 
 ;; w3m key bindings
 (defun sa-w3m-mode-hook ()
