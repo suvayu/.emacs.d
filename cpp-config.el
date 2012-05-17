@@ -21,16 +21,17 @@
 (add-to-list 'semantic-inhibit-functions
 	     (lambda () (not (member major-mode '(c-mode c++-mode)))))
 
+(define-key c-mode-base-map (kbd "C-c ?") 'semantic-ia-complete-symbol)
+(define-key c-mode-base-map (kbd "C-c t") 'semantic-ia-complete-tip)
+(define-key c-mode-base-map (kbd "C-c v") 'semantic-ia-show-variants)
+(define-key c-mode-base-map (kbd "C-c d") 'semantic-ia-show-doc)
+(define-key c-mode-base-map (kbd "C-c s") 'semantic-ia-show-summary)
+
 (add-hook 'c-mode-common-hook
 	  (lambda ()
 	    ;; for semantic imenu
 	    (setq imenu-create-index-function 'semantic-create-imenu-index)
-	    (imenu-add-to-menubar "C++-Tags")
-	    (define-key c-mode-base-map (kbd "C-c ?") 'semantic-ia-complete-symbol)
-	    (define-key c-mode-base-map (kbd "C-c t") 'semantic-ia-complete-tip)
-	    (define-key c-mode-base-map (kbd "C-c v") 'semantic-ia-show-variants)
-	    (define-key c-mode-base-map (kbd "C-c d") 'semantic-ia-show-doc)
-	    (define-key c-mode-base-map (kbd "C-c s") 'semantic-ia-show-summary)))
+	    (imenu-add-to-menubar "C++-Tags")))
 
 ;; FIXME: Doesn't quite do semantic isearch, could be bug in Emacs
 (defun sa-senator-search-forward(string &optional bound noerror count)
