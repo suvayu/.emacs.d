@@ -123,7 +123,7 @@
 ;; ;; turns omiting on by default
 ;; (setq dired-omit-mode t)
 
-;; `dired-mode' key bindings
+;; `dired-mode' key bindings ; okay here since dired is required above
 (define-key dired-mode-map (kbd "C-<down>") 'dired-next-subdir)
 (define-key dired-mode-map (kbd "C-<up>") 'dired-prev-subdir)
 (define-key dired-mode-map (kbd "C-<left>") 'dired-tree-up)

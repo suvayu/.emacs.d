@@ -131,28 +131,27 @@
 (add-hook 'emacs-lisp-mode-hook 'sa-lisp-mode-hook)
 
 ;; Python customisations
-(define-key python-mode-map (kbd "M-a") 'python-beginning-of-block)
-(define-key python-mode-map (kbd "M-e") 'python-end-of-block)
-
 (add-hook 'python-mode-hook
 	  (lambda ()
 	    (local-set-key "[" 'skeleton-pair-insert-maybe)
 	    (local-set-key "'" 'skeleton-pair-insert-maybe)
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
+	    (define-key python-mode-map (kbd "M-a") 'python-beginning-of-block)
+	    (define-key python-mode-map (kbd "M-e") 'python-end-of-block)
 	    ))
 
 ;; w3m key bindings
-(define-key w3m-mode-map (kbd "<up>") 'previous-line)
-(define-key w3m-mode-map (kbd "<down>") 'next-line)
-(define-key w3m-mode-map (kbd "<left>") 'left-char)
-(define-key w3m-mode-map (kbd "<right>") 'right-char)
-(define-key w3m-mode-map (kbd "C-<tab>") 'w3m-next-buffer)
-(define-key w3m-mode-map (kbd "C-<backtab>") 'w3m-previous-buffer)
-(define-key w3m-mode-map (kbd "C-S-<iso-lefttab>") 'w3m-previous-buffer)
-(define-key w3m-mode-map (kbd "s-<tab>") 'w3m-select-buffer)
 
 (defun sa-w3m-mode-hook ()
   "Set up some w3m tabbed browsing key bindings."
+  (define-key w3m-mode-map (kbd "<up>") 'previous-line)
+  (define-key w3m-mode-map (kbd "<down>") 'next-line)
+  (define-key w3m-mode-map (kbd "<left>") 'left-char)
+  (define-key w3m-mode-map (kbd "<right>") 'right-char)
+  (define-key w3m-mode-map (kbd "C-<tab>") 'w3m-next-buffer)
+  (define-key w3m-mode-map (kbd "C-<backtab>") 'w3m-previous-buffer)
+  (define-key w3m-mode-map (kbd "C-S-<iso-lefttab>") 'w3m-previous-buffer)
+  (define-key w3m-mode-map (kbd "s-<tab>") 'w3m-select-buffer)
   (toggle-truncate-lines t))
 (add-hook 'w3m-mode-hook 'sa-w3m-mode-hook)
 
