@@ -111,6 +111,27 @@
       )
 
 
+;; lowercase easy templates
+(setcdr (assoc "s" org-structure-template-alist)
+	'("#+begin_src ?\n\n#+end_src" "<src lang=\"?\">\n\n</src>"))
+(setcdr (assoc "e" org-structure-template-alist)
+	'("#+begin_example\n?\n#+end_example" "<example>\n?\n</example>"))
+(setcdr (assoc "q" org-structure-template-alist)
+	'("#+begin_quote\n?\n#+end_quote" "<quote>\n?\n</quote>"))
+(setcdr (assoc "v" org-structure-template-alist)
+	'("#+begin_verse\n?\n#+end_verse" "<verse>\n?\n</verse>"))
+(setcdr (assoc "c" org-structure-template-alist)
+	'("#+begin_center\n?\n#+end_center" "<center>\n?\n</center>"))
+(setcdr (assoc "l" org-structure-template-alist)
+	'("#+begin_latex\n?\n#+end_latex"
+         "<literal style=\"latex\">\n?\n</literal>"))
+(setcdr (assoc "h" org-structure-template-alist)
+	'("#+begin_html\n?\n#+end_html"
+         "<literal style=\"html\">\n?\n</literal>"))
+(setcdr (assoc "a" org-structure-template-alist)
+	'("#+begin_ascii\n?\n#+end_ascii"))
+
+
 ;; org to latex customisations, -shell-escape needed for minted
 ;; (setq org-latex-to-pdf-process		; for regular export
 ;;       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -129,7 +150,8 @@
 
 ;; hack for error free latex export with amsmath
 ;; remove when defaults are changed in the future
-(setcar (rassoc '("wasysym" t) org-export-latex-default-packages-alist) "nointegrals")
+(setcar (rassoc '("wasysym" t) org-export-latex-default-packages-alist)
+	"nointegrals")
 (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
 ;; (add-to-list 'org-export-latex-packages-alist '("" "xltxtra" t)) ; for export with xelatex
 ;; commented for now as preferable to set per file for now
