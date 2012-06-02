@@ -124,6 +124,11 @@
 ;; use with mutt, ItsAllText and eml files
 (load-file "~/.emacs.d/email-config.el") ; has some org dependence
 
+;; mode to edit markdown files (e.g. StackOverflow answers with ItsAllText)
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist (cons "\\.md\\'" 'markdown-mode))
+
 ;; Lisp/Elisp customisations
 (defun sa-lisp-mode-hook ()
   (eldoc-mode t))
