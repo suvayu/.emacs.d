@@ -15,9 +15,13 @@
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
 
-;; Info directory
-(add-to-list 'Info-default-directory-list
-	     (expand-file-name "/opt/emacs-lisp/share/info"))
+;; ;; Info directory
+;; (add-to-list 'Info-default-directory-list
+;; 	     (expand-file-name "/opt/emacs-lisp/share/info"))
+
+;; ;; Other info files
+;; (add-to-list 'Info-additional-directory-list
+;; 	     (expand-file-name "~/.emacs.d/info-manuals"))
 
 ;; Emacs C source directory
 (setq find-function-C-source-directory "~/build/emacs/src")
@@ -32,10 +36,10 @@
  '(completions-common-part ((t (:foreground "forest green"))))
  '(completions-first-difference ((t (:bold t :weight bold :foreground "salmon"))))
  '(font-lock-warning-face ((((type tty)) (:inherit error :weight bold))))
- '(info-menu-header ((t (:bold t :family "Sans Serif" :foreground "tomato" :weight bold))) t)
- '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))) t)
- '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))) t)
- '(info-xref-visited ((t (:foreground "violet" :underline t :weight bold))) t)
+ '(info-menu-header ((t (:bold t :family "Sans Serif" :foreground "tomato" :weight bold))))
+ '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))))
+ '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))))
+ '(info-xref-visited ((t (:foreground "violet" :underline t :weight bold))))
  '(link ((t (:foreground "cyan" :underline t :weight extra-bold))))
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :background "snow" :foreground "DodgerBlue4" :weight bold))) t)
@@ -57,6 +61,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(Info-additional-directory-list (quote ("~jallad/.emacs.d/info-manuals")))
  '(abbrev-mode t t)
  '(browse-url-browser-function (quote (("http.*emacswiki.org/.*" . w3m-browse-url) ("." . browse-url-default-browser))))
  '(calendar-date-style (quote iso))
