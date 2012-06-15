@@ -1,0 +1,1 @@
+../../build/pylookup/pylookup.el

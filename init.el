@@ -140,18 +140,10 @@
 (add-hook 'lisp-mode-hook 'sa-lisp-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'sa-lisp-mode-hook)
 
-;; Python customisations
-(add-hook 'python-mode-hook
-	  (lambda ()
-	    (local-set-key "[" 'skeleton-pair-insert-maybe)
-	    (local-set-key "'" 'skeleton-pair-insert-maybe)
-	    (local-set-key (kbd "M-RET") 'newline-and-indent)
-	    (define-key python-mode-map (kbd "M-a") 'python-beginning-of-block)
-	    (define-key python-mode-map (kbd "M-e") 'python-end-of-block)
-	    ))
+;; Python
+(load-file "~/.emacs.d/py-config.el")
 
 ;; w3m key bindings
-
 (defun sa-w3m-mode-hook ()
   "Set up some w3m tabbed browsing key bindings."
   (define-key w3m-mode-map (kbd "<up>") 'previous-line)
@@ -226,21 +218,6 @@
 ;; project aware buffer management (uses vc directories)
 (require 'projectile)
 (projectile-global-mode)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Development tools: Pymacs ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; ;; Pymacs setup
-;; (autoload 'pymacs-apply "pymacs")
-;; (autoload 'pymacs-call "pymacs")
-;; (autoload 'pymacs-eval "pymacs" nil t)
-;; (autoload 'pymacs-exec "pymacs" nil t)
-;; (autoload 'pymacs-load "pymacs" nil t)
-;; ;;(eval-after-load "pymacs"
-;; ;;  '(add-to-list 'pymacs-load-path YOUR-PYMACS-DIRECTORY"))
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
