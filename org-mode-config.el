@@ -128,36 +128,12 @@
 	'("#+begin_ascii\n?\n#+end_ascii"))
 
 
-;; org to latex customisations, -shell-escape needed for minted
-;; (setq org-latex-to-pdf-process		; for regular export
-;;       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;; 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;; 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
-;;       org-e-latex-pdf-process		; for experimental org-export
-;;       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;; 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;; 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-;; remove "inputenc" from default packages as it clashes with xelatex
-(setf org-export-latex-default-packages-alist
-      (remove '("AUTO" "inputenc" t) org-export-latex-default-packages-alist))
-;; the sexp below will also work in this case. But it is not robust as it
-;; pops the first element regardless if its a match or not.
-;; (pop org-export-latex-default-packages-alist)
-
+;;; LaTeX export customisations
 ;; hack for error free latex export with amsmath
 ;; remove when defaults are changed in the future
 (setcar (rassoc '("wasysym" t) org-export-latex-default-packages-alist)
 	"nointegrals")
 (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
-;; (add-to-list 'org-export-latex-packages-alist '("" "xltxtra" t)) ; for export with xelatex
-;; commented for now as preferable to set per file for now
-;; (add-to-list 'org-export-latex-packages-alist '("" "unicode-math" t))
-;; (add-to-list 'org-export-latex-packages-alist
-;; 	     "\\setmathfont{Linux Libertine}" t) ; needed for unicode-math
-
-;; for code block export with minted.sty and python program pygmentize
-(setq org-export-latex-listings 'minted)
-(add-to-list 'org-export-latex-packages-alist '("" "minted"))
 
 ;; include todonotes package for latex export of inlinetasks
 (add-to-list 'org-export-latex-packages-alist
@@ -170,6 +146,35 @@
 	     "\\MakeRobustCommand\\end" t)
 (add-to-list 'org-export-latex-packages-alist
 	     "\\MakeRobustCommand\\item" t)
+
+;; for code block export with minted.sty and python program pygmentize
+(setq org-export-latex-listings 'minted)
+(add-to-list 'org-export-latex-packages-alist '("" "minted"))
+
+
+;;; XeLaTeX customisations
+;; remove "inputenc" from default packages as it clashes with xelatex
+(setf org-export-latex-default-packages-alist
+      (remove '("AUTO" "inputenc" t) org-export-latex-default-packages-alist))
+;; the sexp below will also work in this case. But it is not robust as it
+;; pops the first element regardless if its a match or not.
+;; (pop org-export-latex-default-packages-alist)
+
+(add-to-list 'org-export-latex-packages-alist '("" "xltxtra" t))
+;; commented for now as preferable to set per file for now
+;; (add-to-list 'org-export-latex-packages-alist '("" "unicode-math" t))
+;; (add-to-list 'org-export-latex-packages-alist
+;; 	     "\\setmathfont{Linux Libertine}" t) ; needed for unicode-math
+
+;; org to latex customisations, -shell-escape needed for minted
+(setq org-latex-to-pdf-process		; for regular export
+      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+      org-e-latex-pdf-process		; for experimental org-export
+      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
 
 ;; FIXME: export templates for inline tasks
