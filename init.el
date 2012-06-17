@@ -93,7 +93,7 @@
  '(savehist-mode t nil (savehist))
  '(semantic-mode t)
  '(sentence-end-double-space nil)
- '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|\\(/.+/include/.+\\|~/.mozilla.*itsalltext.*\\|.*COMMIT_EDITMSG\\)")
+ '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|\\(/.+/include/.+\\|~/\\.mozilla.*itsalltext.*\\|.*COMMIT_EDITMSG\\)")
  '(session-use-package t nil (session))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)

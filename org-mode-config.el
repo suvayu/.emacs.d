@@ -516,9 +516,9 @@ otherwise move to next headline."
   ;; ;; overload default `fill-paragraph' keybind to use org specific command
   ;; (org-defkey org-mode-map (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
   ;; toggle inline images with iimage
-  ;; (org-defkey org-mode-map (kbd "") 'org-toggle-inline-images)
-  ;; keybinding for oog (`org-occur-goto') for quick navigation
-  (org-defkey org-mode-map (kbd "C-c g") 'oog)
+  ;; (org-defkey org-mode-map (kbd "C-c i") 'org-toggle-inline-images)
+  (org-defkey org-mode-map (kbd "C-c g") 'oog) ; org-occur-goto
+  (org-defkey org-mode-map (kbd "C-c s") 'osg) ; org-search-goto
   ;; table copy paste
   (org-defkey org-mode-map (kbd "C-M-w") 'org-table-copy-region)
   (org-defkey org-mode-map (kbd "C-M-y") 'org-table-paste-rectangle)
