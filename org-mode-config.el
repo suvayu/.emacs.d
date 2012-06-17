@@ -28,12 +28,6 @@
 (load "tex")
 
 ;;; Code:
-
-;; ;; autoload, useful to check if `org-mode' is loaded
-;; (autoload 'org-mode-p "org-macs"
-;;   "Check if the current buffer is in Org-mode." t)
-
-
 ;; `org-mode' variable customisations
 ;; directory to look for agenda files matching `org-agenda-file-regexp'
 (setq org-agenda-files '("~/org")
@@ -272,8 +266,34 @@
 	(org-map-entries
 	 (lambda () (org-set-property "HTML_CONTAINER_CLASS" "inlinetask"))
 	 match)))))
-
 (add-hook 'org-export-preprocess-hook 'sa-org-export-preprocess-hook)
+
+(setq org-agenda-skip-function-global ; skip END entries in inline tasks
+      (lambda ()
+	(when (and (featurep 'org-inlinetask)
+		   (let ((case-fold-search t))
+		     (org-looking-at-p (concat (org-inlinetask-outline-regexp)
+					       "end[ \t]*$"))))
+	  (or (save-excursion (outline-next-heading)) (point-max)))))
+
+;; Export tags search result to a temporary buffer
+(defun sa-org-tags-search-to-buffer(match)
+  "Do a tags search and copy the results to the temporary buffer
+\"*temp*\"."
+  (interactive "sSearch for: " )
+  (let* ((agenda-files (org-agenda-files t)))
+    (switch-to-buffer "*temp*")
+    (org-mode)
+    (dolist (buf agenda-files)
+      (save-excursion
+	(find-file buf)
+	(org-scan-tags 'sparse-tree (cdr (org-make-tags-matcher match)))
+	(beginning-of-buffer)
+	(while (condition-case nil (org-occur-next-match 1) (error nil))
+	  (if (org-inlinetask-at-task-p) (org-copy-subtree 2)
+	    (org-copy-subtree)) (kill-append "\n" nil)
+	    (append-next-kill))))
+    (switch-to-buffer "*temp*") (goto-char (point-max)) (yank)))
 
 ;; (defun sa-org-export-final-hook ()
 ;;   "My backend specific final export hook."
@@ -284,7 +304,6 @@
 ;; 	       (message "hook")
 ;; 	       (beginning-of-line)
 ;; 	       (insert "% ")))))
-
 ;; (add-hook 'org-export-latex-final-hook 'sa-org-export-final-hook t)
 
 
@@ -312,7 +331,7 @@
   ;;   (reftex-parse-all))
 
 
-;; TODO keywords
+;;; TODO keywords
 ;; @ - time stamp with note
 ;; ! - only time stamp
 (setq org-todo-keywords
@@ -320,21 +339,8 @@
 	(type "TEST(e!)" "DBUG(b@)" "LEAK(l@)" "SEGF(s@)" "|" "FIXD(f@/!)")
 	))
 
-;; ;; TODO keyword faces
-;; (setq org-todo-keyword-faces
-;;       '(("DBUG" . (:background "gold" :foreground "indianred3" :weight bold))
-;; 	("LEAK" . (:background "gold" :foreground "indianred3" :weight bold))
-;; 	("SEGF" . (:background "gold" :foreground "indianred3" :weight bold))
-;; 	("CNCL" . (:background "snow3" :foreground "black" :weight bold))
-;; 	))
 
-;; ;; TAG faces
-;; (setq org-tag-faces
-;;       '(("PROJ" :background "indianred3" :foreground "cornsilk2" :weight bold)
-;; 	))
-
-
-;; Custom agenda commands
+;;; Custom agenda commands
 (setq org-agenda-custom-commands
       '(("F" "Future meetings"
 	 tags "CATEGORY=\"meetings\"+TIMESTAMP>=\"<today>\"")
@@ -396,35 +402,8 @@
 	;; ("Et" "Export tags search result to buffer" org-tags-search-to-buffer "Qn")
 	))
 
-(setq org-agenda-skip-function-global ; skip END entries in inline tasks
-      (lambda ()
-	(when (and (featurep 'org-inlinetask)
-		   (let ((case-fold-search t))
-		     (org-looking-at-p (concat (org-inlinetask-outline-regexp)
-					       "end[ \t]*$"))))
-	  (or (save-excursion (outline-next-heading)) (point-max)))))
 
-;; Export tags search result to a temporary buffer
-(defun sa-org-tags-search-to-buffer(match)
-  "Do a tags search and copy the results to the temporary buffer
-  \"*temp*\"."
-  (interactive "sSearch for: " )
-  (let* ((agenda-files (org-agenda-files t)))
-    (switch-to-buffer "*temp*")
-    (org-mode)
-    (dolist (buf agenda-files)
-      (save-excursion
-	(find-file buf)
-	(org-scan-tags 'sparse-tree (cdr (org-make-tags-matcher match)))
-	(beginning-of-buffer)
-	(while (condition-case nil (org-occur-next-match 1) (error nil))
-	  (if (org-inlinetask-at-task-p) (org-copy-subtree 2)
-	    (org-copy-subtree)) (kill-append "\n" nil)
-	    (append-next-kill))))
-    (switch-to-buffer "*temp*") (goto-char (point-max)) (yank)))
-
-
-;; templates for `org-capture'
+;;; `org-capture' templates
 (setq org-capture-templates
       '(("m" "Select meeting templates")
 	("mr" "Regular appointment/meeting" entry (file+headline "~/org/meetings.org" "Meetings")
@@ -476,38 +455,18 @@
 	      (org-reveal))))
 
 
-;; changing org-mode behaviour defadvising org-mode commands
-;; navigation commands
-
-;; don't use defadvise for fundamental commands.
-;; this advice alters basic behaviour, can lead to unpredictable behaviour
-;; (defadvice outline-forward-same-level
-;;   (around outline-forward-same-level-or-next-visible (arg))
-;;   "If its the last outline sibling, move to the next visible outline heading."
-;;   (if (save-excursion
-;; 	 (outline-get-next-sibling))
-;;       ad-do-it
-;;     (outline-next-visible-heading arg)))
-;; (ad-activate 'outline-forward-same-level)
-
-;; (defadvice outline-backward-same-level
-;;   (around outline-backward-same-level-or-previous-visible (arg))
-;;   "If its the last outline sibling, move to the previous visible outline heading."
-;;   (if (save-excursion
-;; 	 (outline-get-last-sibling))
-;;       ad-do-it
-;;     (outline-previous-visible-heading arg)))
-;; (ad-activate 'outline-backward-same-level)
-
+;; org-mode navigation commands
 (defun sa-outline-forward-same-level (arg)
-  "If its the last outline sibling, move to the next visible outline heading."
+  "If its the last outline sibling, move to the next visible outline
+heading."
   (interactive "p")
   (if (save-excursion (outline-get-next-sibling))
       (outline-forward-same-level arg)
     (outline-next-visible-heading arg)))
 
 (defun sa-outline-backward-same-level (arg)
-  "If its the last outline sibling, move to the previous visible outline heading."
+  "If its the last outline sibling, move to the previous visible outline
+heading."
   (interactive "p")
   (if (save-excursion (outline-get-last-sibling))
       (outline-backward-same-level arg)
@@ -536,28 +495,7 @@ otherwise move to next headline."
     (outline-previous-visible-heading 1)))
 
 
-;; sparse-tree-undo minor-mode
-;; (defvar org-tree-state nil
-;;   "Sparse tree state in buffer.")
-;; (make-variable-buffer-local 'org-tree-state)
-
-;; (defvar org-tree-history nil
-;;   "Sparse tree state history in buffer.")
-;; (make-variable-buffer-local 'org-tree-history)
-
-;; (defun sa-sparse-tree-undo()
-;;   "Sparse tree undo"
-;;   (let* ((buf (get-buffer (current-buffer))))
-;;     (save-excursion
-;;       (push )
-;;       (goto-char (point-min))
-;;       (outline-next-visible-heading 1)
-;;       (push (point) org-tree-state)
-
-;;       )))
-
-
-;; Keymaps:
+;;; Keymaps:
 ;; To specify key combinations use,
 ;; + Quoted lisp vectors - '[(C-right)]
 ;; + String translated to keyboard events - (kbd "C-<right>")
@@ -605,8 +543,7 @@ otherwise move to next headline."
   (org-defkey org-agenda-mode-map (kbd "C-c m") 'org-agenda-month-view))
 
 
-;; org-agenda config
-;; not needed anymore, but kept as an example
+;; org-agenda config; not needed anymore, but kept as an example
 ;; This function is used to insert current time in the agenda buffer
 ;; Thanks to Julien Danjou
 ;; (defun jd:org-current-time ()
@@ -616,13 +553,12 @@ otherwise move to next headline."
 ;; 		'(:weight bold :foreground "DodgerBlue4" :background "snow"))))
 
 
-;; hooks
+;;; Hooks
 ;; `org-agenda-mode' hook
 (defun sa-org-agenda-mode-hook()
   "My `org-agenda-mode' hook."
   (sa-org-agenda-mode-keymap)
   (visual-line-mode t))
-
 (add-hook 'org-agenda-mode-hook 'sa-org-agenda-mode-hook)
 
 ;; `org-mode' hook
@@ -638,7 +574,6 @@ otherwise move to next headline."
   (imenu-add-to-menubar "Headlines")
   ;; dynamic abbreviations for org-mode
   (setq local-abbrev-table text-mode-abbrev-table))
-
 (add-hook 'org-mode-hook 'sa-org-mode-hook)
 
 ;; Make windmove work in org-mode with 'shift as modifier:
@@ -662,10 +597,6 @@ otherwise move to next headline."
    (R . t)
    (ruby . t)
    (sh . t)))
-
-;; (defun sa-setup-org-babel()
-;;   (interactive)
-;;   (org-babel-load-library-of-babel))
 
 
 ;;; org-mode-settings.el ends here
