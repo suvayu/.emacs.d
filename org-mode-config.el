@@ -2,30 +2,32 @@
 
 ;; since using org-mode in ~/build/org-mode
 (require 'org-install)
-(require 'org-inlinetask)
-(require 'org-export)
+
+(load-library "org-inlinetask")
+;; (load-library "org-export")
 
 ;; Google weather in agenda
-(require 'google-weather)
-(require 'org-google-weather)
-
-(require 'org-occur-goto)
+(load-library "google-weather")
+(load-library "org-google-weather")
 
 ;; read emails with notmuch
-(require 'notmuch)
+(load-library "notmuch")
 ;; links to notmuch emails in org
-(require 'org-notmuch)
+(load-library "org-notmuch")
+
+(load-library "org-man")
+(load-library "org-occur-goto")
+(load-library "org-search-goto")
 
 ;; ;; Calendar view for org agenda
 ;; (require 'calfw)
 ;; (require 'calfw-org)
 
 ;; utilities
-(require 'nifty)
-;; (require 'org2blog)
+(load-library "nifty")
 
 ;; temporary solution to latex export issue
-(load "tex")
+(load-library "tex")
 
 ;;; Code:
 ;; `org-mode' variable customisations
