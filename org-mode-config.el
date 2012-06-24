@@ -4,7 +4,7 @@
 (require 'org-install)
 
 (load-library "org-inlinetask")
-;; (load-library "org-export")
+(load-library "org-export")
 
 ;; Google weather in agenda
 (load-library "google-weather")
@@ -506,6 +506,10 @@ otherwise move to next headline."
 ;; To specify key combinations use,
 ;; + Quoted lisp vectors - '[(C-right)]
 ;; + String translated to keyboard events - (kbd "C-<right>")
+
+;; Testing org-element
+(defalias 'org-metaup 'org-element-drag-backward)
+(defalias 'org-metadown 'org-element-drag-forward)
 
 ;; global keymaps
 (global-set-key (kbd "C-c a") 'org-agenda)
