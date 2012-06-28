@@ -8,7 +8,7 @@
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
 	    (define-key python-mode-map (kbd "M-a") 'python-beginning-of-block)
 	    (define-key python-mode-map (kbd "M-e") 'python-end-of-block)
-	    (define-key python-mode-map (kbd "C-c h") 'pylookup-lookup)
+	    (define-key python-mode-map (kbd "C-c d") 'pylookup-lookup)
 	    ))
 
 ;; setup pylookup for easy access html docs from emacs
