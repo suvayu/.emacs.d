@@ -413,8 +413,8 @@
 ;;; `org-capture' templates
 (setq org-capture-templates
       '(("m" "Select meeting templates")
-	("mr" "Regular appointment/meeting" entry (file+headline "~/org/meetings.org" "Meetings")
-	 "** %? %^t%^{CATEGORY}p\n"
+	("mr" "Regular appointment/meeting" entry (file+headline "~/org/meetings.org" "Appointments and meetings")
+	 "*** %? %^t%^{CATEGORY}p\n"
 	 :prepend t)
 	("mb" "Create Bfys meeting" entry (file+headline "~/org/meetings.org" "Bfys meetings")
 	 "*** %? %^t\n"
