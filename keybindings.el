@@ -25,6 +25,11 @@
 ;; `occur-mode' customisations
 (define-key occur-mode-map (kbd "TAB") 'occur-mode-display-occurrence)
 
+;; Isearch in other-window
+(global-set-key (kbd "C-c C-s") 'sa-isearch-forward-other-window)
+(global-set-key (kbd "C-c C-r") 'sa-isearch-backward-other-window)
+;; NB: C-c C-s was bound to (c-show-syntactic-information ARG) in c-mode
+
 (global-set-key '[(C-mouse-4)] 'text-scale-increase) ; scroll up
 (global-set-key '[(C-mouse-5)] 'text-scale-decrease) ; scroll down
 
