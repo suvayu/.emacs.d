@@ -6,6 +6,47 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;; isearch wrappers to search in other window
+;; Source: http://www.unixuser.org/~ysjj/emacs/lisp/misc-funcs.el
+(defun sa-isearch-backward-other-window (arg)
+  "Do incremental search backward on the ARG'th different window
+of this frame."
+  (interactive "p")
+  (save-excursion
+    (other-window arg)
+    (isearch-backward)
+    (other-window (- arg))))
+
+(defun sa-isearch-forward-other-window (arg)
+  "Do incremental search forward on the ARG'th different window
+of this frame."
+  (interactive "p")
+  (save-excursion
+    (other-window arg)
+    (isearch-forward)
+    (other-window (- arg))))
+
+(defun sa-isearch-backward-regexp-other-window (arg)
+  "Do incremental search backward for regular expression on the
+ARG'th different window of this frame.  Like ordinary incremental
+search except that your input is treated as a regexp"
+  (interactive "p")
+  (save-excursion
+    (other-window arg)
+    (isearch-backward-regexp)
+    (other-window (- arg))))
+
+(defun sa-isearch-forward-regexp-other-window (arg)
+  "Do incremental search forward for regular expression on the
+ARG'th different window of this frame.  Like ordinary incremental
+search except that your input is treated as a regexp"
+  (interactive "p")
+  (save-excursion
+    (other-window arg)
+    (isearch-forward-regexp)
+    (other-window (- arg))))
+
+
 ;; recursively find .org files in provided directory
 ;; modified from an Emacs Lisp Intro example
 (defun find-org-file-recursively (directory &optional filext)
