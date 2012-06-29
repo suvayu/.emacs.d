@@ -6,6 +6,70 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;; recursively find .org files in provided directory
+;; modified from an Emacs Lisp Intro example
+(defun find-org-file-recursively (directory &optional filext)
+  "Return .org and .org_archive files recursively from DIRECTORY.
+If FILEXT is provided, return files with extension FILEXT instead."
+  (interactive "DDirectory name: ")
+  ;; Bind variables
+  ;; (if (not (boundp 'directory))
+  ;;     (setq directory (read-directory-name "Directory to search: ")))
+  (let* (org-file-list
+	 (case-fold-search t)		; filesystems are case sensitive
+	 (fileregex (if filext (format "^[^.#].*\\.\\(%s$\\)" filext)
+		      "^[^.#].*\\.\\(org$\\|org_archive$\\)"))
+	 (cur-dir-list (directory-files directory t "^[^.#].*"))) ; exclude .*
+    ;; loop over directory listing
+    (dolist (file-or-dir cur-dir-list org-file-list) ; returns org-file-list
+      (cond
+       ((file-regular-p file-or-dir) ; regular files
+	(if (string-match fileregex file-or-dir) ; org files
+	    (add-to-list 'org-file-list file-or-dir)))
+       ((file-directory-p file-or-dir)
+	(dolist (org-file (find-org-file-recursively file-or-dir filext)
+			  org-file-list) ; add files found to result
+	  (add-to-list 'org-file-list org-file)))))))
+
+
+;; Modify emacs frame opacity. Works with compositing capable window
+;; managers.
+;; Source: http://emacs-fu.blogspot.com/2009/02/transparent-emacs.html
+(defun sa-opacity-modify (&optional dec)
+  "Modify the transparency of the emacs frame; if DEC is t,
+decrease the transparency, otherwise increase it in 5% steps."
+  (let* ((alpha-or-nil (frame-parameter nil 'alpha)) ; nil before setting
+	 (oldalpha (if alpha-or-nil alpha-or-nil
+		     100))
+	 (newalpha (if dec (- oldalpha 5)
+		     (+ oldalpha 5))))
+    (when (and (>= newalpha frame-alpha-lower-limit)
+	       (<= newalpha 100))
+      (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
+
+ ;; C-+ will increase opacity (== decrease transparency)
+(global-set-key (kbd "C-=")
+		'(lambda()
+		   (interactive)
+		   (djcb-opacity-modify)))
+
+ ;; C-- will decrease opacity (== increase transparency
+(global-set-key (kbd "C--")
+		'(lambda()
+		   (interactive)
+		   (djcb-opacity-modify t)))
+
+ ;; C-0 will returns the state to normal
+(global-set-key (kbd "C-0")
+		'(lambda()
+		   (interactive)
+		   (modify-frame-parameters nil `((alpha . 100)))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Commonly used HEP utilities ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; For MakeClass code
 (defun sa-conv(beg end)
   "Add SetBranchAddress(...)."
@@ -41,66 +105,6 @@ if..else source blocks."
     (remove-overlays beg end)
     (message "Coverted GRL XML to C if..else blocks.")
     ))
-
-
-;; modify opacity of emacs frame
-;; works with compositing capable window managers
-;; Source: http://emacs-fu.blogspot.com/2009/02/transparent-emacs.html
-(defun djcb-opacity-modify (&optional dec)
-  "Modify the transparency of the emacs frame; if DEC is t,
-decrease the transparency, otherwise increase it in 5% steps."
-  (let* ((alpha-or-nil (frame-parameter nil 'alpha)) ; nil before setting
-	 (oldalpha (if alpha-or-nil alpha-or-nil
-		     100))
-	 (newalpha (if dec (- oldalpha 5)
-		     (+ oldalpha 5))))
-    (when (and (>= newalpha frame-alpha-lower-limit)
-	       (<= newalpha 100))
-      (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
-
- ;; C-+ will increase opacity (== decrease transparency)
-(global-set-key (kbd "C-=")
-		'(lambda()
-		   (interactive)
-		   (djcb-opacity-modify)))
-
- ;; C-- will decrease opacity (== increase transparency
-(global-set-key (kbd "C--")
-		'(lambda()
-		   (interactive)
-		   (djcb-opacity-modify t)))
-
- ;; C-0 will returns the state to normal
-(global-set-key (kbd "C-0")
-		'(lambda()
-		   (interactive)
-		   (modify-frame-parameters nil `((alpha . 100)))))
-
-
-;; recursively find .org files in provided directory
-;; modified from an Emacs Lisp Intro example
-(defun find-org-file-recursively (directory &optional filext)
-  "Return .org and .org_archive files recursively from DIRECTORY.
-If FILEXT is provided, return files with extension FILEXT instead."
-  (interactive "DDirectory name: ")
-  ;; Bind variables
-  ;; (if (not (boundp 'directory))
-  ;;     (setq directory (read-directory-name "Directory to search: ")))
-  (let* (org-file-list
-	 (case-fold-search t)		; filesystems are case sensitive
-	 (fileregex (if filext (format "^[^.#].*\\.\\(%s$\\)" filext)
-		      "^[^.#].*\\.\\(org$\\|org_archive$\\)"))
-	 (cur-dir-list (directory-files directory t "^[^.#].*"))) ; exclude .*
-    ;; loop over directory listing
-    (dolist (file-or-dir cur-dir-list org-file-list) ; returns org-file-list
-      (cond
-       ((file-regular-p file-or-dir) ; regular files
-	(if (string-match fileregex file-or-dir) ; org files
-	    (add-to-list 'org-file-list file-or-dir)))
-       ((file-directory-p file-or-dir)
-	(dolist (org-file (find-org-file-recursively file-or-dir filext)
-			  org-file-list) ; add files found to result
-	  (add-to-list 'org-file-list org-file)))))))
 
 
 (provide 'nifty)
