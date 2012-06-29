@@ -25,6 +25,9 @@
 ;; `occur-mode' customisations
 (define-key occur-mode-map (kbd "TAB") 'occur-mode-display-occurrence)
 
+(global-set-key '[(C-mouse-4)] 'text-scale-increase) ; scroll up
+(global-set-key '[(C-mouse-5)] 'text-scale-decrease) ; scroll down
+
 
 ;; Editing
 ;; prefer utf-8
