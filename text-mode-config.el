@@ -18,6 +18,7 @@
   "My hook for modes which are like `text-mode'."
   ;; wrap long lines (if the window size is small)
   ;; (toggle-truncate-lines t)
+  (local-set-key "`" 'skeleton-pair-insert-maybe)
   (unless (or (eq major-mode 'org-mode) (eq major-mode 'latex-mode))
     ;; turn on orgtbl minor mode
     (turn-on-orgtbl)

@@ -42,12 +42,21 @@
 ;; ;; Load CEDET (do not move later, conflicts with eieio bundled with Emacs 24)
 ;; (load-file "~/.emacs.d/lisp/cedet-configs.el")
 
+
+;; C/C++ language templates
+(load-file "~/.emacs.d/lisp/templates.el")
+
+
 ;; rebind as c-electric overrides global binding
 (add-hook 'c-mode-common-hook
 	  (lambda ()
-	    (local-set-key "(" 'skeleton-pair-insert-maybe)
+	    ;; want auto indentation more than parenthesis pairing
+	    ;; however, is there a way to have my cake and eat it too?
+	    ;; (local-set-key "(" 'skeleton-pair-insert-maybe)
 	    (local-set-key "{" 'skeleton-pair-insert-maybe)
 	    (local-set-key "[" 'skeleton-pair-insert-maybe)
+	    (local-set-key "<" 'skeleton-pair-insert-maybe)
+	    (local-set-key "'" 'skeleton-pair-insert-maybe)
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
 	    ;; (c-toggle-auto-newline 1)
 	    ))
