@@ -79,6 +79,7 @@ If FILEXT is provided, return files with extension FILEXT instead."
 (defun sa-opacity-modify (&optional dec)
   "Modify the transparency of the emacs frame; if DEC is t,
 decrease the transparency, otherwise increase it in 5% steps."
+  (interactive "p")
   (let* ((alpha-or-nil (frame-parameter nil 'alpha)) ; nil before setting
 	 (oldalpha (if alpha-or-nil alpha-or-nil
 		     100))
@@ -87,24 +88,6 @@ decrease the transparency, otherwise increase it in 5% steps."
     (when (and (>= newalpha frame-alpha-lower-limit)
 	       (<= newalpha 100))
       (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
-
- ;; C-+ will increase opacity (== decrease transparency)
-(global-set-key (kbd "C-=")
-		'(lambda()
-		   (interactive)
-		   (djcb-opacity-modify)))
-
- ;; C-- will decrease opacity (== increase transparency
-(global-set-key (kbd "C--")
-		'(lambda()
-		   (interactive)
-		   (djcb-opacity-modify t)))
-
- ;; C-0 will returns the state to normal
-(global-set-key (kbd "C-0")
-		'(lambda()
-		   (interactive)
-		   (modify-frame-parameters nil `((alpha . 100)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
