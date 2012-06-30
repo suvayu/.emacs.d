@@ -108,6 +108,10 @@
  '(windmove-wrap-around t))
 
 
+;; turn on ibuffer by default
+(progn (ibuffer)
+       (switch-to-buffer "*scratch*"))
+
 ;; Colour theme and other gui related config
 (load-file "~/.emacs.d/gui-config.el")	; requires color-theme.el
 
