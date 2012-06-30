@@ -194,6 +194,11 @@
 ;; (require 'help+)
 ;; (require 'help-fns+)
 
+;; auto-install.el
+(autoload 'auto-install-from-emacswiki "auto-install"
+  "Install an elisp file from EmacsWiki.org." t)
+(autoload 'auto-install-from-url "auto-install"
+  "Install an elisp file from a given url." t)
 ;; auto-install settings (not in vanilla Emacs)
 (eval-after-load 'auto-install
   (setq auto-install-directory "~/.emacs.d/lisp/"))
