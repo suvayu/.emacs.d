@@ -209,7 +209,16 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/lisp/dict")
+
+(setq ac-ignore-case nil
+      ac-auto-start 3
+      ac-delay 0.2)
+
 (add-hook 'c-mode-common-hook
+	  (lambda()
+	    (add-to-list 'ac-sources 'ac-source-semantic)))
+
+(add-hook 'python-mode-hook
 	  (lambda()
 	    (add-to-list 'ac-sources 'ac-source-semantic)))
 
