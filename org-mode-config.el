@@ -176,6 +176,19 @@
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
+(defun sa-switch-latex-binary(binary)
+  "Switch binary for LaTeX export of org files."
+  (interactive "sLaTeX binary: ")
+  (downcase binary)
+  (let ((newcmd (replace-regexp-in-string
+		 ".*latex" binary
+		 (car org-latex-to-pdf-process)))
+	(newcmd-e (replace-regexp-in-string
+		   ".*latex" binary
+		   (car org-e-latex-pdf-process))))
+    (setf org-latex-to-pdf-process `(,newcmd ,newcmd ,newcmd)
+	  org-e-latex-pdf-process `(,newcmd-e ,newcmd-e ,newcmd-e))))
+
 
 ;; FIXME: export templates for inline tasks
 ;; (defun sa-org-latex-format-inlinetask (heading content
