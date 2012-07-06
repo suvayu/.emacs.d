@@ -72,7 +72,14 @@
     ("MC" "Monte Carlo" nil 0)
     ("SU3" "SU(3)" nil 0)
     ("SU2" "SU(2)" nil 0)
-    ("U1" "U(1)" nil 0))
+    ("U1" "U(1)" nil 0)
+    ("tex" "TeX" nil 0)
+    ("latex" "LaTeX" nil 0)
+    ("e-tex" "e-TeX" nil 0)
+    ("xetex" "XeTeX" nil 0)
+    ("xelatex" "XeLaTeX" nil 0)
+    ("luatex" "LuaTeX" nil 0)
+    )
   "Abbreviation table for text-mode. Inherits from
   `basic-text-mode-abbrev-table'."
   :parents (list basic-text-mode-abbrev-table))
