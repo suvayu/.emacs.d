@@ -61,14 +61,15 @@
 
 (define-abbrev-table 'basic-text-mode-abbrev-table
   '(("bkg" "background" nil 0)
+    ("bkgs" "backgrounds" nil 0)
     ("dist" "distribution" nil 0)
     ("sig" "signal" nil 0))
   "Basic text abbreviation table for all modes.")
 
 (define-abbrev-table 'text-mode-abbrev-table
-  '(("Bs" "Bs⁰" nil 0)
-    ("aBs" "B̄s⁰" nil 0)
-    ("ew" "electroweak" nil 0)
+  '(("Bs" "Bs" nil 0)
+    ("aBs" "B̄s" nil 0)
+    ("ewk" "electroweak" nil 0)
     ("MC" "Monte Carlo" nil 0)
     ("SU3" "SU(3)" nil 0)
     ("SU2" "SU(2)" nil 0)
