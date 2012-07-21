@@ -5,6 +5,9 @@
 
 (load-library "org-inlinetask")
 (load-library "org-export")
+(load-library "org-e-latex")
+(load-library "org-e-beamer")
+(load-library "org-e-html")
 
 ;; Google weather in agenda
 (load-library "google-weather")
@@ -104,6 +107,8 @@
       ;; http://thread.gmane.org/gmane.emacs.orgmode/53856/focus=53875
       org-export-html-xml-declaration
       '(("html" . "<!-- <xml version=\"1.0\" encoding=\"utf-8\"> -->"))
+      org-entities-user
+      '(("space" "~" nil " " " " " " " "))
       )
 
 
@@ -175,6 +180,18 @@
       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+;; beamer export with the new exporter
+(add-to-list 'org-e-latex-classes
+             '("beamer"
+               "\\documentclass\[presentation\]\{beamer\}"
+               ("\\section\{%s\}" . "\\section*\{%s\}")
+               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+(add-to-list 'org-e-beamer-environments-extra
+	     '("onlyenv" "O" "\\begin{onlyenv}%a" "\\end{onlyenv}"))
+
 
 (defun sa-switch-latex-binary(binary)
   "Switch binary for LaTeX export of org files."
@@ -267,7 +284,7 @@
 ;; 		    "\\textbf{" heading "}\n"
 ;; 		    content "\n}%\n"))))
 
-;; backend aware export preprocess hook
+;; backend aware export preprocess hook (FIXME: old exporter)
 (defun sa-org-export-preprocess-hook ()
   "My backend aware export preprocess hook."
   (save-excursion
