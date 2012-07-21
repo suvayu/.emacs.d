@@ -28,6 +28,8 @@
 ;; Isearch in other-window
 (global-set-key (kbd "C-c C-s") 'sa-isearch-forward-other-window)
 (global-set-key (kbd "C-c C-r") 'sa-isearch-backward-other-window)
+(global-set-key (kbd "C-c C-M-s") 'sa-isearch-forward-regexp-other-window)
+(global-set-key (kbd "C-c C-M-r") 'sa-isearch-backward-regexp-other-window)
 ;; NB: C-c C-s was bound to (c-show-syntactic-information ARG) in c-mode
 
 (global-set-key '[(C-mouse-4)] 'text-scale-increase) ; scroll up
@@ -44,6 +46,10 @@
 ;; (define-key global-map (kbd "S-<iso-lefttab>") 'indent-relative)
 (define-key global-map (kbd "<backtab>") 'indent-relative)
 ;; (global-set-key '[(backtab)] 'indent-relative)
+
+;; inserting unicode
+(load-library "ucs-cmds")
+(define-key global-map [remap ucs-insert] 'ucsc-insert)
 
 ;; undo-tree (not in vanilla Emacs)
 (require 'undo-tree)

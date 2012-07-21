@@ -6,6 +6,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;; FIXME: add uniquify support
+;; (uniquify-item-buffer
+;;  (uniquify-make-item (buffer-name) default-directory indirect-buffer))
+(defun sa-make-indirect-buffer()
+  "Make indirect buffer to current buffer and switch to it."
+  (interactive)
+  (let ((ibuf (make-indirect-buffer
+	       (current-buffer)
+	       (generate-new-buffer-name (buffer-name)) t)))
+    (switch-to-buffer ibuf)))
+
+
 ;; isearch wrappers to search in other window
 ;; Source: http://www.unixuser.org/~ysjj/emacs/lisp/misc-funcs.el
 (defun sa-isearch-backward-other-window (arg)
