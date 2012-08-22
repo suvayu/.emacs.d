@@ -107,7 +107,7 @@
       ;; http://thread.gmane.org/gmane.emacs.orgmode/53856/focus=53875
       org-export-html-xml-declaration
       '(("html" . "<!-- <xml version=\"1.0\" encoding=\"utf-8\"> -->"))
-      org-entities-user
+      org-entities-user			; "\ " can also be used
       '(("space" "~" nil " " " " " " " "))
       )
 
@@ -192,6 +192,22 @@
 (add-to-list 'org-e-beamer-environments-extra
 	     '("onlyenv" "O" "\\begin{onlyenv}%a" "\\end{onlyenv}"))
 
+(add-to-list 'org-export-snippet-translation-alist
+	     '(("b" . "e-beamer")
+	       ("l" . "e-latex")))
+
+;; filters for markups
+(defun sa-beamer-bold (contents backend info)
+  (if (not (eq backend 'e-beamer)) contents
+    (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
+
+(defun sa-beamer-structure (contents backend info)
+  (if (not (eq backend 'e-beamer)) contents
+    (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\structure" contents)))
+
+(add-to-list 'org-export-filter-bold-functions 'sa-beamer-bold)
+(add-to-list 'org-export-filter-strike-through-functions
+             'sa-beamer-structure)
 
 (defun sa-switch-latex-binary(binary)
   "Switch binary for LaTeX export of org files."
