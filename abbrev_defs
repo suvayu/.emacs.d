@@ -48,10 +48,14 @@
   '(("SU3" "\\(SU(3)\\)" nil 0)
     ("SU2" "\\(SU(2)\\)" nil 0)
     ("U1" "\\(U(1)\\)" nil 0)
-    ))
+    ("kfactor" "\\(k\\)-factor" nil 0)
+    )
+  "Abbreviation table for `org-mode'. Inherits from
+  `text-mode-abbrev-table'."
+  :parents (list text-mode-abbrev-table))
 
 (define-abbrev-table 'org-mode-abbrev-table
-  '(
+  '(("kfactor" "\\(k\\)-factor" nil 0)
     )
   "Abbreviation table for `org-mode'. Inherits from
   `text-mode-abbrev-table'."
