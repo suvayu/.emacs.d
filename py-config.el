@@ -6,8 +6,8 @@
 	    (local-set-key "[" 'skeleton-pair-insert-maybe)
 	    (local-set-key "'" 'skeleton-pair-insert-maybe)
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
-	    (define-key python-mode-map (kbd "M-a") 'python-beginning-of-block)
-	    (define-key python-mode-map (kbd "M-e") 'python-end-of-block)
+	    (define-key python-mode-map (kbd "M-a") 'python-nav-beginning-of-block)
+	    (define-key python-mode-map (kbd "M-e") 'python-nav-end-of-block)
 	    (define-key python-mode-map (kbd "C-c d") 'pylookup-lookup)
 	    ))
 
