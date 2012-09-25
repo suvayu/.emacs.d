@@ -13,9 +13,9 @@
 
 ;; minibuffer history completion
 (mapc
-    '(lambda (map)
-       (define-key map [(meta p)] 'previous-complete-history-element)
-       (define-key map [(meta n)] 'next-complete-history-element))
+    #'(lambda (map)
+	(define-key map [(meta p)] 'previous-complete-history-element)
+	(define-key map [(meta n)] 'next-complete-history-element))
     (nconc (list minibuffer-local-completion-map
                  minibuffer-local-isearch-map
                  minibuffer-local-map
