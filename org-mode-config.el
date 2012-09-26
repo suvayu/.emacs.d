@@ -3,15 +3,15 @@
 ;; since using org-mode in ~/build/org-mode
 (require 'org-install)
 
-(load-library "org-inlinetask")
+;; (load-library "org-inlinetask")
 (load-library "org-export")
 (load-library "org-e-latex")
 (load-library "org-e-beamer")
 (load-library "org-e-html")
 
-;; Google weather in agenda
-(load-library "google-weather")
-(load-library "org-google-weather")
+;; ;; Google weather in agenda
+;; (load-library "google-weather")
+;; (load-library "org-google-weather")
 
 ;; read emails with notmuch
 (load-library "notmuch")
@@ -84,7 +84,8 @@
       org-agenda-time-grid '((daily today)
 			     "----------------"
 			     (800 1000 1200 1400 1600 1800 2000))
-      org-google-weather-format "%i %c %L, [%l,%h] %s"
+      ;; google-weather, no more
+      ;; org-google-weather-format "%i %c %L, [%l,%h] %s"
       ;; org-goto-interface 'outline-path-completion
       org-refile-targets '((org-agenda-files :maxlevel . 5))
       org-refile-use-outline-path 'file
@@ -220,10 +221,23 @@
 		   ".*latex" binary
 		   (car org-e-latex-pdf-process))))
     (setf org-latex-to-pdf-process `(,newcmd ,newcmd ,newcmd)
-	  org-e-latex-pdf-process `(,newcmd-e ,newcmd-e ,newcmd-e))))
+	  org-e-latex-pdf-process `(,newcmd-e ,newcmd-e ,newcmd-e))
+    (message "Note default packages are unchanged!")))
 
 
 ;; FIXME: export templates for inline tasks
+;; This works but disabled
+;; (defun sa-org-latex-format-inlinetask (heading content
+;; 					    &optional todo priority tags)
+;;   "Generate format string for inlinetask export templates for latex."
+;;   (concat "\\todo[inline,]{"
+;; 	  (unless (eq todo "") (format "\\textsc{%s%s}" todo priority))
+;; 	  (format "\\textbf{%s}\n" heading) content "}"))
+
+;; (setcdr (assoc 'latex org-inlinetask-export-templates)
+;; 	'("%s" '((sa-org-latex-format-inlinetask
+;; 		  heading content todo priority tags))))
+
 ;; (defun sa-org-latex-format-inlinetask (heading content
 ;; 					    &optional todo priority tags)
 ;;   "Generate format string for inlinetask export templates for latex."
@@ -235,17 +249,6 @@
 ;; 	      (format "\\textsc{%s%s}" todo priority))
 ;; 	    (format "\\textbf{%s}\n" heading)
 ;; 	    content "}")))
-
-(defun sa-org-latex-format-inlinetask (heading content
-					    &optional todo priority tags)
-  "Generate format string for inlinetask export templates for latex."
-  (concat "\\todo[inline,]{"
-	  (unless (eq todo "") (format "\\textsc{%s%s}" todo priority))
-	  (format "\\textbf{%s}\n" heading) content "}"))
-
-(setcdr (assoc 'latex org-inlinetask-export-templates)
-	'("%s" '((sa-org-latex-format-inlinetask
-		  heading content todo priority tags))))
 
 
 ;; FIXME: interferes with ASCII export of subtree
