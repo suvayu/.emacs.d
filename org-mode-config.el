@@ -94,14 +94,13 @@
       ;; Note that using TODO keyword/tags list matches children tasks
       org-stuck-projects '("+LEVEL=2&+SCHEDULED<\"<-1m>\"/!-DONE"
 			   nil nil "^\\*\\+ \\+\\(DONE|FIXD|CNCL\\)")
-      ;; for utf8 support, commented out because this is deprecated
-      ;; recommended solution is to move to luatex or xetex
-      ;; org-export-latex-inputenc-alist '(("utf8" . "utf8x"))
-      org-beamer-environments-extra
-      '(("only"         "O" "\\only%a{%x"            "}")
-	("onlyH" 	"H" "\\only%a{%h%x" 	     "}")
-	("visible" 	"+" "\\visible%a{%h%x" 	     "}")
-	("invisible" 	"-" "\\invisible%a{%h%x"     "}"))
+      ;; using org-export now
+      ;; ;; org-export-latex-inputenc-alist '(("utf8" . "utf8x"))
+      ;; org-beamer-environments-extra
+      ;; '(("only"         "O" "\\only%a{%x"            "}")
+      ;; 	("onlyH" 	"H" "\\only%a{%h%x" 	     "}")
+      ;; 	("visible" 	"+" "\\visible%a{%h%x" 	     "}")
+      ;; 	("invisible" 	"-" "\\invisible%a{%h%x"     "}"))
       ;; convert exported odt to pdf with soffice --convert-to pdf
       org-export-odt-preferred-output-format "pdf"
       ;; to circumvent reliance on Apache config, solution by Seb:
@@ -153,9 +152,10 @@
 (add-to-list 'org-export-latex-packages-alist
 	     "\\MakeRobustCommand\\item" t)
 
-;; for code block export with minted.sty and python program pygmentize
-(setq org-export-latex-listings 'minted)
-(add-to-list 'org-export-latex-packages-alist '("" "minted"))
+;; FIXME: temporarily commented
+;; ;; for code block export with minted.sty and python program pygmentize
+;; (setq org-export-latex-listings 'minted)
+;; (add-to-list 'org-export-latex-packages-alist '("" "minted"))
 
 
 ;;; XeLaTeX customisations
@@ -177,6 +177,7 @@
       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+      org-export-dispatch-use-expert-ui t ; non-intrusive export dispatch
       org-e-latex-pdf-process		; for experimental org-export
       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -197,6 +198,15 @@
 	     '(("b" . "e-beamer")
 	       ("l" . "e-latex")))
 
+;; ;; FIXME: doesn't work because of \hypersetup, \tableofcontents, etc.
+;; ;; minimal export with the new exporter
+;; (add-to-list 'org-e-latex-classes
+;;              '("minimal"
+;;                "\\documentclass\{minimal\}\n[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]"
+;;                ("\\section\{%s\}" . "\\section*\{%s\}")
+;;                ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+;;                ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
 ;; filters for markups
 (defun sa-beamer-bold (contents backend info)
   (if (not (eq backend 'e-beamer)) contents
@@ -211,7 +221,8 @@
              'sa-beamer-structure)
 
 (defun sa-switch-latex-binary(binary)
-  "Switch binary for LaTeX export of org files."
+  "Switch binary for LaTeX export of org files.  Note this does
+not correct default package list."
   (interactive "sLaTeX binary: ")
   (downcase binary)
   (let ((newcmd (replace-regexp-in-string
@@ -251,6 +262,7 @@
 ;; 	    content "}")))
 
 
+;; FIXME: Migrate to filters for experimental export
 ;; FIXME: interferes with ASCII export of subtree
 ;; ;; org export hooks
 ;; (defun sa-org-export-latex-wrap-todo ()
@@ -303,27 +315,31 @@
 ;; 		    "\\textbf{" heading "}\n"
 ;; 		    content "\n}%\n"))))
 
-;; backend aware export preprocess hook (FIXME: old exporter)
-(defun sa-org-export-preprocess-hook ()
-  "My backend aware export preprocess hook."
-  (save-excursion
-    (when (eq org-export-current-backend 'latex)
-      ;; ignoreheading tag for bibliographies and appendices
-      (let* ((tag "ignoreheading"))
-	;; (goto-char (point-min))
-	;; (while (re-search-forward (concat ":" tag ":") nil t)
-	;;   (delete-region (point-at-bol) (point-at-eol)))
-	(org-map-entries (lambda ()
-			   (delete-region (point-at-bol) (point-at-eol)))
-			 (concat ":" tag ":"))))
-    (when (eq org-export-current-backend 'html)
-      ;; set custom css style class based on matched tag
-      (let* ((match "Qn"))
-	(org-map-entries
-	 (lambda () (org-set-property "HTML_CONTAINER_CLASS" "inlinetask"))
-	 match)))))
-(add-hook 'org-export-preprocess-hook 'sa-org-export-preprocess-hook)
 
+;; FIXME: instead of preprocess hook, use filters for new exporter
+;; ;; backend aware export preprocess hook
+;; (defun sa-org-export-preprocess-hook ()
+;;   "My backend aware export preprocess hook."
+;;   (save-excursion
+;;     (when (eq org-export-current-backend 'latex)
+;;       ;; ignoreheading tag for bibliographies and appendices
+;;       (let* ((tag "ignoreheading"))
+;; 	;; (goto-char (point-min))
+;; 	;; (while (re-search-forward (concat ":" tag ":") nil t)
+;; 	;;   (delete-region (point-at-bol) (point-at-eol)))
+;; 	(org-map-entries (lambda ()
+;; 			   (delete-region (point-at-bol) (point-at-eol)))
+;; 			 (concat ":" tag ":"))))
+;;     (when (eq org-export-current-backend 'html)
+;;       ;; set custom css style class based on matched tag
+;;       (let* ((match "Qn"))
+;; 	(org-map-entries
+;; 	 (lambda () (org-set-property "HTML_CONTAINER_CLASS" "inlinetask"))
+;; 	 match)))))
+;; (add-hook 'org-export-preprocess-hook 'sa-org-export-preprocess-hook)
+
+
+;; Fix for inlinetasks in agenda
 (setq org-agenda-skip-function-global ; skip END entries in inline tasks
       (lambda ()
 	(when (and (featurep 'org-inlinetask)
@@ -351,23 +367,13 @@
 	    (append-next-kill))))
     (switch-to-buffer "*temp*") (goto-char (point-max)) (yank)))
 
-;; (defun sa-org-export-final-hook ()
-;;   "My backend specific final export hook."
-;;   (save-excursion
-;;     (if (eq org-export-current-backend 'latex)
-;; 	;; (if (eq buffer-file-coding-system 'utf-8-unix))
-;; 	(progn (re-search-forward "inputenc")
-;; 	       (message "hook")
-;; 	       (beginning-of-line)
-;; 	       (insert "% ")))))
-;; (add-hook 'org-export-latex-final-hook 'sa-org-export-final-hook t)
 
-
-;; show links as inline images using `iimage-mode'
-(load-library "iimage")
-(add-to-list 'iimage-mode-image-regex-alist
-             (cons (concat "\\[\\[file:\\(~?" iimage-mode-image-filename-regex
-                           "\\)\\]")  1))
+;; disable inline images
+;; ;; show links as inline images using `iimage-mode'
+;; (load-library "iimage")
+;; (add-to-list 'iimage-mode-image-regex-alist
+;;              (cons (concat "\\[\\[file:\\(~?" iimage-mode-image-filename-regex
+;;                            "\\)\\]")  1))
 
 
 ;; reftex setup
