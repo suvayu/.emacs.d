@@ -98,7 +98,7 @@
                 (erase-buffer))))
 
         (save-excursion
-          (flet ((message (&rest args) nil))  ;; suppress occur messages
+          (cl-flet ((message (&rest args) nil))  ;; suppress occur messages
             (multi-occur
              (remove nil (mapcar (lambda (buffer)
                                    (with-current-buffer buffer
