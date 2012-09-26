@@ -411,7 +411,7 @@ not correct default package list."
 	  (org-agenda-text-search-extra-files
 	   (find-org-file-recursively "~/org/LHCb-Bs2Dsh"))))
 	("V" "Search Velo files" search ""
-	 ((org-agenda-files (list "~/org/analysis.org" "~/org/meetings.org"))
+	 ((org-agenda-files (list "~/org/research.org" "~/org/meetings.org"))
 	  (org-agenda-text-search-extra-files
 	   (find-org-file-recursively "~/org/LHCb-Velo"))))
 	;; ("g" "Search CKM γ project notes" search "")
@@ -488,22 +488,22 @@ not correct default package list."
 	("w" "Workshops and conferences" entry (file+headline "~/org/meetings.org" "Workshops - Conferences")
 	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n%?"
 	 :prepend t :empty-lines 1)
-	("d" "Add TODO with a DEADLINE" entry (file+headline "~/org/notes.org" "Tasks")
+	("d" "Add TODO with a DEADLINE" entry (file+headline "~/org/tasks.org" "Tasks")
 	 "** TODO %^{prompt}\n   DEADLINE: %^t\n%?"
 	 :prepend t)
 	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
 	 "** %^{prompt}%^{CATEGORY}p\n\n%?"
 	 :prepend t)
-	("p" "Schedule a trip" entry (file+headline "~/org/notes.org" "Trips")
+	("p" "Schedule a trip" entry (file+headline "~/org/meetings.org" "Trips")
 	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n%?"
 	 :prepend t)
-	("r" "Reading material" entry (file+headline "~/org/notes.org" "Reading")
+	("r" "Reading material" entry (file+headline "~/org/biblio.org" "Reading")
 	 "** %?%^{CATEGORY}p %^G\n   %^t"
 	 :prepend t) ; :unnarrowed t
-	("s" "Schedule a TODO Item" entry (file+headline "~/org/notes.org" "Tasks")
+	("s" "Schedule a TODO Item" entry (file+headline "~/org/tasks.org" "Tasks")
 	 "** TODO %^{prompt}\n   SCHEDULED: %^t\n%?"
 	 :prepend t)
-	("t" "Regular TODO Item" entry (file+headline "~/org/notes.org" "Tasks")
+	("t" "Regular TODO Item" entry (file+headline "~/org/tasks.org" "Tasks")
 	 "** TODO %^{prompt}\n   %^t\n%?"
 	 :prepend t)
 	))
