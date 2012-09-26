@@ -562,10 +562,6 @@ otherwise move to next headline."
 ;; + Quoted lisp vectors - '[(C-right)]
 ;; + String translated to keyboard events - (kbd "C-<right>")
 
-;; Testing org-element
-(defalias 'org-metaup 'org-element-drag-backward)
-(defalias 'org-metadown 'org-element-drag-forward)
-
 ;; global keymaps
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -575,39 +571,38 @@ otherwise move to next headline."
 (global-set-key (kbd "C-c c") 'org-capture)
 
 ;; `org-mode' keymaps
-(defun sa-org-mode-keymap()
-  "My `org-mode' keymap."
-  ;; ;; overload default `fill-paragraph' keybind to use org specific command
-  ;; (org-defkey org-mode-map (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
-  ;; toggle inline images with iimage
-  ;; (org-defkey org-mode-map (kbd "C-c i") 'org-toggle-inline-images)
-  (org-defkey org-mode-map (kbd "C-c g") 'oog) ; org-occur-goto
-  (org-defkey org-mode-map (kbd "C-c s") 'osg) ; org-search-goto
-  ;; table copy paste
-  (org-defkey org-mode-map (kbd "C-M-w") 'org-table-copy-region)
-  (org-defkey org-mode-map (kbd "C-M-y") 'org-table-paste-rectangle)
-  ;; navigating list items / headings depending on context
-  (org-defkey org-mode-map (kbd "<XF86Forward>") 'sa-org-dwim-next)
-  (org-defkey org-mode-map (kbd "<XF86Back>") 'sa-org-dwim-previous)
-  ;; navigating links
-  (org-defkey org-mode-map (kbd "C-c <XF86Forward>") 'org-next-link)
-  (org-defkey org-mode-map (kbd "C-c <XF86Back>") 'org-previous-link)
-  ;; navigating headlines
-  (org-defkey org-mode-map (kbd "C-c <left>") 'outline-up-heading)
-  (org-defkey org-mode-map (kbd "C-c <up>") 'outline-previous-visible-heading)
-  (org-defkey org-mode-map (kbd "C-c <down>") 'outline-next-visible-heading)
-  ;; super / windows key may not work on laptops
-  (org-defkey org-mode-map (kbd "C-<XF86Back>") 'sa-outline-backward-same-level)
-  (org-defkey org-mode-map (kbd "C-<XF86Forward>") 'sa-outline-forward-same-level))
+;; ;; overload default `fill-paragraph' keybind to use org specific command
+;; (org-defkey org-mode-map (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
+;; toggle inline images with iimage
+;; (org-defkey org-mode-map (kbd "C-c i") 'org-toggle-inline-images)
+;; (org-defkey org-mode-map (kbd "C-c d") 'org-display-outline-path)
+(org-defkey org-mode-map (kbd "C-c d") 'org-display-outline-path)
+(org-defkey org-mode-map (kbd "C-c C-e") 'org-export-dispatch)
+(org-defkey org-mode-map (kbd "C-c g") 'oog) ; org-occur-goto
+(org-defkey org-mode-map (kbd "C-c s") 'osg) ; org-search-goto
+;; table copy paste
+(org-defkey org-mode-map (kbd "C-M-w") 'org-table-copy-region)
+(org-defkey org-mode-map (kbd "C-M-y") 'org-table-paste-rectangle)
+;; navigating list items / headings depending on context
+(org-defkey org-mode-map (kbd "<XF86Forward>") 'sa-org-dwim-next)
+(org-defkey org-mode-map (kbd "<XF86Back>") 'sa-org-dwim-previous)
+;; navigating links
+(org-defkey org-mode-map (kbd "C-c <XF86Forward>") 'org-next-link)
+(org-defkey org-mode-map (kbd "C-c <XF86Back>") 'org-previous-link)
+;; navigating headlines
+(org-defkey org-mode-map (kbd "C-c <left>") 'outline-up-heading)
+(org-defkey org-mode-map (kbd "C-c <up>") 'outline-previous-visible-heading)
+(org-defkey org-mode-map (kbd "C-c <down>") 'outline-next-visible-heading)
+;; super / windows key may not work on laptops
+(org-defkey org-mode-map (kbd "C-<XF86Back>") 'sa-outline-backward-same-level)
+(org-defkey org-mode-map (kbd "C-<XF86Forward>") 'sa-outline-forward-same-level)
 
 ;; `org-agenda-mode' keymaps
-(defun sa-org-agenda-mode-keymap()
-  "My `org-agenda-mode' keymap."
-  ;; set property
-  (org-defkey org-agenda-mode-map (kbd "C-c p") 'org-agenda-set-property)
-  ;; month view
-  (org-defkey org-agenda-mode-map (kbd "C-c m") 'org-agenda-month-view))
-
+;; (eval-after-load 'org-agenda
+;;   ;; set property
+;;   (org-defkey org-agenda-mode-map (kbd "C-c p") 'org-agenda-set-property)
+;;   ;; month view
+;;   (org-defkey org-agenda-mode-map (kbd "C-c m") 'org-agenda-month-view))
 
 ;; org-agenda config; not needed anymore, but kept as an example
 ;; This function is used to insert current time in the agenda buffer
@@ -623,7 +618,6 @@ otherwise move to next headline."
 ;; `org-agenda-mode' hook
 (defun sa-org-agenda-mode-hook()
   "My `org-agenda-mode' hook."
-  (sa-org-agenda-mode-keymap)
   (visual-line-mode t))
 (add-hook 'org-agenda-mode-hook 'sa-org-agenda-mode-hook)
 
@@ -633,7 +627,6 @@ otherwise move to next headline."
   (local-unset-key (kbd "C-c ["))	; add/remove agenda files
   (local-unset-key (kbd "C-c ]"))
   ;; (flyspell-mode t)
-  (sa-org-mode-keymap)
   ;; line folding w/o actually folding it, use `M-q' to wrap.
   (visual-line-mode t)
   ;; imenu for org-mode buffers
