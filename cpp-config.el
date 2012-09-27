@@ -52,11 +52,9 @@
 	  (lambda ()
 	    ;; want auto indentation more than parenthesis pairing
 	    ;; however, is there a way to have my cake and eat it too?
-	    ;; (local-set-key "(" 'skeleton-pair-insert-maybe)
+	    (local-set-key "(" 'skeleton-pair-insert-maybe)
 	    (local-set-key "{" 'skeleton-pair-insert-maybe)
 	    (local-set-key "[" 'skeleton-pair-insert-maybe)
-	    (local-set-key "<" 'skeleton-pair-insert-maybe)
-	    (local-set-key "'" 'skeleton-pair-insert-maybe)
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
 	    ;; (c-toggle-auto-newline 1)
 	    ))
