@@ -652,7 +652,6 @@ otherwise move to next headline."
    (latex . t)
    (octave .t)
    (python . t)
-   (ruby . t)
    (R . t)
    (ruby . t)
    (sh . t)))
