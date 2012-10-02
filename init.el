@@ -172,9 +172,9 @@
  CMT requirements file." t)
 (add-to-list 'auto-mode-alist (cons "\\requirements\\'" 'cmt-mode))
 
-;; Mode for EvtGen decay files
-(load-library "lhcb-dec")
-(add-to-list 'auto-mode-alist (cons "\\.dec\\'" 'lhcb-dec-mode))
+;; ;; Mode for EvtGen decay files
+;; (load-library "lhcb-dec")
+;; (add-to-list 'auto-mode-alist (cons "\\.dec\\'" 'lhcb-dec-mode))
 
 ;; ;; `han-mode' for HAN configuration files
 ;; (autoload 'han-mode "han-mode"
