@@ -1,8 +1,5 @@
 ;;; org-mode-settings.el --- `org-mode' settings and customisations.
 
-;; since using org-mode in ~/build/org-mode
-(require 'org-install)
-
 ;; (load-library "org-inlinetask")
 (load-library "org-export")
 (load-library "org-e-latex")

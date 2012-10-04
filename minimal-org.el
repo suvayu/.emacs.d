@@ -6,9 +6,6 @@
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
 
-;; activate org
-(require 'org-install)
-
 ;; ;; Default: w/o bibtex
 ;; (setq org-latex-to-pdf-process
 ;;       '("pdflatex -interaction nonstopmode %b"
