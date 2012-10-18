@@ -1,10 +1,17 @@
 ;;; org-mode-settings.el --- `org-mode' settings and customisations.
 
 ;; (load-library "org-inlinetask")
+(load-library "org")
 (load-library "org-export")
+(load-library "org-e-ascii")
 (load-library "org-e-latex")
 (load-library "org-e-beamer")
 (load-library "org-e-html")
+(load-library "org-e-odt")
+;; (load-library "org-e-groff")
+;; (load-library "org-e-man")
+;; (load-library "org-e-texinfo")
+;; (load-library "org-e-publish")
 
 ;; ;; Google weather in agenda
 ;; (load-library "google-weather")
@@ -15,7 +22,7 @@
 ;; links to notmuch emails in org
 (load-library "org-notmuch")
 
-(load-library "org-man")
+;; (load-library "org-man")
 (load-library "org-occur-goto")
 (load-library "org-search-goto")
 
@@ -25,9 +32,6 @@
 
 ;; utilities
 (load-library "nifty")
-
-;; temporary solution to latex export issue
-(load-library "tex")
 
 ;;; Code:
 ;; `org-mode' variable customisations
@@ -572,14 +576,13 @@ otherwise move to next headline."
 ;; (org-defkey org-mode-map (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
 ;; toggle inline images with iimage
 ;; (org-defkey org-mode-map (kbd "C-c i") 'org-toggle-inline-images)
-;; (org-defkey org-mode-map (kbd "C-c d") 'org-display-outline-path)
 (org-defkey org-mode-map (kbd "C-c d") 'org-display-outline-path)
 (org-defkey org-mode-map (kbd "C-c C-e") 'org-export-dispatch)
 (org-defkey org-mode-map (kbd "C-c g") 'oog) ; org-occur-goto
 (org-defkey org-mode-map (kbd "C-c s") 'osg) ; org-search-goto
-;; table copy paste
-(org-defkey org-mode-map (kbd "C-M-w") 'org-table-copy-region)
-(org-defkey org-mode-map (kbd "C-M-y") 'org-table-paste-rectangle)
+;; table copy paste (originally C-c M-w was bound to `org-copy')
+(org-defkey org-mode-map (kbd "C-c M-w") 'org-table-copy-region)
+(org-defkey org-mode-map (kbd "C-c M-y") 'org-table-paste-rectangle)
 ;; navigating list items / headings depending on context
 (org-defkey org-mode-map (kbd "<XF86Forward>") 'sa-org-dwim-next)
 (org-defkey org-mode-map (kbd "<XF86Back>") 'sa-org-dwim-previous)
