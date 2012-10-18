@@ -45,9 +45,18 @@
 	    (imenu-add-to-menubar "C++-Tags")))
 
 ;; FIXME: Doesn't quite do semantic isearch, could be bug in Emacs
+
+;; Fool around with these:
+;; defuns: senator-isearch-search-fun, senator-isearch-mode-hook
+;; hooks:
+;; (add-hook 'isearch-mode-hook     'senator-isearch-mode-hook)
+;; (add-hook 'isearch-mode-end-hook 'senator-isearch-mode-hook)
+
 (defun sa-senator-search-forward(string &optional bound noerror count)
   "This is convenience wrapper for `senator-search-forward'."
   (interactive "sSemantic search: ")
+  (unless (featurep 'semantic/senator)
+    (load-library "semantic/senator"))
   (let* ((senator-isearch-semantic-mode t))
     (senator-search-forward string bound noerror count)))
 
