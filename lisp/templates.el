@@ -34,5 +34,5 @@
 ;; 	(kill-backward-chars 1))
 ;;     ad-do-it))
 
-
+(provide 'templates)
 ;;; end of templates.el

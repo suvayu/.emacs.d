@@ -44,7 +44,7 @@
 
 
 ;; C/C++ language templates
-(load-file "~/.emacs.d/lisp/templates.el")
+(load-library "templates")		; skeletons and templates
 
 
 ;; rebind as c-electric overrides global binding
