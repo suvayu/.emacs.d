@@ -10,10 +10,10 @@
 (setenv "PATH" "/opt/texlive/2012/bin/x86_64-linux:$PATH" t)
 
 ;; load path for elisp files
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-(add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
-(add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+(add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
+(add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 
 ;;; Commented out since included in customize
 ;; ;; Info directory
