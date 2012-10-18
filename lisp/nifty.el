@@ -118,7 +118,7 @@ decrease the transparency, otherwise increase it in 5% steps."
       (replace-match "\\1fChain->Set\\2Address(\"\\4\", &\\4, &\\3\\4);" t))))
 
 ;; make ATLAS GoodRunList
-(defun make-GRL (beg end)
+(defun sa-make-GRL (beg end)
   "Convert the marked region of a ATLAS GoodRunList XML to C
 if..else source blocks."
   (interactive "r")
