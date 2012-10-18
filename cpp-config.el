@@ -15,7 +15,11 @@
 
 ;; Semantic built into Emacs
 ;; (semantic-mode 1)
-(semantic-add-system-include "/usr/include/root/" 'c++-mode)
+(setq root-include (let ((rootsys (getenv "ROOTSYS")))
+		     (if rootsys
+			 (concat rootsys "/include")
+		       "/usr/include/root/")))
+(semantic-add-system-include root-include 'c++-mode)
 
 ;; disable semantic in all non C/C++ buffers
 (add-to-list 'semantic-inhibit-functions
@@ -23,6 +27,14 @@
 
 (add-hook 'c-mode-common-hook
 	  (lambda ()
+	    (unless (and (featurep 'semantic/ia)
+			 ;; (featurep 'semantic/sb)
+			 ;; (featurep 'semantic/ia-sb)
+			 )
+	      (load-library "semantic/ia")
+	      ;; (load-library "semantic/sb")
+	      ;; (load-library "semantic/ia-sb")
+	      )
 	    (define-key c-mode-base-map (kbd "C-c ?") 'semantic-ia-complete-symbol)
 	    (define-key c-mode-base-map (kbd "C-c t") 'semantic-ia-complete-tip)
 	    (define-key c-mode-base-map (kbd "C-c v") 'semantic-ia-show-variants)
