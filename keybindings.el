@@ -24,17 +24,28 @@
 
 ;; `occur-mode' customisations
 (define-key occur-mode-map (kbd "TAB") 'occur-mode-display-occurrence)
+(define-key occur-mode-map (kbd "f") 'next-error-follow-minor-mode)
 
 ;; Isearch in other-window
-(global-set-key (kbd "C-c C-s") 'sa-isearch-forward-other-window)
-(global-set-key (kbd "C-c C-r") 'sa-isearch-backward-other-window)
-(global-set-key (kbd "C-c C-M-s") 'sa-isearch-forward-regexp-other-window)
-(global-set-key (kbd "C-c C-M-r") 'sa-isearch-backward-regexp-other-window)
+(global-set-key (kbd "M-s C-s") 'sa-isearch-forward-other-window)
+(global-set-key (kbd "M-s C-r") 'sa-isearch-backward-other-window)
+(global-set-key (kbd "M-s C-M-s") 'sa-isearch-forward-regexp-other-window)
+(global-set-key (kbd "M-s C-M-r") 'sa-isearch-backward-regexp-other-window)
 ;; NB: C-c C-s was bound to (c-show-syntactic-information ARG) in c-mode
 
 (global-set-key '[(C-mouse-4)] 'text-scale-increase) ; scroll up
 (global-set-key '[(C-mouse-5)] 'text-scale-decrease) ; scroll down
 
+
+;; transpose-* keybindings
+;; (global-set-key (kbd "C-<up>") 'transpose-lines)
+;; (global-set-key (kbd "C-<down>") '(lambda()
+;; 				  (interactive)
+;; 				  (transpose-lines -1)))
+(global-set-key (kbd "M-}") 'transpose-paragraphs)
+(global-set-key (kbd "M-{") '(lambda()
+			       (interactive)
+			       (transpose-paragraphs -1)))
 
 ;; Editing
 ;; prefer utf-8
@@ -46,6 +57,9 @@
 ;; (define-key global-map (kbd "S-<iso-lefttab>") 'indent-relative)
 (define-key global-map (kbd "<backtab>") 'indent-relative)
 ;; (global-set-key '[(backtab)] 'indent-relative)
+
+;; killing blocks of text
+(global-set-key (kbd "C-c M-k") 'kill-paragraph)
 
 ;; inserting unicode
 (load-library "ucs-cmds")
@@ -63,7 +77,7 @@
 (autoload 'kill-ring-search "kill-ring-search"
  "Search the kill ring in the minibuffer."
  (interactive))
-(global-set-key "\M-\C-y" 'kill-ring-search)
+(global-set-key (kbd "M-C-y") 'kill-ring-search)
 
 ;; ;; FIXME:
 ;; (defadvice isearch-yank-kill
