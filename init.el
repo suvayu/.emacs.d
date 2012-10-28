@@ -99,9 +99,10 @@
 	    (add-to-list 'ac-sources 'ac-source-math-latex)))
 (add-to-list 'ac-modes 'latex-mode)
 
-;; project aware buffer management (uses vc directories)
-(require 'projectile)
-(projectile-global-mode)
+;; FIXME: do not really use it, + unsatisfied dependency s (hate single letter names)
+;; ;; project aware buffer management (uses vc directories)
+;; (require 'projectile)
+;; (projectile-global-mode)
 
 ;; w3m key bindings
 (defun sa-w3m-mode-hook ()
