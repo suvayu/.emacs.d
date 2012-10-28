@@ -55,6 +55,11 @@
       org-special-ctrl-a/e t
       ;; on links `RET' follows the link
       org-return-follows-link t
+      ;; custom links
+      org-link-abbrev-alist
+      '(("gmane" . "http://thread.gmane.org/%s")
+	("google" . "https://www.google.com/search?q=%s")
+	("arxiv" . "http://arxiv.org/abs/physics/%s"))
       ;; log time for TODO state changes
       org-log-done 'time
       ;; log time on rescheduling and changing deadlines
