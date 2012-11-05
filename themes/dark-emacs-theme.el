@@ -66,6 +66,8 @@
  '(italic ((((supports :slant italic)) (:slant italic :foreground "blanched almond" :inherit (default)))))
  '(link ((t (:foreground "cyan" :underline t :weight extra-bold))))
  '(link-visited ((t (:foreground "violet" :inherit link))))
+ '(match ((((type graphic)) (:foreground "RoyalBlue3"))
+	  (((type tty)) (:background "brightyellow" :foreground "black"))))
  '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
  '(mode-line-buffer-id ((((type graphic)) (:weight bold :foreground "red" :background "ghost white"))))
  '(mode-line ((((type graphic)) (:box (:line-width -1 :color nil :style released-button) :foreground "blue" :background "azure"))))
