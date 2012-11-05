@@ -7,27 +7,27 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(completions-common-part ((t (:foreground "forest green"))))
- '(completions-first-difference ((t (:bold t :weight bold :foreground "salmon"))))
- '(font-lock-warning-face ((((type tty)) (:inherit error :weight bold))))
- '(info-menu-header ((t (:bold t :family "Sans Serif" :foreground "tomato" :weight bold))))
- '(info-node ((t (:italic t :bold t :foreground "gold" :slant italic :weight bold))))
- '(info-xref ((t (:inherit link :foreground "powder blue" :weight bold))))
- '(info-xref-visited ((t (:foreground "violet" :underline t :weight bold))))
- '(link ((t (:foreground "cyan" :underline t :weight extra-bold))))
- '(minibuffer-prompt ((t (:foreground "dark cyan" :weight bold))))
- '(org-agenda-current-time ((t (:inherit org-time-grid :background "snow" :foreground "DodgerBlue4" :weight bold))) t)
- '(org-done ((t (:background "ForestGreen" :foreground "DarkSeaGreen2" :slant oblique :weight bold))))
- '(org-inlinetask ((t (:inherit org-level-8 :slant oblique))))
- '(org-level-3 ((t (:inherit outline-3 :foreground "sandy brown" :weight bold))))
- '(org-todo ((t (:background "royalblue4" :foreground "thistle" :weight bold))))
- '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
- '(woman-bold ((t (:bold t :weight bold :foreground "forest green"))) t)
- '(woman-italic ((t (:italic t :slant italic :foreground "salmon"))) t))
+ '(font-latex-sectioning-5-face ((t (:foreground "color-21" :weight bold))) t)
+ '(match ((t (:background "brightyellow" :foreground "black"))))
+ '(message-header-cc ((t (:foreground "color-40"))))
+ '(message-header-other ((t (:foreground "color-166"))))
+ '(message-header-subject ((t (:foreground "color-75" :weight bold))))
+ '(message-header-to ((t (:foreground "color-75" :weight bold))))
+ '(message-header-xheader ((t (:foreground "color-23")))))
+
+;; diff-context
+;; diff-header
+;; diff-file-header
+;; diff-added
+;; diff-indicator-added same but bold
+;; diff-removed
+;; diff-indicator-removed same but bold
 
 ;; if $TERM=xterm-256color
 ;; '(mode-line ((t (:background "brightwhite" :foreground "black" :box (:line-width -1 :style released-button)))))
 
+;; FIXME: temporary hack for bug in semantic-mode
+(load-library "semantic/senator")
 
 ;; configs
 (custom-set-variables
@@ -42,7 +42,7 @@
  '(case-fold-search nil)
  '(column-number-mode t)
  '(custom-enabled-themes (quote (dark-emacs)))
- '(custom-safe-themes (quote ("9d04c19fa8d227f59234596060d285282599de77e0ee4f418aae5191a3bbf6bd" default)))
+ '(custom-safe-themes (quote ("b9da76477fdb289c9183bb55aec65df26bc0feaddbdff12b548465af42f1f4e7" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
@@ -59,18 +59,27 @@
  '(iswitchb-mode t)
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point t)
+ '(notmuch-address-command "nottoomuch-addresses")
+ '(notmuch-always-prompt-for-sender t)
+ '(notmuch-fcc-dirs (quote (("fatkasuvayu+linux@gmail.com" . "") (".\\+" . "sent"))))
+ '(notmuch-message-replied-tags (quote ("+replied")))
  '(notmuch-saved-searches (quote (("Inbox-unread" . "tag:inbox and is:unread") ("NIKHEF" . "tag:nikhef") ("CERN" . "tag:cern") ("lists" . "tag:list") ("Bfys" . "tag:bfys") ("Orgmode" . "tag:org") ("Inbox" . "tag:inbox") ("unread" . "tag:unread"))))
+ '(notmuch-search-oldest-first nil)
+ '(notmuch-show-all-multipart/alternative-parts nil)
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("ELPA" . "http://tromey.com/elpa/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(safe-local-variable-values (quote ((org-latex-to-pdf-process "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f") (default-input-method . TeX) (org-export-allow-BIND . t))))
  '(save-abbrevs nil)
  '(savehist-mode t nil (savehist))
  '(semantic-mode t)
+ '(send-mail-function (quote smtpmail-send-it))
  '(sentence-end-double-space t)
  '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|\\(/.+/include/.+\\|~/\\.mozilla.*itsalltext.*\\|.*COMMIT_EDITMSG\\)")
  '(session-use-package t nil (session))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
+ '(smtpmail-smtp-server "smtp.gmail.com")
+ '(smtpmail-smtp-service 25)
  '(speedbar-use-images nil)
  '(tramp-default-method "ssh")
  '(transient-mark-mode t)
