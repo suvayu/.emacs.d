@@ -37,6 +37,7 @@
  ;; If there is more than one, they won't work right.
  '(Info-additional-directory-list (quote ("~jallad/.emacs.d/info-manuals")))
  '(abbrev-mode t t)
+ '(blink-cursor-mode t)
  '(browse-url-browser-function (quote (("http.*emacswiki.org/.*" . w3m-browse-url) ("." . browse-url-default-browser))))
  '(calendar-date-style (quote iso))
  '(case-fold-search nil)
@@ -48,6 +49,7 @@
  '(default-input-method "TeX")
  '(diff-switches "-u")
  '(dired-listing-switches "-alh")
+ '(display-time-mode t)
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))

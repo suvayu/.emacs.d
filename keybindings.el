@@ -187,3 +187,11 @@ the \"abnormal\" hook `abbrev-expand-functions'."
 (define-key dired-mode-map (kbd "C-<left>") 'dired-tree-up)
 (define-key dired-mode-map (kbd "C-<right>") 'dired-tree-down)
 (define-key dired-mode-map (kbd "<tab>") 'dired-hide-subdir)
+
+;; lazy-bones
+(defalias 'yes-or-no-p 'y-or-n-p)
+;; session management (not in vanilla Emacs)
+(require 'session)
+(add-hook 'after-init-hook 'session-initialize)
+;; coding system to use when writing `session-save-file'
+(setq session-save-file-coding-system 'utf-8)

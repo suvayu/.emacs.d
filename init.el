@@ -41,20 +41,6 @@
 ;; Important movement and editing config with some essential libraries
 (load-file "~/.emacs.d/keybindings.el")
 
-;; lazy-bones
-(defalias 'yes-or-no-p 'y-or-n-p)
-;; session management (not in vanilla Emacs)
-(require 'session)
-(add-hook 'after-init-hook 'session-initialize)
-;; coding system to use when writing `session-save-file'
-(setq session-save-file-coding-system 'utf-8)
-
-;; Show clock in the modeline
-(display-time-mode 1)
-
-;; blinking cursor
-(blink-cursor-mode 1)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mode hooks and other mode specific customisations ;;
