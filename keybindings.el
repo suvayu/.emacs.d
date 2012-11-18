@@ -132,20 +132,6 @@ the \"abnormal\" hook `abbrev-expand-functions'."
 	    (add-hook 'abbrev-expand-functions 'sa-expand-abbrev-in-context nil t)))
 
 
-;; font-lock customisations
-(defface font-lock-global-todo-face
-  '((t (:background "royalblue4" :foreground "thistle" :weight bold)))
-  "Face for the TODO keyword globally."
-  :group 'font-lock-faces)
-
-(add-hook 'find-file-hook
-	  (lambda ()
-	    (font-lock-add-keywords
-	     nil '(("\\<\\(FIXME\\)[: ]" 1 font-lock-warning-face prepend)
-		   ;; ("\\<\\(NB\\|TODO\\)[: ]" 1 font-lock-global-todo-face prepend)
-		   ))))
-
-
 ;; version control related customisations
 ;; auto-revert-mode for files under version control
 (add-hook 'find-file-hook

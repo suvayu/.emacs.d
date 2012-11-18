@@ -42,6 +42,20 @@
 (load-file "~/.emacs.d/keybindings.el")
 
 
+;; font-lock customisations
+(defface sa-global-todo-face
+  '((t (:background "royalblue4" :foreground "thistle" :weight bold)))
+  "Face for the TODO keyword globally."
+  :group 'sa-faces)
+
+(add-hook 'find-file-hook
+	  (lambda ()
+	    (font-lock-add-keywords
+	     nil '(("\\<\\(FIXME\\)[: ]" 1 'font-lock-warning-face prepend)
+		   ("\\<\\(NB\\|TODO\\)[: ]" 1 'font-lock-global-todo-face prepend)
+		   ))))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mode hooks and other mode specific customisations ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
