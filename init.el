@@ -60,6 +60,22 @@
 ;; Mode hooks and other mode specific customisations ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Version control related customisations
+;; auto-revert-mode for files under version control
+(add-hook 'find-file-hook
+	  (lambda ()
+	    (if (vc-working-revision (buffer-file-name)) ; (egg-buf-git-name)
+		(auto-revert-mode t))
+	    ))
+
+;; mode to edit git commit message
+(autoload 'git-commit-mode "git-commit"
+  "Major mode for editing git commit messages." t)
+
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . git-commit-mode))
+(add-hook 'git-commit-mode-hook
+	  (lambda () (turn-on-orgstruct++)))
+
 ;; C/C++
 (load-file "~/.emacs.d/cpp-config.el")
 

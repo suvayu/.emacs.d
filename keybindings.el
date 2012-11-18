@@ -132,23 +132,6 @@ the \"abnormal\" hook `abbrev-expand-functions'."
 	    (add-hook 'abbrev-expand-functions 'sa-expand-abbrev-in-context nil t)))
 
 
-;; version control related customisations
-;; auto-revert-mode for files under version control
-(add-hook 'find-file-hook
-	  (lambda ()
-	    (if (vc-working-revision (buffer-file-name)) ; (egg-buf-git-name)
-		(auto-revert-mode t))
-	    ))
-
-;; mode to edit git commit message
-(autoload 'git-commit-mode "git-commit"
-  "Major mode for editing git commit messages." t)
-
-(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . git-commit-mode))
-(add-hook 'git-commit-mode-hook
-	  (lambda () (turn-on-orgstruct++)))
-
-
 ;; dired
 (put 'dired-find-alternate-file 'disabled nil)
 
@@ -176,7 +159,8 @@ the \"abnormal\" hook `abbrev-expand-functions'."
 
 ;; lazy-bones
 (defalias 'yes-or-no-p 'y-or-n-p)
-;; session management (not in vanilla Emacs)
+;; session management (not in vanilla Emacs).  Eventhough not a
+;; keybinding, session settings stays here because of lazy-bones
 (require 'session)
 (add-hook 'after-init-hook 'session-initialize)
 ;; coding system to use when writing `session-save-file'
