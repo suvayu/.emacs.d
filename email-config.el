@@ -8,6 +8,8 @@
 (add-to-list 'auto-mode-alist '("/tmpmsg." . message-mode)) ; claws
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . message-mode)) ; GMail w/ "It's all text!"
 
+(add-hook 'message-mode-hook
+	  (lambda () (turn-on-orgstruct++)))
 
 (load-library "external-abook")
 (setq external-abook-command "nottoomuch-addresses %s")
