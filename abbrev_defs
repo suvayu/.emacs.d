@@ -84,6 +84,8 @@
     ("xetex" "XeTeX" nil 0)
     ("xelatex" "XeLaTeX" nil 0)
     ("luatex" "LuaTeX" nil 0)
+    ("cfit" "cFit" nil 0)
+    ("sfit" "sFit" nil 0)
     )
   "Abbreviation table for text-mode. Inherits from
   `basic-text-mode-abbrev-table'."
