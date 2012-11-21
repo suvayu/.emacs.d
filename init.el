@@ -52,8 +52,11 @@
 	  (lambda ()
 	    (font-lock-add-keywords
 	     nil '(("\\<\\(FIXME\\)[: ]" 1 'font-lock-warning-face prepend)
-		   ("\\<\\(NB\\|TODO\\)[: ]" 1 'font-lock-global-todo-face prepend)
-		   ))))
+		   ))
+	    (unless (eq major-mode 'org-mode)
+	      (font-lock-add-keywords
+	       nil '(("\\<\\(NB\\|TODO\\)[: ]" 1 'sa-global-todo-face prepend)
+		     )))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
