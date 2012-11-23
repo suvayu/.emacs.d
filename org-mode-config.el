@@ -21,6 +21,8 @@
 (load-library "notmuch")
 ;; links to notmuch emails in org
 (load-library "org-notmuch")
+;; nice notmuch threading interface
+(load-library "notmuch-pick")
 
 ;; (load-library "org-man")
 (load-library "org-occur-goto")
