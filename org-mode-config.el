@@ -189,6 +189,23 @@
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
+;; export single chapter
+(add-to-list 'org-e-latex-classes
+	     '("chapter" "\\documentclass[11pt]{report}"
+	       ("\\chapter{%s}" . "\\chapter*{%s}")
+	       ("\\section{%s}" . "\\section*{%s}")
+	       ("\\subsection{%s}" . "\\subsection*{%s}")
+	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+
+;; ;; FIXME: doesn't work because of \hypersetup, \tableofcontents, etc.
+;; ;; minimal export with the new exporter (maybe use the standalone class?)
+;; (add-to-list 'org-e-latex-classes
+;;              '("minimal"
+;;                "\\documentclass\{minimal\}\n[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]"
+;;                ("\\section\{%s\}" . "\\section*\{%s\}")
+;;                ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+;;                ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
 ;; beamer export with the new exporter
 (add-to-list 'org-e-latex-classes
              '("beamer"
@@ -204,15 +221,6 @@
 	     '(("b" . "e-beamer")
 	       ("l" . "e-latex")))
 
-;; ;; FIXME: doesn't work because of \hypersetup, \tableofcontents, etc.
-;; ;; minimal export with the new exporter
-;; (add-to-list 'org-e-latex-classes
-;;              '("minimal"
-;;                "\\documentclass\{minimal\}\n[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]"
-;;                ("\\section\{%s\}" . "\\section*\{%s\}")
-;;                ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-;;                ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
-
 ;; filters for markups
 (defun sa-beamer-bold (contents backend info)
   (if (not (eq backend 'e-beamer)) contents
@@ -226,6 +234,9 @@
 (add-to-list 'org-export-filter-strike-through-functions
              'sa-beamer-structure)
 
+
+;; FIXME: just switching binary is not enough,
+;; `org-export-latex-packages-alist' has to be updated
 (defun sa-switch-latex-binary(binary)
   "Switch binary for LaTeX export of org files.  Note this does
 not correct default package list."

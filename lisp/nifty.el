@@ -59,6 +59,83 @@ search except that your input is treated as a regexp"
     (other-window (- arg))))
 
 
+;; Function to add duplicate org-mode properties
+(defun sa-org-entry-put-dupe (pom property value)
+  "Set PROPERTY to VALUE for entry at point-or-marker POM.
+
+Original function: `org-entry-put'.
+
+NB: Allows duplicate properties.  In case of duplicates, they are inserted
+before the existing entry.  Use with caution."
+  (org-with-point-at pom
+    (org-back-to-heading t)
+    (let ((beg (point)) (end (save-excursion (outline-next-heading) (point)))
+	  range)
+      (let ((buffer-invisibility-spec (org-inhibit-invisibility))) ; Emacs 21
+	(setq range (org-get-property-block beg end 'force))
+	(goto-char (car range))
+	(progn
+	  (if (re-search-forward
+	       (org-re-property-keyword property) (cdr range) t)
+	      (goto-char (match-beginning 0))
+	    (goto-char (cdr range)))
+	  (insert "\n")
+	  (backward-char 1)
+	  (org-indent-line))
+	(insert ":" property ":")
+	(and value (insert " " value))
+	(org-indent-line)))
+    (run-hook-with-args 'org-property-changed-functions property value)))
+
+
+;; my beamer options template for the new exporter
+(defun sa-org-e-beamer-insert-options-template (&optional kind)
+  "Insert a settings template, to make sure users do this right.
+
+Original function: `org-e-beamer-insert-options-template'.
+
+NB: This is a custom version that ignores duplicate \"EXPORT_LaTeX_HEADER+\"
+entries when inserting the template for a subtree.  In this case, calling this
+function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
+  (interactive (progn
+		 (message "Current [s]ubtree or [g]lobal?")
+		 (if (eq (read-char-exclusive) ?g) (list 'global)
+		   (list 'subtree))))
+  (if (eq kind 'subtree)
+      (progn
+	(org-back-to-heading t)
+	(org-reveal)
+	(org-entry-put nil "EXPORT_LaTeX_CLASS" "beamer")
+	(org-entry-put nil "EXPORT_LaTeX_CLASS_OPTIONS" "[presentation,smaller]")
+	(org-entry-put nil "EXPORT_FILE_NAME" "Suvayu_presentation.pdf")
+	(org-entry-put nil "EXPORT_BEAMER_THEME" "Montpellier")
+	(org-entry-put nil "EXPORT_BEAMER_COLOR_THEME" "orchid")
+	(org-entry-put nil "EXPORT_LaTeX_HEADER" "\\usepackage{appendixnumberbeamer}")
+	;; NB: duplicate checks are not done for the following 4 lines
+	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\setbeamertemplate{navigation symbols}{}")
+	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\setbeamertemplate{footline}[page number]")
+	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\setsansfont{Linux Biolinum O}")
+	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\institute[Nikhef]{FOM-Nikhef, Amsterdam}")
+	(org-entry-put nil "EXPORT_AUTHOR" user-full-name)
+	(org-entry-put nil "EXPORT_DATE" "\\today")
+	(org-entry-put nil "EXPORT_OPTIONS" "H:1 ^:t")
+	(when org-e-beamer-column-view-format
+	  (org-entry-put nil "COLUMNS" org-e-beamer-column-view-format))
+	(org-entry-put nil "BEAMER_col_ALL" org-e-beamer-column-widths))
+    (insert "#+LaTeX_CLASS: beamer\n")
+    (insert "#+LaTeX_CLASS_OPTIONS: [presentation,smaller]\n")
+    (insert "#+BEAMER_THEME: Montpellier\n")
+    (insert "#+BEAMER_COLOR_THEME: orchid\n")
+    (insert "#+LaTeX_HEADER: \\usepackage{appendixnumberbeamer}\n")
+    (insert "#+LaTeX_HEADER: \\setbeamertemplate{navigation symbols}{}\n")
+    (insert "#+LaTeX_HEADER: \\setbeamertemplate{footline}[page number]\n")
+    (insert "#+LaTeX_HEADER: \\setsansfont{Linux Biolinum O}\n")
+    (insert "#+LaTeX_HEADER: \\institute[Nikhef]{FOM-Nikhef, Amsterdam}\n")
+    (when org-e-beamer-column-view-format
+      (insert "#+COLUMNS: " org-e-beamer-column-view-format "\n"))
+    (insert "#+PROPERTY: BEAMER_col_ALL " org-e-beamer-column-widths "\n")))
+
+
 ;; recursively find .org files in provided directory
 ;; modified from an Emacs Lisp Intro example
 (defun find-org-file-recursively (directory &optional filext)
