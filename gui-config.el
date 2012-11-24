@@ -45,14 +45,14 @@
 
 
 ;; `minimal-mode' customisation
-(load-library "minimal")
+(require 'minimal)
 (setq minimal-zap-mode-line nil)
 ;; (setq minimal-zap-menu-bar nil)
 (minimal-mode)
 
 
 ;; window opacity utilities
-(load-library "nifty")
+(require 'nifty)
 
  ;; C-+ will increase opacity (== decrease transparency)
 (global-set-key (kbd "C-=")

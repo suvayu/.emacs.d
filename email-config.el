@@ -11,6 +11,11 @@
 (add-hook 'message-mode-hook
 	  (lambda () (turn-on-orgstruct++)))
 
-(load-library "external-abook")
+(require 'external-abook)
 (setq external-abook-command "nottoomuch-addresses %s")
 (define-key message-mode-map (kbd "C-c C-SPC") 'external-abook-try-expand)
+
+;; read emails with notmuch
+(require 'notmuch)
+;; nice notmuch threading interface
+(require 'notmuch-pick)

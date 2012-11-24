@@ -1,39 +1,35 @@
 ;;; org-mode-settings.el --- `org-mode' settings and customisations.
 
-;; (load-library "org-inlinetask")
-(load-library "org")
-(load-library "org-export")
-(load-library "org-e-ascii")
-(load-library "org-e-latex")
-(load-library "org-e-beamer")
-(load-library "org-e-html")
-(load-library "org-e-odt")
-;; (load-library "org-e-groff")
-;; (load-library "org-e-man")
-;; (load-library "org-e-texinfo")
-;; (load-library "org-e-publish")
+;; (require 'org-inlinetask)
+(require 'org)
+(require 'org-export)
+(require 'org-e-ascii)
+(require 'org-e-latex)
+(require 'org-e-beamer)
+(require 'org-e-html)
+(require 'org-e-odt)
+;; (require 'org-e-groff)
+;; (require 'org-e-man)
+;; (require 'org-e-texinfo)
+;; (require 'org-e-publish)
 
 ;; ;; Google weather in agenda
 ;; (load-library "google-weather")
 ;; (load-library "org-google-weather")
 
-;; read emails with notmuch
-(load-library "notmuch")
 ;; links to notmuch emails in org
-(load-library "org-notmuch")
-;; nice notmuch threading interface
-(load-library "notmuch-pick")
+(require 'org-notmuch)
 
-;; (load-library "org-man")
-(load-library "org-occur-goto")
-(load-library "org-search-goto")
+;; (require 'org-man)
+(require 'org-occur-goto)
+(require 'org-search-goto)
 
 ;; ;; Calendar view for org agenda
 ;; (require 'calfw)
 ;; (require 'calfw-org)
 
 ;; utilities
-(load-library "nifty")
+(require 'nifty)
 
 ;;; Code:
 ;; `org-mode' variable customisations

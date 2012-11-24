@@ -62,7 +62,7 @@
 (global-set-key (kbd "C-c M-k") 'kill-paragraph)
 
 ;; inserting unicode
-(load-library "ucs-cmds")
+(require 'ucs-cmds)
 (define-key global-map [remap ucs-insert] 'ucsc-insert)
 
 ;; undo-tree (not in vanilla Emacs)
