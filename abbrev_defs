@@ -37,11 +37,23 @@
 (define-abbrev-table 'shell-mode-abbrev-table '(    ))
 
 (define-abbrev-table 'unicode-abbrev-table
-  '(("K+" "K⁺" nil 0)
-    ("K-" "K⁻" nil 0)
-    ("pi+" "π⁺" nil 0)
-    ("pi-" "π⁻" nil 0)
-    ("pi0" "π⁰" nil 0)
+  '(("K+"  "K⁺"  nil 0)
+    ("K-"  "K⁻"  nil 0)
+    ("K0"  "K⁰"  nil 0)
+    ;; ("K0l" "K⁰l" nil 0)
+    ;; ("K0s" "K⁰s" nil 0)
+    ("pi+" "π⁺"  nil 0)
+    ("pi-" "π⁻"  nil 0)
+    ("pi0" "π⁰"  nil 0)
+    ("D+"  "D⁺"  nil 0)
+    ("D-"  "D⁻"  nil 0)
+    ("Ds+" "Ds⁺" nil 0)
+    ("Ds+" "Ds⁺" nil 0)
+    ("Bs0" "Bs⁰" nil 0)
+    ;; ("aBs" "B̄s"  nil 0)
+    ;; ("aBd" "B̄d"  nil 0)
+    ("B0"  "B⁰"  nil 0)
+    ;; ("aB0" "B̄⁰"  nil 0)
     ))
 
 (define-abbrev-table 'latex-mode-abbrev-table
@@ -59,7 +71,7 @@
     )
   "Abbreviation table for `org-mode'. Inherits from
   `text-mode-abbrev-table'."
-  :parents (list text-mode-abbrev-table))
+  :parents (list text-mode-abbrev-table unicode-abbrev-table))
     ;; ("\(" "\(\)" (lambda() (backward-char 2)) 0)
     ;; ("ilatex" "src_latex{}" (lambda() (backward-char 1)) 0)
 
@@ -71,9 +83,7 @@
   "Basic text abbreviation table for all modes.")
 
 (define-abbrev-table 'text-mode-abbrev-table
-  '(("Bs" "Bs" nil 0)
-    ("aBs" "B̄s" nil 0)
-    ("ewk" "electroweak" nil 0)
+  '(("ewk" "electroweak" nil 0)
     ("MC" "Monte Carlo" nil 0)
     ("SU3" "SU(3)" nil 0)
     ("SU2" "SU(2)" nil 0)

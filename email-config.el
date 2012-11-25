@@ -15,7 +15,9 @@
 	  (lambda ()
 	    (turn-on-orgstruct++)
 	    (define-key message-mode-map (kbd "C-c C-SPC")
-	      'external-abook-try-expand)))
+	      'external-abook-try-expand)
+	    ;; dynamic abbreviations for org-mode
+	    (setq local-abbrev-table unicode-abbrev-table)))
 
 ;; read emails with notmuch
 (require 'notmuch)

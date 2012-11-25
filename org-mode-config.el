@@ -648,7 +648,7 @@ otherwise move to next headline."
   ;; imenu for org-mode buffers
   (imenu-add-to-menubar "Headlines")
   ;; dynamic abbreviations for org-mode
-  (setq local-abbrev-table text-mode-abbrev-table))
+  (setq local-abbrev-table org-mode-abbrev-table))
 (add-hook 'org-mode-hook 'sa-org-mode-hook)
 
 ;; Make windmove work in org-mode with 'shift as modifier:
