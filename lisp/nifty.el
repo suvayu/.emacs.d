@@ -112,9 +112,9 @@ function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
 	(org-entry-put nil "EXPORT_BEAMER_COLOR_THEME" "orchid")
 	(org-entry-put nil "EXPORT_LaTeX_HEADER" "\\usepackage{appendixnumberbeamer}")
 	;; NB: duplicate checks are not done for the following 4 lines
+	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\usepackage{libertineotf}")
 	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\setbeamertemplate{navigation symbols}{}")
 	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\setbeamertemplate{footline}[page number]")
-	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\setsansfont{Linux Biolinum O}")
 	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\institute[Nikhef]{FOM-Nikhef, Amsterdam}")
 	(org-entry-put nil "EXPORT_AUTHOR" user-full-name)
 	(org-entry-put nil "EXPORT_DATE" "\\today")
@@ -127,9 +127,9 @@ function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
     (insert "#+BEAMER_THEME: Montpellier\n")
     (insert "#+BEAMER_COLOR_THEME: orchid\n")
     (insert "#+LaTeX_HEADER: \\usepackage{appendixnumberbeamer}\n")
+    (insert "#+LaTeX_HEADER: \\usepackage{libertineotf}\n")
     (insert "#+LaTeX_HEADER: \\setbeamertemplate{navigation symbols}{}\n")
     (insert "#+LaTeX_HEADER: \\setbeamertemplate{footline}[page number]\n")
-    (insert "#+LaTeX_HEADER: \\setsansfont{Linux Biolinum O}\n")
     (insert "#+LaTeX_HEADER: \\institute[Nikhef]{FOM-Nikhef, Amsterdam}\n")
     (when org-e-beamer-column-view-format
       (insert "#+COLUMNS: " org-e-beamer-column-view-format "\n"))

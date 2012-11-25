@@ -171,6 +171,8 @@
 ;; (pop org-export-latex-default-packages-alist)
 
 (add-to-list 'org-export-latex-packages-alist '("" "xltxtra" t))
+;; choose Linux Libertine O as serif and Linux Biolinum O as sans-serif fonts
+(add-to-list 'org-export-latex-packages-alist '("" "libertineotf" t))
 ;; commented for now as preferable to set per file for now
 ;; (add-to-list 'org-export-latex-packages-alist '("" "unicode-math" t))
 ;; (add-to-list 'org-export-latex-packages-alist
