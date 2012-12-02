@@ -30,6 +30,7 @@
     (visual-line-mode t)
     ;; text mode abbreviations
     (setq local-abbrev-table text-mode-abbrev-table)
+    (local-set-key (kbd "C-M-@") 'mark-end-of-sentence)
     ))
 (add-hook 'text-mode-hook 'sa-text-mode-hook)
 ;; (add-hook 'muse-mode-hook 'sa-text-mode-hook)

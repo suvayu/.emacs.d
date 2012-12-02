@@ -612,6 +612,7 @@ otherwise move to next headline."
 ;; super / windows key may not work on laptops
 (org-defkey org-mode-map (kbd "C-<XF86Back>") 'sa-outline-backward-same-level)
 (org-defkey org-mode-map (kbd "C-<XF86Forward>") 'sa-outline-forward-same-level)
+(org-defkey org-mode-map (kbd "C-M-@") 'mark-end-of-sentence)
 
 ;; `org-agenda-mode' keymaps
 ;; (eval-after-load 'org-agenda
