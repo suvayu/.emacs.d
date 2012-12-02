@@ -18,7 +18,7 @@ history
 *.elc
 *.gz
 
-# packages/themes from emacswiki or elsewhere
+# packages from emacswiki or elsewhere
 colour-themes/
 emacs-*
 emacs-init.el
@@ -43,7 +43,6 @@ color-theme.el
 doxymacs.el
 mirror.el
 mtorus.el
-themes/
 xml-parse.el
 boxquote.el
 browse-kill-ring+.el

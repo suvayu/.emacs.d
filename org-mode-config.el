@@ -231,8 +231,7 @@
     (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\structure" contents)))
 
 (add-to-list 'org-export-filter-bold-functions 'sa-beamer-bold)
-(add-to-list 'org-export-filter-strike-through-functions
-             'sa-beamer-structure)
+(add-to-list 'org-export-filter-strike-through-functions 'sa-beamer-structure)
 
 
 ;; FIXME: just switching binary is not enough,
