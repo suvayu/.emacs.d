@@ -7,20 +7,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-latex-sectioning-5-face ((t (:foreground "color-21" :weight bold))) t)
- '(message-header-cc ((t (:foreground "color-40"))))
- '(message-header-other ((t (:foreground "color-166"))))
- '(message-header-subject ((t (:foreground "color-75" :weight bold))))
- '(message-header-to ((t (:foreground "color-75" :weight bold))))
- '(message-header-xheader ((t (:foreground "color-23")))))
-
-;; diff-context
-;; diff-header
-;; diff-file-header
-;; diff-added
-;; diff-indicator-added same but bold
-;; diff-removed
-;; diff-indicator-removed same but bold
+ )
 
 ;; if $TERM=xterm-256color
 ;; '(mode-line ((t (:background "brightwhite" :foreground "black" :box (:line-width -1 :style released-button)))))
@@ -42,7 +29,7 @@
  '(case-fold-search nil)
  '(column-number-mode t)
  '(custom-enabled-themes (quote (dark-emacs)))
- '(custom-safe-themes (quote ("bba74cd7ad29ef50acea212379d4bc5893588004b600f6b78c9aed0b7ce5d2c8" default)))
+ '(custom-safe-themes (quote ("e9172bb5dfe4094210db99f85b99afb29e2faab082190a19a296cd38cb44cced" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
