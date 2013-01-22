@@ -108,12 +108,13 @@
 ;;; Abbreviations customisations
 ;; expand abbrevs in context
 (defun sa-expand-abbrev-in-context (expand)
-  "Expands abbreviations according to the context. Determines whether within
-comments or source by looking at the face name. If within comments the
-`text-mode-abbrev-table' is used, the major mode abbrev-table is used otherwise.
+  "Expands abbreviations according to the context. Determines
+whether within comments or source by looking at the face name. If
+within comments the `basic-text-mode-abbrev-table' is used, the
+major mode abbrev-table is used otherwise.
 
-Expansion is done by the function passed as the argument. This is controlled by
-the \"abnormal\" hook `abbrev-expand-functions'."
+Expansion is done by the function passed as the argument. This is
+controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 ;; backward-char checks if end-of-buffer as when point at e-o-b face is `nil'
 ;; the function call expand does the expansion, usually `expand-abbrev'
   (if (not (save-excursion

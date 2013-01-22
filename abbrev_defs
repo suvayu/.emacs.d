@@ -40,6 +40,8 @@
   '(("bkg" "background" nil 0)
     ("bkgs" "backgrounds" nil 0)
     ("dist" "distribution" nil 0)
+    ("cfit" "cFit" nil 0)
+    ("sfit" "sFit" nil 0)
     ("sig" "signal" nil 0))
   "Basic text abbreviation table for all modes.")
 
@@ -79,8 +81,6 @@
     ("xetex" "XeTeX" nil 0)
     ("xelatex" "XeLaTeX" nil 0)
     ("luatex" "LuaTeX" nil 0)
-    ("cfit" "cFit" nil 0)
-    ("sfit" "sFit" nil 0)
     )
   "Abbreviation table for text-mode. Inherits from
   `basic-text-mode-abbrev-table'."
@@ -104,3 +104,13 @@
   :parents (list text-mode-abbrev-table unicode-abbrev-table))
     ;; ("\(" "\(\)" (lambda() (backward-char 2)) 0)
     ;; ("ilatex" "src_latex{}" (lambda() (backward-char 1)) 0)
+
+(define-abbrev-table 'message-mode-abbrev-table
+  '(("kfactor" "k-factor" nil 0)
+    ("hth" "Hope this helps" nil 0)
+    ("HTH" "Hope this helps" nil 0)
+    ("cheers" "Cheers" nil 0)
+    )
+  "Abbreviation table for `message-mode'. Inherits from
+  `text-mode-abbrev-table' and `unicode-abbrev-table'."
+  :parents (list text-mode-abbrev-table unicode-abbrev-table))

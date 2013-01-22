@@ -17,7 +17,7 @@
 	    (define-key message-mode-map (kbd "C-c C-SPC")
 	      'external-abook-try-expand)
 	    ;; dynamic abbreviations for org-mode
-	    (setq local-abbrev-table unicode-abbrev-table)))
+	    (setq local-abbrev-table message-mode-abbrev-table)))
 
 ;; read emails with notmuch
 (require 'notmuch)
