@@ -97,7 +97,7 @@
 
 (setq ac-ignore-case nil
       ac-auto-start 3
-      ac-delay 0.2)
+      ac-delay 1)
 
 (add-hook 'c-mode-common-hook
 	  (lambda()
@@ -143,6 +143,7 @@
 
 ;; ANSI colours in Emacs shell
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; Emacs Got Git (git frontend, magit fork)
 ;; (require 'egg)
