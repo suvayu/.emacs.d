@@ -57,7 +57,9 @@
       org-link-abbrev-alist
       '(("gmane" . "http://thread.gmane.org/%s")
 	("google" . "https://www.google.com/search?q=%s")
-	("arxiv" . "http://arxiv.org/abs/physics/%s"))
+	("arxiv" . "http://arxiv.org/abs/%s")
+	("cds" . "https://cds.cern.ch/record/%s")
+	("doi" . "http://dx.doi.org/%s"))
       ;; log time for TODO state changes
       org-log-done 'time
       ;; log time on rescheduling and changing deadlines
