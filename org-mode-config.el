@@ -659,6 +659,13 @@ otherwise move to next headline."
   ;; line folding w/o actually folding it, use `M-q' to wrap.
   (visual-line-mode t)
   ;; imenu for org-mode buffers
+  ;; Submenu with TODOs
+  ;; (add-to-list 'imenu-generic-expression
+  ;; 	       `("TODOs"
+  ;; 		 ,(concat "^\\(?:[*]+\\) +"
+  ;; 			  (make-regexp org-todo-keywords-1)
+  ;; 			  " +.*$")
+  ;; 		 0))
   (imenu-add-to-menubar "Headlines")
   ;; dynamic abbreviations for org-mode
   (setq local-abbrev-table org-mode-abbrev-table))
