@@ -2,16 +2,16 @@
 
 ;; (require 'org-inlinetask)
 (require 'org)
-(require 'org-export)
-(require 'org-e-ascii)
-(require 'org-e-latex)
-(require 'org-e-beamer)
-(require 'org-e-html)
-(require 'org-e-odt)
-;; (require 'org-e-groff)
-;; (require 'org-e-man)
-;; (require 'org-e-texinfo)
-;; (require 'org-e-publish)
+(require 'ox)
+(require 'ox-ascii)
+(require 'ox-latex)
+(require 'ox-beamer)
+(require 'ox-html)
+(require 'ox-odt)
+;; (require 'ox-groff)
+;; (require 'ox-man)   ; NB: customise org-man-pdf-process
+;; (require 'ox-texinfo)
+;; (require 'ox-publish)
 
 ;; ;; Google weather in agenda
 ;; (load-library "google-weather")
@@ -75,8 +75,8 @@
       ;; temporary setting to circumvent bug in texi2dvi
       ;; file a bug report on bugzilla
       ;; debug original value like this
-      ;; org-latex-to-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f")
-      ;; org-latex-to-pdf-process '("pdflatex -interaction nonstopmode %b"
+      ;; org-latex-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f")
+      ;; org-latex-pdf-process '("pdflatex -interaction nonstopmode %b"
       ;; 				 "/usr/bin/bibtex %b"
       ;; 				 "pdflatex -interaction nonstopmode %b"
       ;; 				 "pdflatex -interaction nonstopmode %b")
@@ -108,10 +108,10 @@
       ;; 	("visible" 	"+" "\\visible%a{%h%x" 	     "}")
       ;; 	("invisible" 	"-" "\\invisible%a{%h%x"     "}"))
       ;; convert exported odt to pdf with soffice --convert-to pdf
-      org-export-odt-preferred-output-format "pdf"
+      org-odt-preferred-output-format "pdf"
       ;; to circumvent reliance on Apache config, solution by Seb:
       ;; http://thread.gmane.org/gmane.emacs.orgmode/53856/focus=53875
-      org-export-html-xml-declaration
+      org-html-xml-declaration
       '(("html" . "<!-- <xml version=\"1.0\" encoding=\"utf-8\"> -->"))
       org-entities-user			; "\ " can also be used
       '(("space" "~" nil " " " " " " " "))
@@ -141,62 +141,58 @@
 
 ;;; ASCII export customisation for the new exporter
 ;; the markers for Latin is nicer, use for UTF-8 too
-(setcdr (assoc 'utf-8 org-e-ascii-bullets) '(?§ ?¶))
+(setcdr (assoc 'utf-8 org-ascii-bullets) '(?§ ?¶))
 
 ;;; LaTeX export customisations
 ;; hack for error free latex export with amsmath
 ;; remove when defaults are changed in the future
-(setcar (rassoc '("wasysym" t) org-export-latex-default-packages-alist)
+(setcar (rassoc '("wasysym" t) org-latex-default-packages-alist)
 	"nointegrals")
-(add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
+(add-to-list 'org-latex-packages-alist '("" "amsmath" t))
 
 ;; include todonotes package for latex export of inlinetasks
-(add-to-list 'org-export-latex-packages-alist
+(add-to-list 'org-latex-packages-alist
 	     '("backgroundcolor=green!40" "todonotes" nil) t)
-(add-to-list 'org-export-latex-packages-alist
+(add-to-list 'org-latex-packages-alist
 	     '("" "makerobust" nil) t)
-(add-to-list 'org-export-latex-packages-alist
+(add-to-list 'org-latex-packages-alist
 	     "\\MakeRobustCommand\\begin" t)
-(add-to-list 'org-export-latex-packages-alist
+(add-to-list 'org-latex-packages-alist
 	     "\\MakeRobustCommand\\end" t)
-(add-to-list 'org-export-latex-packages-alist
+(add-to-list 'org-latex-packages-alist
 	     "\\MakeRobustCommand\\item" t)
 
 ;; FIXME: temporarily commented
 ;; ;; for code block export with minted.sty and python program pygmentize
-;; (setq org-export-latex-listings 'minted)
-;; (add-to-list 'org-export-latex-packages-alist '("" "minted"))
+;; (setq org-latex-listings 'minted)
+;; (add-to-list 'org-latex-packages-alist '("" "minted"))
 
 
 ;;; XeLaTeX customisations
 ;; remove "inputenc" from default packages as it clashes with xelatex
-(setf org-export-latex-default-packages-alist
-      (remove '("AUTO" "inputenc" t) org-export-latex-default-packages-alist))
+(setf org-latex-default-packages-alist
+      (remove '("AUTO" "inputenc" t) org-latex-default-packages-alist))
 ;; the sexp below will also work in this case. But it is not robust as it
 ;; pops the first element regardless if its a match or not.
-;; (pop org-export-latex-default-packages-alist)
+;; (pop org-latex-default-packages-alist)
 
-(add-to-list 'org-export-latex-packages-alist '("" "xltxtra" t))
+(add-to-list 'org-latex-packages-alist '("" "xltxtra" t))
 ;; choose Linux Libertine O as serif and Linux Biolinum O as sans-serif fonts
-(add-to-list 'org-export-latex-packages-alist '("" "libertineotf" t))
+(add-to-list 'org-latex-packages-alist '("" "libertineotf" t))
 ;; commented for now as preferable to set per file for now
-;; (add-to-list 'org-export-latex-packages-alist '("" "unicode-math" t))
-;; (add-to-list 'org-export-latex-packages-alist
+;; (add-to-list 'org-latex-packages-alist '("" "unicode-math" t))
+;; (add-to-list 'org-latex-packages-alist
 ;; 	     "\\setmathfont{Linux Libertine}" t) ; needed for unicode-math
 
 ;; org to latex customisations, -shell-escape needed for minted
-(setq org-latex-to-pdf-process		; for regular export
-      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
-      org-export-dispatch-use-expert-ui t ; non-intrusive export dispatch
-      org-e-latex-pdf-process		; for experimental org-export
+(setq org-export-dispatch-use-expert-ui t ; non-intrusive export dispatch
+      org-latex-pdf-process		; for regular export
       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
 ;; export single chapter
-(add-to-list 'org-e-latex-classes
+(add-to-list 'org-latex-classes
 	     '("chapter" "\\documentclass[11pt]{report}"
 	       ("\\chapter{%s}" . "\\chapter*{%s}")
 	       ("\\section{%s}" . "\\section*{%s}")
@@ -205,7 +201,7 @@
 
 ;; ;; FIXME: doesn't work because of \hypersetup, \tableofcontents, etc.
 ;; ;; minimal export with the new exporter (maybe use the standalone class?)
-;; (add-to-list 'org-e-latex-classes
+;; (add-to-list 'org-latex-classes
 ;;              '("minimal"
 ;;                "\\documentclass\{minimal\}\n[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]"
 ;;                ("\\section\{%s\}" . "\\section*\{%s\}")
@@ -213,27 +209,27 @@
 ;;                ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
 
 ;; beamer export with the new exporter
-(add-to-list 'org-e-latex-classes
+(add-to-list 'org-latex-classes
              '("beamer"
                "\\documentclass\[presentation\]\{beamer\}"
                ("\\section\{%s\}" . "\\section*\{%s\}")
                ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
                ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
 
-(add-to-list 'org-e-beamer-environments-extra
+(add-to-list 'org-beamer-environments-extra
 	     '("onlyenv" "O" "\\begin{onlyenv}%a" "\\end{onlyenv}"))
 
 (add-to-list 'org-export-snippet-translation-alist
-	     '(("b" . "e-beamer")
-	       ("l" . "e-latex")))
+	     '(("b" . "beamer")
+	       ("l" . "latex")))
 
 ;; filters for markups
 (defun sa-beamer-bold (contents backend info)
-  (if (not (eq backend 'e-beamer)) contents
+  (if (not (eq backend 'beamer)) contents
     (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
 
 (defun sa-beamer-structure (contents backend info)
-  (if (not (eq backend 'e-beamer)) contents
+  (if (not (eq backend 'beamer)) contents
     (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\structure" contents)))
 
 (add-to-list 'org-export-filter-bold-functions 'sa-beamer-bold)
@@ -241,7 +237,7 @@
 
 
 ;; FIXME: just switching binary is not enough,
-;; `org-export-latex-packages-alist' has to be updated
+;; `org-latex-packages-alist' has to be updated
 (defun sa-switch-latex-binary(binary)
   "Switch binary for LaTeX export of org files.  Note this does
 not correct default package list."
@@ -249,12 +245,8 @@ not correct default package list."
   (downcase binary)
   (let ((newcmd (replace-regexp-in-string
 		 ".*latex" binary
-		 (car org-latex-to-pdf-process)))
-	(newcmd-e (replace-regexp-in-string
-		   ".*latex" binary
-		   (car org-e-latex-pdf-process))))
-    (setf org-latex-to-pdf-process `(,newcmd ,newcmd ,newcmd)
-	  org-e-latex-pdf-process `(,newcmd-e ,newcmd-e ,newcmd-e))
+		 (car org-latex-pdf-process))))
+    (setf org-latex-pdf-process `(,newcmd ,newcmd ,newcmd))
     (message "Note default packages are unchanged!")))
 
 
@@ -340,7 +332,7 @@ not correct default package list."
 
 (defun sa-ignore-headline (contents backend info)
   "Ignore headlines with tag `ignoreheading'."
-  (if (eq backend 'e-latex) (message contents)
+  (if (eq backend 'latex) (message contents)
     contents))
 
 (add-to-list 'org-export-filter-headline-functions 'sa-ignore-headline)
@@ -605,7 +597,6 @@ otherwise move to next headline."
 ;; toggle inline images with iimage
 ;; (org-defkey org-mode-map (kbd "C-c i") 'org-toggle-inline-images)
 (org-defkey org-mode-map (kbd "C-c d") 'org-display-outline-path)
-(org-defkey org-mode-map (kbd "C-c C-e") 'org-export-dispatch)
 (org-defkey org-mode-map (kbd "C-c g") 'oog) ; org-occur-goto
 (org-defkey org-mode-map (kbd "C-c s") 'osg) ; org-search-goto
 ;; table copy paste (originally C-c M-w was bound to `org-copy')
