@@ -139,6 +139,10 @@
 	'("#+begin_ascii\n?\n#+end_ascii"))
 
 
+;;; ASCII export customisation for the new exporter
+;; the markers for Latin is nicer, use for UTF-8 too
+(setcdr (assoc 'utf-8 org-e-ascii-bullets) '(?§ ?¶))
+
 ;;; LaTeX export customisations
 ;; hack for error free latex export with amsmath
 ;; remove when defaults are changed in the future
@@ -333,6 +337,13 @@ not correct default package list."
 ;; 		    "\\textbf{" heading "}\n"
 ;; 		    content "\n}%\n"))))
 
+
+(defun sa-ignore-headline (contents backend info)
+  "Ignore headlines with tag `ignoreheading'."
+  (if (eq backend 'e-latex) (message contents)
+    contents))
+
+(add-to-list 'org-export-filter-headline-functions 'sa-ignore-headline)
 
 ;; FIXME: instead of preprocess hook, use filters for new exporter
 ;; ;; backend aware export preprocess hook
