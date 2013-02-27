@@ -45,7 +45,7 @@
 ;; font-lock customisations
 (defface sa-global-todo-face
   '((t (:background "royalblue4" :foreground "thistle" :weight bold)))
-  "Face for the TODO keyword globally."
+  "Face for TODO keywords globally."
   :group 'sa-faces)
 
 (add-hook 'find-file-hook
@@ -55,8 +55,20 @@
 		   ))
 	    (unless (eq major-mode 'org-mode)
 	      (font-lock-add-keywords
-	       nil '(("\\<\\(NB\\|TODO\\)[: ]" 1 'sa-global-todo-face prepend)
+	       nil '(("\\<\\(NB\\|NOTE\\|TODO\\)[: ]" 1 'sa-global-todo-face prepend)
 		     )))))
+
+;; ;; Example from Jambunathan
+;;      (font-lock-add-keywords
+;;       'org-mode `(("\\(?:^\\(?1:\\*+\\)[[:blank:]]\\)"
+;; 		   (0 (progn (compose-region
+;; 			      (match-beginning 1) (match-end 1)
+;; 			      (pcase (length (match-string 1))
+;; 				(1 ?\u2219)
+;; 				(2 ?\u2022)
+;; 				(3 ?\u25c9)
+;; 				(_ ?\u25CB)))
+;; 			     nil)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
