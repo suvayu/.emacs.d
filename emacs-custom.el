@@ -7,13 +7,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(notmuch-tag-face ((t (:background "blue" :weight bold)))))
 
 ;; if $TERM=xterm-256color
 ;; '(mode-line ((t (:background "brightwhite" :foreground "black" :box (:line-width -1 :style released-button)))))
-
-;; FIXME: temporary hack for bug in semantic-mode
-(load-library "semantic/senator")
 
 ;; configs
 (custom-set-variables
@@ -21,7 +18,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(Info-additional-directory-list (quote ("~jallad/.emacs.d/info-manuals")))
+ '(Info-additional-directory-list (quote ("~/.emacs.d/info-manuals")))
  '(abbrev-mode t t)
  '(blink-cursor-mode t)
  '(browse-url-browser-function (quote (("http.*emacswiki.org/.*" . w3m-browse-url) ("." . browse-url-default-browser))))
@@ -29,7 +26,7 @@
  '(case-fold-search nil)
  '(column-number-mode t)
  '(custom-enabled-themes (quote (dark-emacs)))
- '(custom-safe-themes (quote ("e9172bb5dfe4094210db99f85b99afb29e2faab082190a19a296cd38cb44cced" default)))
+ '(custom-safe-themes (quote ("e29d925be1ff29f1bc2f3cefc52733afbe18ece0d5ee3fe005e38d5568b75ce9" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
@@ -51,7 +48,7 @@
  '(notmuch-always-prompt-for-sender t)
  '(notmuch-fcc-dirs (quote (("fatkasuvayu+linux@gmail.com" . "") (".\\+" . "sent"))))
  '(notmuch-message-replied-tags (quote ("+replied")))
- '(notmuch-saved-searches (quote (("Inbox-unread" . "tag:inbox and is:unread") ("NIKHEF" . "tag:nikhef") ("CERN" . "tag:cern") ("lists" . "tag:list") ("Bfys" . "tag:bfys") ("Orgmode" . "tag:org") ("Inbox" . "tag:inbox") ("unread" . "tag:unread"))))
+ '(notmuch-saved-searches (quote (("Inbox-unread" . "tag:inbox and is:unread") ("NIKHEF" . "tag:nikhef") ("CERN" . "tag:cern") ("Bfys" . "tag:bfys") ("Inbox" . "tag:inbox") ("unread" . "tag:unread"))))
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-all-multipart/alternative-parts nil)
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
@@ -62,7 +59,7 @@
  '(semantic-mode t)
  '(send-mail-function (quote smtpmail-send-it))
  '(sentence-end-double-space t)
- '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|\\(/.+/include/.+\\|~/\\.mozilla.*itsalltext.*\\|.*COMMIT_EDITMSG\\)")
+ '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|\\(/.+/include/.+\\|~/\\.mozilla.*itsalltext.*\\|.*COMMIT_EDITMSG\\|/tmp/mutt-.*\\|/tmp/alot\\..*\\)")
  '(session-use-package t nil (session))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
