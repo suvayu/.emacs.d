@@ -4,8 +4,9 @@
 ;;; Code:
 
 ;; File associations (email)
-(add-to-list 'auto-mode-alist '("/mutt-" . message-mode)) ; mutt
-(add-to-list 'auto-mode-alist '("/tmpmsg." . message-mode)) ; claws
+(add-to-list 'auto-mode-alist '("mutt-" . message-mode)) ; mutt
+(add-to-list 'auto-mode-alist '("alot\\." . message-mode)) ; alot
+(add-to-list 'auto-mode-alist '("tmpmsg\\." . message-mode)) ; claws
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . message-mode)) ; GMail w/ "It's all text!"
 
 (require 'external-abook)
