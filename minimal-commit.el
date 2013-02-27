@@ -21,4 +21,4 @@
 
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . git-commit-mode))
 (add-hook 'git-commit-mode-hook
-	  (lambda () (turn-on-orgstruct++)))
+	  (lambda () (orgstruct++-mode t)))
