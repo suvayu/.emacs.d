@@ -50,9 +50,9 @@
 	  (lambda()
 	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
 
-;; org-mode
-(add-to-list 'ac-modes 'org-mode)
-(add-hook 'org-mode-hook
-	  (lambda()
-	    (add-to-list 'ac-sources 'ac-source-math-latex)
-	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
+;; ;; org-mode
+;; (add-to-list 'ac-modes 'org-mode)
+;; (add-hook 'org-mode-hook
+;; 	  (lambda()
+;; 	    (add-to-list 'ac-sources 'ac-source-math-latex)
+;; 	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
