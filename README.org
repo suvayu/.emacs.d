@@ -1,39 +1,46 @@
 # -*- mode: org; -*-
 
 * Purpose of the repo
-Only han-mode.el is written by me, the others are not maintained any
-more and I find them very useful. In some cases I have made some
-customisations of my own. And I have customised org-mode and emacs
-quite a bit, hence this repository. :)
+=han-mode= and =nifty= is written by me, the others are not maintained
+any more and I find them very useful.  In some cases I have made some
+customisations of my own.  I have also customised org-mode and emacs
+quite a bit, hence this repository :).
+
+This repository also includes the =dark-emacs= colour theme.  However,
+to use this theme, you need Emacs 24.  There is older version of
+=dark-emacs= that is usable with older Emacs but requires the
+=color-theme= package.
 
 * Disclaimer
-I use several 3rd party libraries. The configuration for these are
+I use several 3rd party libraries.  The configuration for these are
 included in this repo, however I don't include them here (as I don't
 want to imply I am one of the authors) unless the original libraries
-have been orphaned. The libraries outside the repo are simlinked from
-lisp/. If you want to use them, you will have to get them from the
-corresponding home pages. They are usually available from the
+have been orphaned.  The libraries outside the repo are simlinked from
+lisp/.  If you want to use them, you will have to get them from the
+corresponding home pages.  They are usually available from the
 emacswiki or emacswiki git mirror.
 
 * 3rd party libraries
-Here is an incomprehensive list:
+Here is an incomprehensive list.
 
 + Libraries outside the repo:
+  - ac-math
   - auto-complete
   - dired-details
-  - dired-details-plus
+  - dired-details+
+  - dired-sort-menu
+  - dired-sort-menu+
   - doxymacs
   - git-commit-mode
+  - kill-ring-search
   - minimal
+  - notmuch
+  - org-notmuch
+  - org-occur-goto
+  - org-search-goto
+  - pylookup
+  - ucs-cmds
   - undo-tree
-
-+ Libraries not in lightwt:
-  - ac-math
-  - egg
-  - emacs-calfw
-  - google-contacts
-  - google-weather-el
-  - icicles
 
 + Orphaned libraries:
   - browse-kill-ring
