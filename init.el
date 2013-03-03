@@ -12,7 +12,6 @@
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-(add-to-list 'load-path (expand-file-name "~/build/org-mode/contrib/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 
 ;;; Commented out since included in customize
@@ -28,7 +27,7 @@
 (setq find-function-C-source-directory "~/build/emacs/src")
 
 ;; load custom file
-(setq custom-file "~jallad/.emacs.d/emacs-custom.el")
+(setq custom-file "~/.emacs.d/emacs-custom.el")
 (load-file custom-file)
 
 ;; turn on ibuffer by default
