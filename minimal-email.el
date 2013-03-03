@@ -6,7 +6,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
 ;; load custom file
-(setq custom-file "~jallad/.emacs.d/emacs-custom.el")
+(setq custom-file "~/.emacs.d/emacs-custom.el")
 (load-file custom-file)
 
 ;; keybindings and other settings
