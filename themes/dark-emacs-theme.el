@@ -71,6 +71,7 @@
  '(ediff-fine-diff-A ((t (:inherit diff-refine-removed))))
  '(ediff-fine-diff-B ((t (:inherit diff-refine-added))))
  '(ediff-odd-diff-A ((t (:background "dim gray" :foreground "White"))))
+ '(font-latex-sectioning-5-face ((((type tty)) (:foreground "#0087ff" :weight bold))))
  '(font-lock-builtin-face ((((min-colors 88)) (:foreground "gold" :inherit (default)))))
  '(font-lock-comment-face ((((type graphic)) (:foreground "cyan3" :inherit (italic)))
 			   (((type tty) (class color) (min-colors 88)) (:foreground "#9e9e9e"))))

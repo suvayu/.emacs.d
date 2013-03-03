@@ -26,7 +26,7 @@
  '(case-fold-search nil)
  '(column-number-mode t)
  '(custom-enabled-themes (quote (dark-emacs)))
- '(custom-safe-themes (quote ("e29d925be1ff29f1bc2f3cefc52733afbe18ece0d5ee3fe005e38d5568b75ce9" default)))
+ '(custom-safe-themes (quote ("1c48605dbf9f9f37cb2925c837776a9f1f3b4a981e78f4643de58e0560e23593" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
