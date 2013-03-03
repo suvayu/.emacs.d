@@ -142,7 +142,6 @@ controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 (require 'dired-details+)
 (require 'dired-sort-menu)
 (require 'dired-sort-menu+)
-(require 'dired-sort-map)
 
 ;; ;; load dired-x in dired (enables omitting files)
 ;; (add-hook 'dired-load-hook

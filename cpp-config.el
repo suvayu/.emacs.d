@@ -64,8 +64,8 @@
 ;; (load-file "~/.emacs.d/lisp/cedet-configs.el")
 
 
-;; C/C++ language templates
-(load-library "templates")		; skeletons and templates
+;; ;; C/C++ language templates
+;; (require 'templates)		; skeletons and templates
 
 
 ;; rebind as c-electric overrides global binding
