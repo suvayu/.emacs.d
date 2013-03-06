@@ -65,12 +65,15 @@
 		 (((type graphic)) (:inherit diff-changed :background "#553333"))))
  '(ediff-current-diff-A ((t (:inherit diff-removed))))
  '(ediff-current-diff-B ((t (:inherit diff-added))))
+ '(ediff-current-diff-C ((((type tty)) (:background "#afaf5f"))))
  ;; TODO: reconsider what needs to be done for inactive hunks, A & B
  ;; buffers light-dark offset or in tandem?
  '(ediff-even-diff-B ((t (:background "dim gray" :foreground "White"))))
  '(ediff-fine-diff-A ((t (:inherit diff-refine-removed))))
  '(ediff-fine-diff-B ((t (:inherit diff-refine-added))))
+ '(ediff-fine-diff-C ((((type tty)) (:background "#afaf00"))))
  '(ediff-odd-diff-A ((t (:background "dim gray" :foreground "White"))))
+ '(ediff-odd-diff-C ((((type tty)) (:background "dim gray" :foreground "White"))))
  '(font-latex-sectioning-5-face ((((type tty)) (:foreground "#0087ff" :weight bold))))
  '(font-lock-builtin-face ((((min-colors 88)) (:foreground "gold" :inherit (default)))))
  '(font-lock-comment-face ((((type graphic)) (:foreground "cyan3" :inherit (italic)))
