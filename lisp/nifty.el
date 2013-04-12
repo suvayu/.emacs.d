@@ -6,6 +6,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;; insert gmane http link from message id
+(defun sa-insert-gmane-link(msgid)
+  "Insert gmane http link at point.  Promptsx for message id."
+  (interactive "sMessage ID: ")
+  (insert (format "<http://mid.gmane.org/%s>" msgid)))
+
+
 ;; FIXME: add uniquify support
 ;; (uniquify-item-buffer
 ;;  (uniquify-make-item (buffer-name) default-directory indirect-buffer))
