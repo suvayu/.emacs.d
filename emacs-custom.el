@@ -9,9 +9,6 @@
  ;; If there is more than one, they won't work right.
  '(notmuch-tag-face ((t (:background "blue" :weight bold)))))
 
-;; if $TERM=xterm-256color
-;; '(mode-line ((t (:background "brightwhite" :foreground "black" :box (:line-width -1 :style released-button)))))
-
 ;; configs
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -26,7 +23,7 @@
  '(case-fold-search nil)
  '(column-number-mode t)
  '(custom-enabled-themes (quote (dark-emacs)))
- '(custom-safe-themes (quote ("70d7634a60c9f37e56fef53b274a43663a315a76a2eb1c6a3583f4dddf713fa3" default)))
+ '(custom-safe-themes (quote ("7009c998e33503b344818bb66beed3fbb8a17238fb6f176493ef7f74b27f1f50" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
@@ -38,10 +35,15 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(egg-buffer-hide-section-type-on-start (quote ((egg-status-buffer-mode . :hunk) (egg-commit-buffer-mode . :hunk))))
  '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
+ '(ibuffer-saved-filter-groups nil)
+ '(ibuffer-saved-filters (quote (("dev" ((or (saved . "py") (saved . "cpp")))) ("lisp" ((used-mode . emacs-lisp-mode))) ("py" ((used-mode . python-mode))) ("config" ((used-mode . conf-unix-mode))) ("org" ((used-mode . org-mode))) ("cpp" ((used-mode . c++-mode))) ("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
  '(inhibit-startup-screen t)
  '(isearch-allow-scroll t)
  '(ispell-dictionary "british")
  '(iswitchb-mode t)
+ '(message-elide-ellipsis "
+ [...chomp...chomp...chomp...]
+")
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point t)
  '(notmuch-address-command "nottoomuch-addresses")
@@ -59,7 +61,7 @@
  '(semantic-mode t)
  '(send-mail-function (quote smtpmail-send-it))
  '(sentence-end-double-space t)
- '(session-set-file-name-exclude-regexp "[/\\]\\.overview\\|[/\\]\\.session\\|News[/\\]\\|\\(/.+/include/.+\\|~/\\.mozilla.*itsalltext.*\\|.*COMMIT_EDITMSG\\|/tmp/mutt-.*\\|/tmp/alot\\..*\\)")
+ '(session-set-file-name-exclude-regexp "\\.session\\|News/\\|/\\(usr\\|opt/.+\\)/include/\\|~/\\.mozilla.*itsalltext.*\\|.*COMMIT_EDITMSG\\|/tmp/\\(mutt-\\|alot\\.\\).*")
  '(session-use-package t nil (session))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
