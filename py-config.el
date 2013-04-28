@@ -11,6 +11,15 @@
 	    (define-key python-mode-map (kbd "C-c d") 'pylookup-lookup)
 	    ))
 
+;; TODO: try pydoc-info
+;; fix info-lookup for python-mode
+(require 'info-look)
+(info-lookup-add-help
+ :mode 'python-mode
+ :regexp "[[:alnum:]_]+"
+ :doc-spec
+ '(("(python)Index" nil "")))
+
 ;; setup pylookup for easy access html docs from emacs
 ;; (make sure pylookup.el is in load-path)
 (setq pylookup-program "~/build/pylookup/pylookup.py")
@@ -23,7 +32,7 @@
 (autoload 'pylookup-lookup "pylookup"
   "Lookup SEARCH-TERM in the Python HTML indexes." t)
 
-(autoload 'pylookup-update "pylookup" 
+(autoload 'pylookup-update "pylookup"
   "Run pylookup-update and create the database at `pylookup-db-file'." t)
 
 
@@ -39,3 +48,7 @@
 ;; (autoload 'pymacs-load "pymacs" nil t)
 ;; ;;(eval-after-load "pymacs"
 ;; ;;  '(add-to-list 'pymacs-load-path YOUR-PYMACS-DIRECTORY"))
+
+;; ;; Rope setup
+;; (pymacs-load "ropemacs" "rope-")
+;; (setq ropemacs-enable-autoimport t)
