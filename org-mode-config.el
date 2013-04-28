@@ -536,42 +536,28 @@ fromphone=true\]\{scrlttr2\}
 ;;; `org-capture' templates
 (setq org-capture-templates
       '(("m" "Select meeting templates")
-	("mr" "Regular appointment/meeting" entry (file+headline "~/org/meetings.org" "Appointments and meetings")
-	 "*** %? %^t%^{CATEGORY}p\n"
-	 :prepend t)
 	("mb" "Create Bfys meeting" entry (file+headline "~/org/meetings.org" "Bfys meetings")
 	 "*** %? %^t\n"
-	 :prepend t)
-	("ma" "Create analysis meeting" entry (file+headline "~/org/meetings.org" "Analysis meetings")
-	 "*** %? analysis meeting %^t %^G\n"
 	 :prepend t)
 	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
 	 "**** %^{prompt} %U %^G\n\n%?"
 	 :clock-in t)
 	("mn" "Meeting notes w/o clock" entry (file+datetree "~/org/meetings.org")
-	 "**** %^{prompt} %U %^G\n%?")
-	("l" "Talks and lectures" entry (file+headline "~/org/meetings.org" "Colloquia")
-	 "*** %^{prompt} %^t\n%^L"
-	 :prepend t :immediate-finish t)
-	("w" "Workshops and conferences" entry (file+headline "~/org/meetings.org" "Workshops - Conferences")
-	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n%?"
-	 :prepend t :empty-lines 1)
-	("d" "Add TODO with a DEADLINE" entry (file+headline "~/org/tasks.org" "Tasks")
+	 "**** %^{prompt} %U %^G\n%?"
+	 :immediate-finish t :jump-to-captured t) ; :empty-lines-before 1
+	("d" "Add task with a DEADLINE" entry (file+headline "~/org/tasks.org" "Tasks")
 	 "** TODO %^{prompt}\n   DEADLINE: %^t\n%?"
 	 :prepend t)
 	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
 	 "** %^{prompt}%^{CATEGORY}p\n\n%?"
 	 :prepend t)
-	("p" "Schedule a trip" entry (file+headline "~/org/meetings.org" "Trips")
-	 "** %^{prompt}%^{CATEGORY}p\n   %^t--%^t\n%?"
-	 :prepend t)
 	("r" "Reading material" entry (file+headline "~/org/biblio.org" "Reading")
 	 "** %?%^{CATEGORY}p %^G\n   %^t"
 	 :prepend t) ; :unnarrowed t
-	("s" "Schedule a TODO Item" entry (file+headline "~/org/tasks.org" "Tasks")
+	("s" "Schedule a task" entry (file+headline "~/org/tasks.org" "Tasks")
 	 "** TODO %^{prompt}\n   SCHEDULED: %^t\n%?"
 	 :prepend t)
-	("t" "Regular TODO Item" entry (file+headline "~/org/tasks.org" "Tasks")
+	("t" "Regular task" entry (file+headline "~/org/tasks.org" "Tasks")
 	 "** TODO %^{prompt}\n   %^t\n%?"
 	 :prepend t)
 	))
