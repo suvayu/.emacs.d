@@ -221,22 +221,47 @@
 (add-to-list 'org-beamer-environments-extra
 	     '("onlyenv" "O" "\\begin{onlyenv}%a" "\\end{onlyenv}"))
 
+(add-to-list 'org-beamer-environments-extra
+	     '("boldH" "h" "\\textbf{%h}" "%%%%"))
+
 (add-to-list 'org-export-snippet-translation-alist
 	     '(("b" . "beamer")
 	       ("l" . "latex")))
 
 ;; filters for markups
 (defun sa-beamer-bold (contents backend info)
-  (if (not (eq backend 'beamer)) contents
+  (when (eq backend 'beamer)
     (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
 
+(add-to-list 'org-export-filter-bold-functions 'sa-beamer-bold)
+
 (defun sa-beamer-structure (contents backend info)
-  (if (not (eq backend 'beamer)) contents
+  (when (eq backend 'beamer)
     (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\structure" contents)))
 
-(add-to-list 'org-export-filter-bold-functions 'sa-beamer-bold)
 (add-to-list 'org-export-filter-strike-through-functions 'sa-beamer-structure)
 
+(defun sa-latex-subscript (contents backend info)
+  (when (or (eq backend 'beamer) (eq backend 'latex))
+    (replace-regexp-in-string "\\$_{\\\\text{\\([A-Za-z0-9]+\\)}}\\$"
+			      "\\\\textsubscript{\\1}" contents)))
+
+(add-to-list 'org-export-filter-subscript-functions 'sa-latex-subscript)
+
+(defun sa-latex-superscript (contents backend info)
+  (when (or (eq backend 'beamer) (eq backend 'latex))
+    (replace-regexp-in-string "\\$\\^{\\\\text{\\([A-Za-z0-9]+\\)}}\\$"
+			      "\\\\textsuperscript{\\1}" contents)))
+
+(add-to-list 'org-export-filter-superscript-functions 'sa-latex-superscript)
+
+;; FIXME: Don't know if it works
+(defun sa-ignore-headline (contents backend info)
+  "Ignore headlines with tag `ignoreheading'."
+  (if (eq backend 'latex) (message contents)
+    contents))
+
+(add-to-list 'org-export-filter-headline-functions 'sa-ignore-headline)
 
 ;; FIXME: just switching binary is not enough,
 ;; `org-latex-packages-alist' has to be updated
