@@ -263,18 +263,46 @@
 
 (add-to-list 'org-export-filter-headline-functions 'sa-ignore-headline)
 
-;; FIXME: just switching binary is not enough,
-;; `org-latex-packages-alist' has to be updated
-(defun sa-switch-latex-binary(binary)
-  "Switch binary for LaTeX export of org files.  Note this does
-not correct default package list."
-  (interactive "sLaTeX binary: ")
-  (downcase binary)
-  (let ((newcmd (replace-regexp-in-string
-		 ".*latex" binary
-		 (car org-latex-pdf-process))))
-    (setf org-latex-pdf-process `(,newcmd ,newcmd ,newcmd))
-    (message "Note default packages are unchanged!")))
+;; Setup for KOMA script letter with scrlttr2
+(add-to-list 'org-latex-classes
+               '("scrlttr2"
+                 "\\documentclass\[%
+DIV=14,
+fontsize=12pt,
+parskip=half,
+subject=titled,
+backaddress=false,
+fromalign=left,
+fromemail=true,
+fromphone=true\]\{scrlttr2\}
+\[DEFAULT-PACKAGES]
+\[PACKAGES]
+\[EXTRA]"
+		 ("\\section\{%s\}" . "\\section*\{%s\}")
+                 ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+                 ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+;;; may not be needed any more, here for example purposes
+;; ;; smart quotes on only for latex backend (courtesy: Jambunathan)
+;; (defun sa-org-latex-options-function (info backend)
+;;  (when (eq backend 'latex)
+;;   (plist-put info :with-smart-quotes t)))
+
+;; (add-to-list 'org-export-filter-options-functions 'sa-org-latex-options-function)
+
+
+;; ;; FIXME: just switching binary is not enough,
+;; ;; `org-latex-packages-alist' has to be updated
+;; (defun sa-switch-latex-binary(binary)
+;;   "Switch binary for LaTeX export of org files.  Note this does
+;; not correct default package list."
+;;   (interactive "sLaTeX binary: ")
+;;   (downcase binary)
+;;   (let ((newcmd (replace-regexp-in-string
+;; 		 ".*latex" binary
+;; 		 (car org-latex-pdf-process))))
+;;     (setf org-latex-pdf-process `(,newcmd ,newcmd ,newcmd))
+;;     (message "Note default packages are unchanged!")))
 
 
 ;; FIXME: export templates for inline tasks
@@ -285,11 +313,11 @@ not correct default package list."
 ;;   (concat "\\todo[inline,]{"
 ;; 	  (unless (eq todo "") (format "\\textsc{%s%s}" todo priority))
 ;; 	  (format "\\textbf{%s}\n" heading) content "}"))
-
+;;
 ;; (setcdr (assoc 'latex org-inlinetask-export-templates)
 ;; 	'("%s" '((sa-org-latex-format-inlinetask
 ;; 		  heading content todo priority tags))))
-
+;;
 ;; (defun sa-org-latex-format-inlinetask (heading content
 ;; 					    &optional todo priority tags)
 ;;   "Generate format string for inlinetask export templates for latex."
@@ -304,7 +332,7 @@ not correct default package list."
 
 
 ;; FIXME: Migrate to filters for experimental export
-;; FIXME: interferes with ASCII export of subtree
+;; ;; FIXME: interferes with ASCII export of subtree
 ;; ;; org export hooks
 ;; (defun sa-org-export-latex-wrap-todo ()
 ;;   "Wrap heading with arbitrary latex environment."
@@ -356,13 +384,6 @@ not correct default package list."
 ;; 		    "\\textbf{" heading "}\n"
 ;; 		    content "\n}%\n"))))
 
-
-(defun sa-ignore-headline (contents backend info)
-  "Ignore headlines with tag `ignoreheading'."
-  (if (eq backend 'latex) (message contents)
-    contents))
-
-(add-to-list 'org-export-filter-headline-functions 'sa-ignore-headline)
 
 ;; FIXME: instead of preprocess hook, use filters for new exporter
 ;; ;; backend aware export preprocess hook
@@ -432,8 +453,7 @@ not correct default package list."
   (and (buffer-file-name)
        (file-exists-p (buffer-file-name))
        (reftex-parse-all))
-  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
-  )
+  (define-key org-mode-map (kbd "C-c )") 'reftex-citation))
   ;; (when (and (not (featurep 'reftex))
   ;; 	     (buffer-file-name)
   ;; 	     (file-exists-p (buffer-file-name)))
