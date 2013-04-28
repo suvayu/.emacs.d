@@ -6,6 +6,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defun sa-search-n-comment(str)
+  "Search for string and comment line"
+  (interactive "sString: ")
+  (let ((repeat t))
+    (while repeat
+      (search-forward str)
+      (comment-region (line-beginning-position) (line-end-position))
+      (next-line)
+      (setf repeat (y-or-n-p "Repeat? ")))))
+
 ;; insert gmane http link from message id
 (defun sa-insert-gmane-link(msgid)
   "Insert gmane http link at point.  Promptsx for message id."
