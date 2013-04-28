@@ -43,19 +43,32 @@
 
 ;; font-lock customisations
 (defface sa-global-todo-face
-  '((t (:background "royalblue4" :foreground "thistle" :weight bold)))
+  '((t (:background "royalblue4" :foreground "thistle" :inherit (bold))))
   "Face for TODO keywords globally."
   :group 'sa-faces)
 
 (add-hook 'find-file-hook
 	  (lambda ()
 	    (font-lock-add-keywords
-	     nil '(("\\<\\(FIXME\\)[: ]" 1 'font-lock-warning-face prepend)
+	     nil '(("\\<\\(FIXME\\)\\>" 1 'font-lock-warning-face prepend)
 		   ))
-	    (unless (eq major-mode 'org-mode)
-	      (font-lock-add-keywords
-	       nil '(("\\<\\(NB\\|NOTE\\|TODO\\)[: ]" 1 'sa-global-todo-face prepend)
-		     )))))
+	    ;; (font-lock-add-keywords
+	    ;;  nil '(("\\<(\\?)\\>" 1 'font-lock-warning-face prepend)
+	    ;; 	   ))
+	    ;; (unless (eq major-mode 'org-mode)
+	    ;;   (font-lock-add-keywords
+	    ;;    nil '(("\\<\\(NB\\|NOTE\\|TODO\\)\\>" 1 'sa-global-todo-face prepend)
+	    ;; 	     )))
+	    ))
+
+;; ;; Example from Seb
+;; (defvar lvn/highlight-org-regexps
+;;   "\\(FIXME\\|BUG\\|XXX\\|[Ee]rror\\|[Ww]arning\\|WARNING\\)"
+;;   "Patterns to highlight (for Org mode only).")
+;;
+;; (dolist (mode '(org-mode))
+;;   (font-lock-add-keywords mode
+;;    `((,lvn/highlight-org-regexps 1 'lvn/highlight-face prepend))))
 
 ;; ;; Example from Jambunathan
 ;;      (font-lock-add-keywords
