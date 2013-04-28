@@ -69,6 +69,8 @@
       org-log-into-drawer t
       ;; turn on speed keys for headlines
       org-use-speed-commands t
+      ;; reveal folded headline when trying to edit
+      org-catch-invisible-edits 'show
       ;; fontify code blocks by default
       org-src-fontify-natively t
       org-src-tab-acts-natively t
