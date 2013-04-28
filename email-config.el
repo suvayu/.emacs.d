@@ -14,6 +14,8 @@
 
 (add-hook 'message-mode-hook
 	  (lambda ()
+	    ;; turn off automatic filling
+	    (auto-fill-mode -1)
 	    (orgstruct++-mode t)
 	    (define-key message-mode-map (kbd "C-c C-SPC")
 	      'external-abook-try-expand)
