@@ -36,13 +36,14 @@
  '(egg-buffer-hide-section-type-on-start (quote ((egg-status-buffer-mode . :hunk) (egg-commit-buffer-mode . :hunk))))
  '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
  '(ibuffer-saved-filter-groups nil)
- '(ibuffer-saved-filters (quote (("dev" ((or (saved . "py") (saved . "cpp")))) ("lisp" ((used-mode . emacs-lisp-mode))) ("py" ((used-mode . python-mode))) ("config" ((used-mode . conf-unix-mode))) ("org" ((used-mode . org-mode))) ("cpp" ((used-mode . c++-mode))) ("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
+ '(ibuffer-saved-filters (quote (("rootpy" ((filename . "rootpy") (saved . "py"))) ("dsk" ((filename . "Bs2DsKTools") (saved . "py"))) ("dev" ((or (saved . "py") (saved . "cpp")))) ("lisp" ((used-mode . emacs-lisp-mode))) ("py" ((used-mode . python-mode))) ("config" ((used-mode . conf-unix-mode))) ("org" ((used-mode . org-mode))) ("cpp" ((used-mode . c++-mode))) ("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
  '(inhibit-startup-screen t)
  '(isearch-allow-scroll t)
  '(ispell-dictionary "british")
  '(iswitchb-mode t)
  '(message-elide-ellipsis "
  [...chomp...chomp...chomp...]
+
 ")
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point t)
