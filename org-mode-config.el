@@ -7,7 +7,7 @@
 (require 'ox-latex)
 (require 'ox-beamer)
 (require 'ox-html)
-(require 'ox-odt)
+;; (require 'ox-odt)
 ;; (require 'ox-groff)
 ;; (require 'ox-man)   ; NB: customise org-man-pdf-process
 ;; (require 'ox-texinfo)
