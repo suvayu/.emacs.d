@@ -76,6 +76,23 @@ search except that your input is treated as a regexp"
     (other-window (- arg))))
 
 
+;; Source: Liam Healy on the org-mode mailing list
+;; <http://mid.gmane.org/CADe9tL7xL8Oci9k4BsiOs_sH3b2N4ormAojDwJ1smF8J3yZGLA@mail.gmail.com>
+;; goto date in org date tree
+(defun sa-org-datetree-goto-date (&optional siblings)
+  "Go to and show the date in the date tree. With optional argument
+SIBLINGS, on each level of the hierarchy all
+siblings are shown. If no entry exists for the date, it will be created."
+  (interactive "P")
+  (let ((date (decode-time (org-read-date nil t))))
+    (org-datetree-find-date-create (list (nth 4 date) (nth 3 date)
+					 (nth 5 date))))
+  (outline-show-heading)
+  (show-subtree)
+  (org-reveal siblings)
+  (beginning-of-line))
+
+
 ;; Function to add duplicate org-mode properties
 (defun sa-org-entry-put-dupe (pom property value)
   "Set PROPERTY to VALUE for entry at point-or-marker POM.
