@@ -123,10 +123,10 @@ before the existing entry.  Use with caution."
 
 
 ;; my beamer options template for the new exporter
-(defun sa-org-e-beamer-insert-options-template (&optional kind)
+(defun sa-org-beamer-insert-options-template (&optional kind)
   "Insert a settings template, to make sure users do this right.
 
-Original function: `org-e-beamer-insert-options-template'.
+Original function: `org-beamer-insert-options-template'.
 
 NB: This is a custom version that ignores duplicate \"EXPORT_LaTeX_HEADER+\"
 entries when inserting the template for a subtree.  In this case, calling this
