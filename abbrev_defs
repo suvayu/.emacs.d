@@ -51,8 +51,6 @@
   '(;; ("K+"  "K⁺"  nil 0)
     ;; ("K-"  "K⁻"  nil 0)
     ("K0"  "K⁰"  nil 0)
-    ;; ("K0l" "K⁰l" nil 0)
-    ;; ("K0s" "K⁰s" nil 0)
     ;; ("pi+" "π⁺"  nil 0)
     ;; ("pi-" "π⁻"  nil 0)
     ("pi0" "π⁰"  nil 0)
@@ -60,24 +58,26 @@
     ;; ("D-"  "D⁻"  nil 0)
     ;; ("Ds-" "Ds⁻" nil 0)
     ;; ("Ds+" "Ds⁺" nil 0)
-    ("Bs0" "Bs⁰" nil 0)
-    ;; ("aBs" "B̄s"  nil 0)
-    ;; ("aBd" "B̄d"  nil 0)
     ("B0"  "B⁰"  nil 0)
-    ;; ("aB0" "B̄⁰"  nil 0)
+    ;; ("Bs0" "Bs⁰" nil 0)
+    ("Bs2Dspi" "Bs → Dsπ" nil 0)
+    ("Bs2DsK" "Bs → DsK" nil 0)
+    ("Dspi" "Dsπ" nil 0)
     )
   "Abbreviation table with Unicode characters (use in org buffers
    or emails).")
 
 (define-abbrev-table 'text-mode-abbrev-table
   '(("ewk" "electroweak" nil 0)
+    ("llh" "likelihood" nil 0)
+    ("kfactor" "k-factor" nil 0)
     ("MC" "Monte Carlo" nil 0)
     ("SU3" "SU(3)" nil 0)
     ("SU2" "SU(2)" nil 0)
     ("U1" "U(1)" nil 0)
     ("tex" "TeX" nil 0)
     ("latex" "LaTeX" nil 0)
-    ("e-tex" "e-TeX" nil 0)
+    ("etex" "e-TeX" nil 0)
     ("xetex" "XeTeX" nil 0)
     ("xelatex" "XeLaTeX" nil 0)
     ("luatex" "LuaTeX" nil 0)
@@ -90,15 +90,17 @@
   '(("SU3" "\\(SU(3)\\)" nil 0)
     ("SU2" "\\(SU(2)\\)" nil 0)
     ("U1" "\\(U(1)\\)" nil 0)
-    ("kfactor" "\\(k\\)-factor" nil 0)
+    ("Bs" "B_{s}" nil 0)
+    ("Bs2Dspi" "B_{s} → D_{s}π" nil 0)
+    ("Bs2DsK" "B_{s} → D_{s}K" nil 0)
+    ("Dspi" "D_{s}π" nil 0)
     )
   "Abbreviation table for `org-mode'. Inherits from
   `text-mode-abbrev-table'."
   :parents (list text-mode-abbrev-table))
 
 (define-abbrev-table 'org-mode-abbrev-table
-  '(("kfactor" "\\(k\\)-factor" nil 0)
-    )
+  '()
   "Abbreviation table for `org-mode'. Inherits from
   `text-mode-abbrev-table'."
   :parents (list text-mode-abbrev-table unicode-abbrev-table))
@@ -106,8 +108,7 @@
     ;; ("ilatex" "src_latex{}" (lambda() (backward-char 1)) 0)
 
 (define-abbrev-table 'message-mode-abbrev-table
-  '(("kfactor" "k-factor" nil 0)
-    ("hth" "Hope this helps" nil 0)
+  '(("hth" "Hope this helps" nil 0)
     ("HTH" "Hope this helps" nil 0)
     ("cheers" "Cheers" nil 0)
     )
