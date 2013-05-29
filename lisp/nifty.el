@@ -35,6 +35,32 @@
     (switch-to-buffer ibuf)))
 
 
+;; special beginning/end of statement navigation commands that
+;; switches between beginning/end of statement and beginning/end of
+;; line.  Inspired by org-special-ctrl-a/e.
+(defun sa-python-nav-beginning-of-statement-special ()
+  "Move to start of current statement or beginning of line."
+  (interactive)
+  (let ((bos (save-excursion (python-nav-beginning-of-statement)
+			     (point))))
+    (if (or (bolp) (> (point) bos)) 
+	(python-nav-beginning-of-statement)
+      (beginning-of-line))))
+
+(defun sa-python-nav-end-of-statement-special ()
+  "Move to end of current statement or end of line."
+  (interactive)
+  (let ((eos (save-excursion (python-nav-end-of-statement) (point)))
+	(mls (> (save-excursion (beginning-of-line) (point))
+		(save-excursion (python-nav-beginning-of-statement)
+				(point)))))
+    (if (< (point) eos)
+	(python-nav-end-of-statement)
+      (if mls (previous-logical-line))
+      ;; (previous-logical-line)
+      (end-of-line))))
+
+
 ;; isearch wrappers to search in other window
 ;; Source: http://www.unixuser.org/~ysjj/emacs/lisp/misc-funcs.el
 (defun sa-isearch-backward-other-window (arg)
