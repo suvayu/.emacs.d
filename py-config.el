@@ -1,5 +1,8 @@
 ;; -*- mode: emacs-lisp -*-
 
+;; for special navigation commands
+(require 'nifty)
+
 ;; setup keybindings in mode hook
 (add-hook 'python-mode-hook
 	  (lambda ()
@@ -8,6 +11,8 @@
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
 	    (define-key python-mode-map (kbd "M-a") 'python-nav-beginning-of-block)
 	    (define-key python-mode-map (kbd "M-e") 'python-nav-end-of-block)
+	    (define-key python-mode-map (kbd "C-a") 'sa-python-nav-beginning-of-statement-special)
+	    (define-key python-mode-map (kbd "C-e") 'sa-python-nav-end-of-statement-special)
 	    (define-key python-mode-map (kbd "C-c d") 'pylookup-lookup)
 	    ))
 
