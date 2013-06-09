@@ -117,15 +117,15 @@ Expansion is done by the function passed as the argument. This is
 controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 ;; backward-char checks if end-of-buffer as when point at e-o-b face is `nil'
 ;; the function call expand does the expansion, usually `expand-abbrev'
-  (if (not (save-excursion
-	     (string-match "comment\\|string"
-			   (symbol-name (if (< (point) (point-max))
-					    (face-at-point)
-					  (backward-char)
-					  (face-at-point))))))
-      (funcall expand)
-    (let ((local-abbrev-table basic-text-mode-abbrev-table))
-      (funcall expand))))
+  (if (save-excursion
+	(string-match "comment\\|string"
+		      (symbol-name (if (< (point) (point-max))
+				       (face-at-point)
+				     (backward-char)
+				     (face-at-point)))))
+      (let ((local-abbrev-table basic-text-mode-abbrev-table))
+	(funcall expand))
+    (funcall expand)))
 
 ;; this hook wraps around the `expand-abbrev' function call
 (add-hook 'after-change-major-mode-hook
