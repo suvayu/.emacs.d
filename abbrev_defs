@@ -91,9 +91,12 @@
     ("SU2" "\\(SU(2)\\)" nil 0)
     ("U1" "\\(U(1)\\)" nil 0)
     ("Bs" "B_{s}" nil 0)
+    ("Ds" "D_{s}" nil 0)
     ("Bs2Dspi" "B_{s} → D_{s}π" nil 0)
     ("Bs2DsK" "B_{s} → D_{s}K" nil 0)
     ("Dspi" "D_{s}π" nil 0)
+    ("DsKmp" "D_{s}^{-}K^{+}" nil 0)
+    ("DsKpm" "D_{s}^{+}K^{-}" nil 0)
     )
   "Abbreviation table for `org-mode'. Inherits from
   `text-mode-abbrev-table'."
