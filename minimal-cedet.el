@@ -4,13 +4,16 @@
 (load-file "~/.emacs.d/minimal-init.el")
 
 ;;; Minimal setup to load latest `cedet'
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/cedet"))
-(load-library "~/.emacs.d/lisp/cedet/common/cedet.elc")
+(load-file "~/.emacs.d/lisp/cedet/cedet-devel-load.el")
 
 ;; force `c++-mode' for `*.h' header files
 (add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
 
-(setq semantic-load-turn-useful-things-on t)
-(semantic-load-enable-gaudy-code-helpers)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
+
+;; Enable Semantic
+(semantic-mode 1)
 
 ;;; minimal-cedet.el ends here
