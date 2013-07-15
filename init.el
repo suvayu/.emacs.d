@@ -14,6 +14,13 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 
+;;; Load development CEDET
+(load-file "~/.emacs.d/lisp/cedet/cedet-devel-load.el")
+
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
+
 ;;; Commented out since included in customize
 ;; ;; Info directory
 ;; (add-to-list 'Info-default-directory-list
