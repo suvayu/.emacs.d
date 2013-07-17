@@ -251,8 +251,10 @@
 ;; FIXME: Don't know if it works
 (defun sa-ignore-headline (contents backend info)
   "Ignore headlines with tag `ignoreheading'."
-  (if (eq backend 'latex) (message contents)
-    contents))
+  (when (and (org-export-derived-backend-p backend 'latex 'html 'ascii)
+		  (string-match "\\`.*ignoreheading.*\n"
+				(downcase headline)))
+    (replace-match "" nil nil headline)))
 
 (add-to-list 'org-export-filter-headline-functions 'sa-ignore-headline)
 
