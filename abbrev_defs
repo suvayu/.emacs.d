@@ -114,6 +114,7 @@
   '(("hth" "Hope this helps" nil 0)
     ("HTH" "Hope this helps" nil 0)
     ("cheers" "Cheers" nil 0)
+    ("thanks" "Thanks" nil 0)
     )
   "Abbreviation table for `message-mode'. Inherits from
   `text-mode-abbrev-table' and `unicode-abbrev-table'."
