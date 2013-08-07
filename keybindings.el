@@ -11,6 +11,15 @@
 ;; navigate thru windows using M-<arrow>
 (windmove-default-keybindings 'meta)
 
+;; ;; define personal keymap
+;; (define-prefix-command 'sa-map)
+;; FIXME: find alternate for C-z
+;; (define-key global-map (kbd "C-z") 'sa-map)
+
+;; navigate frames
+(global-set-key (kbd "C-x C-<left>") (lambda () (interactive) (other-frame -1)))
+(global-set-key (kbd "C-x C-<right>") (lambda () (interactive) (other-frame 1)))
+
 ;; minibuffer history completion
 (mapc
     #'(lambda (map)
