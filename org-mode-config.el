@@ -223,26 +223,26 @@
 
 ;; filters for markups
 (defun sa-beamer-bold (contents backend info)
-  (when (eq backend 'beamer)
+  (when (org-export-derived-backend-p backend 'beamer)
     (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
 
 (add-to-list 'org-export-filter-bold-functions 'sa-beamer-bold)
 
 (defun sa-beamer-structure (contents backend info)
-  (when (eq backend 'beamer)
+  (when (org-export-derived-backend-p backend 'beamer)
     (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\structure" contents)))
 
 (add-to-list 'org-export-filter-strike-through-functions 'sa-beamer-structure)
 
 (defun sa-latex-subscript (contents backend info)
-  (when (or (eq backend 'beamer) (eq backend 'latex))
+  (when (org-export-derived-backend-p backend 'beamer 'latex)
     (replace-regexp-in-string "\\$_{\\\\text{\\([A-Za-z0-9]+\\)}}\\$"
 			      "\\\\textsubscript{\\1}" contents)))
 
 (add-to-list 'org-export-filter-subscript-functions 'sa-latex-subscript)
 
 (defun sa-latex-superscript (contents backend info)
-  (when (or (eq backend 'beamer) (eq backend 'latex))
+  (when (org-export-derived-backend-p backend 'beamer 'latex)
     (replace-regexp-in-string "\\$\\^{\\\\text{\\([A-Za-z0-9]+\\)}}\\$"
 			      "\\\\textsuperscript{\\1}" contents)))
 
