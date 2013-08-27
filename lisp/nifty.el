@@ -65,6 +65,24 @@ search except that your input is treated as a regexp"
 ;; Editing utilities ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun sa-transpose-lines (arg)
+  "Replacement for `transpose-lines' where instead of the
+previous line, the current line is transposed.  The relative
+cursor position is also restored after the move.
+
+IMO, this is a more natural and graphical way of transposing.
+The idea is you want to operate on the current object since you
+are editing it, and you want to preserve the cursor position so
+that you can continue editing after the transpose."
+  (interactive "*p")
+  (let ((col (current-column)))
+    (next-line)
+    (transpose-lines arg)
+    (if (> arg 0)
+	(previous-line)
+      (previous-line (- 1 arg)))
+    (right-char col)))
+
 (defun sa-search-n-comment (str)
   "Search for string and comment line."
   (interactive "sString: ")
