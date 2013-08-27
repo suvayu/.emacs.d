@@ -2,8 +2,9 @@
 ;;; keybindings.el --- on bhishma
 
 ;;; Code:
+(require 'nifty)
 
-;; Navigation
+;;; Navigation
 ;; side scrolling on
 (put 'scroll-left 'disabled nil)
 ;; narrow-to-region enabled
@@ -17,8 +18,16 @@
 ;; (define-key global-map (kbd "C-z") 'sa-map)
 
 ;; navigate frames
-(global-set-key (kbd "C-x C-<left>") (lambda () (interactive) (other-frame -1)))
-(global-set-key (kbd "C-x C-<right>") (lambda () (interactive) (other-frame 1)))
+(global-set-key (kbd "C-x C-<left>")
+		(lambda ()
+		  "Select previous frame."
+		  (interactive)
+		  (other-frame -1)))
+(global-set-key (kbd "C-x C-<right>")
+		(lambda ()
+		  "Select next frame."
+		  (interactive)
+		  (other-frame 1)))
 
 ;; minibuffer history completion
 (mapc
@@ -46,17 +55,7 @@
 (global-set-key '[(C-mouse-5)] 'text-scale-decrease) ; scroll down
 
 
-;; transpose-* keybindings
-;; (global-set-key (kbd "C-<up>") 'transpose-lines)
-;; (global-set-key (kbd "C-<down>") '(lambda()
-;; 				  (interactive)
-;; 				  (transpose-lines -1)))
-(global-set-key (kbd "M-}") 'transpose-paragraphs)
-(global-set-key (kbd "M-{") '(lambda()
-			       (interactive)
-			       (transpose-paragraphs -1)))
-
-;; Editing
+;;; Editing
 ;; prefer utf-8
 (prefer-coding-system 'utf-8)
 ;; enabling disabled commands
@@ -69,6 +68,15 @@
 
 ;; killing blocks of text
 (global-set-key (kbd "C-c M-k") 'kill-paragraph)
+
+;; transpose-* keybindings
+(global-set-key (kbd "C-x M-}") 'transpose-paragraphs)
+(global-set-key (kbd "C-<up>")
+		(lambda()
+		  "Exchange current line with previous line."
+		  (interactive)
+		  (sa-transpose-lines -1)))
+(global-set-key (kbd "C-<down>") 'sa-transpose-lines)
 
 ;; inserting unicode
 (require 'ucs-cmds)
@@ -142,7 +150,7 @@ controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 	    (add-hook 'abbrev-expand-functions 'sa-expand-abbrev-in-context nil t)))
 
 
-;; dired
+;;; Dired
 (put 'dired-find-alternate-file 'disabled nil)
 
 ;; `dired-details' & `dired-details+' by Drew Adams
@@ -151,13 +159,6 @@ controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 (require 'dired-details+)
 (require 'dired-sort-menu)
 (require 'dired-sort-menu+)
-
-;; ;; load dired-x in dired (enables omitting files)
-;; (add-hook 'dired-load-hook
-;;	  (lambda ()
-;;	    (require 'dired-x)))
-;; ;; turns omiting on by default
-;; (setq dired-omit-mode t)
 
 ;; `dired-mode' key bindings ; okay here since dired is required above
 (define-key dired-mode-map (kbd "C-<down>") 'dired-next-subdir)
