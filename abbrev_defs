@@ -40,8 +40,6 @@
   '(("bkg" "background" nil 0)
     ("bkgs" "backgrounds" nil 0)
     ("dist" "distribution" nil 0)
-    ("cfit" "cFit" nil 0)
-    ("sfit" "sFit" nil 0)
     ("sig" "signal" nil 0))
   "Basic text abbreviation table for all modes.")
 
