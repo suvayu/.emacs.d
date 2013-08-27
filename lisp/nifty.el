@@ -1,67 +1,14 @@
 ;; -*- mode: emacs-lisp; -*-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; This file contains some nifty lisp    ;;
-;; functions I wrote for my convenience  ;;
-;; or I got it from somewhere (credited) ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; This file contains some nifty lisp functions I wrote for my
+;; convenience or I got it from somewhere (credited).
 
 
-(defun sa-search-n-comment (str)
-  "Search for string and comment line."
-  (interactive "sString: ")
-  (let ((repeat t))
-    (while repeat
-      (search-forward str)
-      (comment-region (line-beginning-position) (line-end-position))
-      (next-line)
-      (setf repeat (y-or-n-p "Repeat? ")))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Navigation utilities ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; insert gmane http link from message id
-(defun sa-insert-gmane-link (msgid)
-  "Insert gmane http link at point.  Prompts for message id."
-  (interactive "sMessage ID: ")
-  (insert (format "<http://mid.gmane.org/%s>" msgid)))
-
-
-;; FIXME: add uniquify support
-;; (uniquify-item-buffer
-;;  (uniquify-make-item (buffer-name) default-directory indirect-buffer))
-(defun sa-make-indirect-buffer ()
-  "Make indirect buffer to current buffer and switch to it."
-  (interactive)
-  (let ((ibuf (make-indirect-buffer
-	       (current-buffer)
-	       (generate-new-buffer-name (buffer-name)) t)))
-    (switch-to-buffer ibuf)))
-
-
-;; special beginning/end of statement navigation commands that
-;; switches between beginning/end of statement and beginning/end of
-;; line.  Inspired by org-special-ctrl-a/e.
-(defun sa-python-nav-beginning-of-statement-special ()
-  "Move to start of current statement or beginning of line."
-  (interactive)
-  (let ((bos (save-excursion (python-nav-beginning-of-statement)
-			     (point))))
-    (if (or (bolp) (> (point) bos)) 
-	(python-nav-beginning-of-statement)
-      (beginning-of-line))))
-
-(defun sa-python-nav-end-of-statement-special ()
-  "Move to end of current statement or end of line."
-  (interactive)
-  (let ((eos (save-excursion (python-nav-end-of-statement) (point)))
-	(mls (> (save-excursion (beginning-of-line) (point))
-		(save-excursion (python-nav-beginning-of-statement)
-				(point)))))
-    (if (< (point) eos)
-	(python-nav-end-of-statement)
-      (if mls (previous-logical-line))
-      ;; (previous-logical-line)
-      (end-of-line))))
-
-
-;; isearch wrappers to search in other window
+;;; isearch wrappers to search in other window
 ;; Source: http://www.unixuser.org/~ysjj/emacs/lisp/misc-funcs.el
 (defun sa-isearch-backward-other-window (arg)
   "Do incremental search backward on the ARG'th different window
@@ -101,10 +48,45 @@ search except that your input is treated as a regexp"
     (isearch-forward-regexp)
     (other-window (- arg))))
 
+;;; buffer utils
+;; FIXME: add uniquify support
+;; (uniquify-item-buffer
+;;  (uniquify-make-item (buffer-name) default-directory indirect-buffer))
+(defun sa-make-indirect-buffer ()
+  "Make indirect buffer to current buffer and switch to it."
+  (interactive)
+  (let ((ibuf (make-indirect-buffer
+	       (current-buffer)
+	       (generate-new-buffer-name (buffer-name)) t)))
+    (switch-to-buffer ibuf)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Editing utilities ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun sa-search-n-comment (str)
+  "Search for string and comment line."
+  (interactive "sString: ")
+  (let ((repeat t))
+    (while repeat
+      (search-forward str)
+      (comment-region (line-beginning-position) (line-end-position))
+      (next-line)
+      (setf repeat (y-or-n-p "Repeat? ")))))
+
+(defun sa-insert-gmane-link (msgid)
+  "Insert gmane http link at point.  Prompts for message id."
+  (interactive "sMessage ID: ")
+  (insert (format "<http://mid.gmane.org/%s>" msgid)))
+
+
+;;;;;;;;;;;;;;;;;;;
+;; Org utilities ;;
+;;;;;;;;;;;;;;;;;;;
 
 ;; Source: Liam Healy on the org-mode mailing list
 ;; <http://mid.gmane.org/CADe9tL7xL8Oci9k4BsiOs_sH3b2N4ormAojDwJ1smF8J3yZGLA@mail.gmail.com>
-;; goto date in org date tree
 (defun sa-org-datetree-goto-date (&optional siblings)
   "Go to and show the date in the date tree. With optional argument
 SIBLINGS, on each level of the hierarchy all
@@ -222,6 +204,40 @@ If FILEXT is provided, return files with extension FILEXT instead."
 	  (add-to-list 'org-file-list org-file)))))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Python tweaks & utilities ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; special beginning/end of statement navigation commands that
+;; switches between beginning/end of statement and beginning/end of
+;; line.  Inspired by org-special-ctrl-a/e.
+(defun sa-python-nav-beginning-of-statement-special ()
+  "Move to start of current statement or beginning of line."
+  (interactive)
+  (let ((bos (save-excursion (python-nav-beginning-of-statement)
+			     (point))))
+    (if (or (bolp) (> (point) bos)) 
+	(python-nav-beginning-of-statement)
+      (beginning-of-line))))
+
+(defun sa-python-nav-end-of-statement-special ()
+  "Move to end of current statement or end of line."
+  (interactive)
+  (let ((eos (save-excursion (python-nav-end-of-statement) (point)))
+	(mls (> (save-excursion (beginning-of-line) (point))
+		(save-excursion (python-nav-beginning-of-statement)
+				(point)))))
+    (if (< (point) eos)
+	(python-nav-end-of-statement)
+      (if mls (previous-logical-line))
+      ;; (previous-logical-line)
+      (end-of-line))))
+
+
+;;;;;;;;;;;;;;;;
+;; GUI tweaks ;;
+;;;;;;;;;;;;;;;;
+
 ;; Modify emacs frame opacity. Works with compositing capable window
 ;; managers.
 ;; Source: http://emacs-fu.blogspot.com/2009/02/transparent-emacs.html
@@ -239,9 +255,9 @@ decrease the transparency, otherwise increase it in 5% steps."
       (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Commonly used HEP utilities ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;
+;; HEP utilities ;;
+;;;;;;;;;;;;;;;;;;;
 
 ;; For MakeClass code
 (defun sa-conv (beg end)
