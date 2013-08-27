@@ -6,8 +6,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defun sa-search-n-comment(str)
-  "Search for string and comment line"
+(defun sa-search-n-comment (str)
+  "Search for string and comment line."
   (interactive "sString: ")
   (let ((repeat t))
     (while repeat
@@ -17,8 +17,8 @@
       (setf repeat (y-or-n-p "Repeat? ")))))
 
 ;; insert gmane http link from message id
-(defun sa-insert-gmane-link(msgid)
-  "Insert gmane http link at point.  Promptsx for message id."
+(defun sa-insert-gmane-link (msgid)
+  "Insert gmane http link at point.  Prompts for message id."
   (interactive "sMessage ID: ")
   (insert (format "<http://mid.gmane.org/%s>" msgid)))
 
@@ -26,7 +26,7 @@
 ;; FIXME: add uniquify support
 ;; (uniquify-item-buffer
 ;;  (uniquify-make-item (buffer-name) default-directory indirect-buffer))
-(defun sa-make-indirect-buffer()
+(defun sa-make-indirect-buffer ()
   "Make indirect buffer to current buffer and switch to it."
   (interactive)
   (let ((ibuf (make-indirect-buffer
@@ -244,7 +244,7 @@ decrease the transparency, otherwise increase it in 5% steps."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; For MakeClass code
-(defun sa-conv(beg end)
+(defun sa-conv (beg end)
   "Add SetBranchAddress(...)."
   (interactive "r")
   (save-excursion
