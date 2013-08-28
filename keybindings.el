@@ -71,8 +71,15 @@
 
 ;; transpose-* keybindings
 (global-set-key (kbd "C-x M-}") 'transpose-paragraphs)
+(global-set-key (kbd "C-x C-<down>") 'transpose-paragraphs)
+(global-set-key (kbd "C-x C-<up>")
+		(lambda ()
+		  "Tranpose paragraph with previous."
+		  (interactive)
+		  (transpose-paragraphs -1)
+		  (backward-paragraph)))
 (global-set-key (kbd "C-<up>")
-		(lambda()
+		(lambda ()
 		  "Exchange current line with previous line."
 		  (interactive)
 		  (sa-transpose-lines -1)))
