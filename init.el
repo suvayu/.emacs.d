@@ -12,6 +12,9 @@
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+
+;; kill old org before adding new org path
+(load-file "~/.emacs.d/kill-old-org.el")
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 
 ;;; Load development CEDET
