@@ -83,6 +83,33 @@ that you can continue editing after the transpose."
       (previous-line (- 1 arg)))
     (right-char col)))
 
+;; just for convenience
+(defalias 'sa-transpose-lines-down 'sa-transpose-lines)
+(defun sa-transpose-lines-up ()
+  "Exchange current line with previous line."
+  (interactive)
+  (sa-transpose-lines -1))
+
+(defun sa-forward-paragraph (&optional arg)
+  "If `last-command' was `sa-transpose-lines-down', call it again.
+Call `forward-paragraph' otherwise."
+  (interactive "^p")
+  (if (eq last-command 'sa-transpose-lines-down)
+      (progn
+	(setq this-command 'sa-transpose-lines-down)
+	(sa-transpose-lines-down 1))	;mandatory arguments
+    (forward-paragraph arg)))
+
+(defun sa-backward-paragraph (&optional arg)
+  "If `last-command' was `sa-transpose-lines-up', call it
+again.  Call `backward-paragraph' otherwise."
+  (interactive "^p")
+  (if (eq last-command 'sa-transpose-lines-up)
+      (progn
+	(setq this-command 'sa-transpose-lines-up)
+	(sa-transpose-lines-up))	;no arguments needed
+    (backward-paragraph arg)))
+
 (defun sa-search-n-comment (str)
   "Search for string and comment line."
   (interactive "sString: ")
@@ -241,14 +268,14 @@ If FILEXT is provided, return files with extension FILEXT instead."
 (defun sa-python-nav-end-of-statement-special ()
   "Move to end of current statement or end of line."
   (interactive)
-  (let ((eos (save-excursion (python-nav-end-of-statement) (point)))
+  (let ((pt (point))
+	(eos (save-excursion (python-nav-end-of-statement) (point)))
 	(mls (> (save-excursion (beginning-of-line) (point))
 		(save-excursion (python-nav-beginning-of-statement)
 				(point)))))
     (if (< (point) eos)
 	(python-nav-end-of-statement)
-      (if mls (previous-logical-line))
-      ;; (previous-logical-line)
+      (if mls (goto-char pt))
       (end-of-line))))
 
 

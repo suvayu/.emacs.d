@@ -71,19 +71,17 @@
 
 ;; transpose-* keybindings
 (global-set-key (kbd "C-x M-}") 'transpose-paragraphs)
-(global-set-key (kbd "C-x C-<down>") 'transpose-paragraphs)
-(global-set-key (kbd "C-x C-<up>")
+(global-set-key (kbd "C-x M-{")
 		(lambda ()
-		  "Tranpose paragraph with previous."
+		  "Transpose paragraph with previous."
 		  (interactive)
 		  (transpose-paragraphs -1)
 		  (backward-paragraph)))
-(global-set-key (kbd "C-<up>")
-		(lambda ()
-		  "Exchange current line with previous line."
-		  (interactive)
-		  (sa-transpose-lines -1)))
-(global-set-key (kbd "C-<down>") 'sa-transpose-lines)
+
+(global-set-key (kbd "C-x C-<up>") 'sa-transpose-lines-up)
+(global-set-key (kbd "C-x C-<down>") 'sa-transpose-lines-down)
+(global-set-key (kbd "C-<up>") 'sa-backward-paragraph)
+(global-set-key (kbd "C-<down>") 'sa-forward-paragraph)
 
 ;; inserting unicode
 (require 'ucs-cmds)
