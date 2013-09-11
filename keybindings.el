@@ -17,6 +17,14 @@
 ;; FIXME: find alternate for C-z
 ;; (define-key global-map (kbd "C-z") 'sa-map)
 
+;; sexp movement (defaults commented out)
+;; (global-set-key (kbd "C-M-n") 'forward-list)
+;; (global-set-key (kbd "C-M-p") 'backward-list)
+;; (global-set-key (kbd "C-M-d") 'down-list)
+(global-set-key (kbd "C-M-u") 'up-list)
+;; (global-set-key (kbd "C-M-f") 'forward-sexp)
+;; (global-set-key (kbd "C-M-b") 'backward-sexp)
+
 ;; navigate frames
 (global-set-key (kbd "C-x C-<left>")
 		(lambda ()
