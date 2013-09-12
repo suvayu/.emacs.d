@@ -66,29 +66,31 @@ search except that your input is treated as a regexp"
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun sa-transpose-lines (arg)
-  "Replacement for `transpose-lines' where instead of the
-previous line, the current line is transposed.  The relative
-cursor position is also restored after the move.
+  "More intuitive `transpose-lines'.  `arg' number of lines are
+\"dragged\" up.  If `arg' is -ve, they are dragged down instead.
+The relative cursor position is restored after the move.
 
 IMO, this is a more natural and graphical way of transposing.
-The idea is you want to operate on the current object since you
-are editing it, and you want to preserve the cursor position so
-that you can continue editing after the transpose."
+The idea is you want to operate on the current object you are
+editing.  The current cursor position is preserved to continue
+editing after the operation."
   (interactive "*p")
-  (let ((col (current-column)))
-    (next-line)
-    (transpose-lines arg)
-    (if (> arg 0)
-	(previous-line)
-      (previous-line (- 1 arg)))
-    (right-char col)))
+  ;; Thanks to Jambunathan for the bookmark trick
+  (add-text-properties (point) (1+ (point)) '(bookmark t))
+  ;; save arg for repeat
+  (setq sa-transpose-lines--last-arg arg)
+  (if (< arg 0) (forward-line (- 1 arg)))
+  (transpose-lines arg)
+  (goto-char (1- (previous-single-property-change (point) 'bookmark)))
+  (remove-text-properties (point) (1+ (point)) '(bookmark)))
 
 ;; just for convenience
-(defalias 'sa-transpose-lines-down 'sa-transpose-lines)
-(defun sa-transpose-lines-up ()
-  "Exchange current line with previous line."
-  (interactive)
-  (sa-transpose-lines -1))
+(defalias 'sa-transpose-lines-up 'sa-transpose-lines)
+(defun sa-transpose-lines-down (&optional arg)
+  "Move `arg' lines down (including current line)."
+  (interactive "*p")
+  ;; (message "arg: %s, %s" arg (- (or arg 1)))
+  (sa-transpose-lines (- (or arg 1))))
 
 (defun sa-forward-paragraph (&optional arg)
   "If `last-command' was `sa-transpose-lines-down', call it again.
@@ -97,8 +99,10 @@ Call `forward-paragraph' otherwise."
   (if (eq last-command 'sa-transpose-lines-down)
       (progn
 	(setq this-command 'sa-transpose-lines-down)
-	(sa-transpose-lines-down 1))	;mandatory arguments
-    (forward-paragraph arg)))
+	(sa-transpose-lines sa-transpose-lines--last-arg))
+    (if (derived-mode-p 'org-mode)
+	(org-forward-paragraph)		;ignore arg
+      (forward-paragraph arg))))
 
 (defun sa-backward-paragraph (&optional arg)
   "If `last-command' was `sa-transpose-lines-up', call it
@@ -107,8 +111,10 @@ again.  Call `backward-paragraph' otherwise."
   (if (eq last-command 'sa-transpose-lines-up)
       (progn
 	(setq this-command 'sa-transpose-lines-up)
-	(sa-transpose-lines-up))	;no arguments needed
-    (backward-paragraph arg)))
+	(sa-transpose-lines sa-transpose-lines--last-arg))	;mandatory arguments
+    (if (derived-mode-p 'org-mode)
+	(org-backward-paragraph)	;ignore arg
+      (backward-paragraph arg))))
 
 (defun sa-search-n-comment (str)
   "Search for string and comment line."
