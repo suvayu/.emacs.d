@@ -322,15 +322,13 @@ function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
 (defun sa-find-org-file-recursively (directory &optional filext)
   "Return .org and .org_archive files recursively from DIRECTORY.
 If FILEXT is provided, return files with extension FILEXT instead."
-  (interactive "DDirectory name: ")
-  ;; Bind variables
-  ;; (if (not (boundp 'directory))
-  ;;     (setq directory (read-directory-name "Directory to search: ")))
   (let* (org-file-list
 	 (case-fold-search t)		; filesystems are case sensitive
-	 (fileregex (if filext (format "^[^.#].*\\.\\(%s$\\)" filext)
-		      "^[^.#].*\\.\\(org$\\|org_archive$\\)"))
-	 (cur-dir-list (directory-files directory t "^[^.#].*"))) ; exclude .*
+	 (file-name-regex "^[^.#].*")	; exclude .*
+	 (filext (if filext filext "org$\\\|org_archive"))
+	 (fileregex (format "%s\\.\\(%s$\\)" file-name-regex filext))
+	 (cur-dir-list (directory-files directory t file-name-regex)))
+    (message fileregex)
     ;; loop over directory listing
     (dolist (file-or-dir cur-dir-list org-file-list) ; returns org-file-list
       (cond
