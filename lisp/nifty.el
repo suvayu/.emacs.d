@@ -151,7 +151,6 @@ siblings are shown. If no entry exists for the date, it will be created."
   (org-reveal siblings)
   (beginning-of-line))
 
-
 ;; Function to add duplicate org-mode properties
 (defun sa-org-entry-put-dupe (pom property value)
   "Set PROPERTY to VALUE for entry at point-or-marker POM.
@@ -180,7 +179,6 @@ before the existing entry.  Use with caution."
 	(org-indent-line)))
     (run-hook-with-args 'org-property-changed-functions property value)))
 
-
 ;; my beamer options template for the new exporter
 (defun sa-org-beamer-insert-options-template (&optional kind)
   "Insert a settings template, to make sure users do this right.
@@ -205,12 +203,12 @@ function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
 	(org-entry-put nil "EXPORT_BEAMER_COLOR_THEME" "orchid")
 	(org-entry-put nil "EXPORT_LaTeX_HEADER" "\\usepackage{appendixnumberbeamer}")
 	;; NB: duplicate checks are not done for the following 4 lines
-	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\usepackage{libertineotf}")
+	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\usepackage{libertine}")
 	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\setbeamertemplate{navigation symbols}{}")
 	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\setbeamertemplate{footline}[page number]")
 	(sa-org-entry-put-dupe nil "EXPORT_LaTeX_HEADER+" "\\institute[Nikhef]{FOM-Nikhef, Amsterdam}")
 	(org-entry-put nil "EXPORT_AUTHOR" user-full-name)
-	(org-entry-put nil "EXPORT_DATE" "\\today")
+	(org-entry-put nil "EXPORT_DATE" (format-time-string "%d %B, %Y"))
 	(org-entry-put nil "EXPORT_OPTIONS" "H:1 ^:t")
 	(when org-e-beamer-column-view-format
 	  (org-entry-put nil "COLUMNS" org-e-beamer-column-view-format))
@@ -228,10 +226,9 @@ function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
       (insert "#+COLUMNS: " org-e-beamer-column-view-format "\n"))
     (insert "#+PROPERTY: BEAMER_col_ALL " org-e-beamer-column-widths "\n")))
 
-
 ;; recursively find .org files in provided directory
 ;; modified from an Emacs Lisp Intro example
-(defun find-org-file-recursively (directory &optional filext)
+(defun sa-find-org-file-recursively (directory &optional filext)
   "Return .org and .org_archive files recursively from DIRECTORY.
 If FILEXT is provided, return files with extension FILEXT instead."
   (interactive "DDirectory name: ")
@@ -250,7 +247,7 @@ If FILEXT is provided, return files with extension FILEXT instead."
 	(if (string-match fileregex file-or-dir) ; org files
 	    (add-to-list 'org-file-list file-or-dir)))
        ((file-directory-p file-or-dir)
-	(dolist (org-file (find-org-file-recursively file-or-dir filext)
+	(dolist (org-file (sa-find-org-file-recursively file-or-dir filext)
 			  org-file-list) ; add files found to result
 	  (add-to-list 'org-file-list org-file)))))))
 
