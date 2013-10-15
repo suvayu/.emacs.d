@@ -136,6 +136,97 @@ again.  Call `backward-paragraph' otherwise."
 ;; Org utilities ;;
 ;;;;;;;;;;;;;;;;;;;
 
+;;; [[file:~/org/Worg/org-hacks.org::#field-same-row-or-column][Table cell functions]]
+
+(defun sa-org-table-cell-to-left ()
+  "Move current field in row to the left."
+  (interactive)
+  (sa-org-table-cell-transpose-horizontal 'left))
+(defun sa-org-table-cell-to-right ()
+  "Move current field in row to the right."
+  (interactive)
+  (sa-org-table-cell-transpose-horizontal nil))
+
+(defun sa-org-table-cell-transpose-horizontal (&optional left)
+  "Move current field in row to the right.
+  With arg LEFT, move to the left.  For repeated invocation the
+  point follows the moved field.  Does not fix formulas."
+  ;; Derived from `org-table-move-column'
+  (interactive "P")
+  (if (not (org-at-table-p))
+      (error "Not at a table"))
+  (org-table-find-dataline)
+  (org-table-check-inside-data-field)
+  (let* ((col (org-table-current-column))
+	 (col1 (if left (1- col) col))
+	 ;; Current cursor position
+	 (colpos (if left (1- col) (1+ col))))
+    (if (and left (= col 1))
+	(error "Cannot move column further left"))
+    (if (and (not left) (looking-at "[^|\n]*|[^|\n]*$"))
+	(error "Cannot move column further right"))
+    (org-table-goto-column col1 t)
+    (and (looking-at "|\\([^|\n]+\\)|\\([^|\n]+\\)|")
+	 (replace-match "|\\2|\\1|"))
+    (org-table-goto-column colpos)
+    (org-table-align)))
+
+(defun sa-org-table-rotate-rest-of-row-left ()
+  "Rotate rest of row to the left."
+  (interactive)
+  (sa-org-table-rotate-rest-of-row 'left))
+(defun sa-org-table-rotate-rest-of-row-right ()
+  "Rotate rest of row to the right."
+  (interactive)
+  (sa-org-table-rotate-rest-of-row nil))
+
+(defun sa-org-table-rotate-rest-of-row (&optional left)
+  "Rotate rest of row to the right.
+  With arg LEFT, rotate to the left.  For both directions the
+  boundaries of the rotation range are the current field and the
+  field at the end of the row.  For repeated invocation the point
+  stays on the original current field.  Does not fix formulas."
+  ;; Derived from `org-table-move-column'
+  (interactive "P")
+  (if (not (org-at-table-p))
+      (error "Not at a table"))
+  (org-table-find-dataline)
+  (org-table-check-inside-data-field)
+  (let ((col (org-table-current-column)))
+    (org-table-goto-column col t)
+    (and (looking-at (if left
+			 "|\\([^|\n]+\\)|\\([^\n]+\\)|$"
+		       "|\\([^\n]+\\)|\\([^|\n]+\\)|$"))
+	 (replace-match "|\\2|\\1|"))
+    (org-table-goto-column col)
+    (org-table-align)))
+
+(defun sa-org-table-open-cell-horizontal ()
+  "Open field in row, move fields to the right by growing table."
+  (interactive)
+  (insert "|")
+  (backward-char)
+  (org-table-align))
+
+(defun sa-org-table-open-cell-vertical ()
+  "Open field in column, move all fields downwards by growing table."
+  (interactive)
+  (let ((col (org-table-current-column))
+	(p   (point)))
+    ;; Cut all fields downwards in same column
+    (goto-char (org-table-end))
+    (forward-line -1)
+    (while (org-at-table-hline-p) (forward-line -1))
+    (org-table-goto-column col)
+    (org-table-cut-region p (point))
+    ;; Paste at one field below
+    (goto-char p)
+    (forward-line)
+    (org-table-goto-column col)
+    (org-table-paste-rectangle)
+    (goto-char p)
+    (org-table-align)))
+
 ;; Source: Liam Healy on the org-mode mailing list
 ;; <http://mid.gmane.org/CADe9tL7xL8Oci9k4BsiOs_sH3b2N4ormAojDwJ1smF8J3yZGLA@mail.gmail.com>
 (defun sa-org-datetree-goto-date (&optional siblings)
