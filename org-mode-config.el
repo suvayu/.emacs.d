@@ -38,13 +38,15 @@
       ;; List of extra files to be searched by text search commands.
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
-	      ;; LHCb CKM gamma measurement
-	      ;; (find-org-file-recursively "~/org/LHCb-Bs2Dsh")
-	      (directory-files "~/org/LHCb-Bs2Dsh" t
-			       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
-	      ;; other stuff
-	      (directory-files "~/org/not-physics" t
-			       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
+	      (sa-find-org-file-recursively "~/org/HEP" "org")
+	      (sa-find-org-file-recursively "~/org/LHCb-Bs2Dsh" "org")
+	      (sa-find-org-file-recursively "~/org/LHCb-Velo" "org")
+	      ;; (directory-files "~/org/HEP" t
+	      ;; 		       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
+	      ;; (directory-files "~/org/LHCb-Bs2Dsh" t
+	      ;; 		       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
+	      ;; (directory-files "~/org/LHCb-Velo" t
+	      ;; 		       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
 	      )
       ;; open link in same window
       org-link-frame-setup '((gnus . org-gnus-no-new-news)
@@ -483,15 +485,18 @@ fromphone=true\]\{scrlttr2\}
 (setq org-agenda-custom-commands
       '(("F" "Future meetings"
 	 tags "CATEGORY=\"meetings\"+TIMESTAMP>=\"<today>\"")
-	("B" "Search Bs → Dsh files" search ""
-	 ((org-agenda-files (list "~/org/analysis.org" "~/org/meetings.org"))
+	("H" "Search HEP notes" search ""
+	 ((org-agenda-files (list "~/org/research.org" "~/org/meetings.org"))
 	  (org-agenda-text-search-extra-files
-	   (find-org-file-recursively "~/org/LHCb-Bs2Dsh"))))
+	   (sa-find-org-file-recursively "~/org/HEP"))))
+	("B" "Search Bs → Dsh files" search ""
+	 ((org-agenda-files (list "~/org/research.org" "~/org/meetings.org"))
+	  (org-agenda-text-search-extra-files
+	   (sa-find-org-file-recursively "~/org/LHCb-Bs2Dsh"))))
 	("V" "Search Velo files" search ""
 	 ((org-agenda-files (list "~/org/research.org" "~/org/meetings.org"))
 	  (org-agenda-text-search-extra-files
-	   (find-org-file-recursively "~/org/LHCb-Velo"))))
-	;; ("g" "Search CKM γ project notes" search "")
+	   (sa-find-org-file-recursively "~/org/LHCb-Velo"))))
 	("p" . "Pending tasks")
 	("pk" "Dated pending tasks"
 	 tags-todo "TIMESTAMP<\"<today>\"-TODO={DONE\\|CNCL}"
@@ -509,34 +514,38 @@ fromphone=true\]\{scrlttr2\}
 	 ((org-agenda-overriding-header "Thesis pointers")
 	  (org-agenda-sorting-strategy '(time-up))))
 	;; ("R" "Search any arbitrary directory" search ""
-	;;  ((org-agenda-files nil)
+	;;  ((org-agenda-files nil)  ; FIXME: depends on interactive fix
 	;;   (org-agenda-text-search-extra-files
-	;;    (find-org-file-recursively))))
+	;;    (sa-find-org-file-recursively))))
 	("W" . "Search Worg")
 	("Wa" "Search all articles" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (find-org-file-recursively "~/org/Worg"))))
-	("Wb" "Search babel articles" search ""
+	   (sa-find-org-file-recursively "~/org/Worg"))))
+	("Wt" "Search exporter documentation" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (find-org-file-recursively "~/org/Worg/org-contrib/babel"))))
+	   (sa-find-org-file-recursively "~/org/Worg/org-tutorials"))))
 	("Wc" "Search orgmode configuration" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (find-org-file-recursively "~/org/Worg/org-configs"))))
-	("Wp" "Search articles on contrib packages" search ""
-	 ((org-agenda-files nil)
-	  (org-agenda-text-search-extra-files
-	   (find-org-file-recursively "~/org/Worg/org-contrib"))))
+	   (sa-find-org-file-recursively "~/org/Worg/org-configs"))))
 	("Wt" "Search tutorials" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (find-org-file-recursively "~/org/Worg/org-tutorials"))))
+	   (sa-find-org-file-recursively "~/org/Worg/org-tutorials"))))
+	("Wp" "Search articles on contrib packages" search ""
+	 ((org-agenda-files nil)
+	  (org-agenda-text-search-extra-files
+	   (sa-find-org-file-recursively "~/org/Worg/org-contrib"))))
+	("Wb" "Search babel articles" search ""
+	 ((org-agenda-files nil)
+	  (org-agenda-text-search-extra-files
+	   (sa-find-org-file-recursively "~/org/Worg/org-contrib/babel"))))
 	("A" "Search ATLAS files" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (find-org-file-recursively "~/org/ATLAS-wprime"))))
+	   (sa-find-org-file-recursively "~/org/ATLAS-wprime"))))
 	;; ("E" . "Search and export to temporary buffer")
 	;; ("Et" "Export tags search result to buffer" org-tags-search-to-buffer "Qn")
 	))
@@ -545,7 +554,7 @@ fromphone=true\]\{scrlttr2\}
 ;;; `org-capture' templates
 (setq org-capture-templates
       '(("m" "Select meeting templates")
-	("mb" "Create Bfys meeting" entry (file+headline "~/org/meetings.org" "Bfys meetings")
+	("mb" "Create Bfys meeting" entry (file+headline "~/org/meetings.org" "Meetings")
 	 "*** %? %^t\n"
 	 :prepend t)
 	("mm" "Meeting minutes w/ clock" entry (file+datetree "~/org/meetings.org")
@@ -557,7 +566,7 @@ fromphone=true\]\{scrlttr2\}
 	("d" "Add task with a DEADLINE" entry (file+headline "~/org/tasks.org" "Tasks")
 	 "** TODO %^{prompt}\n   DEADLINE: %^t\n%?"
 	 :prepend t)
-	("n" "Notes" entry (file+headline "~/org/notes.org" "Notes")
+	("n" "Notes" entry (file+headline "~/org/tasks.org" "Notes")
 	 "** %^{prompt}%^{CATEGORY}p\n\n%?"
 	 :prepend t)
 	("r" "Reading material" entry (file+headline "~/org/biblio.org" "Reading")
