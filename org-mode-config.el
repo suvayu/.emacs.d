@@ -117,6 +117,7 @@
       '(("html" . "<!-- <xml version=\"1.0\" encoding=\"utf-8\"> -->"))
       org-entities-user			; "\ " can also be used
       '(("space" "~" nil " " " " " " " "))
+      org-latex-remove-logfiles nil
       )
 
 
@@ -180,7 +181,7 @@
 
 (add-to-list 'org-latex-packages-alist '("" "xltxtra" t))
 ;; choose Linux Libertine O as serif and Linux Biolinum O as sans-serif fonts
-(add-to-list 'org-latex-packages-alist '("" "libertineotf" t))
+(add-to-list 'org-latex-packages-alist '("" "libertine" t))
 ;; commented for now as preferable to set per file for now
 ;; (add-to-list 'org-latex-packages-alist '("" "unicode-math" t))
 ;; (add-to-list 'org-latex-packages-alist
@@ -217,6 +218,9 @@
 (add-to-list 'org-beamer-environments-extra
 	     '("boldH" "h" "\\textbf{%h}" "%%%%"))
 
+(add-to-list 'org-beamer-environments-extra
+	     '("phantom" "P" "\\phantom{%h}" ""))
+
 (add-to-list 'org-export-snippet-translation-alist
 	     '(("b" . "beamer")
 	       ("l" . "latex")))
@@ -234,29 +238,47 @@
 
 (add-to-list 'org-export-filter-strike-through-functions 'sa-beamer-structure)
 
-(defun sa-latex-subscript (contents backend info)
-  (when (org-export-derived-backend-p backend 'beamer 'latex)
-    (replace-regexp-in-string "\\$_{\\\\text{\\([A-Za-z0-9]+\\)}}\\$"
-			      "\\\\textsubscript{\\1}" contents)))
+;; FIXME: using $_{\text{string}}$ looks much better!
+;; (defun sa-latex-subscript (contents backend info)
+;;   (when (org-export-derived-backend-p backend 'beamer 'latex)
+;;     (replace-regexp-in-string "\\$_{\\\\text{\\([^}]+\\)}}\\$"
+;; 			      "\\\\textsubscript{\\1}" contents)))
 
-(add-to-list 'org-export-filter-subscript-functions 'sa-latex-subscript)
+;; (add-to-list 'org-export-filter-subscript-functions 'sa-latex-subscript)
 
-(defun sa-latex-superscript (contents backend info)
-  (when (org-export-derived-backend-p backend 'beamer 'latex)
-    (replace-regexp-in-string "\\$\\^{\\\\text{\\([A-Za-z0-9]+\\)}}\\$"
-			      "\\\\textsuperscript{\\1}" contents)))
+;; (defun sa-latex-superscript (contents backend info)
+;;   (when (org-export-derived-backend-p backend 'beamer 'latex)
+;;     (replace-regexp-in-string "\\$\\^{\\\\text{\\([^}]+\\)}}\\$"
+;; 			      "\\\\textsuperscript{\\1}" contents)))
 
-(add-to-list 'org-export-filter-superscript-functions 'sa-latex-superscript)
+;; (add-to-list 'org-export-filter-superscript-functions 'sa-latex-superscript)
 
-;; FIXME: Don't know if it works
+;; FIXME: implement configurable reference style for latex export
+;; (defun sa-latex-reflink (contents backend info)
+;;   (when (and (eq (plist-get info :refstyle) t)
+;; 	     (org-export-derived-backend-p backend 'latex))
+;;     (replace-regexp-in-string "\\`\\\\\\(ref\\){\\([a-zA-Z0-9]+\\):\\([a-zA-Z0-9]+\\)}"
+;; 			      "\\\\\\2\\1{\\2:\\3}" contents)))
+
+;; (add-to-list 'org-export-filter-link-functions 'sa-latex-reflink)
+
+;;; not needed any more, here for example purposes
+;; ;; smart quotes on only for latex backend (courtesy: Jambunathan)
+;; (defun sa-org-latex-options-function (info backend)
+;;  (when (eq backend 'latex)
+;;   (plist-put info :with-smart-quotes t)))
+
+;; (add-to-list 'org-export-filter-options-functions 'sa-org-latex-options-function)
+
 (defun sa-ignore-headline (contents backend info)
   "Ignore headlines with tag `ignoreheading'."
   (when (and (org-export-derived-backend-p backend 'latex 'html 'ascii)
 		  (string-match "\\`.*ignoreheading.*\n"
-				(downcase headline)))
-    (replace-match "" nil nil headline)))
+				(downcase contents)))
+    (replace-match "" nil nil contents)))
 
 (add-to-list 'org-export-filter-headline-functions 'sa-ignore-headline)
+
 
 ;; Setup for KOMA script letter with scrlttr2
 (add-to-list 'org-latex-classes
@@ -276,14 +298,6 @@ fromphone=true\]\{scrlttr2\}
 		 ("\\section\{%s\}" . "\\section*\{%s\}")
                  ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
                  ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
-
-;;; may not be needed any more, here for example purposes
-;; ;; smart quotes on only for latex backend (courtesy: Jambunathan)
-;; (defun sa-org-latex-options-function (info backend)
-;;  (when (eq backend 'latex)
-;;   (plist-put info :with-smart-quotes t)))
-
-;; (add-to-list 'org-export-filter-options-functions 'sa-org-latex-options-function)
 
 
 ;; ;; FIXME: just switching binary is not enough,
