@@ -322,6 +322,7 @@ function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
 (defun sa-find-org-file-recursively (directory &optional filext)
   "Return .org and .org_archive files recursively from DIRECTORY.
 If FILEXT is provided, return files with extension FILEXT instead."
+  ;; FIXME: interactively prompting for directory and file extension
   (let* (org-file-list
 	 (case-fold-search t)		; filesystems are case sensitive
 	 (file-name-regex "^[^.#].*")	; exclude .*

@@ -28,7 +28,7 @@
  '(custom-enabled-themes (quote (dark-emacs)))
  '(custom-safe-themes
    (quote
-    ("7009c998e33503b344818bb66beed3fbb8a17238fb6f176493ef7f74b27f1f50" default)))
+    ("2321b460750dbaebafe6e63029ed8b0fb884e53e9c2de835036560a1c29cd4fd" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
@@ -142,4 +142,5 @@
  '(user-mail-address "Suvayu.Ali@cern.ch")
  '(vc-handled-backends (quote (Git RCS CVS SVN SCCS Bzr Hg Mtn Arch)))
  '(w3m-use-cookies t)
+ '(wget-download-directory "~/dloads")
  '(windmove-wrap-around t))

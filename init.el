@@ -7,7 +7,7 @@
       ;; debug-on-quit t)
 
 ;; set PATH to use standalone texlive instead
-(setenv "PATH" "/opt/texlive/2012/bin/x86_64-linux:$PATH" t)
+(setenv "PATH" "/opt/texlive/2013/bin/x86_64-linux:$PATH" t)
 
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
@@ -60,7 +60,7 @@
 (add-hook 'find-file-hook
 	  (lambda ()
 	    (font-lock-add-keywords
-	     nil '(("\\<\\(FIXME\\)\\>" 1 'font-lock-warning-face prepend)
+	     nil '(("\\<\\(FIXME\\)\\>" . (1 'font-lock-warning-face prepend))
 		   ))
 	    ;; (font-lock-add-keywords
 	    ;;  nil '(("\\<(\\?)\\>" 1 'font-lock-warning-face prepend)
