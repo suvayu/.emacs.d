@@ -1,4 +1,4 @@
-;;; org-mode-settings.el --- `org-mode' settings and customisations.
+;;; org-mode-config.el --- `org-mode' settings and customisations.
 
 ;; (require 'org-inlinetask)
 (require 'org)
@@ -580,6 +580,14 @@ fromphone=true\]\{scrlttr2\}
 	 :prepend t)
 	))
 
+;; source: (notmuch-show "id:CAGOCFPUW-wQqU0OdaW5OeM60ZOosCgBO9_mdhyQ77aiH_0UtZQ@mail.gmail.com")
+(defun make-org-capture-frame ()
+  "Run org-capture with slightly modified behaviour."
+  (interactive)
+  (cl-flet ((switch-to-buffer-other-window (buf) (switch-to-buffer buf)))
+    (org-capture)
+    (delete-other-windows)))
+
 
 ;; compatibility with session.el
 (add-hook 'session-after-jump-to-last-change-hook
@@ -641,6 +649,13 @@ otherwise move to next headline."
 (global-set-key (kbd "C-c C-o") 'org-open-at-point-global)
 (global-set-key (kbd "C-c b") 'org-switchb)
 (global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-h o") 'org-info)
+
+;; Make windmove work in org-mode with 'shift as modifier:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 ;; `org-mode' keymaps
 ;; ;; overload default `fill-paragraph' keybind to use org specific command
@@ -674,6 +689,7 @@ otherwise move to next headline."
 ;;   (org-defkey org-agenda-mode-map (kbd "C-c p") 'org-agenda-set-property)
 ;;   ;; month view
 ;;   (org-defkey org-agenda-mode-map (kbd "C-c m") 'org-agenda-month-view))
+
 
 ;; org-agenda config; not needed anymore, but kept as an example
 ;; This function is used to insert current time in the agenda buffer
@@ -712,12 +728,6 @@ otherwise move to next headline."
   ;; dynamic abbreviations for org-mode
   (setq local-abbrev-table org-mode-abbrev-table))
 (add-hook 'org-mode-hook 'sa-org-mode-hook)
-
-;; Make windmove work in org-mode with 'shift as modifier:
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 
 ;; Setup `org-babel' for emacs-lisp, gnuplot, latex and shell-script.
