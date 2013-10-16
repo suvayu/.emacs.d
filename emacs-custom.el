@@ -46,12 +46,19 @@
  '(ibuffer-saved-filter-groups nil)
  '(ibuffer-saved-filters
    (quote
-    (("rootpy"
+    (("sf"
+      ((filename . "simplefit")))
+     ("noroot"
+      ((not filename . "/opt/root/")))
+     ("root"
+      ((filename . "/opt/root/")))
+     ("rootpy"
       ((filename . "rootpy")
        (saved . "py")))
      ("dsk"
-      ((filename . "Bs2DsKTools")
-       (saved . "py")))
+      (or
+       (filename . "B2DXFitters")
+       (filename . "Bs2DsKTools")))
      ("dev"
       ((or
 	(saved . "py")
