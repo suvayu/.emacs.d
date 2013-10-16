@@ -329,7 +329,6 @@ If FILEXT is provided, return files with extension FILEXT instead."
 	 (filext (if filext filext "org$\\\|org_archive"))
 	 (fileregex (format "%s\\.\\(%s$\\)" file-name-regex filext))
 	 (cur-dir-list (directory-files directory t file-name-regex)))
-    (message fileregex)
     ;; loop over directory listing
     (dolist (file-or-dir cur-dir-list org-file-list) ; returns org-file-list
       (cond
