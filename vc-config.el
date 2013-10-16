@@ -17,5 +17,4 @@
 ;; mode to edit git commit message
 (autoload 'git-commit-mode "git-commit"
   "Major mode for editing git commit messages." t)
-(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . git-commit-mode))
 (add-hook 'git-commit-mode-hook (lambda () (orgstruct++-mode t)))

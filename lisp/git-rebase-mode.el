@@ -1,0 +1,1 @@
+../git-modes/git-rebase-mode.el

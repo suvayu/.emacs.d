@@ -1,0 +1,1 @@
+../git-modes/gitattributes-mode.el
