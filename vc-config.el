@@ -18,3 +18,7 @@
 (autoload 'git-commit-mode "git-commit"
   "Major mode for editing git commit messages." t)
 (add-hook 'git-commit-mode-hook (lambda () (orgstruct++-mode t)))
+
+(require 'magit)
+(define-key magit-log-mode-map (kbd "TAB") 'magit-goto-next-section)
+(define-key magit-log-mode-map (kbd "<backtab>") 'magit-goto-previous-section)
