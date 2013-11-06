@@ -224,8 +224,9 @@
 	     '("phantom" "P" "\\phantom{%h}" ""))
 
 (add-to-list 'org-export-snippet-translation-alist
-	     '(("b" . "beamer")
-	       ("l" . "latex")))
+	     '("b" . "beamer"))
+(add-to-list 'org-export-snippet-translation-alist
+	     '("l" . "latex"))
 
 ;; filters for markups
 (defun sa-beamer-bold (contents backend info)
