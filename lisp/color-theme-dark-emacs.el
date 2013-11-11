@@ -218,3 +218,28 @@ Color theme by Suvayu Ali, created 2010-10-10."
        (widget-inactive ((t (:foreground "grey70"))))
        (widget-single-line-field ((t (:background "dim gray")))))))
 (add-to-list 'color-themes '(color-theme-dark-emacs  "Dark Emacs" "Suvayu Ali"))
+
+
+;;; Setup code to use this theme
+;;
+;; Doesn't work since the following commit in Emacs 24
+;; commit 2faa2c5d69f36c29cdd3b654f4cc9c4b89c81e5a
+;; Author: Chong Yidong <cyd@gnu.org>
+;; Date:   Mon Apr 23 02:04:54 2012 +0800
+;;
+;;     * faces.el (face-spec-set): Stop supporting deprecated form of third arg.
+;;
+;;
+;; (eval-after-load "color-theme"
+;;   (progn
+;;     (setq color-theme-is-global nil)
+;;     (when (window-system) ; needed for the first frame
+;;       (color-theme-dark-emacs)
+;;       )))
+;;
+;; (add-hook 'after-make-frame-functions
+;; 	  '(lambda (f)
+;; 	     (with-selected-frame f
+;; 	       (if (window-system f)
+;; 		   (color-theme-dark-emacs)
+;; 		 ))))
