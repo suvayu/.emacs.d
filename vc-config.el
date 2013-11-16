@@ -22,3 +22,30 @@
 (require 'magit)
 (define-key magit-log-mode-map (kbd "TAB") 'magit-goto-next-section)
 (define-key magit-log-mode-map (kbd "<backtab>") 'magit-goto-previous-section)
+
+(global-set-key (kbd "C-x v s") 'magit-status)
+(global-set-key (kbd "C-x v d")
+		(lambda ()
+		  (interactive)
+		  (magit-diff-unstaged)
+		  (switch-to-buffer-other-window "*magit-diff*" t)))
+(global-set-key (kbd "C-x v D")
+		(lambda ()
+		  (interactive)
+		  (magit-diff-staged)
+		  (switch-to-buffer-other-window "*magit-diff*" t)))
+(global-set-key (kbd "C-x v l") 'magit-file-log)
+(global-set-key (kbd "C-x v L")
+		(lambda (&optional arg)
+		  "With prefix `magit-log-long', `magit-log' w/o."
+		  (interactive "P")
+		  (if arg (magit-log-long)
+		    (magit-log))))
+;; A better binding might be
+;; - file log: l - short, L - long (don't know how to get this)
+;; - with prefix, repo log: same
+
+(require 'magit-filenotify)
+(add-hook 'magit-status-mode-hook 'magit-filenotify-mode)
+
+(require 'magit-blame)
