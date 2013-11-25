@@ -24,5 +24,3 @@
 
 ;; read emails with notmuch
 (require 'notmuch)
-;; nice notmuch threading interface
-(require 'notmuch-pick)
