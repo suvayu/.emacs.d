@@ -68,7 +68,6 @@
 (define-abbrev-table 'text-mode-abbrev-table
   '(("ewk" "electroweak" nil 0)
     ("llh" "likelihood" nil 0)
-    ("kfactor" "k-factor" nil 0)
     ("MC" "Monte Carlo" nil 0)
     ("SU3" "SU(3)" nil 0)
     ("SU2" "SU(2)" nil 0)
