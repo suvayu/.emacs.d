@@ -227,6 +227,10 @@
 	     '("b" . "beamer"))
 (add-to-list 'org-export-snippet-translation-alist
 	     '("l" . "latex"))
+(add-to-list 'org-export-snippet-translation-alist
+	     '("h" . "html"))
+(add-to-list 'org-export-snippet-translation-alist
+	     '("o" . "odt"))
 
 ;; filters for markups
 (defun sa-beamer-bold (contents backend info)
