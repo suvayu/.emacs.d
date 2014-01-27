@@ -131,6 +131,11 @@ again.  Call `backward-paragraph' otherwise."
   (interactive "sMessage ID: ")
   (insert (format "<http://mid.gmane.org/%s>" msgid)))
 
+(defun sa-insert-gmane-thread-link (msgid)
+  "Insert gmane http thread link at point.  Prompts for message id."
+  (interactive "sMessage ID: ")
+  (insert (format "<http://news.gmane.org/find-root.php?message_id=%%3c%s%%3e>" msgid)))
+
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Org utilities ;;
