@@ -28,7 +28,7 @@
  '(custom-enabled-themes (quote (dark-emacs)))
  '(custom-safe-themes
    (quote
-    ("2321b460750dbaebafe6e63029ed8b0fb884e53e9c2de835036560a1c29cd4fd" default)))
+    ("ac91595a4add2fd02355d52bcd6e228290dfb8ebd5f94e29ccd6aeeec1ad65ab" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
@@ -55,10 +55,10 @@
      ("rootpy"
       ((filename . "rootpy")
        (saved . "py")))
-     ("dsk"
-      (or
-       (filename . "B2DXFitters")
-       (filename . "Bs2DsKTools")))
+     ("noworg"
+      ((not filename . "org/Worg")))
+     ("worg"
+      ((filename . "org/Worg")))
      ("dev"
       ((or
 	(saved . "py")
@@ -72,22 +72,7 @@
      ("org"
       ((used-mode . org-mode)))
      ("cpp"
-      ((used-mode . c++-mode)))
-     ("gnus"
-      ((or
-	(mode . message-mode)
-	(mode . mail-mode)
-	(mode . gnus-group-mode)
-	(mode . gnus-summary-mode)
-	(mode . gnus-article-mode))))
-     ("programming"
-      ((or
-	(mode . emacs-lisp-mode)
-	(mode . cperl-mode)
-	(mode . c-mode)
-	(mode . java-mode)
-	(mode . idl-mode)
-	(mode . lisp-mode)))))))
+      ((used-mode . c++-mode))))))
  '(inhibit-startup-screen t)
  '(isearch-allow-scroll t)
  '(ispell-dictionary "british")
@@ -107,12 +92,11 @@
  '(notmuch-message-replied-tags (quote ("+replied")))
  '(notmuch-saved-searches
    (quote
-    (("Inbox-unread" . "tag:inbox and is:unread")
-     ("NIKHEF" . "tag:nikhef")
-     ("CERN" . "tag:cern")
-     ("Bfys" . "tag:bfys")
-     ("Inbox" . "tag:inbox")
-     ("unread" . "tag:unread"))))
+    (("Inbox" . "is:inbox")
+     ("Inbox (unread)" . "is:inbox and is:unread")
+     ("Bfys (unread)" . "tag:bfys and is:unread")
+     ("ANA (unread)" . "folder:gwt and is:unread")
+     ("me@FOSS" . "(from:suvayu or to:suvayu) and is:foss"))))
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-all-multipart/alternative-parts nil)
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
