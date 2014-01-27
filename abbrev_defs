@@ -36,12 +36,7 @@
 
 (define-abbrev-table 'shell-mode-abbrev-table '(    ))
 
-(define-abbrev-table 'basic-text-mode-abbrev-table
-  '(("bkg" "background" nil 0)
-    ("bkgs" "backgrounds" nil 0)
-    ("dist" "distribution" nil 0)
-    ("sig" "signal" nil 0))
-  "Basic text abbreviation table for all modes.")
+(define-abbrev-table 'basic-text-mode-abbrev-table '(    ))
 
 ;; abbrevs with +/- do not work, probably b/c they do not count as
 ;; part of the word
@@ -56,18 +51,20 @@
     ;; ("D-"  "D⁻"  nil 0)
     ;; ("Ds-" "Ds⁻" nil 0)
     ;; ("Ds+" "Ds⁺" nil 0)
+    ("D0"  "D⁰"  nil 0)
     ("B0"  "B⁰"  nil 0)
     ;; ("Bs0" "Bs⁰" nil 0)
     ("Bs2Dspi" "Bs → Dsπ" nil 0)
     ("Bs2DsK" "Bs → DsK" nil 0)
     ("Dspi" "Dsπ" nil 0)
     )
-  "Abbreviation table with Unicode characters (use in org buffers
+  "Abbreviation table with unicode characters (use in org buffers
    or emails).")
 
 (define-abbrev-table 'text-mode-abbrev-table
   '(("ewk" "electroweak" nil 0)
-    ("llh" "likelihood" nil 0)
+    ("kfactor" "k-factor" nil 0)
+    ("llh" "log-likelihood" nil 0)
     ("MC" "Monte Carlo" nil 0)
     ("SU3" "SU(3)" nil 0)
     ("SU2" "SU(2)" nil 0)
@@ -79,21 +76,17 @@
     ("xelatex" "XeLaTeX" nil 0)
     ("luatex" "LuaTeX" nil 0)
     )
-  "Abbreviation table for text-mode. Inherits from
-  `basic-text-mode-abbrev-table'."
-  :parents (list basic-text-mode-abbrev-table))
+  "Abbreviation table for text-mode.")
 
 (define-abbrev-table 'latex-mode-abbrev-table
-  '(("SU3" "\\(SU(3)\\)" nil 0)
+  '(("kfactor" "\\emph{k}-factor" nil 0)
+    ("SU3" "\\(SU(3)\\)" nil 0)
     ("SU2" "\\(SU(2)\\)" nil 0)
     ("U1" "\\(U(1)\\)" nil 0)
     ("Bs" "B_{s}" nil 0)
     ("Ds" "D_{s}" nil 0)
-    ("Bs2Dspi" "B_{s} → D_{s}π" nil 0)
-    ("Bs2DsK" "B_{s} → D_{s}K" nil 0)
-    ("Dspi" "D_{s}π" nil 0)
-    ("DsKmp" "D_{s}^{-}K^{+}" nil 0)
-    ("DsKpm" "D_{s}^{+}K^{-}" nil 0)
+    ;; ("DsmKp" "D_{s}^{-}K^{+}" nil 0)
+    ;; ("DspKm" "D_{s}^{+}K^{-}" nil 0)
     )
   "Abbreviation table for `org-mode'. Inherits from
   `text-mode-abbrev-table'."
