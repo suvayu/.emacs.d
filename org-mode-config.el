@@ -747,7 +747,7 @@ otherwise move to next headline."
    (python . t)
    (R . t)
    (ruby . t)
-   (sh . t)))
+   (shell . t)))
 
 
 ;;; org-mode-settings.el ends here
