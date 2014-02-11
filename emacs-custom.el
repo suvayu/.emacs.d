@@ -28,7 +28,7 @@
  '(custom-enabled-themes (quote (dark-emacs)))
  '(custom-safe-themes
    (quote
-    ("ac91595a4add2fd02355d52bcd6e228290dfb8ebd5f94e29ccd6aeeec1ad65ab" default)))
+    ("bb69c69b187f6c402c6570501267d3ad86235ef1edd663f2feeeef8669a36657" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
