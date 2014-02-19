@@ -522,31 +522,31 @@ fromphone=true\]\{scrlttr2\}
 	;;  ((org-agenda-files nil)  ; FIXME: depends on interactive fix
 	;;   (org-agenda-text-search-extra-files
 	;;    (sa-find-org-file-recursively))))
-	("W" . "Search Worg")
+	("W" . "Search worg")
 	("Wa" "Search all articles" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (sa-find-org-file-recursively "~/org/Worg"))))
+	   (sa-find-org-file-recursively "~/org/worg"))))
 	("Wt" "Search exporter documentation" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (sa-find-org-file-recursively "~/org/Worg/org-tutorials"))))
+	   (sa-find-org-file-recursively "~/org/worg/org-tutorials"))))
 	("Wc" "Search orgmode configuration" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (sa-find-org-file-recursively "~/org/Worg/org-configs"))))
+	   (sa-find-org-file-recursively "~/org/worg/org-configs"))))
 	("Wt" "Search tutorials" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (sa-find-org-file-recursively "~/org/Worg/org-tutorials"))))
+	   (sa-find-org-file-recursively "~/org/worg/org-tutorials"))))
 	("Wp" "Search articles on contrib packages" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (sa-find-org-file-recursively "~/org/Worg/org-contrib"))))
+	   (sa-find-org-file-recursively "~/org/worg/org-contrib"))))
 	("Wb" "Search babel articles" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
-	   (sa-find-org-file-recursively "~/org/Worg/org-contrib/babel"))))
+	   (sa-find-org-file-recursively "~/org/worg/org-contrib/babel"))))
 	("A" "Search ATLAS files" search ""
 	 ((org-agenda-files nil)
 	  (org-agenda-text-search-extra-files
