@@ -19,47 +19,19 @@ history
 *.gz
 
 # packages from emacswiki or elsewhere
-colour-themes/
-emacs-*
-emacs-init.el
 elpa/
-google-weather-el/
-git-*
+cedet/
+magit*/
+git-*/
 minimal/
-bookmark*
-dired-sort-menu*
-firefox*
-hexrgb*
-icicles*
-icomplete*
+dired-*/
+hexrgb*/
+icicles*/
 lacarte*
 linkd*
 synonyms*
-tabbar*
 auto-install*.el
-color-theme-6.6.0/*
-color-theme-autoloads.el
-color-theme.el
 doxymacs.el
-mirror.el
-mtorus.el
 xml-parse.el
-boxquote.el
-browse-kill-ring+.el
-multi-scratch.el
-tempo-c-cpp.el
-grep*
 screencast.el
 irc*
-
-# other directories
-cedet*
-emacs-bookmark-extension*
-wanderlust*
-yasnippet*
-vm*/*
-elisp/
-extensions/
-
-# other files
-lisp/Makefile
