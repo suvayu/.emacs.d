@@ -91,8 +91,8 @@
 ;; (add-hook 'c-mode-common-hook 'c-mode-common-keymaps)
 
 
-;; Documentation tools
-;; doxymacs
-(require 'doxymacs)
-;; (eval-after-load "doxymacs"
-;;   (define-key c-mode-base-map '[(C-c d)] doxymacs-))
+;; ;; Documentation tools
+;; ;; doxymacs
+;; (require 'doxymacs)
+;; ;; (eval-after-load "doxymacs"
+;; ;;   (define-key c-mode-base-map '[(C-c d)] doxymacs-))
