@@ -61,15 +61,11 @@
 	  (lambda ()
 	    (font-lock-add-keywords
 	     nil '(("\\<\\(FIXME\\)\\>" . (1 'font-lock-warning-face prepend))
+		   ;; ("\\<(\\?)\\>" . (1 'font-lock-warning-face prepend))
 		   ))
-	    ;; (font-lock-add-keywords
-	    ;;  nil '(("\\<(\\?)\\>" 1 'font-lock-warning-face prepend)
-	    ;; 	   ))
-	    ;; (unless (eq major-mode 'org-mode)
-	    ;;   (font-lock-add-keywords
-	    ;;    nil '(("\\<\\(NB\\|NOTE\\|TODO\\)\\>" 1 'sa-global-todo-face prepend)
-	    ;; 	     )))
-	    ))
+	    (unless (eq major-mode 'org-mode)
+	      (font-lock-add-keywords
+	       nil '(("\\<\\(NB\\|QN\\|NOTE\\|TODO\\)\\>" . (1 'sa-global-todo-face prepend)))))))
 
 ;; ;; Example from Seb
 ;; (defvar lvn/highlight-org-regexps
