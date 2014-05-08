@@ -60,6 +60,20 @@ search except that your input is treated as a regexp"
 	       (generate-new-buffer-name (buffer-name)) t)))
     (switch-to-buffer ibuf)))
 
+(defun sa-switch-buffers (&optional relposn)
+  "Interchange (or switch) buffers with window `relposn' (default 1)."
+  (interactive "^p")
+  (let* ((this-buf (window-buffer))
+	 (this-win (get-buffer-window this-buf))
+	 (target-win (next-window))
+	 (target-buf (window-buffer target-win)))
+    (save-excursion
+      (select-window target-win)
+      (switch-to-buffer this-buf nil t)
+      (select-window this-win)
+      (switch-to-buffer target-buf nil t))
+    (select-window this-win)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Editing utilities ;;
