@@ -10,7 +10,7 @@
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . message-mode)) ; GMail w/ "It's all text!"
 
 (require 'external-abook)
-(setq external-abook-command "nottoomuch-addresses %s")
+(setq external-abook-command "nottoomuch %s")
 
 (add-hook 'message-mode-hook
 	  (lambda ()

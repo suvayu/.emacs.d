@@ -86,7 +86,7 @@
 ")
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point t)
- '(notmuch-address-command "nottoomuch-addresses")
+ '(notmuch-address-command "nottoomuch")
  '(notmuch-always-prompt-for-sender t)
  '(notmuch-fcc-dirs
    (quote
@@ -95,11 +95,19 @@
  '(notmuch-message-replied-tags (quote ("+replied")))
  '(notmuch-saved-searches
    (quote
-    (("Inbox" . "is:inbox")
-     ("Inbox (unread)" . "is:inbox and is:unread")
-     ("Bfys (unread)" . "tag:bfys and is:unread")
-     ("ANA (unread)" . "folder:gwt and is:unread")
-     ("me@FOSS" . "(from:suvayu or to:suvayu) and is:foss"))))
+    ((:name "Inbox" :query "is:inbox")
+     (:name "This fortnight" :query "date:2weeks..today not (is:foss or folder:Gmail/ROOT or (is:lhcb or is:tagging or is:online or is:davinci or is:ganga or is:gauss or is:stats))")
+     (:name "Guruji" :query "is:guru")
+     (:name "Inbox (unread)" :query "is:inbox and is:unread")
+     (:name "Bfys (unread)" :query "tag:bfys and is:unread")
+     (:name "ANA (unread)" :query "folder:Gmail/CP-gwt and is:unread")
+     (:name "me @ ANA" :query "from:suvayu and (folder:Gmail/CP-gwt or is:velodq or is:dsk)")
+     (:name "me @ FOSS" :query "(from:suvayu and is:foss) or is:list"))))
+ '(notmuch-search-line-faces
+   (quote
+    (("unread" :weight bold)
+     ("flagged" :foreground "yellow")
+     ("deleted" :foreground "red"))))
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-all-multipart/alternative-parts nil)
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
