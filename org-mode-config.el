@@ -153,7 +153,7 @@
 ;; remove when defaults are changed in the future
 (setcar (rassoc '("wasysym" t) org-latex-default-packages-alist)
 	"nointegrals")
-(add-to-list 'org-latex-packages-alist '("" "amsmath" t))
+;; (add-to-list 'org-latex-packages-alist '("" "amsmath" t))
 
 ;; include todonotes package for latex export of inlinetasks
 (add-to-list 'org-latex-packages-alist
