@@ -30,7 +30,7 @@
  '(custom-enabled-themes (quote (dark-emacs)))
  '(custom-safe-themes
    (quote
-    ("bb69c69b187f6c402c6570501267d3ad86235ef1edd663f2feeeef8669a36657" default)))
+    ("393c109797b3043ffca9e59e5dcb7641468618ca453180036ef5228a2abe26a4" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
