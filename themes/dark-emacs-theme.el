@@ -119,6 +119,8 @@
  '(mode-line-inactive ((t (:inherit mode-line :background "grey30" :foreground "grey80"))))
  '(notmuch-message-summary-face ((((type graphic)) (:background "#303030"))
 				 (((type tty)) (:background "brightblack"))))
+ '(notmuch-tree-match-author-face ((t (:foreground "OliveDrab1"))))
+ '(notmuch-tree-match-tag-face ((t (:foreground "OliveDrab1"))))
  '(org-agenda-current-time ((t (:background "snow" :foreground "DodgerBlue4" :weight bold :inherit org-time-grid))))
  '(org-code ((default (:inherit shadow))
 	     (((type tty) (class color) (min-colors 256)) (:foreground "color-28" :inherit shadow))
