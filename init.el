@@ -7,7 +7,7 @@
       ;; debug-on-quit t)
 
 ;; set PATH to use standalone texlive instead
-(setenv "PATH" "/opt/texlive/2013/bin/x86_64-linux:$PATH" t)
+(setenv "PATH" "/opt/texlive/2014/bin/x86_64-linux:$PATH" t)
 
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))

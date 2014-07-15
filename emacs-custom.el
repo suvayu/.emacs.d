@@ -16,6 +16,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Info-additional-directory-list (quote ("~/.emacs.d/info-manuals")))
+ '(TeX-PDF-mode t)
+ '(TeX-engine (quote xetex))
  '(abbrev-mode t t)
  '(blink-cursor-mode t)
  '(browse-url-browser-function
