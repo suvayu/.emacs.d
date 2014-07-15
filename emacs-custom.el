@@ -76,6 +76,7 @@
      ("cpp"
       ((used-mode . c++-mode))))))
  '(inhibit-startup-screen t)
+ '(initial-scratch-message nil)
  '(isearch-allow-scroll t)
  '(ispell-dictionary "british")
  '(iswitchb-mode t)
@@ -109,6 +110,7 @@
      ("ELPA" . "http://tromey.com/elpa/")
      ("marmalade" . "http://marmalade-repo.org/packages/")
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
+ '(printer-name "n2")
  '(safe-local-variable-values
    (quote
     ((local-abbrev-table . latex-mode-abbrev-table)
@@ -129,6 +131,7 @@
  '(smtpmail-smtp-service 25)
  '(speedbar-use-images nil)
  '(tramp-default-method "ssh")
+ '(tramp-use-ssh-controlmaster-options nil)
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
