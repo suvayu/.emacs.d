@@ -6,13 +6,17 @@
 
   It also tries to not interfere with the faces when emacs is
   running in a tty (since that is the goal in the first place).
-  There are some `org-mode' related faces defined for TODO
-  keywords and special tags as well.
+  There are some `org-mode' or `notmuch' related faces defined
+  for TODO keywords, special tags, and search faces as well.
 
   Color theme by Suvayu Ali. Created 2012-04-28.")
 
 (custom-theme-set-variables
  'dark-emacs
+ '(notmuch-search-line-faces
+   '(("unread" :foreground "green")
+     ("flagged" :foreground "yellow")
+     ("deleted" :foreground "red")))
  '(org-todo-keyword-faces
    '(("DBUG" . (:background "gold" :foreground "indianred3" :weight bold))
      ("LEAK" . (:background "gold" :foreground "indianred3" :weight bold))
@@ -119,6 +123,7 @@
  '(mode-line-inactive ((t (:inherit mode-line :background "grey30" :foreground "grey80"))))
  '(notmuch-message-summary-face ((((type graphic)) (:background "#303030"))
 				 (((type tty)) (:background "brightblack"))))
+ '(notmuch-tag-face ((t (:background "steel blue" :foreground "yellow" :weight semi-bold))))
  '(notmuch-tree-match-author-face ((t (:foreground "OliveDrab1"))))
  '(notmuch-tree-match-tag-face ((t (:foreground "OliveDrab1"))))
  '(org-agenda-current-time ((t (:background "snow" :foreground "DodgerBlue4" :weight bold :inherit org-time-grid))))
