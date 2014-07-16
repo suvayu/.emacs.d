@@ -60,12 +60,12 @@
 (add-hook 'find-file-hook
 	  (lambda ()
 	    (font-lock-add-keywords
-	     nil '(("\\<\\(FIXME\\)\\>" . (1 'font-lock-warning-face prepend))
+	     nil '(("\\<\\(FIXME\\)\\>:" . (1 'font-lock-warning-face prepend))
 		   ;; ("\\<(\\?)\\>" . (1 'font-lock-warning-face prepend))
 		   ))
 	    (unless (eq major-mode 'org-mode)
 	      (font-lock-add-keywords
-	       nil '(("\\<\\(NB\\|QN\\|NOTE\\|TODO\\)\\>" . (1 'sa-global-todo-face prepend)))))))
+	       nil '(("\\<\\(NB\\|QN\\|NOTE\\|TODO\\)\\>:" . (1 'sa-global-todo-face prepend)))))))
 
 ;; ;; Example from Seb
 ;; (defvar lvn/highlight-org-regexps
