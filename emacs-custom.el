@@ -7,7 +7,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(notmuch-tag-face ((t (:background "blue" :weight bold)))))
+ '(magit-diff-none ((t (:inherit diff-context)))))
 
 ;; configs
 (custom-set-variables
@@ -30,7 +30,7 @@
  '(custom-enabled-themes (quote (dark-emacs)))
  '(custom-safe-themes
    (quote
-    ("393c109797b3043ffca9e59e5dcb7641468618ca453180036ef5228a2abe26a4" default)))
+    ("faf6870678ed10c6244dc6c021eb6b7ae19de001cfbf393dbfbd5eff0e556c63" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
@@ -91,7 +91,7 @@
  '(notmuch-fcc-dirs
    (quote
     (("fatkasuvayu+linux@gmail.com" . "")
-     (".\\+" . "sent"))))
+     (".\\+" . "Gmail/mysent"))))
  '(notmuch-message-replied-tags (quote ("+replied")))
  '(notmuch-saved-searches
    (quote
@@ -100,14 +100,9 @@
      (:name "Guruji" :query "is:guru")
      (:name "Inbox (unread)" :query "is:inbox and is:unread")
      (:name "Bfys (unread)" :query "tag:bfys and is:unread")
-     (:name "ANA (unread)" :query "folder:Gmail/CP-gwt and is:unread")
+     (:name "ANA (unread)" :query "(folder:Gmail/CP-gwt or is:velodq) and is:unread")
      (:name "me @ ANA" :query "from:suvayu and (folder:Gmail/CP-gwt or is:velodq or is:dsk)")
      (:name "me @ FOSS" :query "(from:suvayu and is:foss) or is:list"))))
- '(notmuch-search-line-faces
-   (quote
-    (("unread" :weight bold)
-     ("flagged" :foreground "yellow")
-     ("deleted" :foreground "red"))))
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-all-multipart/alternative-parts nil)
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
