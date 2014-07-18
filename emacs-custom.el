@@ -105,8 +105,36 @@
      (:name "me @ FOSS" :query "(from:suvayu and is:foss) or is:list"))))
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-all-multipart/alternative-parts nil)
+ '(notmuch-tag-formats
+   (quote
+    (("unread" "✉"
+      (propertize tag
+		  (quote face)
+		  (quote
+		   (:foreground "red"))))
+     ("flagged" "!"
+      (propertize tag
+		  (quote face)
+		  (quote
+		   (:foreground "blue"))))
+     ("signed")
+     ("inbox" "i")
+     ("attachment" "@")
+     ("replied" "↻")
+     ("sent" "me")
+     ("travel" "✈")
+     ("patch" "∓")
+     ("guru" "★"
+      (notmuch-tag-format-image-data tag
+				     (notmuch-tag-star-icon)))
+     ("thesis"
+      (notmuch-tag-format-image-data tag
+				     (notmuch-tag-tag-icon)))
+     ("[-0-9]\\{4,7\\}"))))
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(org-export-backends (quote (ascii beamer html latex org)))
+ '(org-notmuch-open-function (quote org-notmuch-tree-follow-link))
+ '(org-notmuch-search-open-function (quote org-notmuch-tree-follow-link))
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
