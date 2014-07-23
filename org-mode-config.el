@@ -677,15 +677,13 @@ otherwise move to next headline."
 (org-defkey org-mode-map (kbd "<XF86Forward>") 'sa-org-dwim-next)
 (org-defkey org-mode-map (kbd "<XF86Back>") 'sa-org-dwim-previous)
 ;; navigating links
-(org-defkey org-mode-map (kbd "C-c <XF86Forward>") 'org-next-link)
-(org-defkey org-mode-map (kbd "C-c <XF86Back>") 'org-previous-link)
-;; navigating headlines
-(org-defkey org-mode-map (kbd "C-c <left>") 'outline-up-heading)
-(org-defkey org-mode-map (kbd "C-c <up>") 'outline-previous-visible-heading)
-(org-defkey org-mode-map (kbd "C-c <down>") 'outline-next-visible-heading)
+(org-defkey org-mode-map (kbd "C-c <prior>") 'org-previous-link)
+(org-defkey org-mode-map (kbd "C-c <next>") 'org-next-link)
+;; navigating elements (more generic than headlines)
+(org-defkey org-mode-map (kbd "C-c <left>") 'org-up-element)
+(org-defkey org-mode-map (kbd "C-c <right>") 'org-down-element)
+(org-defkey org-mode-map (kbd "C-M-u") 'outline-up-heading) ; retain for in text use
 ;; super / windows key may not work on laptops
-(org-defkey org-mode-map (kbd "C-<XF86Back>") 'sa-outline-backward-same-level)
-(org-defkey org-mode-map (kbd "C-<XF86Forward>") 'sa-outline-forward-same-level)
 (org-defkey org-mode-map (kbd "C-M-@") 'mark-end-of-sentence)
 
 ;; `org-agenda-mode' keymaps
