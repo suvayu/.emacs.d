@@ -30,7 +30,7 @@
  '(custom-enabled-themes (quote (dark-emacs)))
  '(custom-safe-themes
    (quote
-    ("faf6870678ed10c6244dc6c021eb6b7ae19de001cfbf393dbfbd5eff0e556c63" default)))
+    ("b07cdea316b1e887f55e0ae350c53973dcf65517a6b3d4619d51a847ad66f194" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
@@ -142,6 +142,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/")
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(printer-name "n2")
+ '(read-buffer-completion-ignore-case t)
  '(safe-local-variable-values
    (quote
     ((local-abbrev-table . latex-mode-abbrev-table)
