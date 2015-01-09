@@ -111,6 +111,11 @@
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist (cons "\\.md\\'" 'markdown-mode))
 
+;; `taskjuggler-mode' for tjp files
+(autoload 'taskjuggler-mode "taskjuggler-mode"
+  "Major mode for editing TaskJuggler input files." t)
+(add-to-list 'auto-mode-alist (cons "\\.tjp\\'" 'taskjuggler-mode))
+
 ;; Lisp/Elisp customisations
 (defun sa-lisp-mode-hook ()
   (eldoc-mode t))
