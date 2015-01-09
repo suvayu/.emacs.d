@@ -188,3 +188,4 @@ controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 (add-hook 'after-init-hook 'session-initialize)
 ;; coding system to use when writing `session-save-file'
 (setq session-save-file-coding-system 'utf-8)
+(global-set-key (kbd "C-x C-_") 'session-jump-to-last-change)
