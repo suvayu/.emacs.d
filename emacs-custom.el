@@ -75,11 +75,11 @@
       ((used-mode . org-mode)))
      ("cpp"
       ((used-mode . c++-mode))))))
+ '(ido-mode (quote buffer) nil (ido))
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
  '(isearch-allow-scroll t)
  '(ispell-dictionary "british")
- '(iswitchb-mode t)
  '(message-elide-ellipsis "
  [...chomp...chomp...chomp...]
 

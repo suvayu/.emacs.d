@@ -26,8 +26,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(ido-mode (quote buffer) nil (ido))
  '(inhibit-startup-screen t)
- '(iswitchb-mode t)
  '(savehist-mode t nil (savehist))
  '(show-paren-mode t)
  '(transient-mark-mode t)
