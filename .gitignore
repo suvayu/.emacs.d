@@ -20,15 +20,6 @@ history
 
 # packages from emacswiki or elsewhere
 elpa/
-cedet/
-magit*/
-git-*/
-minimal/
-dired-*/
-hexrgb*/
-icicles*/
-lacarte*
-linkd*
 synonyms*
 auto-install*.el
 doxymacs.el
