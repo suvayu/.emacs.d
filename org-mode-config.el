@@ -687,6 +687,15 @@ otherwise move to next headline."
 ;; super / windows key may not work on laptops
 (org-defkey org-mode-map (kbd "C-M-@") 'mark-end-of-sentence)
 
+;; ace-link keys
+(defun sa-ace-link-org ()
+  "Ace jump to links in `org-mode' buffers.
+
+Alternate `ace-link-org', do not follow the link like the original."
+  (interactive)
+  (ali-generic (ali--org-collect-references)))
+(org-defkey org-mode-map (kbd "C-c o") 'sa-ace-link-org)
+
 ;; `org-agenda-mode' keymaps
 ;; (eval-after-load 'org-agenda
 ;;   ;; set property

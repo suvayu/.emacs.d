@@ -67,6 +67,10 @@
   '(ace-jump-mode-enable-mark-sync))
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 ;; (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+(eval-after-load "info"
+  '(define-key Info-mode-map "o" 'ace-link-info))
+(eval-after-load "help-mode"
+  '(define-key help-mode-map "o" 'ace-link-help))
 
 
 ;;; Editing
