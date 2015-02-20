@@ -427,6 +427,23 @@ decrease the transparency, otherwise increase it in 5% steps."
       (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
 
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Other utilities ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+;; code by David Engster <deng@randomsample.de>
+(defun remote-getenv (variable server)
+  "Get environment VARIABLE from SERVER via ssh & bash."
+  (with-temp-buffer
+    ; complex: "env" -> list of tokens to form command.  E.g.: "bash"
+    ; "<opt1>" "<optn>" "\"<complex cmd>\"".  Complex command could be
+    ; something like: setup_fn;cmd.
+    (call-process "/usr/bin/ssh" nil t nil server "env")
+    (if (re-search-backward (format "^%s=\\(.*\\)" variable) nil t)
+	(match-string 1)
+      nil)))
+
+
 ;;;;;;;;;;;;;;;;;;;
 ;; HEP utilities ;;
 ;;;;;;;;;;;;;;;;;;;
