@@ -27,17 +27,6 @@
 	  (lambda()
 	    (add-to-list 'ac-sources 'ac-source-semantic)))
 
-;;; math support for text composition modes
-(require 'ac-math)
-
-;; latex-mode
-(add-to-list 'ac-modes 'latex-mode)
-(add-hook 'LaTeX-mode-hook
-	  (lambda()
-	    (add-to-list 'ac-sources 'ac-source-latex-commands)
-	    (add-to-list 'ac-sources 'ac-source-math-latex)
-	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
-
 ;; text-mode
 (add-to-list 'ac-modes 'text-mode)
 (add-hook 'text-mode-hook
@@ -49,10 +38,3 @@
 (add-hook 'message-mode-hook
 	  (lambda()
 	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
-
-;; ;; org-mode
-;; (add-to-list 'ac-modes 'org-mode)
-;; (add-hook 'org-mode-hook
-;; 	  (lambda()
-;; 	    (add-to-list 'ac-sources 'ac-source-math-latex)
-;; 	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
