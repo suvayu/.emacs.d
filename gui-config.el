@@ -9,10 +9,3 @@
 			  (buffer-name)))))
 		  ;; (format "%s@%s:%s"
 		  ;; 	(or (file-remote-p default-directory 'user) user-login-name)
-
-
-;; `minimal-mode' customisation
-(require 'minimal)
-(setq minimal-zap-mode-line nil)
-(setq minimal-zap-menu-bar nil)
-(minimal-mode)
