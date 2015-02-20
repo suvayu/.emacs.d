@@ -26,7 +26,7 @@
     (("http.*emacswiki.org/.*" . w3m-browse-url)
      ("." . browse-url-default-browser))))
  '(calendar-date-style (quote iso))
- '(case-fold-search nil)
+ '(case-fold-search t)
  '(column-number-mode t)
  '(custom-enabled-themes (quote (dark-emacs)))
  '(custom-safe-themes
@@ -151,6 +151,7 @@
      (org-export-allow-BIND . t))))
  '(save-abbrevs nil)
  '(savehist-mode t nil (savehist))
+ '(search-upper-case t)
  '(semantic-mode t)
  '(send-mail-function (quote smtpmail-send-it))
  '(sentence-end-double-space t)
