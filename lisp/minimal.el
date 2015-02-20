@@ -1,1 +1,0 @@
-../minimal/minimal.el
