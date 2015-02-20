@@ -21,10 +21,6 @@
  '(TeX-engine (quote xetex))
  '(abbrev-mode t t)
  '(blink-cursor-mode t)
- '(browse-url-browser-function
-   (quote
-    (("http.*emacswiki.org/.*" . w3m-browse-url)
-     ("." . browse-url-default-browser))))
  '(calendar-date-style (quote iso))
  '(case-fold-search nil)
  '(column-number-mode t)
@@ -122,6 +118,4 @@
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
  '(user-mail-address "Suvayu.Ali@cern.ch")
  '(vc-handled-backends (quote (Git RCS CVS SVN Bzr Hg)))
- '(w3m-use-cookies t)
- '(wget-download-directory "~/dloads")
  '(windmove-wrap-around t))
