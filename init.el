@@ -6,26 +6,13 @@
       ;; debug-on-signal t
       ;; debug-on-quit t)
 
-;; set PATH to use standalone texlive instead
-(setenv "PATH" "/opt/texlive/2014/bin/x86_64-linux:$PATH" t)
-
 ;; load path for elisp files
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
-;; kill old org before adding new org path
-(load-file "~/.emacs.d/kill-old-org.el")
-(add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
-
-;;; Load development CEDET
-(load-file "~/.emacs.d/lisp/cedet/cedet-devel-load.el")
-
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
 (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
-
-;; Emacs C source directory
-(setq find-function-C-source-directory "~/build/emacs/src")
 
 ;; load custom file
 (setq custom-file "~/.emacs.d/emacs-custom.el")
@@ -89,21 +76,12 @@
 (load-file "~/.emacs.d/cpp-config.el")
 
 ;; `text-mode' and `org-mode' madness ;)
-(load-file "~/.emacs.d/org-mode-config.el")
 (load-file "~/.emacs.d/text-mode-config.el") ; has some org dependence
-
-;; use with mutt, ItsAllText and eml files
-(load-file "~/.emacs.d/email-config.el") ; has some org dependence
 
 ;; mode to edit markdown files (e.g. StackOverflow answers with ItsAllText)
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist (cons "\\.md\\'" 'markdown-mode))
-
-;; `taskjuggler-mode' for tjp files
-(autoload 'taskjuggler-mode "taskjuggler-mode"
-  "Major mode for editing TaskJuggler input files." t)
-(add-to-list 'auto-mode-alist (cons "\\.tjp\\'" 'taskjuggler-mode))
 
 ;; Lisp/Elisp customisations
 (defun sa-lisp-mode-hook ()
@@ -118,20 +96,6 @@
 (load-file "~/.emacs.d/ac-config.el")
 
 
-;; w3m key bindings
-(defun sa-w3m-mode-hook ()
-  "Set up some w3m tabbed browsing key bindings."
-  (define-key w3m-mode-map (kbd "<up>") 'previous-line)
-  (define-key w3m-mode-map (kbd "<down>") 'next-line)
-  (define-key w3m-mode-map (kbd "<left>") 'left-char)
-  (define-key w3m-mode-map (kbd "<right>") 'right-char)
-  (define-key w3m-mode-map (kbd "C-<tab>") 'w3m-next-buffer)
-  (define-key w3m-mode-map (kbd "C-<backtab>") 'w3m-previous-buffer)
-  (define-key w3m-mode-map (kbd "C-S-<iso-lefttab>") 'w3m-previous-buffer)
-  (define-key w3m-mode-map (kbd "s-<tab>") 'w3m-select-buffer)
-  (toggle-truncate-lines t))
-(add-hook 'w3m-mode-hook 'sa-w3m-mode-hook)
-
 ;; shell-script-mode customisations
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
@@ -142,28 +106,6 @@
 ;; ;; special buffers (obsolete, see `display-buffer-alist' instead)
 ;; (setq special-display-buffer-names
 ;;	 '("*grep*" "*tex-shell*" "*compilation*" "*find*"))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Additional libraries ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; ;; help enhancements by Drew Adams
-;; (require 'help-mode+)
-;; (require 'help+)
-;; (require 'help-fns+)
-
-;; auto-install.el
-(autoload 'auto-install-from-emacswiki "auto-install"
-  "Install an elisp file from EmacsWiki.org." t)
-(autoload 'auto-install-from-url "auto-install"
-  "Install an elisp file from a given url." t)
-;; auto-install settings (not in vanilla Emacs)
-(eval-after-load 'auto-install
-  (setq auto-install-directory "~/.emacs.d/lisp/"))
-;; the "/" at the end of the path is absolutely essential,
-;; otherwise the elisp files are saved as lisp*.el instead of lisp/*.el
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;

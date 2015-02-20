@@ -16,25 +16,3 @@
 (setq minimal-zap-mode-line nil)
 (setq minimal-zap-menu-bar nil)
 (minimal-mode)
-
-
-;; window opacity utilities
-(require 'nifty)
-
- ;; C-+ will increase opacity (== decrease transparency)
-(global-set-key (kbd "C-=")
-		'(lambda()
-		   (interactive)
-		   (sa-opacity-modify)))
-
- ;; C-- will decrease opacity (== increase transparency
-(global-set-key (kbd "C--")
-		'(lambda()
-		   (interactive)
-		   (sa-opacity-modify t)))
-
- ;; C-0 will returns the state to normal
-(global-set-key (kbd "C-0")
-		'(lambda()
-		   (interactive)
-		   (modify-frame-parameters nil `((alpha . 100)))))
