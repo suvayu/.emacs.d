@@ -261,6 +261,22 @@ siblings are shown. If no entry exists for the date, it will be created."
   (org-reveal siblings)
   (beginning-of-line))
 
+;; Function to add custom based on headline
+(defun sa-org-hl-to-custom-id ()
+  "Generate and add custom id from headline text.
+
+Ignores special characters except `_' and `-', and converts
+spaces to `-'."
+  (interactive)
+  (let ((head (downcase (nth 4 (org-heading-components)))))
+    (save-match-data
+      (while (or (string-match " " head)
+		 (string-match "[^a-zA-Z0-9_-]\+" head))
+	(if (equal " " (match-string 0 head))
+	    (set 'head (replace-match "-" nil t head))
+	  (set 'head (replace-match "" nil t head)))))
+    (org-set-property "CUSTOM_ID" head)))
+
 ;; Function to add duplicate org-mode properties
 (defun sa-org-entry-put-dupe (pom property value)
   "Set PROPERTY to VALUE for entry at point-or-marker POM.
