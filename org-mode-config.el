@@ -120,6 +120,7 @@
       org-entities-user			; "\ " can also be used
       '(("space" "~" nil " " " " " " " "))
       org-latex-remove-logfiles nil
+      org-latex-caption-above '(table)
       )
 
 
