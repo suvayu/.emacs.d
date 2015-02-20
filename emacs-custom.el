@@ -81,61 +81,10 @@
  '(initial-scratch-message nil)
  '(isearch-allow-scroll t)
  '(ispell-dictionary "british")
- '(message-elide-ellipsis "
- [...chomp...chomp...chomp...]
-
-")
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(mouse-yank-at-point t)
- '(notmuch-address-command "nottoomuch")
- '(notmuch-always-prompt-for-sender t)
- '(notmuch-fcc-dirs
-   (quote
-    (("fatkasuvayu+linux@gmail.com" . "")
-     (".\\+" . "Gmail/mysent"))))
- '(notmuch-message-replied-tags (quote ("+replied")))
- '(notmuch-saved-searches
-   (quote
-    ((:name "Inbox" :query "is:inbox")
-     (:name "This fortnight" :query "date:2weeks..today not (is:foss or folder:Gmail/ROOT or (is:lhcb or is:tagging or is:online or is:davinci or is:ganga or is:gauss or is:stats))")
-     (:name "Guruji" :query "is:guru")
-     (:name "Inbox (unread)" :query "is:inbox and is:unread")
-     (:name "Bfys (unread)" :query "tag:bfys and is:unread")
-     (:name "ANA (unread)" :query "(folder:Gmail/CP-gwt or is:velodq) and is:unread")
-     (:name "me @ ANA" :query "from:suvayu and (folder:Gmail/CP-gwt or is:velodq or is:dsk)")
-     (:name "me @ FOSS" :query "(from:suvayu and is:foss) or is:list"))))
- '(notmuch-search-oldest-first nil)
- '(notmuch-show-all-multipart/alternative-parts nil)
- '(notmuch-tag-formats
-   (quote
-    (("unread" "✉"
-      (propertize tag
-		  (quote face)
-		  (quote
-		   (:foreground "red"))))
-     ("flagged" "!"
-      (propertize tag
-		  (quote face)
-		  (quote
-		   (:foreground "blue"))))
-     ("signed")
-     ("inbox" "i")
-     ("attachment" "@")
-     ("replied" "↻")
-     ("sent" "me")
-     ("travel" "✈")
-     ("patch" "∓")
-     ("guru" "★"
-      (notmuch-tag-format-image-data tag
-				     (notmuch-tag-star-icon)))
-     ("thesis"
-      (notmuch-tag-format-image-data tag
-				     (notmuch-tag-tag-icon)))
-     ("[-0-9]\\{4,7\\}"))))
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(org-export-backends (quote (ascii beamer html latex org)))
- '(org-notmuch-open-function (quote org-notmuch-tree-follow-link))
- '(org-notmuch-search-open-function (quote org-notmuch-tree-follow-link))
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
