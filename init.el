@@ -10,7 +10,7 @@
 (setenv "PATH" "/opt/texlive/2014/bin/x86_64-linux:$PATH" t)
 
 ;; load path for elisp files
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
 ;; kill old org before adding new org path
@@ -24,15 +24,6 @@
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
 (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
 
-;;; Commented out since included in customize
-;; ;; Info directory
-;; (add-to-list 'Info-default-directory-list
-;; 	     (expand-file-name "/opt/emacs-lisp/share/info"))
-
-;; ;; Other info files
-;; (add-to-list 'Info-additional-directory-list
-;; 	     (expand-file-name "~/.emacs.d/info-manuals"))
-
 ;; Emacs C source directory
 (setq find-function-C-source-directory "~/build/emacs/src")
 
@@ -41,8 +32,7 @@
 (load-file custom-file)
 
 ;; turn on ibuffer by default
-(progn (ibuffer)
-       (switch-to-buffer "*scratch*"))
+(progn (ibuffer) (switch-to-buffer "*scratch*"))
 
 ;; Colour theme and other gui related config
 (load-file "~/.emacs.d/gui-config.el")	; requires Emacs 24 themes
@@ -52,8 +42,7 @@
 
 
 ;; font-lock customisations
-(defface sa-global-todo-face
-  '((t (:background "royalblue4" :foreground "thistle" :inherit (bold))))
+(defface sa-global-todo-face '((t (:inherit (org-todo))))
   "Face for TODO keywords globally."
   :group 'sa-faces)
 
@@ -150,21 +139,9 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on)
 
-;; Emacs Got Git (git frontend, magit fork)
-;; (require 'egg)
-;; (load-library "egg-grep")
-;;(require 'egg-grep) ; require doesn't work as library is not "provided"
-;; (setq egg-auto-update t)
-
-;; ;; special buffers
+;; ;; special buffers (obsolete, see `display-buffer-alist' instead)
 ;; (setq special-display-buffer-names
 ;;	 '("*grep*" "*tex-shell*" "*compilation*" "*find*"))
-
-;; start a server and make sure it has a name
-;; (require 'server)
-;; (setq server-host (system-name)
-;; 	       server-use-tcp t)
-;; (server-start)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -185,7 +162,7 @@
 (eval-after-load 'auto-install
   (setq auto-install-directory "~/.emacs.d/lisp/"))
 ;; the "/" at the end of the path is absolutely essential,
-;; otherwise the elisp files are saved as elisp*.el instead of elisp/*.el
+;; otherwise the elisp files are saved as lisp*.el instead of lisp/*.el
 
 
 

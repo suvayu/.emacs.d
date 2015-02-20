@@ -44,7 +44,7 @@
   '(("Kp"  "K⁺"  nil 0)
     ("Km"  "K⁻"  nil 0)
     ("K0"  "K⁰"  nil 0)
-    ("pi" "π"  nil 0)
+    ("pi"  "π"   nil 0)
     ("pip" "π⁺"  nil 0)
     ("pim" "π⁻"  nil 0)
     ("pi0" "π⁰"  nil 0)
