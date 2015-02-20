@@ -62,6 +62,12 @@
 (global-set-key '[(C-mouse-4)] 'text-scale-increase) ; scroll up
 (global-set-key '[(C-mouse-5)] 'text-scale-decrease) ; scroll down
 
+;; ace-jump minor mode
+(eval-after-load "ace-jump-mode"
+  '(ace-jump-mode-enable-mark-sync))
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+;; (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+
 
 ;;; Editing
 ;; prefer utf-8
