@@ -109,10 +109,6 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-;; ;; browse-kill-ring (not in vanilla Emacs)
-;; (require 'browse-kill-ring)
-;; (browse-kill-ring-default-keybindings)
-
 ;; kill-ring-search
 (autoload 'kill-ring-search "kill-ring-search"
  "Search the kill ring in the minibuffer."
