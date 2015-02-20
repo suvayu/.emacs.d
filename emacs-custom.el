@@ -93,7 +93,7 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (ace-link cdlatex vlf kill-ring-search debbugs chess auctex ascii-art-to-unicode ac-dabbrev)))
+    (ace-link vlf kill-ring-search ac-dabbrev)))
  '(printer-name "n2")
  '(read-buffer-completion-ignore-case t)
  '(safe-local-variable-values
