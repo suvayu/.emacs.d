@@ -142,6 +142,9 @@
      ("ELPA" . "http://tromey.com/elpa/")
      ("marmalade" . "http://marmalade-repo.org/packages/")
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
+ '(package-selected-packages
+   (quote
+    (ace-link cdlatex vlf kill-ring-search debbugs chess auctex ascii-art-to-unicode ac-dabbrev)))
  '(printer-name "n2")
  '(read-buffer-completion-ignore-case t)
  '(safe-local-variable-values
@@ -169,7 +172,7 @@
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
  '(user-mail-address "Suvayu.Ali@cern.ch")
- '(vc-handled-backends (quote (Git RCS CVS SVN SCCS Bzr Hg Mtn Arch)))
+ '(vc-handled-backends (quote (Git RCS CVS SVN Bzr Hg)))
  '(w3m-use-cookies t)
  '(wget-download-directory "~/dloads")
  '(windmove-wrap-around t))
