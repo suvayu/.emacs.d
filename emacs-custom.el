@@ -37,10 +37,6 @@
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(egg-buffer-hide-section-type-on-start
-   (quote
-    ((egg-status-buffer-mode . :hunk)
-     (egg-commit-buffer-mode . :hunk))))
  '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
  '(ibuffer-saved-filter-groups nil)
  '(ibuffer-saved-filters
