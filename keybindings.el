@@ -66,11 +66,13 @@
 (eval-after-load "ace-jump-mode"
   '(ace-jump-mode-enable-mark-sync))
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-;; (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+(define-key global-map (kbd "C-c C-SPC") 'ace-jump-mode-pop-mark)
 (eval-after-load "info"
-  '(define-key Info-mode-map "o" 'ace-link-info))
+  '(define-key Info-mode-map "." 'ace-link-info))
 (eval-after-load "help-mode"
-  '(define-key help-mode-map "o" 'ace-link-help))
+  '(define-key help-mode-map "." 'ace-link-help))
+(setq ace-jump-mode-submode-list
+      '(ace-jump-line-mode ace-jump-word-mode ace-jump-char-mode))
 
 
 ;;; Editing
@@ -108,10 +110,6 @@
 ;; undo-tree (not in vanilla Emacs)
 (require 'undo-tree)
 (global-undo-tree-mode)
-
-;; ;; browse-kill-ring (not in vanilla Emacs)
-;; (require 'browse-kill-ring)
-;; (browse-kill-ring-default-keybindings)
 
 ;; kill-ring-search
 (autoload 'kill-ring-search "kill-ring-search"
