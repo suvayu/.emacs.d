@@ -28,6 +28,10 @@
     (load-library "semantic/ia")
     (load-library "semantic/senator")))
 
+
+;; TODO: reimplement `cedet-m3-menu-kbd' (cedet-m3.el) using popup.el
+
+
 ;; FIXME: Doesn't quite do semantic isearch, could be bug in Emacs
 
 ;; Fool around with these:
