@@ -58,3 +58,6 @@
 [submodule "undo-tree"]
 	path = undo-tree
 	url = git@github.com:emacsmirror/undo-tree.git
+[submodule "auto-complete-clang"]
+	path = auto-complete-clang
+	url = git@github.com:brianjcj/auto-complete-clang.git

@@ -17,9 +17,11 @@
 ;; NOTE: no need to add programming modes to ac-modes (done by default)
 
 ;;; for C/C++
+(require 'auto-complete-clang)
 (add-hook 'c-mode-common-hook
 	  (lambda()
 	    (add-to-list 'ac-sources 'ac-source-semantic)
+	    (add-to-list 'ac-sources 'ac-source-clang)
 	    ;; ;; stop completing in std namespace, too many candidates
 	    ;; (make-local-variable 'ac-stop-words)
 	    ;; (add-to-list 'ac-stop-words "std")
