@@ -12,7 +12,6 @@
 
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
-(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
 
 ;; load custom file
 (setq custom-file "~/.emacs.d/emacs-custom.el")
