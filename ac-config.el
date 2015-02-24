@@ -30,9 +30,13 @@
 ;; by python-completion-at-point. This requires an inferior python
 ;; process to work. For some reason doesn't quite import the modules
 ;; as in the buffer.
-(ac-define-source python
-  '((candidates . (python-completion-at-point))
-    ))
+(if (>= emacs-major-version 25)
+    (ac-define-source python
+      '((candidates . (python-completion-at-point))
+	))
+  (ac-define-source python
+    '((candidates . (python-completion-complete-at-point))
+      )))
 (add-hook 'python-mode-hook
 	  (lambda()
 	    (add-to-list 'ac-sources 'ac-source-python)))
