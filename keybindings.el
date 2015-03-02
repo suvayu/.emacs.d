@@ -72,7 +72,7 @@
 (eval-after-load "help-mode"
   '(define-key help-mode-map "." 'ace-link-help))
 (setq ace-jump-mode-submode-list
-      '(ace-jump-line-mode ace-jump-word-mode ace-jump-char-mode))
+      '(ace-jump-word-mode ace-jump-char-mode ace-jump-line-mode))
 
 
 ;;; Editing
