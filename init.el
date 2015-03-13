@@ -27,9 +27,16 @@
 ;; Emacs C source directory
 (setq find-function-C-source-directory "~/build/emacs/src")
 
+;; intialise packages
+(setq package-selected-packages
+      '(ace-link cdlatex vlf kill-ring-search debbugs chess
+		 auctex ascii-art-to-unicode ac-dabbrev))
+(package-initialize)
+
 ;; load custom file
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (load-file custom-file)
+(package-initialize)
 
 ;; turn on ibuffer by default
 (progn (ibuffer) (switch-to-buffer "*scratch*"))
@@ -116,7 +123,6 @@
 
 ;; auto-complete
 (load-file "~/.emacs.d/ac-config.el")
-
 
 ;; w3m key bindings
 (defun sa-w3m-mode-hook ()
