@@ -29,7 +29,7 @@
 
 ;; intialise packages
 (setq package-selected-packages
-      '(ace-link cdlatex vlf kill-ring-search debbugs chess
+      '(flycheck ace-link cdlatex vlf kill-ring-search debbugs chess
 		 auctex ascii-art-to-unicode ac-dabbrev))
 (package-initialize)
 
