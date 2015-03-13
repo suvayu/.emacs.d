@@ -7,6 +7,7 @@
 (require 'ox-latex)
 (require 'ox-beamer)
 (require 'ox-html)
+(require 'ox-koma-letter)
 ;; (require 'ox-odt)
 ;; (require 'ox-groff)
 ;; (require 'ox-man)   ; NB: customise org-man-pdf-process
@@ -290,22 +291,20 @@
 
 ;; Setup for KOMA script letter with scrlttr2
 (add-to-list 'org-latex-classes
-               '("scrlttr2"
-                 "\\documentclass\[%
-DIV=14,
-fontsize=12pt,
-parskip=half,
-subject=titled,
-backaddress=false,
-fromalign=left,
-fromemail=true,
-fromphone=true\]\{scrlttr2\}
-\[DEFAULT-PACKAGES]
-\[PACKAGES]
-\[EXTRA]"
-		 ("\\section\{%s\}" . "\\section*\{%s\}")
-                 ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-                 ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+	     `("scrlttr2"
+	       ,(concat "\\documentclass\[a4paper\]\{scrlttr2\}\n"
+			"\[NO-DEFAULT-PACKAGES]\n"
+			"\[NO-PACKAGES]\n"
+			"\\usepackage\[T1\]\{fontenc\}\n"
+			"\\usepackage\{fixltx2e\}\n"
+			"\\usepackage\[normalem\]\{ulem\}\n"
+			"\\usepackage\{amsmath\}\n"
+			"\\tolerance=1000\n"
+			"\\usepackage\{xltxtra\}\n"
+			"\\usepackage\{libertine\}")
+	       ("\\section\{%s\}" . "\\section*\{%s\}")
+	       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+	       ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
 
 
 ;; ;; FIXME: just switching binary is not enough,
