@@ -41,6 +41,10 @@
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(flycheck-clang-include-path (quote ("/usr/include/root")))
+ '(flycheck-gcc-include-path (quote ("/usr/include/root")))
+ '(flycheck-global-modes (quote (not emacs-lisp-mode)) nil nil "Toggle `Except' for a more restrictive list (e.g. only cc-mode, python-mode)")
+ '(global-flycheck-mode t nil (flycheck))
  '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
  '(ibuffer-saved-filter-groups nil)
  '(ibuffer-saved-filters
@@ -140,7 +144,7 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (ace-link cdlatex vlf kill-ring-search debbugs chess auctex ascii-art-to-unicode ac-dabbrev)))
+    (flycheck ace-link cdlatex vlf kill-ring-search debbugs chess auctex ascii-art-to-unicode ac-dabbrev)))
  '(printer-name "n2")
  '(read-buffer-completion-ignore-case t)
  '(safe-local-variable-values
