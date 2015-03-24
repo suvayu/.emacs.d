@@ -1,1 +1,1 @@
-../magit/magit-svn.el
+../magit-svn/magit-svn.el

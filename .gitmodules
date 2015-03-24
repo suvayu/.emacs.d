@@ -64,3 +64,6 @@
 [submodule "math-symbol-lists"]
 	path = math-symbol-lists
 	url = git@github.com:vspinu/math-symbol-lists.git
+[submodule "magit-svn"]
+	path = magit-svn
+	url = git@github.com:magit/magit-svn.git
