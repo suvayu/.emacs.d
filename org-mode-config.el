@@ -210,6 +210,30 @@
 	     '("titledblocks" "\\documentclass[11pt]{scrartcl}"
 	       ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
+(add-to-list 'org-latex-classes
+	     '("scrartcl" "\\documentclass[11pt]{scrartcl}"
+	       ("\\section{%s}" . "\\section*{%s}")
+	       ("\\subsection{%s}" . "\\subsection*{%s}")
+	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+(add-to-list 'org-latex-classes
+	     '("scrreprt" "\\documentclass[11pt]{scrreprt}"
+	       ("\\part{%s}" . "\\part*{%s}")
+	       ("\\chapter{%s}" . "\\chapter*{%s}")
+	       ("\\section{%s}" . "\\section*{%s}")
+	       ("\\subsection{%s}" . "\\subsection*{%s}")
+	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+
+(add-to-list 'org-latex-classes
+	     '("scrbook" "\\documentclass[11pt]{scrbook}"
+	       ("\\part{%s}" . "\\part*{%s}")
+	       ("\\chapter{%s}" . "\\chapter*{%s}")
+	       ("\\section{%s}" . "\\section*{%s}")
+	       ("\\subsection{%s}" . "\\subsection*{%s}")
+	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+
 ;; ;; FIXME: doesn't work because of \hypersetup, \tableofcontents, etc.
 ;; ;; minimal export with the new exporter (maybe use the standalone class?)
 ;; (add-to-list 'org-latex-classes
