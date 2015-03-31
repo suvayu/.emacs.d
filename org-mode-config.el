@@ -206,6 +206,10 @@
 	       ("\\subsection{%s}" . "\\subsection*{%s}")
 	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
+(add-to-list 'org-latex-classes
+	     '("titledblocks" "\\documentclass[11pt]{scrartcl}"
+	       ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+
 ;; ;; FIXME: doesn't work because of \hypersetup, \tableofcontents, etc.
 ;; ;; minimal export with the new exporter (maybe use the standalone class?)
 ;; (add-to-list 'org-latex-classes
