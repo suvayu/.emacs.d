@@ -1,6 +1,5 @@
 ;;; org-mode-config.el --- `org-mode' settings and customisations.
 
-;; (require 'org-inlinetask)
 (require 'org)
 (require 'ox)
 (require 'ox-ascii)
@@ -13,10 +12,6 @@
 ;; (require 'ox-man)   ; NB: customise org-man-pdf-process
 ;; (require 'ox-texinfo)
 ;; (require 'ox-publish)
-
-;; ;; Google weather in agenda
-;; (load-library "google-weather")
-;; (load-library "org-google-weather")
 
 ;; links to notmuch emails in org
 (require 'org-notmuch)
@@ -77,14 +72,6 @@
       ;; fontify code blocks by default
       org-src-fontify-natively t
       org-src-tab-acts-natively t
-      ;; temporary setting to circumvent bug in texi2dvi
-      ;; file a bug report on bugzilla
-      ;; debug original value like this
-      ;; org-latex-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f")
-      ;; org-latex-pdf-process '("pdflatex -interaction nonstopmode %b"
-      ;; 				 "/usr/bin/bibtex %b"
-      ;; 				 "pdflatex -interaction nonstopmode %b"
-      ;; 				 "pdflatex -interaction nonstopmode %b")
       ;; update TODO cookies recursively
       ;; use property, ":COOKIE_DATA: todo recursive"
       ;; to set this only for a single subtree
@@ -107,11 +94,6 @@
 			   nil nil "^\\*\\+ \\+\\(DONE|FIXD|CNCL\\)")
       ;; using org-export now
       ;; ;; org-export-latex-inputenc-alist '(("utf8" . "utf8x"))
-      ;; org-beamer-environments-extra
-      ;; '(("only"         "O" "\\only%a{%x"            "}")
-      ;; 	("onlyH" 	"H" "\\only%a{%h%x" 	     "}")
-      ;; 	("visible" 	"+" "\\visible%a{%h%x" 	     "}")
-      ;; 	("invisible" 	"-" "\\invisible%a{%h%x"     "}"))
       ;; convert exported odt to pdf with soffice --convert-to pdf
       org-odt-preferred-output-format "pdf"
       ;; to circumvent reliance on Apache config, solution by Seb:
@@ -193,6 +175,7 @@
 
 ;; org to latex customisations, -shell-escape needed for minted
 (setq org-export-dispatch-use-expert-ui t ; non-intrusive export dispatch
+      ;; org-latex-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f")
       org-latex-pdf-process		; for regular export
       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -234,15 +217,6 @@
 	       ("\\subsection{%s}" . "\\subsection*{%s}")
 	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
-;; ;; FIXME: doesn't work because of \hypersetup, \tableofcontents, etc.
-;; ;; minimal export with the new exporter (maybe use the standalone class?)
-;; (add-to-list 'org-latex-classes
-;;              '("minimal"
-;;                "\\documentclass\{minimal\}\n[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]"
-;;                ("\\section\{%s\}" . "\\section*\{%s\}")
-;;                ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-;;                ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
-
 ;; beamer export with the new exporter
 (add-to-list 'org-beamer-environments-extra
 	     '("onlyenv" "O" "\\begin{onlyenv}%a" "\\end{onlyenv}"))
@@ -275,38 +249,6 @@
 
 (add-to-list 'org-export-filter-strike-through-functions 'sa-beamer-structure)
 
-;; FIXME: using $_{\text{string}}$ looks much better!
-;; (defun sa-latex-subscript (contents backend info)
-;;   (when (org-export-derived-backend-p backend 'beamer 'latex)
-;;     (replace-regexp-in-string "\\$_{\\\\text{\\([^}]+\\)}}\\$"
-;; 			      "\\\\textsubscript{\\1}" contents)))
-
-;; (add-to-list 'org-export-filter-subscript-functions 'sa-latex-subscript)
-
-;; (defun sa-latex-superscript (contents backend info)
-;;   (when (org-export-derived-backend-p backend 'beamer 'latex)
-;;     (replace-regexp-in-string "\\$\\^{\\\\text{\\([^}]+\\)}}\\$"
-;; 			      "\\\\textsuperscript{\\1}" contents)))
-
-;; (add-to-list 'org-export-filter-superscript-functions 'sa-latex-superscript)
-
-;; FIXME: implement configurable reference style for latex export
-;; (defun sa-latex-reflink (contents backend info)
-;;   (when (and (eq (plist-get info :refstyle) t)
-;; 	     (org-export-derived-backend-p backend 'latex))
-;;     (replace-regexp-in-string "\\`\\\\\\(ref\\){\\([a-zA-Z0-9]+\\):\\([a-zA-Z0-9]+\\)}"
-;; 			      "\\\\\\2\\1{\\2:\\3}" contents)))
-
-;; (add-to-list 'org-export-filter-link-functions 'sa-latex-reflink)
-
-;;; not needed any more, here for example purposes
-;; ;; smart quotes on only for latex backend (courtesy: Jambunathan)
-;; (defun sa-org-latex-options-function (info backend)
-;;  (when (eq backend 'latex)
-;;   (plist-put info :with-smart-quotes t)))
-
-;; (add-to-list 'org-export-filter-options-functions 'sa-org-latex-options-function)
-
 (defun sa-ignore-headline (contents backend info)
   "Ignore headlines with tag `ignoreheading'."
   (when (and (org-export-derived-backend-p backend 'latex 'html 'ascii)
@@ -333,123 +275,6 @@
 	       ("\\section\{%s\}" . "\\section*\{%s\}")
 	       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
 	       ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
-
-
-;; ;; FIXME: just switching binary is not enough,
-;; ;; `org-latex-packages-alist' has to be updated
-;; (defun sa-switch-latex-binary(binary)
-;;   "Switch binary for LaTeX export of org files.  Note this does
-;; not correct default package list."
-;;   (interactive "sLaTeX binary: ")
-;;   (downcase binary)
-;;   (let ((newcmd (replace-regexp-in-string
-;; 		 ".*latex" binary
-;; 		 (car org-latex-pdf-process))))
-;;     (setf org-latex-pdf-process `(,newcmd ,newcmd ,newcmd))
-;;     (message "Note default packages are unchanged!")))
-
-
-;; FIXME: export templates for inline tasks
-;; This works but disabled
-;; (defun sa-org-latex-format-inlinetask (heading content
-;; 					    &optional todo priority tags)
-;;   "Generate format string for inlinetask export templates for latex."
-;;   (concat "\\todo[inline,]{"
-;; 	  (unless (eq todo "") (format "\\textsc{%s%s}" todo priority))
-;; 	  (format "\\textbf{%s}\n" heading) content "}"))
-;;
-;; (setcdr (assoc 'latex org-inlinetask-export-templates)
-;; 	'("%s" '((sa-org-latex-format-inlinetask
-;; 		  heading content todo priority tags))))
-;;
-;; (defun sa-org-latex-format-inlinetask (heading content
-;; 					    &optional todo priority tags)
-;;   "Generate format string for inlinetask export templates for latex."
-;;   (let ((color (cond ((string-match "QnA" tags)  "color=blue!40")
-;; 		     ((string-match "Qn" tags) "color=yellow!40")
-;; 		     (t ""))))
-;;     (concat (format "\\todo[inline,%s]{" color)
-;; 	    (unless (eq todo "")
-;; 	      (format "\\textsc{%s%s}" todo priority))
-;; 	    (format "\\textbf{%s}\n" heading)
-;; 	    content "}")))
-
-
-;; FIXME: Migrate to filters for experimental export
-;; ;; FIXME: interferes with ASCII export of subtree
-;; ;; org export hooks
-;; (defun sa-org-export-latex-wrap-todo ()
-;;   "Wrap heading with arbitrary latex environment."
-;;   (interactive)
-;;   (let* ((tags (org-get-tags-string))
-;; 	 (heading (org-get-heading t))	; heading with todo
-;; 	 (content (org-get-entry))
-;; 	 (color (cond ((string-match ":QnA:" tags)  "color=blue!40")
-;; 		      ((string-match ":Qn:" tags) "color=yellow!40"))))
-;;     (when color
-;;       (org-mark-subtree)
-;;       (delete-region (region-beginning) (region-end))
-;;       (insert (concat
-;; 	       (format "\\todo[inline,%s]{\\textbf{%s}\\protect\\linebreak{}%%\n"
-;; 		       color heading)
-;; 	       (format "%s\n}%%\n" content))))))
-
-;; ;; FIXME: doesn't export markup like /italics/ or *bold* and links properly
-;; (add-hook 'org-export-preprocess-hook
-;; 	  (lambda ()
-;; 	    (let ((match "QnA|Qn"))
-;; 	      (org-map-entries (lambda () (sa-org-export-latex-wrap-todo))
-;; 			       match))))
-
-;; ;; FIXME: doesn't work with tags:nil
-;; (add-hook 'org-export-preprocess-after-blockquote-hook
-;; 	  (lambda ()
-;; 	    (let ((match "QnA|Qn"))
-;; 	      (org-map-entries (lambda () (sa-org-export-latex-wrap-todo))
-;; 			       match))))
-
-;; ;; then generalise it
-;; (defun sa-org-export-latex-wrap-env () ;envb enve &opt envargs)
-;;   "Wrap heading with arbitrary latex environment."
-;;   (interactive)
-;;   ;; (unless env
-;;   ;;   (setq envb (org-entry-get (point) "LATEX_envb")) ; use as (org-entry-get nil "SOME_PROPERTY")
-;;   ;;   (setq enve (org-entry-get (point) "LATEX_enve")))
-;;   ;; (unless envargs
-;;   ;;   (setq envargs (org-entry-get (point) "LATEX_envargs")))
-;;   (let ((env (org-entry-get (point) "LATEX_env"))
-;; 	(envargs (org-entry-get (point) "LATEX_envargs"))
-;; 	(tags (org-get-tags))
-;; 	(heading (org-get-heading t))	; heading with todo
-;; 	(content (org-get-entry)))
-;;     (org-mark-subtree)
-;;     (delete-region (region-beginning) (region-end))
-;;     (insert (concat env "[inline, color=" envargs "]{%\n"
-;; 		    "\\textbf{" heading "}\n"
-;; 		    content "\n}%\n"))))
-
-
-;; FIXME: instead of preprocess hook, use filters for new exporter
-;; ;; backend aware export preprocess hook
-;; (defun sa-org-export-preprocess-hook ()
-;;   "My backend aware export preprocess hook."
-;;   (save-excursion
-;;     (when (eq org-export-current-backend 'latex)
-;;       ;; ignoreheading tag for bibliographies and appendices
-;;       (let* ((tag "ignoreheading"))
-;; 	;; (goto-char (point-min))
-;; 	;; (while (re-search-forward (concat ":" tag ":") nil t)
-;; 	;;   (delete-region (point-at-bol) (point-at-eol)))
-;; 	(org-map-entries (lambda ()
-;; 			   (delete-region (point-at-bol) (point-at-eol)))
-;; 			 (concat ":" tag ":"))))
-;;     (when (eq org-export-current-backend 'html)
-;;       ;; set custom css style class based on matched tag
-;;       (let* ((match "Qn"))
-;; 	(org-map-entries
-;; 	 (lambda () (org-set-property "HTML_CONTAINER_CLASS" "inlinetask"))
-;; 	 match)))))
-;; (add-hook 'org-export-preprocess-hook 'sa-org-export-preprocess-hook)
 
 
 ;; Fix for inlinetasks in agenda
