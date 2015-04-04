@@ -155,12 +155,13 @@ again.  Call `backward-paragraph' otherwise."
 ;; Org utilities ;;
 ;;;;;;;;;;;;;;;;;;;
 
-;;; [[file:~/org/Worg/org-hacks.org::#field-same-row-or-column][Table cell functions]]
+;;; [[file:~/org/worg/org-hacks.org::#field-same-row-or-column][Table cell functions]]
 
 (defun sa-org-table-cell-to-left ()
   "Move current field in row to the left."
   (interactive)
   (sa-org-table-cell-transpose-horizontal 'left))
+
 (defun sa-org-table-cell-to-right ()
   "Move current field in row to the right."
   (interactive)
@@ -194,6 +195,7 @@ again.  Call `backward-paragraph' otherwise."
   "Rotate rest of row to the left."
   (interactive)
   (sa-org-table-rotate-rest-of-row 'left))
+
 (defun sa-org-table-rotate-rest-of-row-right ()
   "Rotate rest of row to the right."
   (interactive)
