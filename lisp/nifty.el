@@ -155,6 +155,25 @@ again.  Call `backward-paragraph' otherwise."
 ;; Org utilities ;;
 ;;;;;;;;;;;;;;;;;;;
 
+(defun sa-multi-occur-files (files regexp)
+  "Run `multi-occur' on files."
+  (multi-occur
+   (mapcar (lambda (x)
+	     (with-current-buffer
+		 (or (get-file-buffer x) (find-file-noselect x))
+	       (widen)
+	       (current-buffer)))
+	   files)
+   regexp))
+
+(defun sa-org-find-notes (&optional regexp)
+  "Run occur on thesis files to get notes"
+  (interactive "MRegexp: ")
+  (let* ((files (directory-files default-directory t "^[^.#].*\.org"))
+	 (regexp (or (unless (equal regexp "") regexp) "{{{\\(todo\\|note\\|mark\\)(")))
+    (print files)
+    (sa-multi-occur-files files regexp)))
+
 ;;; [[file:~/org/worg/org-hacks.org::#field-same-row-or-column][Table cell functions]]
 
 (defun sa-org-table-cell-to-left ()
