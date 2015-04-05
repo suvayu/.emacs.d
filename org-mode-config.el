@@ -104,6 +104,7 @@
       '(("space" "~" nil " " " " " " " "))
       org-latex-remove-logfiles nil
       org-latex-caption-above '(table)
+      org-confirm-elisp-link-not-regexp "sa-.+"
       )
 
 
