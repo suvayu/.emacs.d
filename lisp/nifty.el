@@ -74,6 +74,12 @@ search except that your input is treated as a regexp"
       (switch-to-buffer target-buf nil t))
     (select-window this-win)))
 
+(defun sa-vc-wdiff (&optional historic not-urgent)
+  "Use `vc-diff' in word diff mode."
+  (interactive)
+  (let ((vc-git-diff-switches (list "--word-diff")))
+    (vc-diff historic not-urgent)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Editing utilities ;;
