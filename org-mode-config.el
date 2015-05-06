@@ -223,10 +223,10 @@
 	     '("onlyenv" "O" "\\begin{onlyenv}%a" "\\end{onlyenv}"))
 
 (add-to-list 'org-beamer-environments-extra
-	     '("boldH" "h" "\\textbf{%h}" "%%%%"))
+	     '("minipage" "m" "\\begin{minipage}%o" "\\end{minipage}"))
 
 (add-to-list 'org-beamer-environments-extra
-	     '("phantom" "P" "\\phantom{%h}" ""))
+	     '("boldH" "B" "\\textbf{%h}" "%%%%"))
 
 (add-to-list 'org-export-snippet-translation-alist
 	     '("b" . "beamer"))
