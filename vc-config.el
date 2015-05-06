@@ -29,6 +29,7 @@
 	       (>= (nth 3 git-version) 2)))
       (progn
 	(require 'magit)
+	(setq magit-last-seen-setup-instructions "1.4.0") ;seen auto-revert msg
 	(define-key magit-log-mode-map (kbd "TAB") 'magit-goto-next-section)
 	(define-key magit-log-mode-map (kbd "<backtab>") 'magit-goto-previous-section)
 
