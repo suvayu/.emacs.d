@@ -534,6 +534,18 @@ otherwise move to next headline."
 ;; super / windows key may not work on laptops
 (org-defkey org-mode-map (kbd "C-M-@") 'mark-end-of-sentence)
 
+;; see email from Rasmus: (notmuch-show "id:87pp5xuc7b.fsf@gmx.us")
+(with-eval-after-load 'org
+  (add-hook 'org-mode-hook
+	    (defun org-keyboard-purist ()
+	      (electric-indent-mode -1)
+	      (org-defkey org-mode-map (kbd "RET") nil)
+	      (mapc (lambda (key)
+		      (org-defkey org-mode-map key nil))
+		    (list [(control return)]
+			  [(shift control return)]
+			  [(meta return)])))))
+
 ;; ace-link keys
 (defun sa-ace-link-org ()
   "Ace jump to links in `org-mode' buffers.
