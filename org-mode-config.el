@@ -309,14 +309,6 @@
     (switch-to-buffer "*temp*") (goto-char (point-max)) (yank)))
 
 
-;; disable inline images
-;; ;; show links as inline images using `iimage-mode'
-;; (load-library "iimage")
-;; (add-to-list 'iimage-mode-image-regex-alist
-;;              (cons (concat "\\[\\[file:\\(~?" iimage-mode-image-filename-regex
-;;                            "\\)\\]")  1))
-
-
 ;; reftex setup
 (defun sa-setup-reftex ()
   "Load and setup `reftex'."
