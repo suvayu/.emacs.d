@@ -101,7 +101,7 @@
       org-html-xml-declaration
       '(("html" . "<!-- <xml version=\"1.0\" encoding=\"utf-8\"> -->"))
       org-entities-user			; "\ " can also be used
-      '(("space" "~" nil " " " " " " " "))
+      '(("space" "~" nil "&nbsp;" " " " " " "))
       org-latex-remove-logfiles nil
       org-latex-caption-above '(table)
       org-confirm-elisp-link-not-regexp "sa-.+"
