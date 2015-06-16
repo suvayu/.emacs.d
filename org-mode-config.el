@@ -133,46 +133,47 @@
 ;; the markers for Latin is nicer, use for UTF-8 too
 (setcdr (assoc 'utf-8 org-ascii-bullets) '(?§ ?¶))
 
-;;; LaTeX export customisations
+
+;;; LaTeX export customisations (using XeLaTeX)
+
 ;; hack for error free latex export with amsmath
 ;; remove when defaults are changed in the future
 (setcar (rassoc '("wasysym" t) org-latex-default-packages-alist)
 	"nointegrals")
-;; (add-to-list 'org-latex-packages-alist '("" "amsmath" t))
 
-;; include todonotes package for latex export of inlinetasks
+;; remove "inputenc" from default packages as it clashes with xelatex
+(setf org-latex-default-packages-alist
+      (remove '("AUTO" "inputenc" t) org-latex-default-packages-alist))
+
+;; replace fontenc, with fontspec
+(let ((pos (position '("T1" "fontenc" t) ; T1 -> utf8 for pdflatex
+		     org-latex-default-packages-alist
+		     :test 'equal)))
+  (if pos
+      (setf (nth pos org-latex-default-packages-alist)
+	    '("" "fontspec" t))))
+
+(add-to-list 'org-latex-packages-alist '("" "microtype" nil) t)
+
+(add-to-list 'org-latex-packages-alist '("" "libertine" t))
+
+(add-to-list 'org-latex-packages-alist '("" "polyglossia" nil) t)
+(add-to-list 'org-latex-packages-alist
+	     "\\setdefaultlanguage[variant=british]{english}" t)
+
 (add-to-list 'org-latex-packages-alist
 	     '("backgroundcolor=green!40" "todonotes" nil) t)
-(add-to-list 'org-latex-packages-alist
-	     '("" "makerobust" nil) t)
-(add-to-list 'org-latex-packages-alist
-	     "\\MakeRobustCommand\\begin" t)
-(add-to-list 'org-latex-packages-alist
-	     "\\MakeRobustCommand\\end" t)
-(add-to-list 'org-latex-packages-alist
-	     "\\MakeRobustCommand\\item" t)
+
+(add-to-list 'org-latex-packages-alist '("" "makerobust" nil) t)
+(add-to-list 'org-latex-packages-alist "\\MakeRobustCommand\\begin" t)
+(add-to-list 'org-latex-packages-alist "\\MakeRobustCommand\\end" t)
+(add-to-list 'org-latex-packages-alist "\\MakeRobustCommand\\item" t)
 
 ;; FIXME: temporarily commented
 ;; ;; for code block export with minted.sty and python program pygmentize
 ;; (setq org-latex-listings 'minted)
 ;; (add-to-list 'org-latex-packages-alist '("" "minted"))
 
-
-;;; XeLaTeX customisations
-;; remove "inputenc" from default packages as it clashes with xelatex
-(setf org-latex-default-packages-alist
-      (remove '("AUTO" "inputenc" t) org-latex-default-packages-alist))
-;; the sexp below will also work in this case. But it is not robust as it
-;; pops the first element regardless if its a match or not.
-;; (pop org-latex-default-packages-alist)
-
-(add-to-list 'org-latex-packages-alist '("" "xltxtra" t))
-;; choose Linux Libertine O as serif and Linux Biolinum O as sans-serif fonts
-(add-to-list 'org-latex-packages-alist '("" "libertine" t))
-;; commented for now as preferable to set per file for now
-;; (add-to-list 'org-latex-packages-alist '("" "unicode-math" t))
-;; (add-to-list 'org-latex-packages-alist
-;; 	     "\\setmathfont{Linux Libertine}" t) ; needed for unicode-math
 
 ;; org to latex customisations, -shell-escape needed for minted
 (setq org-export-dispatch-use-expert-ui t ; non-intrusive export dispatch
@@ -218,15 +219,34 @@
 	       ("\\subsection{%s}" . "\\subsection*{%s}")
 	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
+(add-to-list 'org-latex-classes
+	     `("scrlttr2"
+	       ,(concat "\\documentclass\[a4paper\]\{scrlttr2\}\n"
+			"\[NO-DEFAULT-PACKAGES]\n"
+			"\[NO-PACKAGES]\n"
+			"\\usepackage\{fixltx2e\}\n"
+			"\\usepackage\{fontspec\}\n"
+			"\\usepackage\{microtype\}\n"
+			"\\usepackage\{polyglossia\}"
+			"\\setdefaultlanguage[variant=british]\{english\}\n"
+			"\\usepackage\{libertine\}\n"
+			"\\usepackage\[normalem\]\{ulem\}\n"
+			"\\usepackage\{amsmath\}\n"
+			"\\tolerance=1000\n")
+	       ("\\section\{%s\}" . "\\section*\{%s\}")
+	       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+	       ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+;; (pop org-latex-classes)		      ; clean-up after experimentation
+
 ;; beamer export with the new exporter
 (add-to-list 'org-beamer-environments-extra
 	     '("onlyenv" "O" "\\begin{onlyenv}%a" "\\end{onlyenv}"))
 
 (add-to-list 'org-beamer-environments-extra
-	     '("minipage" "m" "\\begin{minipage}%o" "\\end{minipage}"))
+	     '("minipage" "m" "\\begin{minipage}%O{%R}" "\\end{minipage}%"))
 
-(add-to-list 'org-beamer-environments-extra
-	     '("boldH" "B" "\\textbf{%h}" "%%%%"))
+;; (pop org-beamer-environments-extra)	; clean-up after experimentation
 
 (add-to-list 'org-export-snippet-translation-alist
 	     '("b" . "beamer"))
@@ -258,24 +278,6 @@
     (replace-match "" nil nil contents)))
 
 (add-to-list 'org-export-filter-headline-functions 'sa-ignore-headline)
-
-
-;; Setup for KOMA script letter with scrlttr2
-(add-to-list 'org-latex-classes
-	     `("scrlttr2"
-	       ,(concat "\\documentclass\[a4paper\]\{scrlttr2\}\n"
-			"\[NO-DEFAULT-PACKAGES]\n"
-			"\[NO-PACKAGES]\n"
-			"\\usepackage\[T1\]\{fontenc\}\n"
-			"\\usepackage\{fixltx2e\}\n"
-			"\\usepackage\[normalem\]\{ulem\}\n"
-			"\\usepackage\{amsmath\}\n"
-			"\\tolerance=1000\n"
-			"\\usepackage\{xltxtra\}\n"
-			"\\usepackage\{libertine\}")
-	       ("\\section\{%s\}" . "\\section*\{%s\}")
-	       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-	       ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
 
 
 ;; Fix for inlinetasks in agenda
