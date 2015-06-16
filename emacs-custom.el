@@ -134,7 +134,7 @@
      ("[-0-9]\\{4,7\\}"))))
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(org-export-backends (quote (ascii beamer html latex org)))
- '(org-notmuch-open-function (quote org-notmuch-tree-follow-link))
+ '(org-notmuch-open-function (quote org-notmuch-follow-link))
  '(org-notmuch-search-open-function (quote org-notmuch-tree-follow-link))
  '(package-archives
    (quote
