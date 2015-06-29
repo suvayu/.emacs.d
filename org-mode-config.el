@@ -151,8 +151,8 @@
 	    '("" "fontspec" t))))
 
 (add-to-list 'org-latex-packages-alist '("" "microtype" nil) t)
-
 (add-to-list 'org-latex-packages-alist '("" "libertine" t))
+(add-to-list 'org-latex-packages-alist '("libertine" "newtxmath" t))
 
 (add-to-list 'org-latex-packages-alist '("" "polyglossia" nil) t)
 (add-to-list 'org-latex-packages-alist
