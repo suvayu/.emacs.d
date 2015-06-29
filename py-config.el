@@ -6,6 +6,7 @@
 ;; setup keybindings in mode hook
 (add-hook 'python-mode-hook
 	  (lambda ()
+	    (flycheck-mode 1)
 	    (local-set-key "[" 'skeleton-pair-insert-maybe)
 	    (local-set-key "'" 'skeleton-pair-insert-maybe)
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)

@@ -41,12 +41,6 @@
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(flycheck-clang-args (quote ("-std=c++11")))
- '(flycheck-clang-include-path (quote ("/usr/include/root")))
- '(flycheck-gcc-args (quote ("-std=c++11")))
- '(flycheck-gcc-include-path (quote ("/usr/include/root")))
- '(flycheck-global-modes (quote (cc-mode python-mode)) nil nil "Toggle `Except' for a more restrictive list (e.g. only cc-mode, python-mode)")
- '(global-flycheck-mode t nil (flycheck))
  '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
  '(ibuffer-saved-filter-groups nil)
  '(ibuffer-saved-filters

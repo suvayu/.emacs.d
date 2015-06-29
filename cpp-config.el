@@ -1,13 +1,19 @@
 ;; -*- mode: emacs-lisp -*-
 ;;; .emacs --- my uber kewl .emacs on bhishma
 
-;;; Code:
+;;; Code: C++ customisations
 
-;;; C++ customisations
 ;; force `c++-mode' for `*.h' header files
 (add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
 
-;;; Semantic
+;; flycheck
+(setq flycheck-clang-args '("-std=c++11")
+      flycheck-clang-include-path '("/usr/include/root")
+      flycheck-gcc-args '("-std=c++11")
+      flycheck-gcc-include-path '("/usr/include/root")
+      )
+
+;; semantic
 (setq root-include (let ((rootsys (getenv "ROOTSYS")))
 		     (if rootsys (concat rootsys "/include")
 		       "/usr/include/root")))
@@ -19,6 +25,7 @@
 
 (add-hook 'c-mode-common-hook
 	  (lambda ()
+	    (flycheck-mode 1)
 	    ;; for semantic imenu
 	    (setq imenu-create-index-function 'semantic-create-imenu-index)
 	    (imenu-add-to-menubar "C++-Tags")))
