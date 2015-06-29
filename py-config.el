@@ -1,7 +1,7 @@
 ;; -*- mode: emacs-lisp -*-
 
-;; for special navigation commands
-(require 'nifty)
+;; ;; for special navigation commands
+;; (require 'nifty)
 
 ;; setup keybindings in mode hook
 (add-hook 'python-mode-hook
