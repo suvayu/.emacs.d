@@ -201,7 +201,6 @@
 
 (add-to-list 'org-latex-classes
 	     '("scrreprt" "\\documentclass[11pt]{scrreprt}"
-	       ("\\part{%s}" . "\\part*{%s}")
 	       ("\\chapter{%s}" . "\\chapter*{%s}")
 	       ("\\section{%s}" . "\\section*{%s}")
 	       ("\\subsection{%s}" . "\\subsection*{%s}")
