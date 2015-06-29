@@ -28,29 +28,32 @@
 (require 'nifty)
 
 ;;; Code:
-;; `org-mode' variable customisations
-;; directory to look for agenda files matching `org-agenda-file-regexp'
-(setq org-agenda-files '("~/org")
+;; variable customisations (excluding export and templates)
+(setq org-agenda-current-time-string "- - - NOW! - - -"
+      org-agenda-files '("~/org")
       ;; List of extra files to be searched by text search commands.
       org-agenda-text-search-extra-files
       (append '(agenda-archives)	; archived agenda files
 	      (sa-find-org-file-recursively "~/org/HEP" "org")
 	      (sa-find-org-file-recursively "~/org/LHCb-Bs2Dsh" "org")
 	      (sa-find-org-file-recursively "~/org/LHCb-Velo" "org")
-	      ;; (directory-files "~/org/HEP" t
-	      ;; 		       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
-	      ;; (directory-files "~/org/LHCb-Bs2Dsh" t
-	      ;; 		       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
-	      ;; (directory-files "~/org/LHCb-Velo" t
-	      ;; 		       "^[^.#].*\\.\\(org$\\|org_archive$\\)")
 	      )
+      org-agenda-time-grid '((daily today)
+			     "----------------"
+			     (800 1000 1200 1400 1600 1800 2000))
+      ;; reveal folded headline when trying to edit
+      org-catch-invisible-edits 'show
+      org-confirm-elisp-link-not-regexp "sa-.+"
+      ;; Block parent TODOs if child is not completed
+      org-enforce-todo-dependencies t
+      org-export-dispatch-use-expert-ui t ; non-intrusive export dispatch
+      ;; update TODO cookies recursively
+      ;; use property, ":COOKIE_DATA: todo recursive"
+      ;; to set this only for a single subtree
+      org-hierarchical-todo-statistics nil
       ;; open link in same window
       org-link-frame-setup '((gnus . org-gnus-no-new-news)
 			     (file . find-file))
-      ;; modifying behaviour of C-a/<home> & C-e/<end>
-      org-special-ctrl-a/e t
-      ;; on links `RET' follows the link
-      org-return-follows-link t
       ;; custom links
       org-link-abbrev-alist
       '(("gmane" . "http://thread.gmane.org/%s")
@@ -65,46 +68,25 @@
       org-log-redeadline 'time
       ;; To put notes inside LOGBOOK drawer
       org-log-into-drawer t
-      ;; turn on speed keys for headlines
-      org-use-speed-commands t
-      ;; reveal folded headline when trying to edit
-      org-catch-invisible-edits 'show
-      ;; fontify code blocks by default
-      org-src-fontify-natively t
-      org-src-tab-acts-natively t
-      ;; update TODO cookies recursively
-      ;; use property, ":COOKIE_DATA: todo recursive"
-      ;; to set this only for a single subtree
-      org-hierarchical-todo-statistics nil
-      ;; Block parent TODOs if child is not completed
-      org-enforce-todo-dependencies t
-      org-agenda-current-time-string "- - - NOW! - - -"
-      org-agenda-time-grid '((daily today)
-			     "----------------"
-			     (800 1000 1200 1400 1600 1800 2000))
-      ;; google-weather, no more
-      ;; org-google-weather-format "%i %c %L, [%l,%h] %s"
-      ;; org-goto-interface 'outline-path-completion
+      org-refile-allow-creating-parent-nodes 'confirm
       org-refile-targets '((org-agenda-files :maxlevel . 5))
       org-refile-use-outline-path 'file
-      org-refile-allow-creating-parent-nodes 'confirm
+      ;; on links `RET' follows the link
+      org-return-follows-link t
       org-reverse-note-order t
+      ;; modifying behaviour of C-a/<home> & C-e/<end>
+      org-special-ctrl-a/e t
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t
       ;; Note that using TODO keyword/tags list matches children tasks
       org-stuck-projects '("+LEVEL=2&+SCHEDULED<\"<-1m>\"/!-DONE"
 			   nil nil "^\\*\\+ \\+\\(DONE|FIXD|CNCL\\)")
-      ;; using org-export now
-      ;; ;; org-export-latex-inputenc-alist '(("utf8" . "utf8x"))
-      ;; convert exported odt to pdf with soffice --convert-to pdf
-      org-odt-preferred-output-format "pdf"
-      ;; to circumvent reliance on Apache config, solution by Seb:
-      ;; http://thread.gmane.org/gmane.emacs.orgmode/53856/focus=53875
-      org-html-xml-declaration
-      '(("html" . "<!-- <xml version=\"1.0\" encoding=\"utf-8\"> -->"))
-      org-entities-user			; "\ " can also be used
-      '(("space" "~" nil "&nbsp;" " " " " " "))
-      org-latex-remove-logfiles nil
-      org-latex-caption-above '(table)
-      org-confirm-elisp-link-not-regexp "sa-.+"
+      org-todo-keywords ; @ - time stamp with note, ! - only time stamp
+      '((sequence "TODO(t)" "WInP(w!)" "DLAY(l@/!)" "|" "DONE(d@)" "CNCL(c@/!)")
+	(type "TEST(e!)" "DBUG(b@)" "LEAK(l@)" "SEGF(s@)" "|" "FIXD(f@/!)")
+	)
+      ;; turn on speed keys for headlines
+      org-use-speed-commands t
       )
 
 
@@ -127,6 +109,21 @@
          "<literal style=\"html\">\n?\n</literal>"))
 (setcdr (assoc "a" org-structure-template-alist)
 	'("#+begin_ascii\n?\n#+end_ascii"))
+
+
+;;; Export customisations
+(setq org-entities-user	; can also use "\ "
+      '(("space" "~" nil "&nbsp;" " " " " " "))
+      ;; to circumvent reliance on Apache config, solution by Seb:
+      ;; http://thread.gmane.org/gmane.emacs.orgmode/53856/focus=53875
+      org-html-xml-declaration
+      '(("html" . "<!-- <xml version=\"1.0\" encoding=\"utf-8\"> -->"))
+      org-latex-caption-above '(table)
+      org-latex-prefer-user-labels t
+      org-latex-remove-logfiles nil
+      ;; convert exported odt to pdf with `soffice --convert-to pdf'
+      org-odt-preferred-output-format "pdf"
+      )
 
 
 ;;; ASCII export customisation for the new exporter
@@ -169,19 +166,18 @@
 (add-to-list 'org-latex-packages-alist "\\MakeRobustCommand\\end" t)
 (add-to-list 'org-latex-packages-alist "\\MakeRobustCommand\\item" t)
 
-;; FIXME: temporarily commented
 ;; ;; for code block export with minted.sty and python program pygmentize
 ;; (setq org-latex-listings 'minted)
 ;; (add-to-list 'org-latex-packages-alist '("" "minted"))
 
 
-;; org to latex customisations, -shell-escape needed for minted
-(setq org-export-dispatch-use-expert-ui t ; non-intrusive export dispatch
-      ;; org-latex-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f")
-      org-latex-pdf-process		; for regular export
+(setq org-latex-pdf-process ; -shell-escape needed for minted
       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+      ;; org-latex-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f") ; historical
+      ;; TODO: maybe use arara, that probably requires export changes
+      )
 
 ;; export single chapter
 (add-to-list 'org-latex-classes
@@ -323,15 +319,6 @@
   ;; 	     (file-exists-p (buffer-file-name)))
   ;;   (reftex-mode)
   ;;   (reftex-parse-all))
-
-
-;;; TODO keywords
-;; @ - time stamp with note
-;; ! - only time stamp
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "WInP(w!)" "DLAY(l@/!)" "|" "DONE(d@)" "CNCL(c@/!)")
-	(type "TEST(e!)" "DBUG(b@)" "LEAK(l@)" "SEGF(s@)" "|" "FIXD(f@/!)")
-	))
 
 
 ;;; Custom agenda commands
