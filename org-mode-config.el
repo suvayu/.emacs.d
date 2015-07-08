@@ -133,28 +133,32 @@
 
 ;;; LaTeX export customisations (using XeLaTeX)
 
-;; hack for error free latex export with amsmath
-;; remove when defaults are changed in the future
-(setcar (rassoc '("wasysym" t) org-latex-default-packages-alist)
-	"nointegrals")
+;;; NOTE: experimental tex-variant changes from Rasmus
+;; see: (notmuch-show "thread:000000000000a22c")
 
-;; remove "inputenc" from default packages as it clashes with xelatex
-(setf org-latex-default-packages-alist
-      (remove '("AUTO" "inputenc" t) org-latex-default-packages-alist))
+;; ;; hack for error free latex export with amsmath
+;; ;; remove when defaults are changed in the future
+;; (setcar (rassoc '("wasysym" t) org-latex-default-packages-alist)
+;; 	"nointegrals")
 
-;; replace fontenc, with fontspec
-(let ((pos (position '("T1" "fontenc" t) ; T1 -> utf8 for pdflatex
-		     org-latex-default-packages-alist
-		     :test 'equal)))
-  (if pos
-      (setf (nth pos org-latex-default-packages-alist)
-	    '("" "fontspec" t))))
+;; ;; remove "inputenc" from default packages as it clashes with xelatex
+;; (setf org-latex-default-packages-alist
+;;       (remove '("AUTO" "inputenc" t) org-latex-default-packages-alist))
 
+;; ;; replace fontenc, with fontspec
+;; (let ((pos (position '("T1" "fontenc" t) ; T1 -> utf8 for pdflatex
+;; 		     org-latex-default-packages-alist
+;; 		     :test 'equal)))
+;;   (if pos
+;;       (setf (nth pos org-latex-default-packages-alist)
+;; 	    '("" "fontspec" t))))
+
+(add-to-list 'org-latex-packages-alist '("" "fontspec" t (xetex luatex)) t)
 (add-to-list 'org-latex-packages-alist '("" "microtype" nil) t)
 (add-to-list 'org-latex-packages-alist '("" "libertine" t) t)
 (add-to-list 'org-latex-packages-alist '("libertine" "newtxmath" t) t)
 
-(add-to-list 'org-latex-packages-alist '("" "polyglossia" nil) t)
+(add-to-list 'org-latex-packages-alist '("" "polyglossia" nil (xetex luatex)) t)
 (add-to-list 'org-latex-packages-alist
 	     "\\setdefaultlanguage[variant=british]{english}" t)
 
