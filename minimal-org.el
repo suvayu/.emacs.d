@@ -16,15 +16,21 @@
                ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
                ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
 
-;; ;; Default: w/o bibtex
-;; (setq org-latex-pdf-process
-;;       '("pdflatex -interaction nonstopmode %b"
-;; 	"pdflatex -interaction nonstopmode %b"
-;; 	"pdflatex -interaction nonstopmode %b"))
-
-;; ;; w/ bibtex
-;; (setq org-latex-pdf-process
-;;       '("pdflatex -interaction nonstopmode %b"
-;; 	"/usr/bin/bibtex %b"
-;; 	"pdflatex -interaction nonstopmode %b"
-;; 	"pdflatex -interaction nonstopmode %b"))
+(require 'ox-koma-letter)
+(add-to-list 'org-latex-classes
+	     `("scrlttr2"
+	       ,(concat "\\documentclass\[a4paper\]\{scrlttr2\}\n"
+			"\[NO-DEFAULT-PACKAGES]\n"
+			"\[NO-PACKAGES]\n"
+			"\\usepackage\{fixltx2e\}\n"
+			"\\usepackage\{fontspec\}\n"
+			"\\usepackage\{microtype\}\n"
+			"\\usepackage\{polyglossia\}\n"
+			"\\setdefaultlanguage[variant=british]\{english\}\n"
+			"\\usepackage\{libertine\}\n"
+			"\\usepackage\[normalem\]\{ulem\}\n"
+			"\\usepackage\{amsmath\}\n"
+			"\\usepackage\{hyperref\}\n")
+	       ("\\section\{%s\}" . "\\section*\{%s\}")
+	       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+	       ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
