@@ -1,1 +1,0 @@
-../git-modes/git-commit-mode.el
