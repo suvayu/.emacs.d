@@ -1,1 +1,0 @@
-../magit-svn/magit-svn.el
