@@ -1,1 +1,0 @@
-../git-modes/gitignore-mode.el
