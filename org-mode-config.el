@@ -248,7 +248,7 @@
 	     '("onlyenv" "O" "\\begin{onlyenv}%a" "\\end{onlyenv}"))
 
 (add-to-list 'org-beamer-environments-extra
-	     '("minipage" "m" "\\begin{minipage}%O{%R}" "\\end{minipage}%"))
+	     '("minipage" "m" "\\begin{minipage}[%R]{%O}" "\\end{minipage}%"))
 
 ;; (pop org-beamer-environments-extra)	; clean-up after experimentation
 
