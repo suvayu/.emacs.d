@@ -517,12 +517,7 @@ otherwise move to next headline."
 ;; navigating list items / headings depending on context
 (org-defkey org-mode-map (kbd "<XF86Forward>") 'sa-org-dwim-next)
 (org-defkey org-mode-map (kbd "<XF86Back>") 'sa-org-dwim-previous)
-;; navigating links
-(org-defkey org-mode-map (kbd "C-c <prior>") 'org-previous-link)
-(org-defkey org-mode-map (kbd "C-c <next>") 'org-next-link)
 ;; navigating elements (more generic than headlines)
-(org-defkey org-mode-map (kbd "C-c <left>") 'org-up-element)
-(org-defkey org-mode-map (kbd "C-c <right>") 'org-down-element)
 (org-defkey org-mode-map (kbd "C-M-u") 'outline-up-heading) ; retain for in text use
 ;; super / windows key may not work on laptops
 (org-defkey org-mode-map (kbd "C-M-@") 'mark-end-of-sentence)
@@ -538,6 +533,27 @@ otherwise move to next headline."
 		    (list [(control return)]
 			  [(shift control return)]
 			  [(meta return)])))))
+
+;; Hydra with Org: idea is to unify navigation in Org to one menu
+(with-eval-after-load 'hydra		          ; loaded in keybindings.el
+  (defhydra hydra-orgnav (org-mode-map "C-c")
+    "org-nav"
+    ("<prior>" org-previous-link "prev link")     ; navigating links
+    ("<next>" org-next-link "next link")
+    ("<left>" org-up-element "parent element")    ; navigating elements
+    ("<right>" org-down-element "child element")
+    ("<down>" org-forward-element "next element")
+    ("<up>" org-backward-element "prev element")
+    ("q" nil "quit")))
+
+;;; requires org-link-edit.el
+;; (defhydra hydra-org-link-edit (org-mode-map "C-c .")
+;;   "Org Link Edit"
+;;   ("j" org-link-edit-forward-slurp "forward slurp")
+;;   ("k" org-link-edit-forward-barf "forward barf")
+;;   ("u" org-link-edit-backward-slurp "backward slurp")
+;;   ("i" org-link-edit-backward-barf "backward barf")
+;;   ("q" nil "cancel"))
 
 ;; `org-agenda-mode' keymaps
 ;; (eval-after-load 'org-agenda
