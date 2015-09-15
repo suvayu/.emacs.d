@@ -77,6 +77,7 @@
  '(initial-scratch-message nil)
  '(isearch-allow-scroll t)
  '(ispell-dictionary "british")
+ '(magit-save-repository-buffers nil)
  '(message-elide-ellipsis "
  [...chomp...chomp...chomp...]
 
