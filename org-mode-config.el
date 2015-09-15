@@ -506,10 +506,8 @@ otherwise move to next headline."
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
 ;; `org-mode' keymaps
-;; ;; overload default `fill-paragraph' keybind to use org specific command
-;; (org-defkey org-mode-map (kbd "M-q") 'org-fill-paragraph) ; complains with wrong argument type
-;; toggle inline images with iimage
-;; (org-defkey org-mode-map (kbd "C-c i") 'org-toggle-inline-images)
+;; overload default `fill-paragraph' keybind to use org specific command
+(org-defkey org-mode-map (kbd "M-q") 'org-fill-paragraph)
 (org-defkey org-mode-map (kbd "C-c d") 'org-display-outline-path)
 (org-defkey org-mode-map (kbd "C-c g") 'oog) ; org-occur-goto
 (org-defkey org-mode-map (kbd "C-c s") 'osg) ; org-search-goto
