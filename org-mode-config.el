@@ -110,6 +110,10 @@
 (setcdr (assoc "a" org-structure-template-alist)
 	'("#+begin_ascii\n?\n#+end_ascii"))
 
+;; easy templates special blocks in latex export
+(add-to-list 'org-structure-template-alist
+	     '("f" "#+begin_figure\n?\n#+end_figure" ""))
+
 
 ;;; Export customisations
 (setq org-entities-user	; can also use "\ "
