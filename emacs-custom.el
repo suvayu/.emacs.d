@@ -128,7 +128,8 @@
      ("thesis"
       (notmuch-tag-format-image-data tag
 				     (notmuch-tag-tag-icon)))
-     ("[-0-9]\\{4,7\\}"))))
+     ("[-0-9]\\{4,7\\}")
+     ("new"))))
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(org-export-backends (quote (ascii beamer html latex org)))
  '(org-notmuch-open-function (quote org-notmuch-follow-link))
