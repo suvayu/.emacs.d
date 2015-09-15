@@ -7,9 +7,9 @@
 (add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
 
 ;; flycheck
-(setq flycheck-clang-args '("-std=c++11")
+(setq flycheck-clang-language-standard "c++11" ; FIXME: probably breaks C mode
       flycheck-clang-include-path '("/usr/include/root")
-      flycheck-gcc-args '("-std=c++11")
+      flycheck-gcc-language-standard "c++11"   ; FIXME: probably breaks C mode
       flycheck-gcc-include-path '("/usr/include/root")
       )
 
