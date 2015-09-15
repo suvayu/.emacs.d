@@ -541,15 +541,6 @@ otherwise move to next headline."
 			  [(shift control return)]
 			  [(meta return)])))))
 
-;; ace-link keys
-(defun sa-ace-link-org ()
-  "Ace jump to links in `org-mode' buffers.
-
-Alternate `ace-link-org', do not follow the link like the original."
-  (interactive)
-  (ali-generic (ali--org-collect-references)))
-(org-defkey org-mode-map (kbd "C-c o") 'sa-ace-link-org)
-
 ;; `org-agenda-mode' keymaps
 ;; (eval-after-load 'org-agenda
 ;;   ;; set property
