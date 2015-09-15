@@ -231,12 +231,12 @@
 			"\\usepackage\{fixltx2e\}\n"
 			"\\usepackage\{fontspec\}\n"
 			"\\usepackage\{microtype\}\n"
-			"\\usepackage\{polyglossia\}"
+			"\\usepackage\{polyglossia\}\n"
 			"\\setdefaultlanguage[variant=british]\{english\}\n"
 			"\\usepackage\{libertine\}\n"
 			"\\usepackage\[normalem\]\{ulem\}\n"
 			"\\usepackage\{amsmath\}\n"
-			"\\tolerance=1000\n")
+			"\\usepackage\{hyperref\}\n")
 	       ("\\section\{%s\}" . "\\section*\{%s\}")
 	       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
 	       ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
