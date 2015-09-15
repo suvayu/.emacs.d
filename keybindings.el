@@ -165,10 +165,11 @@ controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 	(funcall expand))
     (funcall expand)))
 
-;; this hook wraps around the `expand-abbrev' function call
-(add-hook 'after-change-major-mode-hook
-	  (lambda ()
-	    (add-hook 'abbrev-expand-functions 'sa-expand-abbrev-in-context nil t)))
+;; Disable abbrev expand in comments
+;; ;; this hook wraps around the `expand-abbrev' function call
+;; (add-hook 'after-change-major-mode-hook
+;; 	  (lambda ()
+;; 	    (add-hook 'abbrev-expand-functions 'sa-expand-abbrev-in-context nil t)))
 
 
 ;;; Dired
