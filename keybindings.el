@@ -3,6 +3,7 @@
 
 ;;; Code:
 (require 'nifty)
+(require 'hydra)
 
 ;;; Navigation
 ;; side scrolling on
@@ -26,16 +27,32 @@
 ;; (global-set-key (kbd "C-M-b") 'backward-sexp)
 
 ;; navigate frames
-(global-set-key (kbd "C-x C-<left>")
-		(lambda ()
-		  "Select previous frame."
-		  (interactive)
-		  (other-frame -1)))
-(global-set-key (kbd "C-x C-<right>")
-		(lambda ()
-		  "Select next frame."
-		  (interactive)
-		  (other-frame 1)))
+(defhydra hydra-frame-nav (global-map "C-x")
+  "frame-nav"
+  ("C-<left>" (other-frame -1) "prev")
+  ("C-<right>" (other-frame 1) "next")
+  ("q" nil "quit"))
+
+;; navigate errors w/ hydra
+(define-key global-map (kbd "M-g /") 'first-error) ; mnemonic: `?'
+(defhydra hydra-error (global-map "M-g")
+  "goto-error"
+  ("." first-error "first")
+  ;; ("<right>" next-error "next")
+  ;; ("<left>" previous-error "prev")
+  ("<down>" next-error "next")
+  ("<up>" previous-error "prev")
+  ("q" nil "quit"))
+
+;; navigate flycheck errors w/ hydra
+(defhydra hydra-flycerr (global-map "C-c !")
+  "goto-flycheck-error"
+  ;; ("<right>" flycheck-next-error "next")
+  ;; ("<left>" flycheck-previous-error "prev")
+  ("<down>" flycheck-next-error "next")
+  ("<up>" flycheck-previous-error "prev")
+  ("<space>" flycheck-list-errors "list")
+  ("q" nil "quit"))
 
 ;; minibuffer history completion
 (mapc
@@ -52,7 +69,7 @@
 (define-key occur-mode-map (kbd "TAB") 'occur-mode-display-occurrence)
 (define-key occur-mode-map (kbd "f") 'next-error-follow-minor-mode)
 
-;; Isearch in other-window
+;; Isearch in other-window (TODO: hydrafy)
 (global-set-key (kbd "M-s C-s") 'sa-isearch-forward-other-window)
 (global-set-key (kbd "M-s C-r") 'sa-isearch-backward-other-window)
 (global-set-key (kbd "M-s C-M-s") 'sa-isearch-forward-regexp-other-window)
@@ -90,14 +107,19 @@
 (global-set-key (kbd "C-c M-k") 'kill-paragraph)
 
 ;; transpose-* keybindings
-(global-set-key (kbd "C-x M-}") 'transpose-paragraphs)
-(global-set-key (kbd "C-x M-{")
-		(lambda ()
-		  "Transpose paragraph with previous."
-		  (interactive)
-		  (transpose-paragraphs -1)
-		  (backward-paragraph)))
+(defhydra hydra-drag-paras (global-map "C-x")
+  "drag-paragraphs"
+  ("M-}" transpose-paragraphs "down")
+  ("M-{" (progn
+	   (transpose-paragraphs -1)
+	   (backward-paragraph)) "up")
+  ("q" nil "quit"))
 
+;; (defhydra hydra-drag-lines (global-map "C-x")
+;;   "drag-lines"
+;;   ("C-<up>" sa-transpose-lines-up "up")
+;;   ("C-<down>" sa-transpose-lines-down "down")
+;;   ("q" nil "quit"))
 (global-set-key (kbd "C-x C-<up>") 'sa-transpose-lines-up)
 (global-set-key (kbd "C-x C-<down>") 'sa-transpose-lines-down)
 (global-set-key (kbd "C-<up>") 'sa-backward-paragraph)
