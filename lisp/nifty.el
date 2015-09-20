@@ -146,6 +146,11 @@ again.  Call `backward-paragraph' otherwise."
       (next-line)
       (setf repeat (y-or-n-p "Repeat? ")))))
 
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Email utilities ;;
+;;;;;;;;;;;;;;;;;;;;;
+
 (defun sa-insert-gmane-link (msgid)
   "Insert gmane http link at point.  Prompts for message id."
   (interactive "sMessage ID: ")
@@ -156,6 +161,19 @@ again.  Call `backward-paragraph' otherwise."
   (interactive "sMessage ID: ")
   (insert (format "<http://news.gmane.org/find-root.php?message_id=%%3c%s%%3e>" msgid)))
 
+(defun find-message-at-point (&optional msgid)
+  "Find the the message the current buffer is a reply to.
+
+The Message-Id (MSGID) is read from the In-Reply-To or Reply-To
+header fields.  It is then displayed by calling `notmuch-show'."
+  (interactive "sMessage-Id: ")
+  (let ((msgid (if (string= "" msgid)
+		   (or (message-fetch-field "in-reply-to")
+		       (message-fetch-field "reply-to"))
+		 msgid)))
+    (notmuch-show (concat "id:" (replace-regexp-in-string "[<>]" "" msgid)))))
+
+(defalias 'fmap 'find-message-at-point)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Org utilities ;;
