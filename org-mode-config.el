@@ -535,6 +535,10 @@ otherwise move to next headline."
 			  [(meta return)])))))
 
 ;; Hydra with Org: idea is to unify navigation in Org to one menu
+(org-defkey org-mode-map (kbd "C-c <up>") nil)   ; cleanup conflicting
+(org-defkey org-mode-map (kbd "C-c <down>") nil) ; duplicate binding
+(org-defkey org-mode-map (kbd "C-c <left>") nil)
+(org-defkey org-mode-map (kbd "C-c <right>") nil)
 (with-eval-after-load 'hydra		          ; loaded in keybindings.el
   (defhydra hydra-orgnav (org-mode-map "C-c")
     "org-nav"
