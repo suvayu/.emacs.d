@@ -220,3 +220,11 @@ controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 ;; coding system to use when writing `session-save-file'
 (setq session-save-file-coding-system 'utf-8)
 (global-set-key (kbd "C-x C-_") 'session-jump-to-last-change)
+
+
+;;; sx
+;; keybindings
+(add-hook 'sx-question-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "<down>") 'next-line)
+	    (local-set-key (kbd "<up>") 'previous-line)))
