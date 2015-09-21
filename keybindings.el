@@ -79,18 +79,6 @@
 (global-set-key '[(C-mouse-4)] 'text-scale-increase) ; scroll up
 (global-set-key '[(C-mouse-5)] 'text-scale-decrease) ; scroll down
 
-;; ace-jump minor mode
-(eval-after-load "ace-jump-mode"
-  '(ace-jump-mode-enable-mark-sync))
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-(define-key global-map (kbd "C-c C-SPC") 'ace-jump-mode-pop-mark)
-(eval-after-load "info"
-  '(define-key Info-mode-map "." 'ace-link-info))
-(eval-after-load "help-mode"
-  '(define-key help-mode-map "." 'ace-link-help))
-(setq ace-jump-mode-submode-list
-      '(ace-jump-word-mode ace-jump-char-mode ace-jump-line-mode))
-
 
 ;;; Editing
 ;; prefer utf-8
