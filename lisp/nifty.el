@@ -476,6 +476,16 @@ If DEC is t, decrease the transparency, otherwise increase it in 5% steps."
 ;; Other utilities ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
+(defalias 'qc #'quick-calc)
+
+;; calc or count
+(defun sa-calc-or-count (&optional arg)
+  "Quick calculate by default, count words when mark is active."
+  (interactive "P")
+  (if mark-active
+      (call-interactively 'count-words-region)
+    (if arg (quick-calc arg) (quick-calc))))
+
 ;; code by David Engster <deng@randomsample.de>
 (defun remote-getenv (variable server)
   "Get environment VARIABLE from SERVER via ssh & bash."

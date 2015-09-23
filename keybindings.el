@@ -127,6 +127,9 @@
  (interactive))
 (global-set-key (kbd "M-C-y") 'kill-ring-search)
 
+;; context sensitive M-=
+(global-set-key (kbd "M-=") #'sa-calc-or-count)
+
 ;; ;; FIXME:
 ;; (defadvice isearch-yank-kill
 ;; (around toggle-case-fold-search-maybe)
