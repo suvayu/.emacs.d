@@ -40,6 +40,8 @@
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(git-ps1-mode-lighter-text-format "[%s]")
+ '(git-ps1-mode-ps1-file "/usr/share/git-core/contrib/completion/git-prompt.sh")
  '(ibuffer-mode-hook (quote (ibuffer-auto-mode)))
  '(ibuffer-saved-filter-groups nil)
  '(ibuffer-saved-filters
@@ -137,11 +139,10 @@
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("ELPA" . "http://tromey.com/elpa/")
-     ("marmalade" . "http://marmalade-repo.org/packages/")
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (flycheck ace-link cdlatex vlf kill-ring-search debbugs chess auctex ascii-art-to-unicode ac-dabbrev)))
+    (ein git-ps1-mode rich-minority neotree smartparens paredit rust-mode sx cmake-mode idomenu hydra flycheck cdlatex vlf kill-ring-search debbugs chess auctex ascii-art-to-unicode ac-dabbrev)))
  '(printer-name "n2")
  '(read-buffer-completion-ignore-case t)
  '(safe-local-variable-values
@@ -163,6 +164,7 @@
  '(show-paren-mode t)
  '(smtpmail-smtp-server "smtp.gmail.com")
  '(smtpmail-smtp-service 25)
+ '(sp-base-key-bindings (quote sp))
  '(speedbar-use-images nil)
  '(tramp-default-method "ssh")
  '(tramp-use-ssh-controlmaster-options nil)
