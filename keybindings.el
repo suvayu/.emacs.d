@@ -137,6 +137,9 @@
 ;; context sensitive M-=
 (global-set-key (kbd "M-=") #'sa-calc-or-count)
 
+(require 'smartparens-config)
+(smartparens-global-mode 1)
+
 ;; ;; FIXME:
 ;; (defadvice isearch-yank-kill
 ;; (around toggle-case-fold-search-maybe)
