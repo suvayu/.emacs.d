@@ -16,6 +16,10 @@
 	  (lambda ()
 	    ;; turn off automatic filling
 	    (auto-fill-mode -1)
+	    (flyspell-mode 1)
+	    ;; see FAQ:
+	    ;; http://auto-complete.org/doc/manual.html#flyspell-mode-bug
+	    (ac-flyspell-workaround)
 	    (orgstruct++-mode t)
 	    (define-key message-mode-map (kbd "C-c C-SPC")
 	      'external-abook-try-expand)
