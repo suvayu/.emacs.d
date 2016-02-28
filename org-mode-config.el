@@ -598,7 +598,9 @@ otherwise move to next headline."
   "My `org-mode' hook."
   (local-unset-key (kbd "C-c ["))	; add/remove agenda files
   (local-unset-key (kbd "C-c ]"))
-  ;; (flyspell-mode t)
+  (flyspell-mode t)
+  ;; see: http://auto-complete.org/doc/manual.html#flyspell-mode-bug
+  (ac-flyspell-workaround)
   ;; line folding w/o actually folding it, use `M-q' to wrap.
   (visual-line-mode t)
   ;; imenu for org-mode buffers
