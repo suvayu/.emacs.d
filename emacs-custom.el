@@ -7,8 +7,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ace-jump-face-foreground ((t (:foreground "red" :weight bold))))
- '(magit-diff-none ((t (:inherit diff-context)))))
+ )
 
 ;; configs
 (custom-set-variables
@@ -31,7 +30,7 @@
  '(custom-enabled-themes (quote (dark-emacs)))
  '(custom-safe-themes
    (quote
-    ("b07cdea316b1e887f55e0ae350c53973dcf65517a6b3d4619d51a847ad66f194" default)))
+    ("d127200159d2cfb8c2aa38791b71693da8e5a5a26ca2dd7d620d36e98384fc28" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
