@@ -396,6 +396,15 @@
 	   (sa-find-org-file-recursively "~/org/ATLAS-wprime"))))
 	;; ("E" . "Search and export to temporary buffer")
 	;; ("Et" "Export tags search result to buffer" org-tags-search-to-buffer "Qn")
+	("J" "Postdocs/Jobs"
+	 ((tags-todo "CATEGORY=\"jobs\"+hep"
+		     ((org-agenda-overriding-header "Postdocs")))
+	  (tags-todo "CATEGORY=\"jobs\"+industry"
+		     ((org-agenda-overriding-header "Industry jobs"))))
+	 ((org-agenda-files (list "~/org/tasks.org"))
+	  (org-agenda-prefix-format '((tags . "  % s"))) ; not working
+	  (org-agenda-hide-tags-regexp "hep\\|industry")
+	  (org-agenda-compact-blocks t)))
 	))
 
 
