@@ -123,8 +123,7 @@
 
 ;; kill-ring-search
 (autoload 'kill-ring-search "kill-ring-search"
- "Search the kill ring in the minibuffer."
- (interactive))
+ "Search the kill ring in the minibuffer." t)
 (global-set-key (kbd "M-C-y") 'kill-ring-search)
 
 ;; context sensitive M-=
@@ -141,19 +140,6 @@
 ;;     ad-do-it)
 ;;   (setq case-fold-search tmp-case-fold-search)))
 ;; (ad-activate 'isearch-yank-kill)
-
-
-;; Skeleton pair insert
-(setq skeleton-pair t)
-;; (setq skeleton-pair-alist '((?( _ ?)) (?\))
-;; 			    (?[ _ ?]) (?\])
-;; 			    (?{ _ ?}) (?\})
-;; 			    (?< _ ?>) (?\>)
-;; 			    (?` _ ?')))
-
-(global-set-key "(" 'skeleton-pair-insert-maybe)
-(global-set-key "{" 'skeleton-pair-insert-maybe)
-(global-set-key "\"" 'skeleton-pair-insert-maybe)
 
 
 ;;; Abbreviations customisations
