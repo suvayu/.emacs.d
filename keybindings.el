@@ -4,6 +4,7 @@
 ;;; Code:
 (require 'nifty)
 (require 'hydra)
+(require 'neotree)
 
 ;;; Navigation
 ;; side scrolling on
@@ -25,6 +26,9 @@
 (global-set-key (kbd "C-M-u") 'up-list)
 ;; (global-set-key (kbd "C-M-f") 'forward-sexp)
 ;; (global-set-key (kbd "C-M-b") 'backward-sexp)
+
+;; tree based directory browsing
+(global-set-key [f9] 'neotree-toggle)
 
 ;; navigate frames
 (defhydra hydra-frame-nav (global-map "C-x")
