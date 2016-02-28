@@ -54,21 +54,11 @@
 	    (add-to-list 'ac-sources 'ac-source-math-latex)
 	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
 
-;; text-mode
-(add-to-list 'ac-modes 'text-mode)
-(add-hook 'text-mode-hook
-	  (lambda()
-	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
+;; add unicode math source for text modes
+(defun sa-ac-math-unicode()
+  (add-to-list 'ac-sources 'ac-source-math-unicode))
 
-;; message-mode
-(add-to-list 'ac-modes 'message-mode)
-(add-hook 'message-mode-hook
-	  (lambda()
-	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
-
-;; ;; org-mode
-;; (add-to-list 'ac-modes 'org-mode)
-;; (add-hook 'org-mode-hook
-;; 	  (lambda()
-;; 	    (add-to-list 'ac-sources 'ac-source-math-latex)
-;; 	    (add-to-list 'ac-sources 'ac-source-math-unicode)))
+(mapcar (lambda (mode)
+	  (add-to-list 'ac-modes mode)
+	  (add-hook (intern (format "%s-hook" mode)) 'sa-ac-math-unicode))
+	'(text-mode message-mode org-mode))
