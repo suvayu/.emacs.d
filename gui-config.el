@@ -18,6 +18,13 @@
 (minimal-mode)
 
 
+;; more concise minor-mode list
+(require 'rich-minority)
+(rich-minority-mode t)
+(setf rm-blacklist
+      " \\(Undo-Tree\\|Abbrev\\|min\\|SP\\|FlyC.+\\|ElDoc\\|AC\\|Server\\)")
+
+
 ;; window opacity utilities
 (require 'nifty)
 
