@@ -47,7 +47,7 @@
 	;; - file log: l - short, L - long (don't know how to get this)
 	;; - with prefix, repo log: same
 
-	(require 'magit-filenotify)
-	(add-hook 'magit-status-mode-hook 'magit-filenotify-mode)
+	;; (require 'magit-filenotify)
+	;; (add-hook 'magit-status-mode-hook 'magit-filenotify-mode)
 
 	(require 'magit-blame))))
