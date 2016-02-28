@@ -17,11 +17,11 @@
 	    (define-key python-mode-map (kbd "C-<up>") 'python-nav-backward-block)
 	    (define-key python-mode-map (kbd "C-<down>") 'python-nav-forward-block)
 	    ;; (define-key python-mode-map (kbd "C-M-a") 'python-nav-beginning-of-defun)
-	    (define-key python-mode-map (kbd "C-M-e") 'python-nav-end-of-defun)
-	    (define-key python-mode-map (kbd "M-b") 'python-nav-backward-defun)
-	    (define-key python-mode-map (kbd "M-f") 'python-nav-forward-defun)
-	    (define-key python-mode-map (kbd "C-b") 'python-nav-backward-statement)
-	    (define-key python-mode-map (kbd "C-f") 'python-nav-forward-statement)
+	    ;; (define-key python-mode-map (kbd "C-M-e") 'python-nav-end-of-defun)
+	    (define-key python-mode-map (kbd "C-b") 'python-nav-backward-defun)
+	    (define-key python-mode-map (kbd "C-f") 'python-nav-forward-defun)
+	    (define-key python-mode-map (kbd "C-p") 'python-nav-backward-statement)
+	    (define-key python-mode-map (kbd "C-n") 'python-nav-forward-statement)
 	    (define-key python-mode-map (kbd "C-M-b") 'python-nav-backward-sexp)
 	    (define-key python-mode-map (kbd "C-M-f") 'python-nav-forward-sexp)
 	    (define-key python-mode-map (kbd "C-M-u") 'python-nav-backward-up-list)
@@ -57,6 +57,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Development tools: Pymacs ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; TODO: experiment with features provided by `ein'
 
 ;; ;; Pymacs setup
 ;; (autoload 'pymacs-apply "pymacs")
