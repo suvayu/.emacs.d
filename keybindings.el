@@ -130,6 +130,10 @@
  "Search the kill ring in the minibuffer." t)
 (global-set-key (kbd "M-C-y") 'kill-ring-search)
 
+;; parallel kill ring, by Michael Heerdegen (see nifty.el)
+(advice-add 'yank :before #'sa-yank--before-ad)
+(global-set-key [(meta ?y)] #'sa-yank-pop)
+
 ;; context sensitive M-=
 (global-set-key (kbd "M-=") #'sa-calc-or-count)
 
