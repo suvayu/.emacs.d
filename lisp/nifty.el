@@ -431,14 +431,14 @@ function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
 
 ;; recursively find .org files in provided directory
 ;; modified from an Emacs Lisp Intro example
-(defun sa-find-org-file-recursively (directory &optional filext)
+(defun sa-find-org-file-recursively (&optional directory filext)
   "Return .org and .org_archive files recursively from DIRECTORY.
 If FILEXT is provided, return files with extension FILEXT instead."
-  ;; FIXME: interactively prompting for directory and file extension
+  (interactive "DDirectory: ")
   (let* (org-file-list
-	 (case-fold-search t)		; filesystems are case sensitive
-	 (file-name-regex "^[^.#].*")	; exclude .*
-	 (filext (if filext filext "org$\\\|org_archive"))
+	 (case-fold-search t)	      ; filesystems are case sensitive
+	 (file-name-regex "^[^.#].*") ; exclude dot, autosave, and backup files
+	 (filext (or filext "org$\\\|org_archive"))
 	 (fileregex (format "%s\\.\\(%s$\\)" file-name-regex filext))
 	 (cur-dir-list (directory-files directory t file-name-regex)))
     ;; loop over directory listing
