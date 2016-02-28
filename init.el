@@ -118,20 +118,6 @@
 ;; auto-complete
 (load-file "~/.emacs.d/ac-config.el")
 
-;; w3m key bindings
-(defun sa-w3m-mode-hook ()
-  "Set up some w3m tabbed browsing key bindings."
-  (define-key w3m-mode-map (kbd "<up>") 'previous-line)
-  (define-key w3m-mode-map (kbd "<down>") 'next-line)
-  (define-key w3m-mode-map (kbd "<left>") 'left-char)
-  (define-key w3m-mode-map (kbd "<right>") 'right-char)
-  (define-key w3m-mode-map (kbd "C-<tab>") 'w3m-next-buffer)
-  (define-key w3m-mode-map (kbd "C-<backtab>") 'w3m-previous-buffer)
-  (define-key w3m-mode-map (kbd "C-S-<iso-lefttab>") 'w3m-previous-buffer)
-  (define-key w3m-mode-map (kbd "s-<tab>") 'w3m-select-buffer)
-  (toggle-truncate-lines t))
-(add-hook 'w3m-mode-hook 'sa-w3m-mode-hook)
-
 ;; shell-script-mode customisations
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
@@ -139,9 +125,9 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on)
 
-;; ;; special buffers (obsolete, see `display-buffer-alist' instead)
-;; (setq special-display-buffer-names
-;;	 '("*grep*" "*tex-shell*" "*compilation*" "*find*"))
+;; NOTE: to customise behaviour of special buffers, see:
+;; `display-buffer-alist' & `display-buffer').  E.g. special buffers:
+;; '("*grep*" "*tex-shell*" "*compilation*" "*find*")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -152,19 +138,6 @@
 ;; (require 'help-mode+)
 ;; (require 'help+)
 ;; (require 'help-fns+)
-
-;; auto-install.el
-(autoload 'auto-install-from-emacswiki "auto-install"
-  "Install an elisp file from EmacsWiki.org." t)
-(autoload 'auto-install-from-url "auto-install"
-  "Install an elisp file from a given url." t)
-;; auto-install settings (not in vanilla Emacs)
-(eval-after-load 'auto-install
-  (setq auto-install-directory "~/.emacs.d/lisp/"))
-;; the "/" at the end of the path is absolutely essential,
-;; otherwise the elisp files are saved as lisp*.el instead of lisp/*.el
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HEP specific modes ;;
