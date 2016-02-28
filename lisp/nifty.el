@@ -85,6 +85,38 @@ search except that your input is treated as a regexp"
 ;; Editing utilities ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Written by Michael Heerdegen, see:
+;; (notmuch-show "id:87d1x5lrvw.fsf@web.de")
+(defun sa-yank-reset-yank-pointer ()
+  (unless (eq last-command #'yank)
+    (setq kill-ring-yank-pointer kill-ring)))
+
+(defun sa-yank--before-ad (&rest _args)
+  "Before advice function for `yank'.
+1. avoid persistent change of kill-ring-yank-pointer after
+`yank-pop', and before next kill.
+2. For yank-pop, move the really yanked text at the beg of the
+kill ring."
+  (unless (eq kill-ring kill-ring-yank-pointer)
+    (let ((last-yank (car kill-ring-yank-pointer)))
+      (when last-yank
+        (setq kill-ring (cons last-yank (delete last-yank kill-ring)))
+        (sa-yank-reset-yank-pointer)))))
+
+(defun sa-yank-pop ()
+  (interactive)
+  (if (eq last-command 'yank)
+      (call-interactively #'yank-pop)
+    (rotate-yank-pointer 1)
+    (yank)))
+
+;; from the Emacs wiki
+(defun unfill-region (beg end)
+  "Unfill the region."
+  (interactive "*r")
+  (let ((fill-column (point-max)))
+    (fill-region beg end)))
+
 (defun sa-transpose-lines (arg)
   "More intuitive `transpose-lines'.  `arg' number of lines are
 \"dragged\" up.  If `arg' is -ve, they are dragged down instead.
