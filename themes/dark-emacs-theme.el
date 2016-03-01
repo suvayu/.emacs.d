@@ -102,7 +102,7 @@
  '(info-xref-visited ((t (:foreground "violet" :underline t :weight bold))))
  '(italic ((((supports :slant italic))
 	    (:slant italic :foreground "blanched almond" :inherit default))
-	   (((type tty)) (:foreground "blanched almond" :inherit default))))
+	   (((type tty)) (:slant normal :foreground "blanched almond" :inherit default))))
  '(link ((t (:foreground "cyan" :underline t :weight extra-bold))))
  '(link-visited ((t (:foreground "violet" :inherit link))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
