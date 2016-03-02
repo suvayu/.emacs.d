@@ -7,11 +7,14 @@
 (add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
 
 ;; flycheck
-(setq flycheck-clang-language-standard "c++11" ; FIXME: probably breaks C mode
-      flycheck-clang-include-path '("/usr/include/root")
-      flycheck-gcc-language-standard "c++11"   ; FIXME: probably breaks C mode
-      flycheck-gcc-include-path '("/usr/include/root")
-      )
+(add-hook 'c++-mode-hook
+	  (lambda ()
+	    ;; NOTE: *-language-standard: when set globally, breaks C mode
+	    (setq flycheck-clang-language-standard "c++11"
+		  flycheck-clang-include-path '("/usr/include/root")
+		  flycheck-gcc-language-standard "c++11"
+		  flycheck-gcc-include-path '("/usr/include/root")
+		  )))
 
 ;; semantic
 (setq root-include (let ((rootsys (getenv "ROOTSYS")))
