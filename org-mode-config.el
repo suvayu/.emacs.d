@@ -7,7 +7,8 @@
 (require 'ox-beamer)
 (require 'ox-html)
 (require 'ox-koma-letter)
-;; (require 'ox-odt)
+(require 'ox-md)
+(require 'ox-odt)
 ;; (require 'ox-groff)
 ;; (require 'ox-man)   ; NB: customise org-man-pdf-process
 ;; (require 'ox-texinfo)
@@ -15,6 +16,7 @@
 
 ;; links to notmuch emails in org
 (require 'org-notmuch)
+(require 'org-link-travis)
 
 ;; (require 'org-man)
 (require 'org-occur-goto)
