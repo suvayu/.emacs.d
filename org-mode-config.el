@@ -182,10 +182,12 @@
 ;; (add-to-list 'org-latex-packages-alist '("" "minted"))
 
 
-(setq org-latex-pdf-process ; -shell-escape needed for minted
-      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+(setq org-latex-compiler "xelatex"
+      org-latex-bib-compiler "biber"
+      org-latex-pdf-process ; -shell-escape needed for minted
+      '("%latex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"%latex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"%latex -shell-escape -interaction nonstopmode -output-directory %o %f")
       ;; org-latex-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f") ; historical
       ;; TODO: maybe use arara, that probably requires export changes
       )
