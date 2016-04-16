@@ -3,6 +3,9 @@
 
 ;;; Code: C++ customisations
 
+;; associate arduino sketches to c-mode
+(add-to-list 'auto-mode-alist (cons "\\.ino\\'" 'c++-mode))
+
 ;; force `c++-mode' for `*.h' header files
 (add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
 

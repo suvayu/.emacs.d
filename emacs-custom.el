@@ -133,6 +133,7 @@
      ("new"))))
  '(occur-mode-hook (quote (turn-on-font-lock next-error-follow-minor-mode)))
  '(org-export-backends (quote (ascii beamer html latex org)))
+ '(org-link-travis/user-name "suvayu")
  '(org-notmuch-open-function (quote org-notmuch-follow-link))
  '(org-notmuch-search-open-function (quote org-notmuch-tree-follow-link))
  '(package-archives
@@ -147,7 +148,8 @@
  '(read-buffer-completion-ignore-case t)
  '(safe-local-variable-values
    (quote
-    ((local-abbrev-table . latex-mode-abbrev-table)
+    ((flycheck-gcc-include-path . ".")
+     (local-abbrev-table . latex-mode-abbrev-table)
      (org-latex-to-pdf-process "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f")
      (default-input-method . TeX)
      (org-export-allow-BIND . t))))
@@ -171,7 +173,7 @@
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
- '(user-mail-address "Suvayu.Ali@cern.ch")
+ '(user-mail-address "fatkasuvayu+linux@gmail.com")
  '(vc-handled-backends (quote (Git RCS CVS SVN Bzr Hg)))
  '(w3m-use-cookies t)
  '(wget-download-directory "~/dloads")
