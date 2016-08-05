@@ -1,6 +1,8 @@
-;; -*- mode: emacs-lisp; -*-
-;;; vc-config.el
+;;; vc-config.el --- Version control configuration
 
+;;; Commentary:
+
+;;; Code:
 ;; ;; light weight additions and remapping to vc-git (ELPA)
 ;; (load-library "gitty")
 
@@ -29,6 +31,17 @@
 	       (>= (nth 3 git-version) 2)))
       (progn
 	(require 'magit)
+
+	(defun sa-magit-log (files &optional long)
+	  "My Magit log function.
+
+FILES are passed on as is, when LONG show a more verbose git log."
+	  (interactive "P")
+	  (magit-log-current nil
+			     (if (not long) '("--graph")
+			       '("--graph" "--format=medium" "--stat"))
+			     files))
+
 	(setq magit-last-seen-setup-instructions "1.4.0") ;seen auto-revert msg
 	(define-key magit-log-mode-map (kbd "TAB") 'magit-goto-next-section)
 	(define-key magit-log-mode-map (kbd "<backtab>") 'magit-goto-previous-section)
@@ -36,13 +49,14 @@
 	(global-set-key (kbd "C-x v s") 'magit-status)
 	(global-set-key (kbd "C-x v d") 'magit-diff-unstaged)
 	(global-set-key (kbd "C-x v D") 'magit-diff-staged)
-	(global-set-key (kbd "C-x v l") 'magit-file-log)
-	(global-set-key (kbd "C-x v L")
-			(lambda (&optional arg)
-			  "With prefix `magit-log-long', `magit-log' w/o."
+	(global-set-key (kbd "C-x v l")
+			(lambda (&optional long)
 			  (interactive "P")
-			  (if arg (magit-log-long)
-			    (magit-log))))
+			  (sa-magit-log nil long)))
+	(global-set-key (kbd "C-x v L")
+			(lambda (&optional long)
+			  (interactive "P")
+			  (sa-magit-log (list (buffer-file-name)) long)))
 	;; A better binding might be
 	;; - file log: l - short, L - long (don't know how to get this)
 	;; - with prefix, repo log: same
