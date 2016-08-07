@@ -140,6 +140,17 @@
 
 (require 'smartparens-config)
 (smartparens-global-mode 1)
+;; change `sp-smartparens-bindings' defaults
+(define-key sp-keymap '[(C-right)] nil)
+(define-key sp-keymap '[(C-left)] nil)
+; (loop for key in '('[(C-left)] '[(C-right)]) do (define-key sp-keymap key nil))
+(defhydra hydra-sp (sp-keymap "C-c")
+  "Smartparens slurp/barf fwd/bwd"
+  ("<right>" sp-forward-slurp-sexp "slurp forward")
+  ("<left>" sp-backward-slurp-sexp "slurp backward")
+  ("C-<left>" sp-forward-barf-sexp "barf forward")
+  ("C-<right>" sp-backward-barf-sexp "barf backward")
+  ("q" nil "quit"))
 
 ;; ;; FIXME:
 ;; (defadvice isearch-yank-kill
