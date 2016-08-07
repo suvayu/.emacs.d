@@ -1,5 +1,6 @@
-;; -*- mode: emacs-lisp -*-
-;;; keybindings.el --- on bhishma
+;;; keybindings.el --- my keybindings
+
+;;; Commentary:
 
 ;;; Code:
 (require 'nifty)
@@ -31,7 +32,7 @@
 (global-set-key [f9] 'neotree-toggle)
 
 ;; navigate frames
-(defhydra hydra-frame-nav (global-map "C-x")
+(defhydra hydra-framenav (global-map "C-x")
   "frame-nav"
   ("C-<left>" (other-frame -1) "prev")
   ("C-<right>" (other-frame 1) "next")
@@ -49,7 +50,7 @@
   ("q" nil "quit"))
 
 ;; navigate flycheck errors w/ hydra
-(defhydra hydra-flycerr (global-map "C-c !")
+(defhydra hydra-flycerr (flycheck-command-map "C-c !")
   "goto-flycheck-error"
   ;; ("<right>" flycheck-next-error "next")
   ;; ("<left>" flycheck-previous-error "prev")
@@ -99,15 +100,15 @@
 (global-set-key (kbd "C-c M-k") 'kill-paragraph)
 
 ;; transpose-* keybindings
-(defhydra hydra-drag-paras (global-map "C-x")
-  "drag-paragraphs"
+(defhydra hydra-paras (global-map "C-x")
+  "\"drag\" paragraphs"
   ("M-}" transpose-paragraphs "down")
   ("M-{" (progn
 	   (transpose-paragraphs -1)
 	   (backward-paragraph)) "up")
   ("q" nil "quit"))
 
-;; (defhydra hydra-drag-lines (global-map "C-x")
+;; (defhydra hydra-lines (global-map "C-x")
 ;;   "drag-lines"
 ;;   ("C-<up>" sa-transpose-lines-up "up")
 ;;   ("C-<down>" sa-transpose-lines-down "down")
@@ -156,13 +157,14 @@
 ;;; Abbreviations customisations
 ;; expand abbrevs in context
 (defun sa-expand-abbrev-in-context (expand)
-  "Expands abbreviations according to the context. Determines
-whether within comments or source by looking at the face name. If
-within comments the `basic-text-mode-abbrev-table' is used, the
-major mode abbrev-table is used otherwise.
+  "Expands the abbreviation EXPAND according to the context.
 
-Expansion is done by the function passed as the argument. This is
-controlled by the \"abnormal\" hook `abbrev-expand-functions'."
+Determines whether within comments or source by looking at the
+face name.  If within comments the `basic-text-mode-abbrev-table'
+is used, the major mode abbrev-table is used otherwise.
+
+Expansion is done by the function passed as the argument.  This
+is controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 ;; backward-char checks if end-of-buffer as when point at e-o-b face is `nil'
 ;; the function call expand does the expansion, usually `expand-abbrev'
   (if (save-excursion
@@ -216,3 +218,5 @@ controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 	  (lambda ()
 	    (local-set-key (kbd "<down>") 'next-line)
 	    (local-set-key (kbd "<up>") 'previous-line)))
+
+;;; keybindings.el ends here
