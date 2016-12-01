@@ -70,3 +70,6 @@
 [submodule "org-link-travis"]
 	path = org-link-travis
 	url = git@github.com:aki2o/org-link-travis.git
+[submodule "with-editor"]
+	path = with-editor
+	url = git@github.com:magit/with-editor.git
