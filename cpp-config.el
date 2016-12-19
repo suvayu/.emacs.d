@@ -13,9 +13,9 @@
 (add-hook 'c++-mode-hook
 	  (lambda ()
 	    ;; NOTE: *-language-standard: when set globally, breaks C mode
-	    (setq flycheck-clang-language-standard "c++11"
+	    (setq flycheck-clang-language-standard "c++17"
 		  flycheck-clang-include-path '("/usr/include/root")
-		  flycheck-gcc-language-standard "c++11"
+		  flycheck-gcc-language-standard "c++17"
 		  flycheck-gcc-include-path '("/usr/include/root")
 		  )))
 
