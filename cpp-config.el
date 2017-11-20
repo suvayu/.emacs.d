@@ -83,3 +83,7 @@
 	    ;; (define-key c-mode-base-map (kbd "C-c f") 'c++-for-skel)
 	    ;; (define-key c-mode-base-map (kbd "C-c i") 'c++-if-skel))
 	    ))
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

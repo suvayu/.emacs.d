@@ -231,3 +231,7 @@ is controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 	    (local-set-key (kbd "<up>") 'previous-line)))
 
 ;;; keybindings.el ends here
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

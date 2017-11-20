@@ -62,3 +62,7 @@
 	  (add-to-list 'ac-modes mode)
 	  (add-hook (intern (format "%s-hook" mode)) 'sa-ac-math-unicode))
 	'(text-mode message-mode org-mode))
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

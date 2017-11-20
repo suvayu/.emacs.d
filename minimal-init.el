@@ -42,3 +42,7 @@
 
 ;; lazy-bones
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

@@ -72,3 +72,7 @@
 ;; ;; Rope setup
 ;; (pymacs-load "ropemacs" "rope-")
 ;; (setq ropemacs-enable-autoimport t)
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

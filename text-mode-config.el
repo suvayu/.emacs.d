@@ -1,4 +1,3 @@
-;; -*- mode: emacs-lisp -*-
 ;;; text-mode-settings.el --- settings and customisations for `text-mode'.
 
 ;;; Code:
@@ -36,3 +35,7 @@
 ;; (add-hook 'muse-mode-hook 'sa-text-mode-hook)
 
 ;;; text-mode-settings.el ends here
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

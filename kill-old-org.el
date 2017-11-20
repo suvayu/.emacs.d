@@ -19,3 +19,7 @@
 			     (unintern s)))))))
 
 ;; we should now start from a clean slate
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

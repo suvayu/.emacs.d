@@ -28,3 +28,7 @@
 
 ;; read emails with notmuch
 (require 'notmuch)
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

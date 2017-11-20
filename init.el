@@ -129,15 +129,8 @@
 ;; `display-buffer-alist' & `display-buffer').  E.g. special buffers:
 ;; '("*grep*" "*tex-shell*" "*compilation*" "*find*")
 
+;;; init.el ends here
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Additional libraries ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; ;; help enhancements by Drew Adams
-;; (require 'help-mode+)
-;; (require 'help+)
-;; (require 'help-fns+)
-
-
-;;; .emacs ends here
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

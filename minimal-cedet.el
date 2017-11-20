@@ -17,3 +17,7 @@
 (semantic-mode 1)
 
 ;;; minimal-cedet.el ends here
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

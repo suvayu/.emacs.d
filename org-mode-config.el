@@ -637,3 +637,7 @@ otherwise move to next headline."
 
 
 ;;; org-mode-settings.el ends here
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

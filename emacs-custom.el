@@ -1,7 +1,8 @@
-;; -*- mode: emacs-lisp -*-
-;;; Emacs custom file
+;;; emacs-custom.el --- custom file
 
-;; faces
+;;; Commentary:
+
+;;; Code:
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -178,3 +179,9 @@
  '(w3m-use-cookies t)
  '(wget-download-directory "~/dloads")
  '(windmove-wrap-around t))
+
+;;; emacs-custom.el ends here
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

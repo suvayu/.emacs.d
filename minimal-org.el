@@ -34,3 +34,7 @@
 	       ("\\section\{%s\}" . "\\section*\{%s\}")
 	       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
 	       ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:

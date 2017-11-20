@@ -14,3 +14,7 @@
 (load-file "~/.emacs.d/keybindings.el")
 (load-file "~/.emacs.d/text-mode-config.el")
 (load-file "~/.emacs.d/email-config.el")
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:
