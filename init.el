@@ -20,9 +20,13 @@
 ;;; Load development CEDET
 (load-file "~/.emacs.d/lisp/cedet/cedet-devel-load.el")
 
+;; disable semantic in all non C/C++ buffers
+(add-to-list 'semantic-inhibit-functions
+	     (lambda () (not (member major-mode '(c-mode c++-mode)))))
+
+;; `semantic-idle-scheduler-idle-time' is set to 3 secs in customize
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
-(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
 
 ;; Emacs C source directory
 (setq find-function-C-source-directory "~/build/emacs/src")

@@ -25,10 +25,6 @@
 		       "/usr/include/root")))
 (semantic-add-system-include root-include 'c++-mode)
 
-;; disable semantic in all non C/C++ buffers
-(add-to-list 'semantic-inhibit-functions
-	     (lambda () (not (member major-mode '(c-mode c++-mode)))))
-
 (add-hook 'c-mode-common-hook
 	  (lambda ()
 	    (flycheck-mode 1)
