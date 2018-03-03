@@ -65,3 +65,7 @@ FILES are passed on as is, when LONG show a more verbose git log."
 	;; (add-hook 'magit-status-mode-hook 'magit-filenotify-mode)
 
 	(require 'magit-blame))))
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:
