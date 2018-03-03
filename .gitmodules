@@ -52,9 +52,6 @@
 [submodule "auto-complete-clang"]
 	path = auto-complete-clang
 	url = git@github.com:brianjcj/auto-complete-clang.git
-[submodule "undo-tree"]
-	path = undo-tree
-	url = http://www.dr-qubit.org/git/undo-tree.git
 [submodule "math-symbol-lists"]
 	path = math-symbol-lists
 	url = git@github.com:vspinu/math-symbol-lists.git
