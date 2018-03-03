@@ -59,7 +59,18 @@
 
 
 ;; ;; C/C++ language templates
-;; (require 'templates)		; skeletons and templates
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (load-library "yasnippet")))
+
+;; templates depend on mode
+(add-hook 'c-mode-hook
+	  (lambda ()
+	    (yas-minor-mode-on)))
+
+(add-hook 'c++-mode-hook
+	  (lambda ()
+	    (yas-minor-mode-on)))
 
 
 ;;; Keybindings
@@ -75,9 +86,6 @@
 	    (local-set-key "[" 'skeleton-pair-insert-maybe)
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
 	    ;; (c-toggle-auto-newline 1)
-	    ;; ;; keybindings for skeletons
-	    ;; (define-key c-mode-base-map (kbd "C-c f") 'c++-for-skel)
-	    ;; (define-key c-mode-base-map (kbd "C-c i") 'c++-if-skel))
 	    ))
 
 ;; Local Variables:
