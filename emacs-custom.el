@@ -142,7 +142,7 @@
      ("ELPA" . "http://tromey.com/elpa/")
      ("melpa" . "http://melpa.milkbox.net/packages/")))
  '(package-selected-packages
-   '(yasnippet yasnippet-snippets json-mode flycheck-scala-sbt sbt-mode scala-mode git-commit cython-mode flycheck-pos-tip lua-mode git-ps1-mode rich-minority neotree smartparens paredit rust-mode sx cmake-mode idomenu hydra flycheck cdlatex vlf kill-ring-search debbugs chess auctex ascii-art-to-unicode ac-dabbrev))
+   '(magit magit-filenotify magit-svn yasnippet yasnippet-snippets json-mode flycheck-scala-sbt sbt-mode scala-mode git-commit cython-mode flycheck-pos-tip lua-mode git-ps1-mode rich-minority neotree smartparens paredit rust-mode sx cmake-mode idomenu hydra flycheck cdlatex vlf kill-ring-search debbugs chess auctex ascii-art-to-unicode ac-dabbrev))
  '(printer-name "n2")
  '(read-buffer-completion-ignore-case t)
  '(safe-local-variable-values
