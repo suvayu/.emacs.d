@@ -53,6 +53,11 @@
 (autoload 'pylookup-update "pylookup"
   "Run pylookup-update and create the database at `pylookup-db-file'." t)
 
+(autoload 'cython-mode "cython-mode"
+  "Major mode for editing Cython files" t)
+(add-to-list 'auto-mode-alist (cons "\\.pyx\\'" 'cython-mode))
+(add-to-list 'auto-mode-alist (cons "\\.pxd\\'" 'cython-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Development tools: Pymacs ;;
