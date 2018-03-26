@@ -17,7 +17,7 @@
 ;; mode to edit git commit message
 (autoload 'git-commit-mode "git-commit"
   "Major mode for editing git commit messages." t)
-(add-hook 'git-commit-mode-hook (lambda () (orgstruct++-mode t)))
+;; (add-hook 'git-commit-mode-hook (lambda () (orgstruct-mode t)))
 
 ;; load magit only when git version >= 1.7.2
 (let ((git-version (shell-command-to-string "git --version")))

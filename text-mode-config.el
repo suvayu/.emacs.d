@@ -21,8 +21,6 @@
   (unless (or (eq major-mode 'org-mode) (eq major-mode 'latex-mode))
     ;; turn on orgtbl minor mode
     (orgtbl-mode t)
-    ;; turn on enhanced orgstruct minor mode
-    (orgstruct-mode t)
     ;; keybinding for footnotes
     (local-set-key (kbd "C-c f") 'org-footnote-action)
     ;; line folding w/o actually folding it
