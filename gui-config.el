@@ -1,3 +1,8 @@
+;;; gui-config.el --- Emacs GUI config
+
+;;; Commentary:
+
+;;; Code:
 ;; hostname and buffer-name in frame title
 ;; code originally written by Michael Albinus
 ;; and a post in emacs-fu.blogspot.com (dotemacs trickery)
@@ -22,26 +27,36 @@
 (require 'rich-minority)
 (rich-minority-mode t)
 (setf rm-blacklist
-      " \\(Undo-Tree\\|Abbrev\\|min\\|SP\\|FlyC.+\\|ElDoc\\|AC\\|Server\\)")
+      " \\(Undo-Tree\\|Abbrev\\|min\\|SP\\|FlyC.*\\|ElDoc\\|AC\\|Server\\)")
 
 
 ;; window opacity utilities
 (require 'nifty)
 
- ;; C-+ will increase opacity (== decrease transparency)
+;; C-+ will increase opacity (== decrease transparency)
 (global-set-key (kbd "C-=")
 		'(lambda()
 		   (interactive)
 		   (sa-opacity-modify)))
 
- ;; C-- will decrease opacity (== increase transparency
+;; C-- will decrease opacity (== increase transparency
 (global-set-key (kbd "C--")
 		'(lambda()
 		   (interactive)
 		   (sa-opacity-modify t)))
 
- ;; C-0 will returns the state to normal
+;; C-0 will returns the state to normal
 (global-set-key (kbd "C-0")
 		'(lambda()
 		   (interactive)
 		   (modify-frame-parameters nil `((alpha . 100)))))
+
+;; accessibility
+(global-set-key '[(C-mouse-4)] 'text-scale-increase) ; scroll up
+(global-set-key '[(C-mouse-5)] 'text-scale-decrease) ; scroll down
+
+;;; gui-config.el ends here
+
+;; Local Variables:
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:
