@@ -2,6 +2,7 @@
 ;;; email-comfig.el --- on bhishma
 
 ;;; Code:
+(require 'orgalist)
 
 ;; File associations (email)
 (add-to-list 'auto-mode-alist '("/tmp/neomutt-" . message-mode)) ; mutt
@@ -16,6 +17,7 @@
 	  (lambda ()
 	    ;; turn off automatic filling
 	    (auto-fill-mode -1)
+	    (orgalist-mode t)
 	    (flyspell-mode 1)
 	    ;; see FAQ:
 	    ;; http://auto-complete.org/doc/manual.html#flyspell-mode-bug

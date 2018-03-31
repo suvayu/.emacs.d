@@ -1,6 +1,7 @@
 ;;; text-mode-settings.el --- settings and customisations for `text-mode'.
 
 ;;; Code:
+(require 'orgalist)
 
 ;; plain text footnotes in non-org-mode buffers
 (defadvice org-footnote-action
@@ -21,6 +22,7 @@
   (unless (or (eq major-mode 'org-mode) (eq major-mode 'latex-mode))
     ;; turn on orgtbl minor mode
     (orgtbl-mode t)
+    (orgalist-mode t)
     ;; keybinding for footnotes
     (local-set-key (kbd "C-c f") 'org-footnote-action)
     ;; line folding w/o actually folding it

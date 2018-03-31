@@ -5,6 +5,7 @@
 ;;; Code:
 ;; ;; light weight additions and remapping to vc-git (ELPA)
 ;; (load-library "gitty")
+(require 'orgalist)
 
 ;; auto-revert-mode for files under version control
 (add-hook 'find-file-hook
@@ -17,7 +18,7 @@
 ;; mode to edit git commit message
 (autoload 'git-commit-mode "git-commit"
   "Major mode for editing git commit messages." t)
-;; (add-hook 'git-commit-mode-hook (lambda () (orgstruct-mode t)))
+(add-hook 'git-commit-mode-hook (lambda () (orgalist-mode t)))
 
 ;; load magit only when git version >= 1.7.2
 (let ((git-version (shell-command-to-string "git --version")))
