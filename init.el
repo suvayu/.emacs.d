@@ -17,12 +17,13 @@
 (load-file "~/.emacs.d/kill-old-org.el")
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 
-;;; Load development CEDET
-(load-file "~/.emacs.d/lisp/cedet/cedet-devel-load.el")
+(semantic-mode)
 
 ;; disable semantic in all non C/C++ buffers
-(add-to-list 'semantic-inhibit-functions
-	     (lambda () (not (member major-mode '(c-mode c++-mode)))))
+(setq semantic-new-buffer-setup-functions
+      (let ((my-modes '(c-mode c++-mode python-mode)))
+	(remove-if-not (lambda (el) (member (car el) my-modes))
+		       semantic-new-buffer-setup-functions)))
 
 ;; `semantic-idle-scheduler-idle-time' is set to 3 secs in customize
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
