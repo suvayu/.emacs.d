@@ -1,5 +1,6 @@
-;; -*- mode: emacs-lisp -*-
-;;; .emacs --- my uber kewl .emacs on kuru
+;;; init.el --- my uber kewl init.el
+
+;;; Commentary:
 
 ;;; Code:
 (setq debug-on-error t)
@@ -7,10 +8,9 @@
       ;; debug-on-quit t)
 
 ;; set PATH to use standalone texlive instead
-(setenv "PATH" "/opt/texlive/2015/bin/x86_64-linux:$PATH" t)
+(setenv "PATH" "/opt/texlive/2017/bin/x86_64-linux:$PATH" t)
 
 ;; load path for elisp files
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/lhcb"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
 ;; kill old org before adding new org path
@@ -35,7 +35,6 @@
 ;; load custom file
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (load-file custom-file)
-(package-initialize)
 
 ;; turn on ibuffer by default
 (progn (ibuffer) (switch-to-buffer "*scratch*"))
@@ -113,6 +112,8 @@
 
 ;; Lisp/Elisp customisations
 (defun sa-lisp-mode-hook ()
+  "Emacs list mode hook."
+  ;; (paredit-mode t)
   (eldoc-mode t))
 (add-hook 'lisp-mode-hook 'sa-lisp-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'sa-lisp-mode-hook)
