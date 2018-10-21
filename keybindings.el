@@ -20,7 +20,7 @@
 ;; FIXME: find alternate for C-z
 ;; (define-key global-map (kbd "C-z") 'sa-map)
 
-;; sexp movement (defaults commented out)
+;; sexp movement (defaults commented out), overruled by smartparens
 ;; (global-set-key (kbd "C-M-n") 'forward-list)
 ;; (global-set-key (kbd "C-M-p") 'backward-list)
 ;; (global-set-key (kbd "C-M-d") 'down-list)
@@ -39,24 +39,13 @@
   ("q" nil "quit"))
 
 ;; navigate errors w/ hydra
+;; see flyc-config.el for flycheck error navigation
 (define-key global-map (kbd "M-g /") 'first-error) ; mnemonic: `?'
 (defhydra hydra-error (global-map "M-g")
   "goto-error"
   ("." first-error "first")
-  ;; ("<right>" next-error "next")
-  ;; ("<left>" previous-error "prev")
   ("<down>" next-error "next")
   ("<up>" previous-error "prev")
-  ("q" nil "quit"))
-
-;; navigate flycheck errors w/ hydra
-(defhydra hydra-flycerr (flycheck-command-map "C-c !")
-  "goto-flycheck-error"
-  ;; ("<right>" flycheck-next-error "next")
-  ;; ("<left>" flycheck-previous-error "prev")
-  ("<down>" flycheck-next-error "next")
-  ("<up>" flycheck-previous-error "prev")
-  ("<space>" flycheck-list-errors "list")
   ("q" nil "quit"))
 
 ;; minibuffer history completion
@@ -81,9 +70,6 @@
 (global-set-key (kbd "M-s C-M-r") 'sa-isearch-backward-regexp-other-window)
 ;; NB: C-c C-s was bound to (c-show-syntactic-information ARG) in c-mode
 
-(global-set-key '[(C-mouse-4)] 'text-scale-increase) ; scroll up
-(global-set-key '[(C-mouse-5)] 'text-scale-decrease) ; scroll down
-
 
 ;;; Editing
 ;; prefer utf-8
@@ -101,18 +87,14 @@
 
 ;; transpose-* keybindings
 (defhydra hydra-paras (global-map "C-x")
-  "\"drag\" paragraphs"
+  "drag-paras"
   ("M-}" transpose-paragraphs "down")
   ("M-{" (progn
 	   (transpose-paragraphs -1)
 	   (backward-paragraph)) "up")
   ("q" nil "quit"))
 
-;; (defhydra hydra-lines (global-map "C-x")
-;;   "drag-lines"
-;;   ("C-<up>" sa-transpose-lines-up "up")
-;;   ("C-<down>" sa-transpose-lines-down "down")
-;;   ("q" nil "quit"))
+;; drag lines
 (global-set-key (kbd "C-x C-<up>") 'sa-transpose-lines-up)
 (global-set-key (kbd "C-x C-<down>") 'sa-transpose-lines-down)
 (global-set-key (kbd "C-<up>") 'sa-backward-paragraph)
@@ -141,11 +123,11 @@
 (require 'smartparens-config)
 (smartparens-global-mode 1)
 ;; change `sp-smartparens-bindings' defaults
-(define-key sp-keymap '[(C-right)] nil)
-(define-key sp-keymap '[(C-left)] nil)
+(define-key sp-keymap (kbd "C-<right>") nil)
+(define-key sp-keymap (kbd "C-<left>") nil)
 ; (loop for key in '('[(C-left)] '[(C-right)]) do (define-key sp-keymap key nil))
 (defhydra hydra-sp (sp-keymap "C-c")
-  "Smartparens slurp/barf fwd/bwd"
+  "sp-slurp/barf-fwd/bkwd"
   ("<right>" sp-forward-slurp-sexp "slurp forward")
   ("<left>" sp-backward-slurp-sexp "slurp backward")
   ("C-<left>" sp-forward-barf-sexp "barf forward")
