@@ -124,6 +124,9 @@
 ;; auto-complete
 (load-file "~/.emacs.d/ac-config.el")
 
+;; Flycheck
+(load-file "~/.emacs.d/flyc-config.el")
+
 ;; shell-script-mode customisations
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
