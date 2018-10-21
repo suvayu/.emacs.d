@@ -60,9 +60,9 @@
       org-link-abbrev-alist
       '(("gmane" . "http://thread.gmane.org/%s")
 	("google" . "https://www.google.com/search?q=%s")
-	("arxiv" . "http://arxiv.org/abs/%s")
+	("arxiv" . "https://arxiv.org/abs/%s")
 	("cds" . "https://cds.cern.ch/record/%s")
-	("doi" . "http://dx.doi.org/%s"))
+	("doi" . "https://dx.doi.org/%s"))
       ;; log time for TODO state changes
       org-log-done 'time
       ;; log time on rescheduling and changing deadlines
@@ -182,8 +182,8 @@
 (add-to-list 'org-latex-packages-alist "\\MakeRobustCommand\\end" t)
 (add-to-list 'org-latex-packages-alist "\\MakeRobustCommand\\item" t)
 
-;; ;; for code block export with minted.sty and python program pygmentize
-;; (setq org-latex-listings 'minted)
+;; for code block export with minted.sty and python program pygmentize
+(setq org-latex-listings 'minted)
 ;; (add-to-list 'org-latex-packages-alist '("" "minted"))
 
 
