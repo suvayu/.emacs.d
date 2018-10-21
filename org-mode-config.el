@@ -33,13 +33,13 @@
 ;; variable customisations (excluding export and templates)
 (setq org-agenda-current-time-string "- - - NOW! - - -"
       org-agenda-files '("~/org")
-      ;; List of extra files to be searched by text search commands.
-      org-agenda-text-search-extra-files
-      (append '(agenda-archives)	; archived agenda files
-	      (sa-find-org-file-recursively "~/org/HEP" "org")
-	      (sa-find-org-file-recursively "~/org/LHCb-Bs2Dsh" "org")
-	      (sa-find-org-file-recursively "~/org/LHCb-Velo" "org")
-	      )
+      ;; ;; List of extra files to be searched by text search commands.
+      ;; org-agenda-text-search-extra-files
+      ;; (append '(agenda-archives)	; archived agenda files
+      ;; 	      (sa-find-org-file-recursively "~/org/data-an" "org")
+      ;; 	      (sa-find-org-file-recursively "~/org/electronics" "org")
+      ;; 	      (sa-find-org-file-recursively "~/org/health-care" "org")
+      ;; 	      )
       org-agenda-time-grid '((daily today)
 			     "----------------"
 			     (800 1000 1200 1400 1600 1800 2000))
@@ -92,29 +92,34 @@
       )
 
 
-;; lowercase easy templates
-(setcdr (assoc "s" org-structure-template-alist)
-	'("#+begin_src ?\n\n#+end_src" "<src lang=\"?\">\n\n</src>"))
-(setcdr (assoc "e" org-structure-template-alist)
-	'("#+begin_example\n?\n#+end_example" "<example>\n?\n</example>"))
-(setcdr (assoc "q" org-structure-template-alist)
-	'("#+begin_quote\n?\n#+end_quote" "<quote>\n?\n</quote>"))
-(setcdr (assoc "v" org-structure-template-alist)
-	'("#+begin_verse\n?\n#+end_verse" "<verse>\n?\n</verse>"))
-(setcdr (assoc "c" org-structure-template-alist)
-	'("#+begin_center\n?\n#+end_center" "<center>\n?\n</center>"))
-(setcdr (assoc "l" org-structure-template-alist)
-	'("#+begin_latex\n?\n#+end_latex"
-         "<literal style=\"latex\">\n?\n</literal>"))
-(setcdr (assoc "h" org-structure-template-alist)
-	'("#+begin_html\n?\n#+end_html"
-         "<literal style=\"html\">\n?\n</literal>"))
-(setcdr (assoc "a" org-structure-template-alist)
-	'("#+begin_ascii\n?\n#+end_ascii"))
+;; ;; lowercase easy templates
+;; (setcdr (assoc "s" org-structure-template-alist)
+;; 	'("#+begin_src ?\n\n#+end_src" "<src lang=\"?\">\n\n</src>"))
+;; (setcdr (assoc "e" org-structure-template-alist)
+;; 	'("#+begin_example\n?\n#+end_example" "<example>\n?\n</example>"))
+;; (setcdr (assoc "q" org-structure-template-alist)
+;; 	'("#+begin_quote\n?\n#+end_quote" "<quote>\n?\n</quote>"))
+;; (setcdr (assoc "v" org-structure-template-alist)
+;; 	'("#+begin_verse\n?\n#+end_verse" "<verse>\n?\n</verse>"))
+;; (setcdr (assoc "c" org-structure-template-alist)
+;; 	'("#+begin_center\n?\n#+end_center" "<center>\n?\n</center>"))
+;; (setcdr (assoc "l" org-structure-template-alist)
+;; 	'("#+begin_export latex\n?\n#+end_export"
+;;          "<literal style=\"latex\">\n?\n</literal>"))
+;; (setcdr (assoc "h" org-structure-template-alist)
+;; 	'("#+begin_export html\n?\n#+end_export"
+;;          "<literal style=\"html\">\n?\n</literal>"))
+;; (setcdr (assoc "a" org-structure-template-alist)
+;; 	'("#+begin_export ascii\n?\n#+end_export"))
 
-;; easy templates special blocks in latex export
-(add-to-list 'org-structure-template-alist
-	     '("f" "#+begin_figure\n?\n#+end_figure" ""))
+;; FIXME: the variable format changed
+;; ;; easy templates special blocks in latex export
+;; (add-to-list 'org-structure-template-alist
+;; 	     '("f" "#+begin_figure\n?\n#+end_figure" ""))
+
+;; ;; easy template for a generic backend agnostic export block
+;; (add-to-list 'org-structure-template-alist
+;; 	     '("x" "#+begin_export ?\n#+end_export" ""))
 
 
 ;;; Export customisations
@@ -602,9 +607,9 @@ otherwise move to next headline."
   "My `org-mode' hook."
   (local-unset-key (kbd "C-c ["))	; add/remove agenda files
   (local-unset-key (kbd "C-c ]"))
-  (flyspell-mode t)
-  ;; see: http://auto-complete.org/doc/manual.html#flyspell-mode-bug
-  (ac-flyspell-workaround)
+  ;; (flyspell-mode t)
+  ;; ;; see: http://auto-complete.org/doc/manual.html#flyspell-mode-bug
+  ;; (ac-flyspell-workaround)
   ;; line folding w/o actually folding it, use `M-q' to wrap.
   (visual-line-mode t)
   ;; imenu for org-mode buffers
