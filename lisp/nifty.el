@@ -1,18 +1,18 @@
-;; -*- mode: emacs-lisp; -*-
-;;
-;; This file contains some nifty lisp functions I wrote for my
+;;; nifty --- nifty lisp functions for convenience.
+
+;;; Commentary:
+;; This file contains some nifty Lisp functions I wrote for my
 ;; convenience or I got it from somewhere (credited).
 
+;;; Code:
+(require 'org)
+(require 'notmuch)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Navigation utilities ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; isearch wrappers to search in other window
+;;; Navigation utilities
+;; isearch wrappers to search in other window
 ;; Source: http://www.unixuser.org/~ysjj/emacs/lisp/misc-funcs.el
 (defun sa-isearch-backward-other-window (arg)
-  "Do incremental search backward on the ARG'th different window
-of this frame."
+  "Incrementally search backward the ARG'th window of this frame."
   (interactive "p")
   (save-excursion
     (other-window arg)
@@ -20,8 +20,7 @@ of this frame."
     (other-window (- arg))))
 
 (defun sa-isearch-forward-other-window (arg)
-  "Do incremental search forward on the ARG'th different window
-of this frame."
+  "Do incremental search forward the ARG'th window of this frame."
   (interactive "p")
   (save-excursion
     (other-window arg)
@@ -29,9 +28,7 @@ of this frame."
     (other-window (- arg))))
 
 (defun sa-isearch-backward-regexp-other-window (arg)
-  "Do incremental search backward for regular expression on the
-ARG'th different window of this frame.  Like ordinary incremental
-search except that your input is treated as a regexp"
+  "Incrementally search regex backward the ARG'th window of this frame."
   (interactive "p")
   (save-excursion
     (other-window arg)
@@ -39,9 +36,7 @@ search except that your input is treated as a regexp"
     (other-window (- arg))))
 
 (defun sa-isearch-forward-regexp-other-window (arg)
-  "Do incremental search forward for regular expression on the
-ARG'th different window of this frame.  Like ordinary incremental
-search except that your input is treated as a regexp"
+  "Incrementally search regex forward the ARG'th window of this frame."
   (interactive "p")
   (save-excursion
     (other-window arg)
@@ -53,7 +48,7 @@ search except that your input is treated as a regexp"
 ;; (uniquify-item-buffer
 ;;  (uniquify-make-item (buffer-name) default-directory indirect-buffer))
 (defun sa-make-indirect-buffer ()
-  "Make indirect buffer to current buffer and switch to it."
+  "Make indirect buffer for the current buffer and switch to it."
   (interactive)
   (let ((ibuf (make-indirect-buffer
 	       (current-buffer)
@@ -61,7 +56,7 @@ search except that your input is treated as a regexp"
     (switch-to-buffer ibuf)))
 
 (defun sa-switch-buffers (&optional relposn)
-  "Interchange (or switch) buffers with window `relposn' (default 1)."
+  "Interchange buffers with window `RELPOSN' (default 1)."
   (interactive "^p")
   (let* ((this-buf (window-buffer))
 	 (this-win (get-buffer-window this-buf))
@@ -75,7 +70,8 @@ search except that your input is treated as a regexp"
     (select-window this-win)))
 
 (defun sa-vc-wdiff (&optional historic not-urgent)
-  "Use `vc-diff' in word diff mode."
+  "Use `vc-diff' in word diff mode.
+`HISTORIC' and `NOT-URGENT' are passed on to `vc-diff'."
   (interactive)
   (let ((vc-git-diff-switches (list "--word-diff")))
     (vc-diff historic not-urgent)))
@@ -88,15 +84,15 @@ search except that your input is treated as a regexp"
 ;; Written by Michael Heerdegen, see:
 ;; (notmuch-show "id:87d1x5lrvw.fsf@web.de")
 (defun sa-yank-reset-yank-pointer ()
+  "Reset `kill-ring-yank-pointer'."
   (unless (eq last-command #'yank)
     (setq kill-ring-yank-pointer kill-ring)))
 
 (defun sa-yank--before-ad (&rest _args)
   "Before advice function for `yank'.
-1. avoid persistent change of kill-ring-yank-pointer after
+1. Avoid persistent change of `kill-ring-yank-pointer' after
 `yank-pop', and before next kill.
-2. For yank-pop, move the really yanked text at the beg of the
-kill ring."
+2. For `yank-pop', move yanked text to the beginning of the kill ring."
   (unless (eq kill-ring kill-ring-yank-pointer)
     (let ((last-yank (car kill-ring-yank-pointer)))
       (when last-yank
@@ -104,6 +100,7 @@ kill ring."
         (sa-yank-reset-yank-pointer)))))
 
 (defun sa-yank-pop ()
+  "Reset yank pointer after yank."
   (interactive)
   (if (eq last-command 'yank)
       (call-interactively #'yank-pop)
@@ -112,15 +109,20 @@ kill ring."
 
 ;; from the Emacs wiki
 (defun unfill-region (beg end)
-  "Unfill the region."
+  "Unfill the region marked by BEG and END."
   (interactive "*r")
   (let ((fill-column (point-max)))
     (fill-region beg end)))
 
+(defvar sa-transpose-lines--last-arg nil
+  "Internal variable used by `transpose-lines'.")
+
 (defun sa-transpose-lines (arg)
-  "More intuitive `transpose-lines'.  `arg' number of lines are
-\"dragged\" up.  If `arg' is -ve, they are dragged down instead.
-The relative cursor position is restored after the move.
+  "More intuitive `transpose-lines'.
+
+ARG number of lines are \"dragged\" up.  If ARG is -ve, they are
+dragged down instead.  The relative cursor position is restored
+after the move.
 
 IMO, this is a more natural and graphical way of transposing.
 The idea is you want to operate on the current object you are
@@ -139,14 +141,14 @@ editing after the operation."
 ;; just for convenience
 (defalias 'sa-transpose-lines-up 'sa-transpose-lines)
 (defun sa-transpose-lines-down (&optional arg)
-  "Move `arg' lines down (including current line)."
+  "Move ARG lines down (including current line)."
   (interactive "*p")
   ;; (message "arg: %s, %s" arg (- (or arg 1)))
   (sa-transpose-lines (- (or arg 1))))
 
 (defun sa-forward-paragraph (&optional arg)
   "If `last-command' was `sa-transpose-lines-down', call it again.
-Call `forward-paragraph' otherwise."
+Call `forward-paragraph' otherwise.  ARG is passed on as is."
   (interactive "^p")
   (if (eq last-command 'sa-transpose-lines-down)
       (progn
@@ -157,8 +159,8 @@ Call `forward-paragraph' otherwise."
       (forward-paragraph arg))))
 
 (defun sa-backward-paragraph (&optional arg)
-  "If `last-command' was `sa-transpose-lines-up', call it
-again.  Call `backward-paragraph' otherwise."
+  "If `last-command' was `sa-transpose-lines-up', call it again.
+Call `backward-paragraph' otherwise.  ARG is passed on as is."
   (interactive "^p")
   (if (eq last-command 'sa-transpose-lines-up)
       (progn
@@ -169,13 +171,13 @@ again.  Call `backward-paragraph' otherwise."
       (backward-paragraph arg))))
 
 (defun sa-search-n-comment (str)
-  "Search for string and comment line."
+  "Search for string STR and comment the line."
   (interactive "sString: ")
   (let ((repeat t))
     (while repeat
       (search-forward str)
       (comment-region (line-beginning-position) (line-end-position))
-      (next-line)
+      (forward-line)
       (setf repeat (y-or-n-p "Repeat? ")))))
 
 
@@ -184,12 +186,12 @@ again.  Call `backward-paragraph' otherwise."
 ;;;;;;;;;;;;;;;;;;;;;
 
 (defun sa-insert-gmane-link (msgid)
-  "Insert gmane http link at point.  Prompts for message id."
+  "Insert gmane http link at point.  Prompts for message id (MSGID)."
   (interactive "sMessage ID: ")
   (insert (format "<http://mid.gmane.org/%s>" msgid)))
 
 (defun sa-insert-gmane-thread-link (msgid)
-  "Insert gmane http thread link at point.  Prompts for message id."
+  "Insert gmane http thread link at point.  Prompts for message id (MSGID)."
   (interactive "sMessage ID: ")
   (insert (format "<http://news.gmane.org/find-root.php?message_id=%%3c%s%%3e>" msgid)))
 
@@ -212,7 +214,7 @@ header fields.  It is then displayed by calling `notmuch-show'."
 ;;;;;;;;;;;;;;;;;;;
 
 (defun sa-multi-occur-files (files regexp)
-  "Run `multi-occur' on files."
+  "Run `multi-occur' on FILES looking for REGEXP."
   (multi-occur
    (mapcar (lambda (x)
 	     (with-current-buffer
@@ -223,7 +225,7 @@ header fields.  It is then displayed by calling `notmuch-show'."
    regexp))
 
 (defun sa-org-find-notes (&optional regexp)
-  "Run occur on thesis files to get notes"
+  "Run occur on ORG files in the present directory, prompt for REGEXP."
   (interactive "MRegexp: ")
   (let* ((files (directory-files default-directory t "^[^.#].*\.org"))
 	 (regexp (or (unless (equal regexp "") regexp) "{{{\\(todo\\|note\\|mark\\)(")))
@@ -244,6 +246,7 @@ header fields.  It is then displayed by calling `notmuch-show'."
 
 (defun sa-org-table-cell-transpose-horizontal (&optional left)
   "Move current field in row to the right.
+
   With arg LEFT, move to the left.  For repeated invocation the
   point follows the moved field.  Does not fix formulas."
   ;; Derived from `org-table-move-column'
@@ -278,6 +281,7 @@ header fields.  It is then displayed by calling `notmuch-show'."
 
 (defun sa-org-table-rotate-rest-of-row (&optional left)
   "Rotate rest of row to the right.
+
   With arg LEFT, rotate to the left.  For both directions the
   boundaries of the rotation range are the current field and the
   field at the end of the row.  For repeated invocation the point
@@ -323,12 +327,24 @@ header fields.  It is then displayed by calling `notmuch-show'."
     (goto-char p)
     (org-table-align)))
 
+(defun sa-tbl-export (name)
+  "Search for table named `NAME' and export."
+  (interactive "sTable name: ")
+  (show-all)
+  (let ((case-fold-search t))
+    (if (search-forward-regexp (concat "#\\+NAME: +" name) nil t)
+    (progn
+      (forward-line)
+      (org-table-export (format "%s.csv" name) "orgtbl-to-csv")))))
+
 ;; Source: Liam Healy on the org-mode mailing list
 ;; <http://mid.gmane.org/CADe9tL7xL8Oci9k4BsiOs_sH3b2N4ormAojDwJ1smF8J3yZGLA@mail.gmail.com>
 (defun sa-org-datetree-goto-date (&optional siblings)
-  "Go to and show the date in the date tree. With optional argument
-SIBLINGS, on each level of the hierarchy all
-siblings are shown. If no entry exists for the date, it will be created."
+  "Go to and show the date in the date tree.
+
+With optional argument SIBLINGS, on each level of the hierarchy
+all siblings are shown.  If no entry exists for the date, it will
+be created."
   (interactive "P")
   (let ((date (decode-time (org-read-date nil t))))
     (org-datetree-find-date-create (list (nth 4 date) (nth 3 date)
@@ -356,7 +372,7 @@ spaces to `-'."
 
 ;; Function to add duplicate org-mode properties
 (defun sa-org-entry-put-dupe (pom property value)
-  "Set PROPERTY to VALUE for entry at point-or-marker POM.
+  "At point-or-marker POM, set the PROPERTY to VALUE.
 
 Original function: `org-entry-put'.
 
@@ -386,6 +402,8 @@ before the existing entry.  Use with caution."
 (defun sa-org-beamer-insert-options-template (&optional kind)
   "Insert a settings template, to make sure users do this right.
 
+KIND is the type of template to insert.
+
 Original function: `org-beamer-insert-options-template'.
 
 NB: This is a custom version that ignores duplicate \"EXPORT_LaTeX_HEADER+\"
@@ -413,9 +431,9 @@ function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
 	(org-entry-put nil "EXPORT_AUTHOR" user-full-name)
 	(org-entry-put nil "EXPORT_DATE" (format-time-string "%d %B, %Y"))
 	(org-entry-put nil "EXPORT_OPTIONS" "H:1 ^:t")
-	(when org-e-beamer-column-view-format
-	  (org-entry-put nil "COLUMNS" org-e-beamer-column-view-format))
-	(org-entry-put nil "BEAMER_col_ALL" org-e-beamer-column-widths))
+	(when org-beamer-column-view-format
+	  (org-entry-put nil "COLUMNS" org-beamer-column-view-format))
+	(org-entry-put nil "BEAMER_col_ALL" org-beamer-column-widths))
     (insert "#+LaTeX_CLASS: beamer\n")
     (insert "#+LaTeX_CLASS_OPTIONS: [presentation,smaller]\n")
     (insert "#+BEAMER_THEME: Montpellier\n")
@@ -425,9 +443,9 @@ function repeatedly will keep adding duplicate EXPORT_LaTeX_HEADER+ entries."
     (insert "#+LaTeX_HEADER: \\setbeamertemplate{navigation symbols}{}\n")
     (insert "#+LaTeX_HEADER: \\setbeamertemplate{footline}[page number]\n")
     (insert "#+LaTeX_HEADER: \\institute[Nikhef]{FOM-Nikhef, Amsterdam}\n")
-    (when org-e-beamer-column-view-format
-      (insert "#+COLUMNS: " org-e-beamer-column-view-format "\n"))
-    (insert "#+PROPERTY: BEAMER_col_ALL " org-e-beamer-column-widths "\n")))
+    (when org-beamer-column-view-format
+      (insert "#+COLUMNS: " org-beamer-column-view-format "\n"))
+    (insert "#+PROPERTY: BEAMER_col_ALL " org-beamer-column-widths "\n")))
 
 ;; recursively find .org files in provided directory
 ;; modified from an Emacs Lisp Intro example
@@ -508,11 +526,19 @@ If DEC is t, decrease the transparency, otherwise increase it in 5% steps."
 ;; Other utilities ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
+(defun sa-readlink (filename)
+  "Run the shell command readlink on FILENAME."
+  (string-trim
+   (with-temp-buffer
+     (shell-command (format "readlink %s" filename) t)
+     (buffer-string))))
+
 (defalias 'qc #'quick-calc)
 
 ;; calc or count
 (defun sa-calc-or-count (&optional arg)
-  "Quick calculate by default, count words when mark is active."
+  "Quick calculate by default, count words when mark is active.
+When calling `quick-calc', ARG is passed on as is."
   (interactive "P")
   (if mark-active
       (call-interactively 'count-words-region)
@@ -531,47 +557,6 @@ If DEC is t, decrease the transparency, otherwise increase it in 5% steps."
       nil)))
 
 
-;;;;;;;;;;;;;;;;;;;
-;; HEP utilities ;;
-;;;;;;;;;;;;;;;;;;;
-
-;; For MakeClass code
-(defun sa-conv (beg end)
-  "Add SetBranchAddress(...)."
-  (interactive "r")
-  (save-excursion
-    (if (> beg end) (let* (mid) (setq mid beg beg end end mid)))
-    (goto-char beg)
-    (while (re-search-forward
-	    "\\( \+\\)T\\(Branch\\) \+\\*\\(b_\\)\\([a-zA-Z_0-9]\+\\)\\(\\[[\]\[0-9]\+]\\)\*;" nil t)
-      (replace-match "\\1fChain->Set\\2Address(\"\\4\", &\\4, &\\3\\4);" t))))
-
-;; make ATLAS GoodRunList
-(defun sa-make-GRL (beg end)
-  "Convert the marked region of a ATLAS GoodRunList XML to C
-if..else source blocks."
-  (interactive "r")
-  (if (> beg end) (let (mid) (setq mid beg beg end end mid)))
-  (save-excursion
-    (goto-char beg)
-    (while (re-search-forward
-	 "\\(<LumiBlockCollection>\n.+<Run>\\)\\([0-9]+\\)\\(</Run>\\)" nil t)
-      (replace-match "if ( Run == \\2 ) {" nil nil))
-    (goto-char beg)
-    (while (re-search-forward
-	    "\\(^ +\\)</LumiBlockCollection>"
-	    nil t)
-      (replace-match "\\1  return false;\n\\1}" nil nil))
-    (goto-char beg)
-    (while (re-search-forward
-	    "\\(<LBRange Start=\"\\)\\([0-9]+\\)\\(\" End=\"\\)\\([0-9]+\\)\\(\"/>\\)"
-	    nil t)
-      (replace-match "if ( LumiBlock >= \\2 && LumiBlock <= \\4) return true;" nil nil))
-    (remove-overlays beg end)
-    (message "Coverted GRL XML to C if..else blocks.")
-    ))
-
-
 (provide 'nifty)
 
-;;; end of nifty.el
+;;; nifty.el ends here
