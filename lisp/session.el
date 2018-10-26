@@ -1,10 +1,10 @@
 ;;; session.el --- use variables, registers and buffer places across sessions
 
-;; Copyright 1996, 1997, 1998, 1999, 2001, 2002, 2003, 2010, 2011
+;; Copyright 1996, 1997, 1998, 1999, 2001, 2002, 2003, 2010, 2011, 2012, 2015
 ;; Free Software Foundation, Inc.
 ;;
 ;; Author: Christoph Wedler <wedler@users.sourceforge.net>
-;; Version: 2.3a (see also `session-version' below)
+;; Version: 2.4b (see also `session-version' below)
 ;; Keywords: session, session management, desktop, data, tools
 ;; X-URL: http://emacs-session.sourceforge.net/
 
@@ -37,7 +37,7 @@
 
 ;;; To-do:
 
-;; One could imaging a combination of desktop.el and session.el.  IMHO it is
+;; One could imagine a combination of desktop.el and session.el.  IMHO it is
 ;; easier to include the remaining features of desktop.el (load some files at
 ;; startup) into session.el, but desktop.el is already part of Emacs...
 ;; Anyway, here are some ideas for the combined desktop/session:
@@ -121,7 +121,6 @@
 
 ;;; Code:
 
-(provide 'session)
 (require 'custom)
 
 ;; General Emacs/XEmacs-compatibility compile-time macros
@@ -204,7 +203,7 @@
 ;;;;##########################################################################
 
 
-(defconst session-version "2.3a"
+(defconst session-version "2.4b"
   "Current version of package session.
 Check <http://emacs-session.sourceforge.net/> for the newest.")
 
@@ -263,6 +262,12 @@ with element.  To enable, include
   "*Max number of entries which may appear in the session menus."
   :group 'session-miscellaneous
   :type 'integer)
+
+(defcustom session-yank-menu-binding
+  (and (string-match "XEmacs" emacs-version) [(control button3)])
+  "*Mouse binding where `session-popup-yank-menu' is bound to."
+  :group 'session-miscellaneous
+  :type 'sexp)				; (choice (nil key-binding))
 
 (defcustom session-file-menu-max-string
   (if (if (boundp 'put-buffer-names-in-file-menu)
@@ -325,18 +330,26 @@ not exclude any file."
   "Function to generate menu accelerators, or nil if not supported.")
 
 ;; calling `abbrev-file-name' on remote files opens the connection!
+
 (defvar session-abbrev-inhibit-function
 ;; this will be renamed with the next release (when minimum is
 ;; Emacs-22.1, jun 2007 and XEmacs 21.4.12, jan 2003) -> only there we have
 ;; `define-obsolete-variable-alias'
   (cond ((fboundp 'file-remote-p) 'file-remote-p)
-	;;  `file-remote-p' doesn't exist in Emacs < 22.1
+        ;;  `file-remote-p' doesn't exist in Emacs < 22.1
+        ;; (cond-emacs-xemacs
+        ;;  ;; as opposed to the docstring of `file-remote-p',
+        ;;  ;; `tramp-handle-file-remote-p' does try to open a connection
+        ;;  :EMACS (lambda (file) (find-file-name-handler file 'file-remote-p))
+        ;;  :XEMACS 'file-remote-p))
 	((fboundp 'efs-ftp-path) 'efs-ftp-path)
 	((fboundp 'ange-ftp-ftp-name) 'ange-ftp-ftp-name)
 	((fboundp 'ange-ftp-ftp-path) 'ange-ftp-ftp-path))
   "Function used to determine whether to abbreviate file name.
-A file name is not abbreviated if this function returns non-nil when
-called with the file name.")
+A file name is not abbreviated and no buffer information is shown in the
+file menus if this function returns non-nil when called with the file name.
+If the value is not a function, it directly determines whether to abbreviate
+a file name.")
 
 (defvar session-directory-sep-char    ; directory-sep-char is not set
   (if (memq system-type '(ms-dos windows-nt)) ?\\ ?\/)
@@ -393,7 +406,7 @@ ring variables.  See \\[session-save-session] for details."
   ;; only for advanced users -> no custom
   "*Print specification for the values of global variables to save.
 The value looks like (CIRCLE LEVEL LENGTH) and is used to bind variables
-`print-circle', `print-circle' and `print-circle' when evaluating
+`print-circle', `print-level' and `print-length' when evaluating
 `session-save-session'.")
 
 (defcustom session-save-file-modes 384
@@ -402,7 +415,7 @@ After writing `session-save-file', set mode bits of that file to this
 value if it is non-nil."
   :group 'session-globals
   :type '(choice (const :tag "Don't change" nil) integer))
-
+  
 (defvar session-before-save-hook nil
   "Hook to be run before `session-save-file' is saved.
 The functions are called after the global variables are written,
@@ -425,12 +438,15 @@ Variables in `session-globals-exclude' are not saved, but variables in
 
 (defcustom session-globals-exclude
   '(load-history
-    register-alist vc-comment-ring flyspell-auto-correct-ring org-mark-ring
-    planner-browser-file-display-rule-ring)
+    register-alist flyspell-auto-correct-ring org-mark-ring
+    planner-browser-file-display-rule-ring
+    "\\`anything-c-source-")
   "Global variables not to be saved between sessions.
+An Element of this list is either a symbol or a regexp matching all
+variable names not to be saved.
 It affects `session-globals-regexp' and `session-globals-include'."
   :group 'session-globals
-  :type '(repeat variable))
+  :type '(repeat '(choice variable (string "Regexp"))))
 
 (defcustom session-globals-include '((kill-ring 10)
 				     (session-file-alist 100 t)
@@ -466,7 +482,7 @@ appropriate choice for this!"
 ;;;  Configuration: registers and local variables
 ;;;===========================================================================
 
-(defcustom session-registers '((?0 . ?9) ?- ?= ?\\ ?` region (?a . ?z))
+(defcustom session-registers '((?0 . ?9) ?- ?= ?\\ ?` region (?a . ?z) (?A . ?Z))
   "*Registers to be saved in `session-save-file'.
 Valid elements in this list are:
   CHAR or (FROM . TO) or `file' or `region' or t.
@@ -1036,22 +1052,24 @@ a file in the menu."
 	(when (consp name)
 	  (setq desc name
 		name (car name)))
-	(setq name (session-abbrev-file-name (directory-file-name name)))
+	(setq name (session-abbrev-file-name name t))
 	(unless (member name excl)
 	  (setq i (1- i))
 	  (push name excl)
-	  (push (vector (or (session-file-prune-name name max-string) name)
-			(list find-fn name)
-			:keys (concat (and (sixth desc) "p")
-				      (let ((buf (get-file-buffer name)))
+          (let ((buf (if (session-abbrev-inhibit-function name)
+                         nil
+                       (get-file-buffer name))))
+            (push (vector (or (session-file-prune-name name max-string) name)
+                          (list find-fn name)
+                          :keys (concat (and (sixth desc) "p")
 					(when buf
 					  (with-current-buffer buf
 					    (if (consp buffer-undo-list)
 						(if (buffer-modified-p)
 						    "c" "s")
 					      (if buffer-read-only
-						  "r" "v")))))))
-		menu))))
+						  "r" "v"))))))
+                  menu)))))
     (session-menu-maybe-accelerator menu-items (nreverse menu))))
 
 (defun session-file-prune-name (elem max-string)
@@ -1091,16 +1109,24 @@ The items in MENU will be modified to add accelerator specifications if
 	      (funcall session-menu-accelerator-support menu)
 	    menu)))
 
-(defun session-abbrev-file-name (name)
+(defun session-abbrev-inhibit-function (name)
+  "Call function in variable `session-abbrev-inhibit-function'."
+  (and session-abbrev-inhibit-function
+       (or (not (functionp session-abbrev-inhibit-function))
+           (funcall session-abbrev-inhibit-function name))))
+
+(defun session-abbrev-file-name (name &optional call-dfn)
   "Return a version of NAME shortened using `directory-abbrev-alist'.
 This function does not consider remote file names (see
 `session-abbrev-inhibit-function') and substitutes \"~\" for the user's
-home directory."
-  (if (and session-abbrev-inhibit-function
-	   (or (not (fboundp session-abbrev-inhibit-function))
-	       (funcall session-abbrev-inhibit-function name)))
+home directory.
+If optional argument CALL-DFN is non-nil and the file is not remote,
+remove final slash according to function `directory-file-name'."
+  (if (session-abbrev-inhibit-function name)
       name
-    (cond-emacs-xemacs (abbreviate-file-name name :XEMACS t))))
+    (cond-emacs-xemacs
+     (abbreviate-file-name (if call-dfn (directory-file-name name) name)
+                           :XEMACS t))))
 
 
 ;;;===========================================================================
@@ -1348,8 +1374,7 @@ Argument BUFFER should be the current buffer."
 		  session-undo-check))))
    ;; mode and name check ----------------------------------------------------
    (let ((file (buffer-file-name buffer)))
-     (and (or (and (fboundp session-abbrev-inhibit-function)
-		   (funcall session-abbrev-inhibit-function file))
+     (and (or (session-abbrev-inhibit-function file)
 	      (and (file-exists-p file) (file-readable-p file)))
 	  (if (if session-auto-store
 		  (not (memq major-mode session-mode-disable-list))
@@ -1363,6 +1388,23 @@ Argument BUFFER should be the current buffer."
 ;;;===========================================================================
 ;;;  Save session file
 ;;;===========================================================================
+
+(defunx session-true-list-p (object)
+  :try true-list-p
+  "Return t if OBJECT is an acyclic, nil-terminated (ie, not dotted), list."
+  (null (if (consp object)
+	    (cdr (last object)) ; in Emacs-24.1: safe against cyclic lists
+	  object)))
+
+(defun session-make-ring (size seq)
+  ;; similar to `ring-convert-sequence-to-ring'	from Emacs-24.1
+  "Return ring of length LENGTH containing the elements of sequence SEQ."
+  (let ((ring (make-ring size)))
+    (dotimes (count (length seq))
+      (when (or (ring-empty-p ring)
+		(not (equal (ring-ref ring 0) (elt seq count))))
+	(ring-insert-at-beginning ring (elt seq count))))
+    ring))
 
 (defun session-save-session (&optional force)
   "Save session: file places, *-ring, *-history, registers.
@@ -1411,17 +1453,32 @@ using \\[save-buffers-kill-emacs] with prefix argument 0."
 		   "\n;;; Invoked by " (user-login-name) "@" (system-name)
 		   " using " emacs-version "\n")
 	   ;; save global variables and registers ----------------------------
-	   (let ((s-excl session-globals-exclude))
-	     (dolist (incl (append session-globals-include
-				   (apropos-internal session-globals-regexp
-						     'boundp)))
-	       (let ((symbol (if (consp incl) (car incl) incl)))
-		 (unless (memq symbol s-excl)
-		   (push symbol s-excl)
+           (let (globals-exclude exclude-regexp)
+             (dolist (incl session-globals-include)
+               (let ((symbol (if (consp incl) (car incl) incl)))
+                 (push symbol globals-exclude)
+                 (when (default-boundp symbol)
+                   (session-save-insert-variable symbol
+                                                 (default-value symbol)
+                                                 (cdr-safe incl)))))
+             (dolist (excl session-globals-exclude)
+               (if (stringp excl)
+                   (push excl exclude-regexp)
+                 (push excl globals-exclude)))
+             (when exclude-regexp
+               (setq exclude-regexp
+                     (concat "\\(?:"
+                             (mapconcat 'identity exclude-regexp "\\)\\|\\(?:")
+                             "\\)")))
+	     (dolist (symbol (apropos-internal session-globals-regexp 'boundp))
+               (unless (or (memq symbol globals-exclude)
+                           (and exclude-regexp
+                                (string-match exclude-regexp
+                                              (symbol-name symbol))))
+		   (push symbol globals-exclude)
 		   (when (default-boundp symbol)
 		     (session-save-insert-variable symbol
-						   (default-value symbol)
-						   (cdr-safe incl)))))))
+						   (default-value symbol))))))
 	   (session-save-registers)
 	   ;; write session file ---------------------------------------------
 	   (run-hooks 'session-before-save-hook)
@@ -1441,7 +1498,7 @@ using \\[save-buffers-kill-emacs] with prefix argument 0."
 			   (car var) (cdr var))))))
 	   (kill-buffer (current-buffer))))))
 
-(defun session-save-insert-variable (symbol val spec)
+(defun session-save-insert-variable (symbol val &optional spec)
   "Print SYMBOL and its value VAL into the current buffer.
 Argument SPEC looks like (MAX-SIZE ASSOC-P), see variable
 `session-globals-include' for details.
@@ -1459,13 +1516,19 @@ Elements in the list are not printed if one of the following is true:
 	  (print-length (caddr session-save-print-spec)) ;#dynamic
 	  (len   (or (car spec) session-globals-max-size))
 	  (ass-p (cadr spec))
+	  (ring-size (and (ring-p val) (ring-size val)))
 	  (slist nil) klist clist)
+      (when ring-size
+	(setq val (ring-elements val)))
       (while (and (consp val) (> len 0))
 	(if (memq val clist)
 	    (setq val t)	; don't print recursive lists
 	  (push val clist)
 	  (let* ((elem (pop val))
-		 (estr (prin1-to-string elem)))
+		 (estr (prin1-to-string (if (stringp elem)
+					    (substring-no-properties elem)
+					  elem))))
+	    ;; some text properties cannot be read, e.g. buffer positions
 	    ;; read/load isn't clever: ignore non-readable elements
 	    (unless (cond (ass-p
 			   (or (atom elem)
@@ -1484,11 +1547,15 @@ Elements in the list are not printed if one of the following is true:
 			     (error t))))
 	      (push estr slist)
 	      (decf len)))))
-      (when (and slist (null val))	; don't print non-true lists
-	(insert (format "(setq-default %S '(" symbol))
+      (when (and slist (session-true-list-p val))
+	(insert (if ring-size
+		    (format "(setq-default %S (session-make-ring %d '("
+			    symbol ring-size)
+		  (format "(setq-default %S '(" symbol)))
 	(setq slist (nreverse slist))
 	(while slist
-	  (insert (pop slist) (if slist " " "))\n")))))))
+	  (insert (pop slist)
+		  (if slist " " (if ring-size ")))\n" "))\n"))))))))
 
 (defunx session-next-range-char (char)
   ;; XEmacs register functions should handle integers as chars better...
@@ -1607,9 +1674,9 @@ If the \"File\" menu does not exist, no submenu is added.  See
   (define-key ctl-x-map [(control ?\/)] 'session-jump-to-last-change)
   (define-key minibuffer-local-map [(meta ?\?)]
     'session-minibuffer-history-help)
-  :XEMACS
-  ;; C-down-mouse-3 pops up mode menu under Emacs
-  (define-key global-map [(control button3)] 'session-popup-yank-menu)
+  (when session-yank-menu-binding
+    ;; C-down-mouse-3 pops up mode menu under Emacs
+    (define-key global-map session-yank-menu-binding 'session-popup-yank-menu))
   :EMACS
   ;; Emacs doesn't seem to have keymap inheritance...
   (define-key minibuffer-local-completion-map [(meta ?\?)]
@@ -1696,6 +1763,10 @@ this function to `after-init-hook'."
 	(session-initialize-menus)))
     (when (or (eq session-initialize t)
 	      (memq 'session session-initialize))
+      ;; Although desktop and savehist also add its function to
+      ;; kill-emacs-hook, it might be better to add this function to
+      ;; `kill-emacs-query-functions' instead.  People who want to exit Emacs
+      ;; without saving the session file might simply call M-x kill-emacs
       (add-hook 'kill-emacs-hook 'session-save-session)
       (or session-successful-p
 	  (setq session-successful-p
@@ -1750,5 +1821,6 @@ this function to `after-init-hook'."
   (put 'session-initialize :initilized-with nil)
   (custom-set-variables '(session-use-package t nil (session))))
 
-;;; Local IspellPersDict: .ispell_session
+(provide 'session)
+
 ;;; session.el ends here
