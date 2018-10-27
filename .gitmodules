@@ -1,9 +1,6 @@
 [submodule "git-modes"]
 	path = git-modes
 	url = git@github.com:magit/git-modes.git
-[submodule "markdown-mode"]
-	path = markdown-mode
-	url = git://jblevins.org/git/markdown-mode.git
 [submodule "external-abook"]
 	path = external-abook
 	url = git@github.com:emacsmirror/external-abook.git
