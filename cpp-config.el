@@ -9,21 +9,25 @@
 ;; force `c++-mode' for `*.h' header files
 (add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
 
+;; include directories
+(setq root-include (let ((rootsys (getenv "ROOTSYS")))
+		     (if rootsys (concat rootsys "/include")
+		       "/usr/include/root")))
+(setq other-includes (list "/opt/data-an/include"))
+
 ;; flycheck
 (add-hook 'c++-mode-hook
 	  (lambda ()
 	    ;; NOTE: *-language-standard: when set globally, breaks C mode
 	    (setq flycheck-clang-language-standard "c++17"
-		  flycheck-clang-include-path '("/usr/include/root")
+		  flycheck-clang-include-path (cons root-include other-includes)
 		  flycheck-gcc-language-standard "c++17"
-		  flycheck-gcc-include-path '("/usr/include/root")
+		  flycheck-gcc-include-path (cons root-include other-includes)
 		  )))
 
 ;; semantic
-(setq root-include (let ((rootsys (getenv "ROOTSYS")))
-		     (if rootsys (concat rootsys "/include")
-		       "/usr/include/root")))
-(semantic-add-system-include root-include 'c++-mode)
+(dolist (dir (cons root-include other-includes))
+  (semantic-add-system-include dir 'c++-mode))
 
 (add-hook 'c-mode-common-hook
 	  (lambda ()
