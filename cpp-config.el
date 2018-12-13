@@ -61,7 +61,7 @@
 ;; ;; C/C++ language templates
 (add-hook 'c-mode-common-hook
 	  (lambda ()
-	    (load-library "yasnippet")))
+	    (unless (featurep 'yasnippet) (load-library "yasnippet"))))
 
 ;; templates depend on mode
 (add-hook 'c-mode-hook
