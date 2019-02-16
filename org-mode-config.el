@@ -9,7 +9,7 @@
 (require 'ox-html)
 (require 'ox-koma-letter)
 (require 'ox-md)
-(require 'ox-odt)
+;; (require 'ox-odt)
 ;; (require 'ox-groff)
 ;; (require 'ox-man)   ; NB: customise org-man-pdf-process
 ;; (require 'ox-texinfo)
@@ -60,6 +60,8 @@
       ;; custom links
       org-link-abbrev-alist
       '(("gmane" . "http://thread.gmane.org/%s")
+	("ddg" . "https://duckduckgo.com/?q=%s")
+	("bing" . "https://www.bing.com/search?q=%s")
 	("google" . "https://www.google.com/search?q=%s")
 	("arxiv" . "https://arxiv.org/abs/%s")
 	("cds" . "https://cds.cern.ch/record/%s")
@@ -86,7 +88,7 @@
 			   nil nil "^\\*\\+ \\+\\(DONE|FIXD|CNCL\\)")
       org-todo-keywords ; @ - time stamp with note, ! - only time stamp
       '((sequence "TODO(t)" "WInP(w!)" "DLAY(l@/!)" "|" "DONE(d@)" "CNCL(c@/!)")
-	(type "TEST(e!)" "DBUG(b@)" "LEAK(l@)" "SEGF(s@)" "|" "FIXD(f@/!)")
+	;; (type "TEST(e!)" "DBUG(b@)" "LEAK(l@)" "SEGF(s@)" "|" "FIXD(f@/!)")
 	)
       ;; turn on speed keys for headlines
       org-use-speed-commands t
