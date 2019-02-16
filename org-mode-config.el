@@ -124,9 +124,6 @@
 
 ;;; LaTeX export customisations (using XeLaTeX)
 
-;;; NOTE: experimental tex-variant changes from Rasmus
-;; see: (notmuch-show "thread:000000000000a22c")
-
 ;; ;; hack for error free latex export with amsmath
 ;; ;; remove when defaults are changed in the future
 ;; (setcar (rassoc '("wasysym" t) org-latex-default-packages-alist)
@@ -242,14 +239,10 @@
 
 ;; (pop org-beamer-environments-extra)	; clean-up after experimentation
 
-(add-to-list 'org-export-snippet-translation-alist
-	     '("b" . "beamer"))
-(add-to-list 'org-export-snippet-translation-alist
-	     '("l" . "latex"))
-(add-to-list 'org-export-snippet-translation-alist
-	     '("h" . "html"))
-(add-to-list 'org-export-snippet-translation-alist
-	     '("o" . "odt"))
+(add-to-list 'org-export-snippet-translation-alist '("b" . "beamer"))
+(add-to-list 'org-export-snippet-translation-alist '("l" . "latex"))
+(add-to-list 'org-export-snippet-translation-alist '("h" . "html"))
+(add-to-list 'org-export-snippet-translation-alist '("o" . "odt"))
 
 ;; custom headline formatting
 (defun sa-org-latex-format-headline-function
