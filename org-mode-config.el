@@ -1,6 +1,7 @@
 ;;; org-mode-config.el --- `org-mode' settings and customisations.
 
 (require 'org)
+(require 'org-tempo)
 (require 'ox)
 (require 'ox-ascii)
 (require 'ox-latex)
@@ -92,34 +93,8 @@
       )
 
 
-;; ;; lowercase easy templates
-;; (setcdr (assoc "s" org-structure-template-alist)
-;; 	'("#+begin_src ?\n\n#+end_src" "<src lang=\"?\">\n\n</src>"))
-;; (setcdr (assoc "e" org-structure-template-alist)
-;; 	'("#+begin_example\n?\n#+end_example" "<example>\n?\n</example>"))
-;; (setcdr (assoc "q" org-structure-template-alist)
-;; 	'("#+begin_quote\n?\n#+end_quote" "<quote>\n?\n</quote>"))
-;; (setcdr (assoc "v" org-structure-template-alist)
-;; 	'("#+begin_verse\n?\n#+end_verse" "<verse>\n?\n</verse>"))
-;; (setcdr (assoc "c" org-structure-template-alist)
-;; 	'("#+begin_center\n?\n#+end_center" "<center>\n?\n</center>"))
-;; (setcdr (assoc "l" org-structure-template-alist)
-;; 	'("#+begin_export latex\n?\n#+end_export"
-;;          "<literal style=\"latex\">\n?\n</literal>"))
-;; (setcdr (assoc "h" org-structure-template-alist)
-;; 	'("#+begin_export html\n?\n#+end_export"
-;;          "<literal style=\"html\">\n?\n</literal>"))
-;; (setcdr (assoc "a" org-structure-template-alist)
-;; 	'("#+begin_export ascii\n?\n#+end_export"))
-
-;; FIXME: the variable format changed
-;; ;; easy templates special blocks in latex export
-;; (add-to-list 'org-structure-template-alist
-;; 	     '("f" "#+begin_figure\n?\n#+end_figure" ""))
-
-;; ;; easy template for a generic backend agnostic export block
-;; (add-to-list 'org-structure-template-alist
-;; 	     '("x" "#+begin_export ?\n#+end_export" ""))
+;; easy templates special blocks in latex export
+(add-to-list 'org-structure-template-alist '("f" . "figure"))
 
 
 ;;; Export customisations
