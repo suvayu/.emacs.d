@@ -109,6 +109,9 @@
       org-latex-caption-above '(table)
       org-latex-prefer-user-labels t
       org-latex-remove-logfiles nil
+      org-latex-format-headline-function
+      'sa-org-latex-format-headline-function ; see below for definition
+      org-latex-table-scientific-notation "%s × 10\\(^\\text{%s}\\)"
       ;; convert exported odt to pdf with `soffice --convert-to pdf'
       org-odt-preferred-output-format "pdf"
       )
@@ -172,6 +175,7 @@
 	"%latex -shell-escape -interaction nonstopmode -output-directory %o %f")
       ;; org-latex-pdf-process '("sh -v -x texi2dvi -p -b -c -V %f") ; historical
       ;; TODO: maybe use arara, that probably requires export changes
+      org-latex-default-class "scrartcl" ; was "article"
       )
 
 ;; export single chapter
@@ -246,6 +250,24 @@
 	     '("h" . "html"))
 (add-to-list 'org-export-snippet-translation-alist
 	     '("o" . "odt"))
+
+;; custom headline formatting
+(defun sa-org-latex-format-headline-function
+  (todo todo-type priority text tags info)
+  "Custom format function for a headline.
+See `org-latex-format-headline-function' for details."
+  (setf colour (cond
+		((equal todo "TODO") "\\color{blue}")
+		((equal todo "WInP") "\\color{magenta}")
+		((equal todo "DLAY") "\\color{red}")
+		((equal todo "DONE") "\\color{green}")))
+  (concat
+   (and todo (format "\\texorpdfstring{{%s\\textbf{\\textsf{%s}}}}{} "
+		     colour todo))
+   text
+   (and tags
+	(format "\\texorpdfstring{\\hfill{}\\textsc{%s}}{}"
+		(mapconcat 'identity tags ":")))))
 
 ;; filters for markups
 (defun sa-beamer-bold (contents backend info)
