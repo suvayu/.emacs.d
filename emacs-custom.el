@@ -19,6 +19,8 @@
  '(TeX-PDF-mode t)
  '(TeX-engine 'xetex)
  '(abbrev-mode t t)
+ '(blacken-executable "~/.local/bin/black")
+ '(blacken-line-length 'fill)
  '(blink-cursor-mode t)
  '(calendar-date-style 'iso)
  '(case-fold-search t)
