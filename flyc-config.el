@@ -10,6 +10,7 @@
 (delete 'c/c++-clang flycheck-checkers)
 
 (add-to-list 'flycheck-checkers 'python-flake8)
+(add-to-list 'flycheck-checkers 'python-mypy)
 
 ;; navigate flycheck errors w/ hydra
 (defhydra hydra-flycerr (flycheck-command-map)
