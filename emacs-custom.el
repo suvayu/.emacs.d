@@ -37,6 +37,7 @@
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function 'split-window-horizontally)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
+ '(flycheck-python-flake8-executable "python3")
  '(git-ps1-mode-lighter-text-format "[%s]")
  '(git-ps1-mode-ps1-file "/usr/share/git-core/contrib/completion/git-prompt.sh")
  '(ibuffer-mode-hook '(ibuffer-auto-mode))
