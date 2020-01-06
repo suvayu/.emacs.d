@@ -3,6 +3,7 @@
 ;;; Commentary:
 
 ;;; Code:
+(require 'cl-lib)
 (setq debug-on-error t)
       ;; debug-on-signal t
       ;; debug-on-quit t)
@@ -22,7 +23,7 @@
 ;; disable semantic in all non C/C++ buffers
 (setq semantic-new-buffer-setup-functions
       (let ((my-modes '(c-mode c++-mode python-mode)))
-	(remove-if-not (lambda (el) (member (car el) my-modes))
+	(cl-remove-if-not (lambda (el) (member (car el) my-modes))
 		       semantic-new-buffer-setup-functions)))
 
 ;; `semantic-idle-scheduler-idle-time' is set to 3 secs in customize

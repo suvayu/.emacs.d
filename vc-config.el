@@ -23,7 +23,7 @@
 ;; load magit only when git version >= 1.7.2
 (let ((git-version (shell-command-to-string "git --version")))
   (string-match "^.\+\\([0-9]\+\\)\.\\([0-9]\+\\)\.\\([0-9]\+\\)$" git-version)
-  (setq git-version (loop for i in '(1 2 3) collect i))
+  (setq git-version (cl-loop for i in '(1 2 3) collect i))
   (if (or (> (nth 1 git-version) 1)	; git version >= 1.7.2
 	  (and (= (nth 1 git-version) 1)
 	       (> (nth 2 git-version) 7))

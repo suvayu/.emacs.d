@@ -36,7 +36,7 @@
 ;;; Code:
 
 
-(require 'cl)
+(require 'cl-lib)
 
 
 (defvar osg-idle-delay 0.2)

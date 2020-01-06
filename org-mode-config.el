@@ -133,7 +133,7 @@
       (remove '("AUTO" "inputenc" t) org-latex-default-packages-alist))
 
 ;; replace fontenc, with fontspec
-(let ((pos (position '("T1" "fontenc" t) ; T1 -> utf8 for pdflatex
+(let ((pos (cl-position '("T1" "fontenc" t) ; T1 -> utf8 for pdflatex
 		     org-latex-default-packages-alist
 		     :test 'equal)))
   (if pos
