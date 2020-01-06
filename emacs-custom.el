@@ -8,7 +8,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(italic ((t (:inherit default :foreground "blanched almond" :slant normal))))
+ '(smerge-base ((t (:background "DarkOliveGreen4"))))
+ '(smerge-lower ((t (:background "SeaGreen3"))))
+ '(smerge-markers ((t (:background "grey55"))))
+ '(smerge-refined-added ((t (:inherit smerge-refined-change :background "DarkSeaGreen3"))))
+ '(smerge-upper ((t (:background "LightPink4")))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
