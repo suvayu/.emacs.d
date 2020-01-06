@@ -13,9 +13,6 @@
 [submodule "org-search-goto-ml"]
 	path = org-search-goto-ml
 	url = git@github.com:emacsmirror/org-search-goto-ml.git
-[submodule "minimal"]
-	path = minimal
-	url = git@github.com:emacsmirror/minimal.git
 [submodule "dired-details"]
 	path = dired-details
 	url = git@github.com:emacsmirror/dired-details.git
