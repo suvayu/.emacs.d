@@ -164,6 +164,15 @@
  '(vc-handled-backends '(Git SVN Hg))
  '(windmove-wrap-around t))
 
+
+(defun sa-install-packages (pkgs)
+  "Initial install of packages from ELPA
+
+Eval: (my-install-packages '(pkg1 pkg2))
+"
+  (cl-loop for pkg in pkgs
+	do (package-install pkg)))
+
 ;;; emacs-custom.el ends here
 
 ;; Local Variables:
