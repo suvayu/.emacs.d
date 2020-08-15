@@ -24,10 +24,10 @@
 	    (define-key python-mode-map (kbd "C-f") 'python-nav-forward-defun)
 	    (define-key python-mode-map (kbd "C-p") 'python-nav-backward-statement)
 	    (define-key python-mode-map (kbd "C-n") 'python-nav-forward-statement)
-	    (define-key python-mode-map (kbd "C-M-b") 'python-nav-backward-sexp)
-	    (define-key python-mode-map (kbd "C-M-f") 'python-nav-forward-sexp)
-	    (define-key python-mode-map (kbd "C-M-u") 'python-nav-backward-up-list)
-	    (define-key python-mode-map (kbd "C-M-d") 'python-nav-up-list)
+	    ;; (define-key python-mode-map (kbd "C-M-b") 'python-nav-backward-sexp)
+	    ;; (define-key python-mode-map (kbd "C-M-f") 'python-nav-forward-sexp)
+	    ;; (define-key python-mode-map (kbd "C-M-u") 'python-nav-backward-up-list)
+	    ;; (define-key python-mode-map (kbd "C-M-d") 'python-nav-up-list)
 	    ))
 
 (autoload 'cython-mode "cython-mode"
