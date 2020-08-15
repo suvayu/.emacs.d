@@ -16,6 +16,7 @@
 (setq other-includes (list "/opt/data-an/include"))
 
 ;; flycheck
+(add-hook 'c++-mode-hook #'lsp-deferred)
 (add-hook 'c++-mode-hook
 	  (lambda ()
 	    ;; NOTE: *-language-standard: when set globally, breaks C mode

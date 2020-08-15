@@ -86,6 +86,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mode hooks and other mode specific customisations ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load-file "~/.emacs.d/lsp-config.el")
 
 ;; Version control related customisations
 (load-file "~/.emacs.d/vc-config.el")

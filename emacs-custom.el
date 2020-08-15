@@ -134,6 +134,7 @@
  '(printer-name "HP_LaserJet_Pro_MFP_M126nw")
  '(python-shell-interpreter "python3")
  '(read-buffer-completion-ignore-case t)
+ '(rustic-lsp-server (quote rust-analyzer))
  '(safe-local-variable-values
    '((eval auto-save-mode nil)
      (backup-inhibited . t)

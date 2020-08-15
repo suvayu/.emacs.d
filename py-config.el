@@ -3,6 +3,9 @@
 ;; ;; for special navigation commands
 ;; (require 'nifty)
 
+(require 'lsp-pyright)
+(add-hook 'python-mode-hook #'lsp-deferred)
+
 ;; setup keybindings in mode hook
 (add-hook 'python-mode-hook
 	  (lambda ()
