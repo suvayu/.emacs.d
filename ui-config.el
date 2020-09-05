@@ -1,8 +1,45 @@
-;;; gui-config.el --- Emacs GUI config
+;;; ui-config.el --- Emacs UI config
 
 ;;; Commentary:
 
 ;;; Code:
+;; font-lock customisations
+(defface sa-global-todo-face '((t (:inherit (org-todo))))
+  "Face for TODO keywords globally."
+  :group 'sa-faces)
+
+(add-hook 'find-file-hook
+	  (lambda ()
+	    (font-lock-add-keywords
+	     nil '(("\\<\\(FIXME\\)\\>" . (1 'font-lock-warning-face prepend))
+		   ;; ("\\<(\\?)\\>" . (1 'font-lock-warning-face prepend))
+		   ))
+	    (unless (eq major-mode 'org-mode)
+	      (font-lock-add-keywords
+	       nil '(("\\<\\(NB\\|QN\\|NOTE\\|TODO\\)\\>:" . (1 'sa-global-todo-face prepend)))))))
+
+;; ;; Example from Seb
+;; (defvar lvn/highlight-org-regexps
+;;   "\\(FIXME\\|BUG\\|XXX\\|[Ee]rror\\|[Ww]arning\\|WARNING\\)"
+;;   "Patterns to highlight (for Org mode only).")
+;;
+;; (dolist (mode '(org-mode))
+;;   (font-lock-add-keywords mode
+;;    `((,lvn/highlight-org-regexps 1 'lvn/highlight-face prepend))))
+
+;; ;; Example from Jambunathan
+;;      (font-lock-add-keywords
+;;       'org-mode `(("\\(?:^\\(?1:\\*+\\)[[:blank:]]\\)"
+;; 		   (0 (progn (compose-region
+;; 			      (match-beginning 1) (match-end 1)
+;; 			      (pcase (length (match-string 1))
+;; 				(1 ?\u2219)
+;; 				(2 ?\u2022)
+;; 				(3 ?\u25c9)
+;; 				(_ ?\u25CB)))
+;; 			     nil)))))
+
+
 ;; hostname and buffer-name in frame title
 ;; code originally written by Michael Albinus
 ;; and a post in emacs-fu.blogspot.com (dotemacs trickery)
@@ -55,7 +92,7 @@
 (global-set-key '[(C-mouse-4)] 'text-scale-increase) ; scroll up
 (global-set-key '[(C-mouse-5)] 'text-scale-decrease) ; scroll down
 
-;;; gui-config.el ends here
+;;; ui-config.el ends here
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)

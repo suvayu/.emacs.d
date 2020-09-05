@@ -40,47 +40,10 @@
 (progn (ibuffer) (switch-to-buffer "*scratch*"))
 
 ;; Colour theme and other gui related config
-(load-file "~/.emacs.d/gui-config.el")	; requires Emacs 24 themes
+(load-file "~/.emacs.d/ui-config.el")	; requires Emacs 24 themes
 
 ;; Important movement and editing config with some essential libraries
 (load-file "~/.emacs.d/keybindings.el")
-
-
-;; font-lock customisations
-(defface sa-global-todo-face '((t (:inherit (org-todo))))
-  "Face for TODO keywords globally."
-  :group 'sa-faces)
-
-(add-hook 'find-file-hook
-	  (lambda ()
-	    (font-lock-add-keywords
-	     nil '(("\\<\\(FIXME\\)\\>:" . (1 'font-lock-warning-face prepend))
-		   ;; ("\\<(\\?)\\>" . (1 'font-lock-warning-face prepend))
-		   ))
-	    (unless (eq major-mode 'org-mode)
-	      (font-lock-add-keywords
-	       nil '(("\\<\\(NB\\|QN\\|NOTE\\|TODO\\)\\>:" . (1 'sa-global-todo-face prepend)))))))
-
-;; ;; Example from Seb
-;; (defvar lvn/highlight-org-regexps
-;;   "\\(FIXME\\|BUG\\|XXX\\|[Ee]rror\\|[Ww]arning\\|WARNING\\)"
-;;   "Patterns to highlight (for Org mode only).")
-;;
-;; (dolist (mode '(org-mode))
-;;   (font-lock-add-keywords mode
-;;    `((,lvn/highlight-org-regexps 1 'lvn/highlight-face prepend))))
-
-;; ;; Example from Jambunathan
-;;      (font-lock-add-keywords
-;;       'org-mode `(("\\(?:^\\(?1:\\*+\\)[[:blank:]]\\)"
-;; 		   (0 (progn (compose-region
-;; 			      (match-beginning 1) (match-end 1)
-;; 			      (pcase (length (match-string 1))
-;; 				(1 ?\u2219)
-;; 				(2 ?\u2022)
-;; 				(3 ?\u25c9)
-;; 				(_ ?\u25CB)))
-;; 			     nil)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
