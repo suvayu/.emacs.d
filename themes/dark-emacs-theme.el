@@ -1,3 +1,8 @@
+;;; dark-emacs-theme.el --- A dark theme that also works in a TTY
+
+;;; Commentary:
+
+;;; Code:
 (deftheme dark-emacs
   "Dark Emacs is designed to give the same look and feel as
   `emacs --no-window-system'. It is based on a theme made by the
@@ -105,6 +110,11 @@
 	   (((type tty)) (:slant normal :foreground "blanched almond" :inherit default))))
  '(link ((t (:foreground "cyan" :underline t :weight extra-bold))))
  '(link-visited ((t (:foreground "violet" :inherit link))))
+ '(lsp-face-highlight-textual ((t nil)))
+ '(lsp-lsp-flycheck-info-unnecessary-face ((t (:inherit flycheck-warning))) t)
+ '(lsp-ui-doc-background ((t (:background "#444444"))))
+ '(lsp-ui-peek-list ((t (:background "#444444"))))
+ '(lsp-ui-peek-peek ((t (:background "#444444"))))
  '(magit-diff-added ((((type tty)) (:foreground "green"))))
  '(magit-diff-added-highlight ((((type tty)) (:foreground "LimeGreen"))))
  '(magit-diff-context-highlight ((((type tty)) (:foreground "default"))))
@@ -164,13 +174,20 @@
 		 (((type graphic)) (:foreground "ForestGreen" :inherit shadow))))
  '(region ((((type graphic)) (:background "blue3"))
 	   (((type tty) (class color) (min-colors 256)) (:background "#0000af"))))
+ '(rst-level-1 ((t (:background "grey85" :foreground "black"))))
  '(rst-level-1-face ((t (:background "grey85" :foreground "black"))))
+ '(rst-level-2 ((t (:inherit rst-level-1 :background "grey78"))))
  '(secondary-selection ((((type graphic)) (:background "wheat2"))
 			(((type tty)) (:background "color-144" :foreground "grey30")))
 		       nil "Depends on tty in -nw mode")
  '(shadow ((t (:foreground "grey75"))))
  '(show-paren-match ((t (:background "SlateBlue1"))))
  '(show-paren-mismatch ((t (:foreground "white" :background "magenta"))))
+ '(smerge-base ((t (:background "DarkOliveGreen4"))))
+ '(smerge-lower ((t (:background "SeaGreen3"))))
+ '(smerge-markers ((t (:background "grey55"))))
+ '(smerge-refined-added ((t (:inherit smerge-refined-change :background "DarkSeaGreen3"))))
+ '(smerge-upper ((t (:background "LightPink4"))))
  '(sx-custom-button ((((type tty)) (:weight bold :foreground "blue3" :background "ivory2"))))
  '(sx-question-mode-content-face ((((type tty)) nil)))
  '(underline ((((supports :underline t))
@@ -183,3 +200,4 @@
  )
 
 (provide-theme 'dark-emacs)
+;;; dark-emacs-theme.el ends here
