@@ -17,7 +17,6 @@
 
 ;; links to notmuch emails in org
 (require 'org-notmuch)
-(require 'org-link-travis)
 
 ;; (require 'org-man)
 (require 'org-occur-goto)
