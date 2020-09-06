@@ -8,23 +8,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(italic ((t (:inherit default :foreground "blanched almond" :slant normal))))
- '(smerge-base ((t (:background "DarkOliveGreen4"))))
- '(smerge-lower ((t (:background "SeaGreen3"))))
- '(smerge-markers ((t (:background "grey55"))))
- '(smerge-refined-added ((t (:inherit smerge-refined-change :background "DarkSeaGreen3"))))
- '(smerge-upper ((t (:background "LightPink4")))))
+ '(italic ((t (:inherit default :foreground "blanched almond" :slant normal)))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(Info-additional-directory-list '("~/.emacs.d/info-manuals"))
+ '(Info-additional-directory-list '("~/.emacs.d/info"))
  '(TeX-PDF-mode t)
  '(TeX-engine 'xetex)
  '(abbrev-mode t t)
- '(blacken-executable "~/.local/bin/black")
  '(blacken-line-length 'fill)
  '(blink-cursor-mode t)
  '(calendar-date-style 'iso)
@@ -32,18 +26,18 @@
  '(column-number-mode t)
  '(custom-enabled-themes '(dark-emacs))
  '(custom-safe-themes
-   '("6f5095fe825fcc7457ce0f3468adb55b35f1e0a2f5d69b1590452fe2331cf499" default))
+   '("23297cd70374826e720354d277052398570204fc4b081c2a0766f15cf88966b1" default))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
  '(diff-switches "-u")
+ '(dired-hide-details-hide-symlink-targets nil)
  '(dired-listing-switches "-alh")
  '(display-time-mode t)
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function 'split-window-horizontally)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-python-flake8-executable "python3")
- '(flycheck-python-mypy-executable "~/.local/bin/mypy")
  '(git-ps1-mode-lighter-text-format "[%s]")
  '(git-ps1-mode-ps1-file "/usr/share/git-core/contrib/completion/git-prompt.sh")
  '(ibuffer-mode-hook '(ibuffer-auto-mode))
@@ -78,6 +72,8 @@
  '(initial-scratch-message nil)
  '(isearch-allow-scroll t)
  '(ispell-dictionary "british")
+ '(lsp-ui-doc-delay 1)
+ '(lsp-ui-doc-position 'bottom)
  '(magit-save-repository-buffers nil)
  '(message-elide-ellipsis "
  [...chomp...chomp...chomp...]
@@ -130,11 +126,11 @@
    '(("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/")))
  '(package-selected-packages
-   '(ac-c-headers blacken gitlab magit-lfs magithub csv-mode anaconda-mode ac-math auto-complete yaml-mode undo-tree d-mode flycheck-dmd-dub flycheck-cython flycheck-julia magit magit-filenotify magit-svn yasnippet yasnippet-snippets json-mode flycheck-scala-sbt sbt-mode scala-mode git-commit cython-mode flycheck-pos-tip lua-mode git-ps1-mode rich-minority neotree smartparens rust-mode sx cmake-mode idomenu hydra flycheck cdlatex vlf kill-ring-search chess auctex ascii-art-to-unicode ac-dabbrev))
+   '(dap-mode lsp-pyright lsp-ui flycheck-popup-tip lsp-mode rustic conda use-package flycheck-mypy orgalist ac-c-headers blacken gitlab magit-lfs csv-mode anaconda-mode ac-math auto-complete yaml-mode undo-tree flycheck-cython flycheck-julia magit magit-filenotify yasnippet yasnippet-snippets json-mode flycheck-scala-sbt sbt-mode scala-mode git-commit cython-mode flycheck-pos-tip lua-mode git-ps1-mode rich-minority neotree smartparens sx cmake-mode idomenu hydra flycheck cdlatex vlf kill-ring-search chess auctex ascii-art-to-unicode ac-dabbrev))
  '(printer-name "HP_LaserJet_Pro_MFP_M126nw")
  '(python-shell-interpreter "python3")
  '(read-buffer-completion-ignore-case t)
- '(rustic-lsp-server (quote rust-analyzer))
+ '(rustic-lsp-server 'rust-analyzer)
  '(safe-local-variable-values
    '((eval auto-save-mode nil)
      (backup-inhibited . t)
@@ -147,7 +143,7 @@
  '(savehist-mode t nil (savehist))
  '(search-upper-case t)
  '(semantic-idle-scheduler-idle-time 3)
- '(semantic-mode t)
+ '(semantic-mode nil)
  '(send-mail-function 'smtpmail-send-it)
  '(sentence-end-double-space t)
  '(session-set-file-name-exclude-regexp
@@ -159,7 +155,7 @@
  '(smtpmail-smtp-service 25)
  '(sp-base-key-bindings 'sp)
  '(speedbar-use-images nil)
- '(tramp-default-method "ssh" nil (tramp))
+ '(tramp-default-method "ssh")
  '(tramp-use-ssh-controlmaster-options nil)
  '(transient-mark-mode t)
  '(truncate-lines t)
