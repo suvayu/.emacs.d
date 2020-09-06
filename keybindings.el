@@ -180,19 +180,16 @@ is controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 ;;; Dired
 (put 'dired-find-alternate-file 'disabled nil)
 
-;; `dired-details' & `dired-details+' by Drew Adams
-;; reported a bug for this 1 ;) (not in vanilla Emacs)
-(require 'dired-details)
-(require 'dired-details+)
-(require 'dired-sort-menu)
-(require 'dired-sort-menu+)
+(with-eval-after-load 'dired
+  ;; `dired-mode' key bindings
+  (define-key dired-mode-map (kbd "C-<down>") 'dired-next-subdir)
+  (define-key dired-mode-map (kbd "C-<up>") 'dired-prev-subdir)
+  (define-key dired-mode-map (kbd "C-<left>") 'dired-tree-up)
+  (define-key dired-mode-map (kbd "C-<right>") 'dired-tree-down)
+  ;; (define-key dired-mode-map (kbd "<tab>") 'dired-hide-subdir) ; doesn't work
+  )
 
-;; `dired-mode' key bindings ; okay here since dired is required above
-(define-key dired-mode-map (kbd "C-<down>") 'dired-next-subdir)
-(define-key dired-mode-map (kbd "C-<up>") 'dired-prev-subdir)
-(define-key dired-mode-map (kbd "C-<left>") 'dired-tree-up)
-(define-key dired-mode-map (kbd "C-<right>") 'dired-tree-down)
-(define-key dired-mode-map (kbd "<tab>") 'dired-hide-subdir)
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
 
 ;; lazy-bones
 (defalias 'yes-or-no-p 'y-or-n-p)
