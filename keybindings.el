@@ -123,9 +123,10 @@
 (require 'smartparens-config)
 (smartparens-global-mode 1)
 ;; change `sp-smartparens-bindings' defaults
-(define-key sp-keymap (kbd "C-<right>") nil)
-(define-key sp-keymap (kbd "C-<left>") nil)
-; (loop for key in '('[(C-left)] '[(C-right)]) do (define-key sp-keymap key nil))
+(cl-loop for key in '([C-left] [C-right]) do
+	 (define-key sp-keymap key nil))
+(define-key sp-keymap (kbd "C-c <up>") 'sp-rewrap-sexp)
+
 (defhydra hydra-sp (sp-keymap "C-c")
   "sp-slurp/barf-fwd/bkwd"
   ("<right>" sp-forward-slurp-sexp "slurp forward")
