@@ -180,7 +180,7 @@
 	       ("\\chapter{%s}" . "\\chapter*{%s}")
 	       ("\\section{%s}" . "\\section*{%s}")
 	       ("\\subsection{%s}" . "\\subsection*{%s}")
-	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
 (add-to-list 'org-latex-classes
 	     '("titledblocks" "\\documentclass[11pt]{scrartcl}"
@@ -190,16 +190,15 @@
 	     '("scrartcl" "\\documentclass[11pt]{scrartcl}"
 	       ("\\section{%s}" . "\\section*{%s}")
 	       ("\\subsection{%s}" . "\\subsection*{%s}")
-	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
-	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+	       ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
 (add-to-list 'org-latex-classes
 	     '("scrreprt" "\\documentclass[11pt]{scrreprt}"
 	       ("\\chapter{%s}" . "\\chapter*{%s}")
 	       ("\\section{%s}" . "\\section*{%s}")
 	       ("\\subsection{%s}" . "\\subsection*{%s}")
-	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	       ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
 (add-to-list 'org-latex-classes
 	     '("scrbook" "\\documentclass[11pt]{scrbook}"
