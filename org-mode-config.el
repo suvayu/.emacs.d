@@ -86,7 +86,7 @@
       org-stuck-projects '("+LEVEL=2&+SCHEDULED<\"<-1m>\"/!-DONE"
 			   nil nil "^\\*\\+ \\+\\(DONE|FIXD|CNCL\\)")
       org-todo-keywords ; @ - time stamp with note, ! - only time stamp
-      '((sequence "TODO(t)" "WInP(w!)" "DLAY(l@/!)" "|" "DONE(d@)" "CNCL(c@/!)")
+      '((sequence "TODO(t)" "WInP(w!)" "DLAY(l@/!)" "|" "DONE(d!)" "CNCL(c@/!)")
 	;; (type "TEST(e!)" "DBUG(b@)" "LEAK(l@)" "SEGF(s@)" "|" "FIXD(f@/!)")
 	)
       ;; turn on speed keys for headlines
