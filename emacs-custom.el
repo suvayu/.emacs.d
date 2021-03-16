@@ -26,7 +26,7 @@
  '(column-number-mode t)
  '(custom-enabled-themes '(dark-emacs))
  '(custom-safe-themes
-   '("23297cd70374826e720354d277052398570204fc4b081c2a0766f15cf88966b1" default))
+   '("d9ab4c91aad0b36fd549cd03816965e7c0dc5bf6c95db781ecd2ead701aa6e3c" default))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
