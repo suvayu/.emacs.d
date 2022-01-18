@@ -26,9 +26,9 @@
 	(cl-remove-if-not (lambda (el) (member (car el) my-modes))
 		       semantic-new-buffer-setup-functions)))
 
-;; `semantic-idle-scheduler-idle-time' is set to 3 secs in customize
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+;; ;; `semantic-idle-scheduler-idle-time' is set to 3 secs in customize
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
 
 ;; Emacs C source directory
 (setq find-function-C-source-directory "~/build/emacs/src")
@@ -87,7 +87,7 @@
 (load-file "~/.emacs.d/py-config.el")
 
 ;; auto-complete
-(load-file "~/.emacs.d/ac-config.el")
+;; (load-file "~/.emacs.d/ac-config.el")
 
 ;; Flycheck
 (load-file "~/.emacs.d/flyc-config.el")

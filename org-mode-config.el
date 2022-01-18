@@ -16,7 +16,7 @@
 ;; (require 'ox-publish)
 
 ;; links to notmuch emails in org
-(require 'org-notmuch)
+;; (require 'org-notmuch)
 
 ;; (require 'org-man)
 (require 'org-occur-goto)

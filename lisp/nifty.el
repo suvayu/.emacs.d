@@ -6,7 +6,7 @@
 
 ;;; Code:
 (require 'org)
-(require 'notmuch)
+;; (require 'notmuch)
 
 ;;; Navigation utilities
 ;; isearch wrappers to search in other window

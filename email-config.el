@@ -2,7 +2,7 @@
 ;;; email-comfig.el --- on bhishma
 
 ;;; Code:
-(require 'orgalist)
+;; (require 'orgalist)
 
 ;; File associations (email)
 (add-to-list 'auto-mode-alist '("/tmp/neomutt-" . message-mode)) ; mutt
@@ -28,8 +28,8 @@
 	    (setq local-abbrev-table message-mode-abbrev-table)))
 
 ;; read emails with notmuch
-(require 'notmuch)
+;; (require 'notmuch)
 
-;; Local Variables:
+;; local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
 ;; End:
