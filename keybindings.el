@@ -6,6 +6,7 @@
 (require 'nifty)
 (require 'hydra)
 (require 'neotree)
+(require 'helm-rg)
 
 ;;; Navigation
 ;; side scrolling on
@@ -69,6 +70,11 @@
 (global-set-key (kbd "M-s C-M-s") 'sa-isearch-forward-regexp-other-window)
 (global-set-key (kbd "M-s C-M-r") 'sa-isearch-backward-regexp-other-window)
 ;; NB: C-c C-s was bound to (c-show-syntactic-information ARG) in c-mode
+
+;; ripgrep
+(global-set-key (kbd "C-x g") 'helm-rg)
+(define-key helm-rg-map (kbd "<left>") 'backward-char)
+(define-key helm-rg-map (kbd "<right>") 'forward-char)
 
 
 ;;; Editing
