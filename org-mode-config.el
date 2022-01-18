@@ -492,6 +492,13 @@ otherwise move to next headline."
 	  (outline-previous-visible-heading 1))
     (outline-previous-visible-heading 1)))
 
+(defun org-ctrl-c-ret ()
+  "Call `org-table-hline-and-move' or `org-insert-heading' dep. on context."
+  (interactive)
+  (cond
+   ((org-at-table-p) (call-interactively 'org-table-hline-and-move))
+   ((org-at-item-p) (call-interactively 'org-insert-item))
+   (t (call-interactively 'org-insert-heading))))
 
 ;;; Keymaps:
 ;; To specify key combinations use,

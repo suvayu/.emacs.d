@@ -330,7 +330,7 @@ header fields.  It is then displayed by calling `notmuch-show'."
 (defun sa-tbl-export (name)
   "Search for table named `NAME' and export."
   (interactive "sTable name: ")
-  (show-all)
+  (outline-show-all)
   (let ((case-fold-search t))
     (if (search-forward-regexp (concat "#\\+NAME: +" name) nil t)
     (progn
@@ -350,7 +350,7 @@ be created."
     (org-datetree-find-date-create (list (nth 4 date) (nth 3 date)
 					 (nth 5 date))))
   (outline-show-heading)
-  (show-subtree)
+  (outline-show-subtree)
   (org-reveal siblings)
   (beginning-of-line))
 
@@ -383,7 +383,7 @@ before the existing entry.  Use with caution."
     (let ((beg (point)) (end (save-excursion (outline-next-heading) (point)))
 	  range)
       (let ((buffer-invisibility-spec (org-inhibit-invisibility))) ; Emacs 21
-	(setq range (org-get-property-block beg end 'force))
+	(setq range (org-get-property-block beg end))
 	(goto-char (car range))
 	(progn
 	  (if (re-search-forward
