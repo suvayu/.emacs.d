@@ -15,6 +15,8 @@
 		       "/usr/include/root")))
 (setq other-includes (list "/opt/data-an/include"))
 
+(require 'dap-lldb)
+
 ;; flycheck
 (add-hook 'c++-mode-hook #'lsp-deferred)
 (add-hook 'c++-mode-hook

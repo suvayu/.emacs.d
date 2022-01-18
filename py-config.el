@@ -3,6 +3,8 @@
 ;; ;; for special navigation commands
 ;; (require 'nifty)
 
+(require 'dap-python)
+
 (require 'lsp-pyright)
 (add-hook 'python-mode-hook #'lsp-deferred)
 
