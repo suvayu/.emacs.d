@@ -8,6 +8,8 @@
 
 ;; force `c++-mode' for `*.h' header files
 (add-to-list 'auto-mode-alist (cons "\\.h\\'" 'c++-mode))
+;; add CUDA source & header files
+(add-to-list 'auto-mode-alist (cons "\\.cuh?\\'" 'c++-mode))
 
 ;; include directories
 (setq root-include (let ((rootsys (getenv "ROOTSYS")))
