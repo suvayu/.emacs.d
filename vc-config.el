@@ -16,56 +16,50 @@
 	      (error nil))))
 
 ;; mode to edit git commit message
-(autoload 'git-commit-mode "git-commit"
-  "Major mode for editing git commit messages." t)
-(add-hook 'git-commit-mode-hook (lambda () (orgalist-mode t)))
+(use-package git-commit
+  :ensure t
+  :hook (git-commit-mode . (lambda () (orgalist-mode t))))
 
-;; load magit only when git version >= 1.7.2
-(let ((git-version (shell-command-to-string "git --version")))
-  (string-match "^.\+\\([0-9]\+\\)\.\\([0-9]\+\\)\.\\([0-9]\+\\)$" git-version)
-  (setq git-version (cl-loop for i in '(1 2 3) collect i))
-  (if (or (> (nth 1 git-version) 1)	; git version >= 1.7.2
-	  (and (= (nth 1 git-version) 1)
-	       (> (nth 2 git-version) 7))
-	  (and (= (nth 1 git-version) 1)
-	       (= (nth 2 git-version) 7)
-	       (>= (nth 3 git-version) 2)))
-      (progn
-	(require 'magit)
-
-	(defun sa-magit-log (files &optional long)
-	  "My Magit log function.
+(use-package magit
+  :ensure t
+  :config
+  (setq magit-last-seen-setup-instructions "1.4.0") ;seen auto-revert msg
+  (defun sa-magit-log (files &optional long)
+    "My Magit log function.
 
 FILES are passed on as is, when LONG show a more verbose git log."
-	  (interactive "P")
-	  (magit-log-current nil
-			     (if (not long) '("--graph")
-			       '("--graph" "--format=medium" "--stat"))
-			     files))
+    (interactive "P")
+    (magit-log-current
+     nil (if (not long) '("--graph")
+	   '("--graph" "--format=medium" "--stat"))
+     files))
+  :bind
+  (("C-x v s" . magit-status)
+   ("C-x v d" . magit-diff-unstaged)
+   ("C-x v D" . magit-diff-staged)
+   ;; A better binding might be
+   ;; - file log: l - short, L - long (don't know how to get this)
+   ;; - with prefix, repo log: same
+   ("C-x v l" . (lambda (&optional long)
+		  (interactive "P")
+		  (sa-magit-log nil long)))
+   ("C-x v L" . (lambda (&optional long)
+		  (interactive "P")
+		  (sa-magit-log (list (buffer-file-name)) long)))
+   :map magit-log-mode-map		;FIXME: review
+   ("<tab>" . magit-goto-next-section)
+   ("<backtab>" . magit-goto-previous-section)
+   )
+  )
 
-	(setq magit-last-seen-setup-instructions "1.4.0") ;seen auto-revert msg
-	(define-key magit-log-mode-map (kbd "TAB") 'magit-goto-next-section)
-	(define-key magit-log-mode-map (kbd "<backtab>") 'magit-goto-previous-section)
+(use-package magit-blame :after (magit))
 
-	(global-set-key (kbd "C-x v s") 'magit-status)
-	(global-set-key (kbd "C-x v d") 'magit-diff-unstaged)
-	(global-set-key (kbd "C-x v D") 'magit-diff-staged)
-	(global-set-key (kbd "C-x v l")
-			(lambda (&optional long)
-			  (interactive "P")
-			  (sa-magit-log nil long)))
-	(global-set-key (kbd "C-x v L")
-			(lambda (&optional long)
-			  (interactive "P")
-			  (sa-magit-log (list (buffer-file-name)) long)))
-	;; A better binding might be
-	;; - file log: l - short, L - long (don't know how to get this)
-	;; - with prefix, repo log: same
+;; (use-package magit-filenotify
+;;   :after (magit)
+;;   :hook (magit-status-mode . magit-filenotify-mode)
+;;   )
 
-	;; (require 'magit-filenotify)
-	;; (add-hook 'magit-status-mode-hook 'magit-filenotify-mode)
-
-	(require 'magit-blame))))
+;;; vc-config.el ends here
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
