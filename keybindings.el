@@ -5,7 +5,6 @@
 ;;; Code:
 (require 'nifty)
 (require 'hydra)
-(require 'helm-rg)
 
 ;;; Navigation
 ;; side scrolling on
@@ -71,10 +70,24 @@
 ;; NB: C-c C-s was bound to (c-show-syntactic-information ARG) in c-mode
 
 ;; ripgrep
-(global-set-key (kbd "C-x g") 'helm-rg)
-(define-key helm-rg-map (kbd "<left>") 'backward-char)
-(define-key helm-rg-map (kbd "<right>") 'forward-char)
+(use-package helm-rg
+  :ensure t
+  :bind
+  (("C-x g" . helm-rg)
+   :map helm-rg-map
+   ("<left>" . backward-char)
+   ("<right>" . forward-char)))
 
+(use-package rg :ensure t :bind ("C-x C-g" . rg))
+
+(use-package deadgrep
+  :ensure t
+  :bind
+  (("C-x C-d" . deadgrep)
+   :map deadgrep-mode-map
+   ("{" . deadgrep-backward-filename)
+   ("}" . deadgrep-forward-filename)
+   ("/" . deadgrep-incremental)))
 
 ;;; Editing
 ;; prefer utf-8
