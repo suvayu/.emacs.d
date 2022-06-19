@@ -47,6 +47,11 @@
 ;; turn on ibuffer by default
 (progn (ibuffer) (switch-to-buffer "*scratch*"))
 
+(use-package session
+  :config (setq session-save-file-coding-system 'utf-8)
+  :bind ("C-x C-_" . session-jump-to-last-change)
+  :hook (after-init . session-initialize))
+
 ;; Colour theme and other gui related config
 (load-file "~/.emacs.d/ui-config.el")	; requires Emacs 24 themes
 

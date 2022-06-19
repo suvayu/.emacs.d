@@ -5,7 +5,6 @@
 ;;; Code:
 (require 'nifty)
 (require 'hydra)
-(require 'neotree)
 (require 'helm-rg)
 
 ;;; Navigation
@@ -30,7 +29,7 @@
 ;; (global-set-key (kbd "C-M-b") 'backward-sexp)
 
 ;; tree based directory browsing
-(global-set-key [f9] 'neotree-toggle)
+(use-package neotree :ensure t :bind ([f9] . neotree-toggle))
 
 ;; navigate frames
 (defhydra hydra-framenav (global-map "C-x")
@@ -64,7 +63,7 @@
 (define-key occur-mode-map (kbd "TAB") 'occur-mode-display-occurrence)
 (define-key occur-mode-map (kbd "f") 'next-error-follow-minor-mode)
 
-;; Isearch in other-window (TODO: hydrafy)
+;; Isearch in other-window
 (global-set-key (kbd "M-s C-s") 'sa-isearch-forward-other-window)
 (global-set-key (kbd "M-s C-r") 'sa-isearch-backward-other-window)
 (global-set-key (kbd "M-s C-M-s") 'sa-isearch-forward-regexp-other-window)
@@ -107,17 +106,17 @@
 (global-set-key (kbd "C-<down>") 'sa-forward-paragraph)
 
 ;; inserting unicode
-(require 'ucs-cmds)
-(define-key global-map [remap ucs-insert] 'ucsc-insert)
+(use-package ucs-cmds :bind ([remap ucs-insert] . ucsc-insert))
 
-;; undo-tree (not in vanilla Emacs)
-(require 'undo-tree)
-(global-undo-tree-mode)
+(use-package undo-tree :ensure t :config (global-undo-tree-mode))
 
-;; kill-ring-search
-(autoload 'kill-ring-search "kill-ring-search"
- "Search the kill ring in the minibuffer." t)
-(global-set-key (kbd "M-C-y") 'kill-ring-search)
+(use-package kill-ring-search
+  :ensure t
+  :bind
+  (("M-C-y" . kill-ring-search)
+   :map kill-ring-search-keymap
+   ("C-<up>" . kill-ring-scroll-up)
+   ("C-<down>" . kill-ring-scroll-down)))
 
 ;; parallel kill ring, by Michael Heerdegen (see nifty.el)
 (advice-add 'yank :before #'sa-yank--before-ad)
@@ -126,20 +125,21 @@
 ;; context sensitive M-=
 (global-set-key (kbd "M-=") #'sa-calc-or-count)
 
-(require 'smartparens-config)
-(smartparens-global-mode 1)
-;; change `sp-smartparens-bindings' defaults
-(cl-loop for key in '([C-left] [C-right]) do
-	 (define-key sp-keymap key nil))
-(define-key sp-keymap (kbd "C-c <up>") 'sp-rewrap-sexp)
-
-(defhydra hydra-sp (sp-keymap "C-c")
-  "sp-slurp/barf-fwd/bkwd"
-  ("<right>" sp-forward-slurp-sexp "slurp forward")
-  ("<left>" sp-backward-slurp-sexp "slurp backward")
-  ("C-<left>" sp-forward-barf-sexp "barf forward")
-  ("C-<right>" sp-backward-barf-sexp "barf backward")
-  ("q" nil "quit"))
+(use-package smartparens-config
+  :ensure smartparens
+  :config
+  (smartparens-global-mode 1)
+  ;; change `sp-smartparens-bindings' defaults
+  (cl-loop for key in '([C-left] [C-right]) do
+	   (define-key sp-keymap key nil))
+  (defhydra hydra-sp (sp-keymap "C-c")
+    "sp-slurp/barf-fwd/bkwd"
+    ("<right>" sp-forward-slurp-sexp "slurp forward")
+    ("<left>" sp-backward-slurp-sexp "slurp backward")
+    ("C-<left>" sp-forward-barf-sexp "barf forward")
+    ("C-<right>" sp-backward-barf-sexp "barf backward")
+    ("q" nil "quit"))
+  :bind (:map sp-keymap ("C-c <up>" . sp-rewrap-sexp)))
 
 ;; ;; FIXME:
 ;; (defadvice isearch-yank-kill
@@ -184,37 +184,19 @@ is controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 ;; 	    (add-hook 'abbrev-expand-functions 'sa-expand-abbrev-in-context nil t)))
 
 
-;;; Dired
-(put 'dired-find-alternate-file 'disabled nil)
-
-(with-eval-after-load 'dired
-  ;; `dired-mode' key bindings
-  (define-key dired-mode-map (kbd "C-<down>") 'dired-next-subdir)
-  (define-key dired-mode-map (kbd "C-<up>") 'dired-prev-subdir)
-  (define-key dired-mode-map (kbd "C-<left>") 'dired-tree-up)
-  (define-key dired-mode-map (kbd "C-<right>") 'dired-tree-down)
-  ;; (define-key dired-mode-map (kbd "<tab>") 'dired-hide-subdir) ; doesn't work
-  )
-
-(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+(use-package dired
+  :config
+  (put 'dired-find-alternate-file 'disabled nil)
+  :bind
+  (:map dired-mode-map
+	("C-<down>" . dired-next-subdir)
+	("C-<up>" . dired-prev-subdir)
+	("C-<left>" . dired-tree-up)
+	("C-<right>" . dired-tree-down))
+  :hook (dired-mode . dired-hide-details-mode))
 
 ;; lazy-bones
 (defalias 'yes-or-no-p 'y-or-n-p)
-;; session management (not in vanilla Emacs).  Eventhough not a
-;; keybinding, session settings stays here because of lazy-bones
-(require 'session)
-(add-hook 'after-init-hook 'session-initialize)
-;; coding system to use when writing `session-save-file'
-(setq session-save-file-coding-system 'utf-8)
-(global-set-key (kbd "C-x C-_") 'session-jump-to-last-change)
-
-
-;;; sx
-;; keybindings
-(add-hook 'sx-question-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "<down>") 'next-line)
-	    (local-set-key (kbd "<up>") 'previous-line)))
 
 ;;; keybindings.el ends here
 
