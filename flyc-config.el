@@ -3,22 +3,24 @@
 ;;; Commentary:
 
 ;;; Code:
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+  :ensure t
+  :hook
+  (after-init-hook #'global-flycheck-mode)
+  :config
+  ;; ;; many features are not supported well; e.g. openmp
+  ;; (delete 'c/c++-clang flycheck-checkers)
+  (add-to-list 'flycheck-checkers 'python-flake8)
+  (add-to-list 'flycheck-checkers 'python-mypy)
 
-;; many features are not supported well; e.g. openmp
-(delete 'c/c++-clang flycheck-checkers)
-
-(add-to-list 'flycheck-checkers 'python-flake8)
-(add-to-list 'flycheck-checkers 'python-mypy)
-
-;; navigate flycheck errors w/ hydra
-(defhydra hydra-flycerr (flycheck-command-map)
-  "goto-flycheck-error"
-  ("<down>" flycheck-next-error "next")
-  ("<up>" flycheck-previous-error "prev")
-  ("<space>" flycheck-list-errors "list")
-  ("q" nil "quit"))
+  ;; navigate flycheck errors w/ hydra
+  (defhydra hydra-flycerr (flycheck-command-map)
+    "goto-flycheck-error"
+    ("<down>" flycheck-next-error "next")
+    ("<up>" flycheck-previous-error "prev")
+    ("<space>" flycheck-list-errors "list")
+    ("q" nil "quit"))
+  )
 
 ;;; flyc-config.el ends here
 
