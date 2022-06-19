@@ -73,17 +73,17 @@
 (use-package helm-rg
   :ensure t
   :bind
-  (("C-x g" . helm-rg)
+  (("M-s g" . helm-rg)
    :map helm-rg-map
    ("<left>" . backward-char)
    ("<right>" . forward-char)))
 
-(use-package rg :ensure t :bind ("C-x C-g" . rg))
+(use-package rg :ensure t :bind ("M-s C-g" . rg))
 
 (use-package deadgrep
   :ensure t
   :bind
-  (("C-x C-d" . deadgrep)
+  (("M-s C-d" . deadgrep)
    :map deadgrep-mode-map
    ("{" . deadgrep-backward-filename)
    ("}" . deadgrep-forward-filename)
