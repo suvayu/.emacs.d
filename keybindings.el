@@ -138,21 +138,21 @@
 ;; context sensitive M-=
 (global-set-key (kbd "M-=") #'sa-calc-or-count)
 
-(use-package smartparens-config
-  :ensure smartparens
-  :config
-  (smartparens-global-mode 1)
-  ;; change `sp-smartparens-bindings' defaults
-  (cl-loop for key in '([C-left] [C-right]) do
-	   (define-key sp-keymap key nil))
-  (defhydra hydra-sp (sp-keymap "C-c")
-    "sp-slurp/barf-fwd/bkwd"
-    ("<right>" sp-forward-slurp-sexp "slurp forward")
-    ("<left>" sp-backward-slurp-sexp "slurp backward")
-    ("C-<left>" sp-forward-barf-sexp "barf forward")
-    ("C-<right>" sp-backward-barf-sexp "barf backward")
-    ("q" nil "quit"))
-  :bind (:map sp-keymap ("C-c <up>" . sp-rewrap-sexp)))
+;; FIXME: w/ `use-package', doesn't enable `smartparens-global-mode'
+(require 'smartparens-config)
+(smartparens-global-mode 1)
+;; change `sp-smartparens-bindings' defaults
+(cl-loop for key in '([C-left] [C-right]) do
+	 (define-key sp-keymap key nil))
+(define-key sp-keymap (kbd "C-c <up>") 'sp-rewrap-sexp)
+
+(defhydra hydra-sp (sp-keymap "C-c")
+  "sp-slurp/barf-fwd/bkwd"
+  ("<right>" sp-forward-slurp-sexp "slurp forward")
+  ("<left>" sp-backward-slurp-sexp "slurp backward")
+  ("C-<left>" sp-forward-barf-sexp "barf forward")
+  ("C-<right>" sp-backward-barf-sexp "barf backward")
+  ("q" nil "quit"))
 
 ;; ;; FIXME:
 ;; (defadvice isearch-yank-kill
