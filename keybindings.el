@@ -123,14 +123,6 @@
 
 (use-package undo-tree :ensure t :config (global-undo-tree-mode))
 
-(use-package kill-ring-search
-  :ensure t
-  :bind
-  (("M-C-y" . kill-ring-search)
-   :map kill-ring-search-keymap
-   ("C-<up>" . kill-ring-scroll-up)
-   ("C-<down>" . kill-ring-scroll-down)))
-
 ;; parallel kill ring, by Michael Heerdegen (see nifty.el)
 (advice-add 'yank :before #'sa-yank--before-ad)
 (global-set-key [(meta ?y)] #'sa-yank-pop)
