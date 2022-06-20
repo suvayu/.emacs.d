@@ -52,6 +52,8 @@
   :bind ("C-x C-_" . session-jump-to-last-change)
   :hook (after-init . session-initialize))
 
+(use-package orgalist :ensure t)
+
 ;; Colour theme and other gui related config
 (load-file "~/.emacs.d/ui-config.el")	; requires Emacs 24 themes
 

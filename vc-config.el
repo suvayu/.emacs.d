@@ -5,7 +5,6 @@
 ;;; Code:
 ;; ;; light weight additions and remapping to vc-git (ELPA)
 ;; (load-library "gitty")
-(require 'orgalist)
 
 ;; auto-revert-mode for files under version control
 (add-hook 'find-file-hook
@@ -18,6 +17,7 @@
 ;; mode to edit git commit message
 (use-package git-commit
   :ensure t
+  :after orgalist
   :hook (git-commit-mode . (lambda () (orgalist-mode t))))
 
 (use-package magit
