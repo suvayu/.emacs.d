@@ -6,8 +6,8 @@
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
-;; many features are not supported well; e.g. openmp
-(delete 'c/c++-clang flycheck-checkers)
+;; ;; many features are not supported well; e.g. openmp
+;; (delete 'c/c++-clang flycheck-checkers)
 
 (add-to-list 'flycheck-checkers 'python-flake8)
 (add-to-list 'flycheck-checkers 'python-mypy)
