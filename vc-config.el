@@ -14,17 +14,14 @@
 		    (auto-revert-mode t))
 	      (error nil))))
 
-;; mode to edit git commit message
-(use-package git-commit
-  :ensure t
-  :after orgalist
-  :hook (git-commit-mode . (lambda () (orgalist-mode t))))
+;; mode to edit git commit message, load after `orgalist'
+(autoload 'git-commit-mode "git-commit"
+  "Major mode for editing git commit messages." t)
+(add-hook 'git-commit-mode-hook (lambda () (orgalist-mode t)))
 
-(use-package magit
-  :ensure t
-  :config
-  (setq magit-last-seen-setup-instructions "1.4.0") ;seen auto-revert msg
-  (defun sa-magit-log (files &optional long)
+(require 'magit)
+
+(defun sa-magit-log (files &optional long)
     "My Magit log function.
 
 FILES are passed on as is, when LONG show a more verbose git log."
@@ -33,32 +30,28 @@ FILES are passed on as is, when LONG show a more verbose git log."
      nil (if (not long) '("--graph")
 	   '("--graph" "--format=medium" "--stat"))
      files))
-  :bind
-  (("C-x v s" . magit-status)
-   ("C-x v d" . magit-diff-unstaged)
-   ("C-x v D" . magit-diff-staged)
-   ;; A better binding might be
-   ;; - file log: l - short, L - long (don't know how to get this)
-   ;; - with prefix, repo log: same
-   ("C-x v l" . (lambda (&optional long)
-		  (interactive "P")
-		  (sa-magit-log nil long)))
-   ("C-x v L" . (lambda (&optional long)
-		  (interactive "P")
-		  (sa-magit-log (list (buffer-file-name)) long)))
-   :map magit-log-mode-map		;FIXME: review
-   ("<tab>" . magit-goto-next-section)
-   ("<backtab>" . magit-goto-previous-section)
-   )
-  )
 
-(use-package magit-blame :after (magit))
+(define-key magit-log-mode-map (kbd "TAB") 'magit-goto-next-section)
+(define-key magit-log-mode-map (kbd "<backtab>") 'magit-goto-previous-section)
 
-;; (use-package magit-filenotify
-;;   :after (magit)
-;;   :hook (magit-status-mode . magit-filenotify-mode)
-;;   )
+(global-set-key (kbd "C-x v s") 'magit-status)
+(global-set-key (kbd "C-x v d") 'magit-diff-unstaged)
+(global-set-key (kbd "C-x v D") 'magit-diff-staged)
+(global-set-key (kbd "C-x v l")
+                (lambda (&optional long)
+                  (interactive "P")
+                  (sa-magit-log nil long)))
+(global-set-key (kbd "C-x v L")
+                (lambda (&optional long)
+                  (interactive "P")
+                  (sa-magit-log (list (buffer-file-name)) long)))
+;; A better binding might be
+;; - file log: l - short, L - long (don't know how to get this)
+;; - with prefix, repo log: same
 
+;; (require 'magit-filenotify)
+;; (add-hook 'magit-status-mode-hook 'magit-filenotify-mode)
+(require 'magit-blame)
 ;;; vc-config.el ends here
 
 ;; Local Variables:
