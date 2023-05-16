@@ -27,8 +27,15 @@
 ;; (global-set-key (kbd "C-M-f") 'forward-sexp)
 ;; (global-set-key (kbd "C-M-b") 'backward-sexp)
 
+(global-set-key (kbd "M-g .") 'ffap)
+
+(require 'avy)
+(global-set-key (kbd "M-g SPC") 'avy-goto-char)
+(global-set-key (kbd "M-g ,") 'avy-goto-char-2)
+
 ;; tree based directory browsing
-(use-package neotree :ensure t :bind ([f9] . neotree-toggle))
+(require 'neotree)
+(global-set-key [f9] 'neotree-toggle)
 
 ;; navigate frames
 (defhydra hydra-framenav (global-map "C-x")
@@ -39,10 +46,10 @@
 
 ;; navigate errors w/ hydra
 ;; see flyc-config.el for flycheck error navigation
-(define-key global-map (kbd "M-g /") 'first-error) ; mnemonic: `?'
+;; (define-key global-map (kbd "M-g /") 'first-error) ; mnemonic: `?'
 (defhydra hydra-error (global-map "M-g")
   "goto-error"
-  ("." first-error "first")
+  ("/" first-error "first")		; mnemonic: / or ?
   ("<down>" next-error "next")
   ("<up>" previous-error "prev")
   ("q" nil "quit"))
@@ -70,24 +77,19 @@
 ;; NB: C-c C-s was bound to (c-show-syntactic-information ARG) in c-mode
 
 ;; ripgrep
-(use-package helm-rg
-  :ensure t
-  :bind
-  (("M-s g" . helm-rg)
-   :map helm-rg-map
-   ("<left>" . backward-char)
-   ("<right>" . forward-char)))
+(require 'helm-rg)
+(global-set-key (kbd "M-s g") 'helm-rg)
+(define-key helm-rg-map (kbd "<left>") 'backward-char)
+(define-key helm-rg-map (kbd "<right>") 'forward-char)
 
-(use-package rg :ensure t :bind ("M-s C-g" . rg))
+(require 'rg)
+(global-set-key (kbd "M-s C-g") 'rg)
 
-(use-package deadgrep
-  :ensure t
-  :bind
-  (("M-s C-d" . deadgrep)
-   :map deadgrep-mode-map
-   ("{" . deadgrep-backward-filename)
-   ("}" . deadgrep-forward-filename)
-   ("/" . deadgrep-incremental)))
+(require 'deadgrep)
+(global-set-key (kbd "M-s C-d") 'deadgrep)
+(define-key deadgrep-mode-map (kbd "{") 'deadgrep-backward-filename)
+(define-key deadgrep-mode-map (kbd "}") 'deadgrep-forward-filename)
+(define-key deadgrep-mode-map (kbd "/") 'deadgrep-incremental)
 
 ;;; Editing
 ;; prefer utf-8
@@ -119,9 +121,11 @@
 (global-set-key (kbd "C-<down>") 'sa-forward-paragraph)
 
 ;; inserting unicode
-(use-package ucs-cmds :bind ([remap ucs-insert] . ucsc-insert))
+(require 'ucs-cmds)
+(global-set-key [remap ucs-insert] 'ucsc-insert)
 
-(use-package undo-tree :ensure t :config (global-undo-tree-mode))
+(require 'undo-tree)
+(global-undo-tree-mode)
 
 ;; parallel kill ring, by Michael Heerdegen (see nifty.el)
 (advice-add 'yank :before #'sa-yank--before-ad)
@@ -130,7 +134,6 @@
 ;; context sensitive M-=
 (global-set-key (kbd "M-=") #'sa-calc-or-count)
 
-;; FIXME: w/ `use-package', doesn't enable `smartparens-global-mode'
 (require 'smartparens-config)
 (smartparens-global-mode 1)
 ;; change `sp-smartparens-bindings' defaults
@@ -145,6 +148,19 @@
   ("C-<left>" sp-forward-barf-sexp "barf forward")
   ("C-<right>" sp-backward-barf-sexp "barf backward")
   ("q" nil "quit"))
+
+(require 'dired)
+(put 'dired-find-alternate-file 'disabled nil)
+
+(define-key dired-mode-map (kbd "C-<down>") 'dired-next-subdir)
+(define-key dired-mode-map (kbd "C-<up>") 'dired-prev-subdir)
+(define-key dired-mode-map (kbd "C-<left>") 'dired-tree-up)
+(define-key dired-mode-map (kbd "C-<right>") 'dired-tree-down)
+
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+
+;; lazy-bones
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; ;; FIXME:
 ;; (defadvice isearch-yank-kill
@@ -187,21 +203,6 @@ is controlled by the \"abnormal\" hook `abbrev-expand-functions'."
 ;; (add-hook 'after-change-major-mode-hook
 ;; 	  (lambda ()
 ;; 	    (add-hook 'abbrev-expand-functions 'sa-expand-abbrev-in-context nil t)))
-
-
-(use-package dired
-  :config
-  (put 'dired-find-alternate-file 'disabled nil)
-  :bind
-  (:map dired-mode-map
-	("C-<down>" . dired-next-subdir)
-	("C-<up>" . dired-prev-subdir)
-	("C-<left>" . dired-tree-up)
-	("C-<right>" . dired-tree-down))
-  :hook (dired-mode . dired-hide-details-mode))
-
-;; lazy-bones
-(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;;; keybindings.el ends here
 
