@@ -8,7 +8,6 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
-(require 'use-package)
 
 (require 'cl-lib)
 (setq debug-on-error t)
@@ -25,18 +24,6 @@
 (load-file "~/.emacs.d/kill-old-org.el")
 (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 
-(semantic-mode)
-
-;; disable semantic in all non C/C++ buffers
-(setq semantic-new-buffer-setup-functions
-      (let ((my-modes '(c-mode c++-mode python-mode)))
-	(cl-remove-if-not (lambda (el) (member (car el) my-modes))
-		       semantic-new-buffer-setup-functions)))
-
-;; ;; `semantic-idle-scheduler-idle-time' is set to 3 secs in customize
-;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
-;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
-
 ;; Emacs C source directory
 (setq find-function-C-source-directory "~/build/emacs/src")
 
@@ -47,13 +34,28 @@
 ;; turn on ibuffer by default
 (progn (ibuffer) (switch-to-buffer "*scratch*"))
 
-(use-package session
-  :config (setq session-save-file-coding-system 'utf-8)
-  :bind ("C-x C-_" . session-jump-to-last-change)
-  :hook (after-init . session-initialize))
 
-(use-package orgalist :ensure t)
+(require 'session)
+(setq session-save-file-coding-system 'utf-8)
 
+;;; Source: https://www.emacswiki.org/emacs/EmacsSession - LeWang
+(defun sa-reveal-dwim ()
+  "Expand folded secitons as required."
+  (when (and (or (memq major-mode  '(org-mode outline-mode))
+		 (and (boundp 'outline-minor-mode)
+		      outline-minor-mode))
+	     (outline-invisible-p))
+    (if (eq major-mode 'org-mode)
+	(org-reveal)
+      (show-subtree))))
+
+; needed, as this is interpreted as C-x C-/ - don't know why
+(global-set-key (kbd "C-x C-_") 'session-jump-to-last-change)
+(add-hook 'after-init-hook 'session-initialize)
+(add-hook 'session-after-jump-to-last-change-hook 'sa-reveal-dwim)
+(add-hook 'after-save-hook 'session-save-session)
+
+(require 'orgalist)
 ;; Colour theme and other gui related config
 (load-file "~/.emacs.d/ui-config.el")	; requires Emacs 24 themes
 
