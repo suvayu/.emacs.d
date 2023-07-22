@@ -10,6 +10,10 @@
  ;; If there is more than one, they won't work right.
  '(header-line ((t (:inherit mode-line :background "dim gray" :inverse-video nil :underline t))))
  '(italic ((t (:inherit default :foreground "blanched almond" :slant normal))))
+ '(ivy-minibuffer-match-face-1 ((t (:foreground "#5fd700"))))
+ '(ivy-minibuffer-match-face-2 ((t (:foreground "#af00af" :weight bold))))
+ '(ivy-minibuffer-match-face-3 ((t (:foreground "#005fff" :weight bold))))
+ '(ivy-minibuffer-match-face-4 ((t (:foreground "#ff00ff" :weight bold))))
  '(lsp-headerline-breadcrumb-path-face ((t (:foreground "white smoke"))))
  '(lsp-headerline-breadcrumb-symbols-face ((t (:inherit default)))))
 

@@ -69,6 +69,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mode hooks and other mode specific customisations ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load-file "~/.emacs.d/ivy-config.el")
+
 (load-file "~/.emacs.d/lsp-config.el")
 
 ;; Version control related customisations
