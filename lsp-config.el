@@ -4,6 +4,16 @@
 
 ;;; Code:
 (require 'lsp-mode)
+(require 'lsp-ui)
+
+(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]venv\\'")
+(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]mlruns\\'")
+(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]data\\'")
+(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]tmp\\'")
+(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]arxiv\\'")
+
+(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.venv.*\\'")
+(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.repo.*\\'")
 
 (with-eval-after-load 'lsp-ui
   (define-key lsp-ui-mode-map [f7] #'lsp-ui-imenu)
