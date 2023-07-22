@@ -34,6 +34,9 @@
 ;; turn on ibuffer by default
 (progn (ibuffer) (switch-to-buffer "*scratch*"))
 
+;; to get correct versions of remote programs from PATH
+(require 'tramp)
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
 (require 'session)
 (setq session-save-file-coding-system 'utf-8)

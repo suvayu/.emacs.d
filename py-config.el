@@ -13,7 +13,7 @@
 	  (lambda ()
 	    (flycheck-mode 1)
 	    (blacken-mode 1)
-	    (set-fill-column 79)
+	    ;; (set-fill-column 79)
 	    (local-set-key "[" 'skeleton-pair-insert-maybe)
 	    (local-set-key "'" 'skeleton-pair-insert-maybe)
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
