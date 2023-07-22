@@ -102,9 +102,6 @@
 ;; Python
 (load-file "~/.emacs.d/py-config.el")
 
-;; auto-complete
-;; (load-file "~/.emacs.d/ac-config.el")
-
 ;; Flycheck
 (load-file "~/.emacs.d/flyc-config.el")
 
