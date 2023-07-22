@@ -31,6 +31,7 @@
  '(calendar-date-style 'iso)
  '(case-fold-search t)
  '(column-number-mode t)
+ '(copilot-idle-delay 3)
  '(custom-enabled-themes '(dark-emacs))
  '(custom-safe-themes
    '("d9ab4c91aad0b36fd549cd03816965e7c0dc5bf6c95db781ecd2ead701aa6e3c" default))
