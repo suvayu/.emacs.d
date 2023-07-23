@@ -3,6 +3,8 @@
 ;; ;; for special navigation commands
 ;; (require 'nifty)
 
+(elpy-enable)
+
 (require 'dap-python)
 
 (require 'lsp-pyright)
@@ -40,25 +42,6 @@
 (add-to-list 'auto-mode-alist (cons "\\.pyx\\'" 'cython-mode))
 (add-to-list 'auto-mode-alist (cons "\\.pxd\\'" 'cython-mode))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Development tools: Pymacs ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; TODO: experiment with features provided by `ein'
-
-;; ;; Pymacs setup
-;; (autoload 'pymacs-apply "pymacs")
-;; (autoload 'pymacs-call "pymacs")
-;; (autoload 'pymacs-eval "pymacs" nil t)
-;; (autoload 'pymacs-exec "pymacs" nil t)
-;; (autoload 'pymacs-load "pymacs" nil t)
-;; ;;(eval-after-load "pymacs"
-;; ;;  '(add-to-list 'pymacs-load-path YOUR-PYMACS-DIRECTORY"))
-
-;; ;; Rope setup
-;; (pymacs-load "ropemacs" "rope-")
-;; (setq ropemacs-enable-autoimport t)
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
