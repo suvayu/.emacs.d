@@ -199,6 +199,7 @@
      (340 . "#303030")
      (360 . "#444444")))
  '(vc-handled-backends '(Git SVN Hg))
+ '(warning-suppress-types '((comp)))
  '(windmove-wrap-around t))
 
 
