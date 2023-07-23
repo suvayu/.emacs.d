@@ -150,8 +150,8 @@
 (add-to-list 'org-latex-packages-alist
 	     "\\setdefaultlanguage[variant=british]{english}" t)
 
-(add-to-list 'org-latex-packages-alist
-	     '("backgroundcolor=green!40" "todonotes" nil) t)
+;; (add-to-list 'org-latex-packages-alist
+;; 	     '("backgroundcolor=green!40" "todonotes" nil) t)
 
 (add-to-list 'org-latex-packages-alist '("" "makerobust" nil) t)
 (add-to-list 'org-latex-packages-alist "\\MakeRobustCommand\\begin" t)
@@ -213,7 +213,6 @@
 	       ,(concat "\\documentclass\[a4paper\]\{scrlttr2\}\n"
 			"\[NO-DEFAULT-PACKAGES]\n"
 			"\[NO-PACKAGES]\n"
-			"\\usepackage\{fixltx2e\}\n"
 			"\\usepackage\{fontspec\}\n"
 			"\\usepackage\{microtype\}\n"
 			"\\usepackage\{polyglossia\}\n"
