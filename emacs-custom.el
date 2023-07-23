@@ -8,6 +8,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(diff-refine-added ((t (:inherit diff-refine-change :background "forest green"))))
+ '(diff-refine-removed ((t (:inherit diff-refine-change :background "dark red"))))
  '(header-line ((t (:inherit mode-line :background "dim gray" :inverse-video nil :underline t))))
  '(italic ((t (:inherit default :foreground "blanched almond" :slant normal))))
  '(ivy-minibuffer-match-face-1 ((t (:foreground "#5fd700"))))
