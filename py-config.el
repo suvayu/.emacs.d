@@ -4,6 +4,13 @@
 ;; (require 'nifty)
 
 (elpy-enable)
+(add-hook 'elpy-mode-hook
+	  (lambda ()
+	    (define-key elpy-mode-map (kbd "M-<right>") 'windmove-right)
+	    (define-key elpy-mode-map (kbd "M-<left>") 'windmove-left)
+	    (define-key elpy-mode-map (kbd "M-<up>") 'windmove-up)
+	    (define-key elpy-mode-map (kbd "M-<down>") 'windmove-down)
+	    ))
 
 (require 'dap-python)
 
