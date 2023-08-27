@@ -15,14 +15,14 @@
       ;; debug-on-quit t)
 
 ;; set PATH to use standalone texlive instead
-(setenv "PATH" "/opt/texlive/2020/bin/x86_64-linux:$PATH" t)
+(setenv "PATH" "/opt/texlive/2023/bin/x86_64-linux:$PATH" t)
 
 ;; load path for elisp files
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
-;; kill old org before adding new org path
-(load-file "~/.emacs.d/kill-old-org.el")
-(add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
+;; ;; kill old org before adding new org path
+;; (load-file "~/.emacs.d/kill-old-org.el")
+;; (add-to-list 'load-path (expand-file-name "~/build/org-mode/lisp"))
 
 ;; Emacs C source directory
 (setq find-function-C-source-directory "~/build/emacs/src")
