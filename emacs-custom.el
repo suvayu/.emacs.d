@@ -8,9 +8,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(diff-header ((t (:extend t :background "dim gray"))))
  '(diff-refine-added ((t (:inherit diff-refine-change :background "forest green"))))
  '(diff-refine-removed ((t (:inherit diff-refine-change :background "dark red"))))
+ '(ediff-odd-diff-B ((t (:extend t :background "dim grey" :distant-foreground "Black"))))
  '(header-line ((t (:inherit mode-line :background "dim gray" :inverse-video nil :underline t))))
+ '(highlight-indentation-face ((t nil)))
  '(italic ((t (:inherit default :foreground "blanched almond" :slant normal))))
  '(ivy-minibuffer-match-face-1 ((t (:foreground "#5fd700"))))
  '(ivy-minibuffer-match-face-2 ((t (:foreground "#af00af" :weight bold))))
