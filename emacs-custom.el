@@ -160,7 +160,6 @@
  '(save-abbrevs nil)
  '(savehist-mode t nil (savehist))
  '(search-upper-case t)
- '(semantic-idle-scheduler-idle-time 3)
  '(semantic-mode nil)
  '(send-mail-function 'smtpmail-send-it)
  '(sentence-end-double-space t)
