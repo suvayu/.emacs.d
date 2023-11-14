@@ -67,7 +67,7 @@
   "Minimalist visual appearance.
 
 \\{minimal-mode-map}"
-  nil " min" nil
+  :init-value nil :lighter " min" :keymap nil
   (cond
    (minimal-mode
     ;; turn on
