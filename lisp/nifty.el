@@ -337,21 +337,26 @@ header fields.  It is then displayed by calling `notmuch-show'."
       (forward-line)
       (org-table-export (format "%s.csv" name) "orgtbl-to-csv")))))
 
-;; Source: Liam Healy on the org-mode mailing list
+;; Original: Liam Healy on the org-mode mailing list; modified by me
 ;; <http://mid.gmane.org/CADe9tL7xL8Oci9k4BsiOs_sH3b2N4ormAojDwJ1smF8J3yZGLA@mail.gmail.com>
-(defun sa-org-datetree-goto-date (&optional siblings)
-  "Go to and show the date in the date tree.
+(defun sa-org-datetree-goto-date (arg)
+  "Go to and show (or create) the date in the date tree.
 
-With optional argument SIBLINGS, on each level of the hierarchy
-all siblings are shown.  If no entry exists for the date, it will
-be created."
-  (interactive "P")
-  (let ((date (decode-time (org-read-date nil t))))
-    (org-datetree-find-date-create (list (nth 4 date) (nth 3 date)
-					 (nth 5 date))))
+Create `ARG' consecutive dates.  `ARG' is the numeric value of
+the prefix argument."
+  (interactive "p")
+  (let* ((date (decode-time (org-read-date nil t)))
+	 (date-next (decoded-time-add date (make-decoded-time :day (- arg 1)))))
+    (while (or (time-less-p date date-next) (time-equal-p date date-next))
+      (org-datetree-find-date-create (list (nth 4 date) (nth 3 date)
+					   (nth 5 date)))
+      ;; FIXME: insert subheading only on creation
+      (org-insert-subheading '(4))	;prefix argument to force next heading
+      (insert "Hours")
+      (org-set-tags "hrs")
+      (setf date (decoded-time-add date (make-decoded-time :day 1)))))
   (outline-show-heading)
   (outline-show-subtree)
-  (org-reveal siblings)
   (beginning-of-line))
 
 ;; Function to add custom based on headline
