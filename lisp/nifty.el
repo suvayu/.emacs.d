@@ -347,7 +347,8 @@ the prefix argument."
   (interactive "p")
   (let* ((date (decode-time (org-read-date nil t)))
 	 (date-next (decoded-time-add date (make-decoded-time :day (- arg 1)))))
-    (while (or (time-less-p date date-next) (time-equal-p date date-next))
+    (while (or (time-less-p (encode-time date) (encode-time date-next))
+	       (time-equal-p (encode-time date) (encode-time date-next)))
       (org-datetree-find-date-create (list (nth 4 date) (nth 3 date)
 					   (nth 5 date)))
       ;; FIXME: insert subheading only on creation
