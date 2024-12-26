@@ -17,6 +17,11 @@
 		  flycheck-gcc-language-standard "c++17"
 		  )))
 
+;; format on save
+(require 'clang-format-lite)
+(add-hook 'c++-mode-hook #'clang-format-lite-save-hook)
+(add-hook 'c-mode-hook #'clang-format-lite-save-hook)
+
 ;;; Keybindings
 ;; TODO: isearch through symbol names
 
@@ -31,6 +36,7 @@
 	    (local-set-key "[" 'skeleton-pair-insert-maybe)
 	    (local-set-key (kbd "M-RET") 'newline-and-indent)
 	    ;; (c-toggle-auto-newline 1)
+	    (yas-minor-mode 1)
 	    ))
 
 (require 'dap-lldb)
