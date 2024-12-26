@@ -142,6 +142,7 @@
  '(org-notmuch-search-open-function 'org-notmuch-tree-follow-link)
  '(package-archives
    '(("gnu" . "http://elpa.gnu.org/packages/")
+     ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "http://melpa.org/packages/")))
  '(package-selected-packages
    '(worf tide web-mode helm-rg rg ack helm company dap-mode lsp-pyright lsp-ui flycheck-popup-tip lsp-mode rustic conda use-package flycheck-mypy orgalist ac-c-headers blacken gitlab magit-lfs csv-mode anaconda-mode ac-math auto-complete yaml-mode undo-tree flycheck-cython flycheck-julia magit magit-filenotify yasnippet yasnippet-snippets json-mode sbt-mode scala-mode git-commit cython-mode flycheck-pos-tip lua-mode git-ps1-mode rich-minority neotree smartparens sx cmake-mode idomenu hydra flycheck cdlatex vlf kill-ring-search chess auctex ascii-art-to-unicode))
