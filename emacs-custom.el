@@ -211,8 +211,8 @@
 
 Eval: (my-install-packages '(pkg1 pkg2))
 "
-  (cl-loop for pkg in pkgs
-	do (package-install pkg)))
+  (dolist (pkg pkgs)
+	(package-install pkg)))
 
 ;;; emacs-custom.el ends here
 
