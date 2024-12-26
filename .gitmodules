@@ -1,6 +1,3 @@
-[submodule "external-abook"]
-	path = external-abook
-	url = git@github.com:emacsmirror/external-abook.git
 [submodule "ucs-cmds"]
 	path = ucs-cmds
 	url = git@github.com:emacsmirror/ucs-cmds.git

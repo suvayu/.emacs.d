@@ -20,7 +20,6 @@ will need Emacs 24 or above.
 ### 3rd party libraries not from ELPA
 Libraries outside the repo:
 - ucs-cmds
-- external-abook
 
 Orphaned libraries:
 - minimal
