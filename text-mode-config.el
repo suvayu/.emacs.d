@@ -21,7 +21,7 @@
   (local-set-key "`" 'skeleton-pair-insert-maybe)
   (unless (or (eq major-mode 'org-mode) (eq major-mode 'latex-mode))
     ;; turn on orgtbl minor mode
-    (orgtbl-mode t)
+    ;; (orgtbl-mode t)
     (orgalist-mode t)
     ;; keybinding for footnotes
     (local-set-key (kbd "C-c f") 'org-footnote-action)
