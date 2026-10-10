@@ -30,16 +30,18 @@
  '(Info-additional-directory-list '("~/.emacs.d/info"))
  '(TeX-PDF-mode t)
  '(TeX-engine 'xetex)
- '(abbrev-mode t t)
+ '(abbrev-mode t)
  '(blacken-line-length nil)
  '(blink-cursor-mode t)
  '(calendar-date-style 'iso)
  '(case-fold-search t)
+ '(clang-format-lite-only-if-config t)
  '(column-number-mode t)
  '(copilot-idle-delay 3)
  '(custom-enabled-themes '(dark-emacs))
  '(custom-safe-themes
-   '("d9ab4c91aad0b36fd549cd03816965e7c0dc5bf6c95db781ecd2ead701aa6e3c" default))
+   '("7cdb35299b946b775fb212341cdf37306eaad063cf5f8c57be9c55ab89ef3756"
+     default))
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(dabbrev-case-replace nil)
  '(default-input-method "TeX")
@@ -51,39 +53,22 @@
  '(ediff-custom-diff-options "-u")
  '(ediff-split-window-function 'split-window-horizontally)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
- '(flycheck-python-flake8-executable "python3")
- '(flycheck-rst-sphinx-executable "~/.virtualenvs/sphinx/bin/sphinx-build")
  '(git-ps1-mode-lighter-text-format "[%s]")
  '(git-ps1-mode-ps1-file "/usr/share/git-core/contrib/completion/git-prompt.sh")
  '(grep-find-command
-   '("rg -n -H --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27))
+   '("rg -n -H --no-heading -e '' $(git rev-parse --show-toplevel || pwd)"
+     . 27))
  '(ibuffer-mode-hook '(ibuffer-auto-mode))
  '(ibuffer-saved-filter-groups nil)
  '(ibuffer-saved-filters
-   '(("sf"
-      ((filename . "simplefit")))
-     ("noroot"
-      ((not filename . "/opt/root/")))
-     ("root"
-      ((filename . "/opt/root/")))
-     ("noworg"
-      ((not filename . "org/Worg")))
-     ("worg"
-      ((filename . "org/Worg")))
-     ("dev"
-      ((or
-	(saved . "py")
-	(saved . "cpp"))))
-     ("lisp"
-      ((used-mode . emacs-lisp-mode)))
-     ("py"
-      ((used-mode . python-mode)))
-     ("config"
-      ((used-mode . conf-unix-mode)))
-     ("org"
-      ((used-mode . org-mode)))
-     ("cpp"
-      ((used-mode . c++-mode)))))
+   '(("noworg" ((not filename . "org/Worg")))
+     ("worg" ((filename . "org/Worg")))
+     ("dev" ((or (saved . "py") (saved . "cpp"))))
+     ("lisp" ((used-mode . emacs-lisp-mode)))
+     ("py" ((used-mode . python-mode)))
+     ("config" ((used-mode . conf-unix-mode)))
+     ("org" ((used-mode . org-mode)))
+     ("cpp" ((used-mode . c++-mode)))))
  '(ido-mode 'buffer nil (ido))
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
@@ -92,20 +77,17 @@
  '(lsp-ui-doc-delay 3)
  '(lsp-ui-doc-position 'bottom)
  '(magit-save-repository-buffers nil)
- '(message-elide-ellipsis "
- [...chomp...chomp...chomp...]
-
-")
+ '(message-elide-ellipsis "\12 [...chomp...chomp...chomp...]\12\12")
  '(mouse-avoidance-mode 'exile nil (avoid))
  '(mouse-yank-at-point t)
  '(notmuch-address-command "nottoomuch")
  '(notmuch-always-prompt-for-sender t)
  '(notmuch-fcc-dirs
-   '(("fatkasuvayu+linux@gmail.com" . "")
-     (".\\+" . "Gmail/mysent")))
+   '(("fatkasuvayu+linux@gmail.com" . "") (".\\+" . "Gmail/mysent")))
  '(notmuch-message-replied-tags '("+replied"))
  '(notmuch-saved-searches
-   '((:name "Inbox" :query "is:inbox and not (from:youtube or from:strava or from:nasa or from:eso or from:ledger or from:cleartax)")
+   '((:name "Inbox" :query
+	    "is:inbox and not (from:youtube or from:strava or from:nasa or from:eso or from:ledger or from:cleartax)")
      (:name "Inbox (unread)" :query "is:inbox and is:unread")
      (:name "Fortnight" :query "date:2weeks..today not is:foss")
      (:name "me @ FOSS" :query "(from:suvayu and is:foss) or is:list")
@@ -113,31 +95,18 @@
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-all-multipart/alternative-parts nil)
  '(notmuch-tag-formats
-   '(("unread" "✉"
-      (propertize tag 'face
-		  '(:foreground "red")))
-     ("flagged" "!"
-      (propertize tag 'face
-		  '(:foreground "blue")))
-     ("signed")
-     ("inbox" "i")
-     ("attachment" "@")
-     ("replied" "↻")
-     ("sent" "me")
-     ("travel" "✈")
-     ("patch" "∓")
+   '(("unread" "✉" (propertize tag 'face '(:foreground "red")))
+     ("flagged" "!" (propertize tag 'face '(:foreground "blue")))
+     ("signed") ("inbox" "i") ("attachment" "@") ("replied" "↻")
+     ("sent" "me") ("travel" "✈") ("patch" "∓")
      ("guru" "★"
-      (notmuch-tag-format-image-data tag
-				     (notmuch-tag-star-icon)))
+      (notmuch-tag-format-image-data tag (notmuch-tag-star-icon)))
      ("thesis"
-      (notmuch-tag-format-image-data tag
-				     (notmuch-tag-tag-icon)))
-     ("[-0-9]\\{4,7\\}")
-     ("new")))
+      (notmuch-tag-format-image-data tag (notmuch-tag-tag-icon)))
+     ("[-0-9]\\{4,7\\}") ("new")))
  '(occur-mode-hook '(turn-on-font-lock next-error-follow-minor-mode))
  '(org-export-backends '(ascii beamer html latex org))
  '(org-indent-indentation-per-level 0)
- '(org-link-travis/user-name "suvayu")
  '(org-notmuch-open-function 'org-notmuch-follow-link)
  '(org-notmuch-search-open-function 'org-notmuch-tree-follow-link)
  '(package-archives
@@ -152,15 +121,17 @@
  '(rg-ignore-ripgreprc nil)
  '(rustic-lsp-server 'rust-analyzer)
  '(safe-local-variable-values
-   '((flycheck-disabled-checkers emacs-lisp emacs-lisp-checkdoc)
-     (blacken-mode)
-     (auto-save-mode)
-     (backup-inhibited . t)
+   '((undo-tree-auto-save-history)
+     (eval auto-save-mode nil)
+     (flycheck-disabled-checkers emacs-lisp emacs-lisp-checkdoc)
+     (blacken-mode) (auto-save-mode) (backup-inhibited . t)
      (flycheck-gcc-include-path . ".")
      (local-abbrev-table . latex-mode-abbrev-table)
-     (org-latex-to-pdf-process "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f")
-     (default-input-method . TeX)
-     (org-export-allow-BIND . t)))
+     (org-latex-to-pdf-process
+      "xelatex -interaction nonstopmode -output-directory %o %f"
+      "xelatex -interaction nonstopmode -output-directory %o %f"
+      "xelatex -interaction nonstopmode -output-directory %o %f")
+     (default-input-method . TeX) (org-export-allow-BIND . t)))
  '(save-abbrevs nil)
  '(savehist-mode t nil (savehist))
  '(search-upper-case t)
@@ -168,7 +139,7 @@
  '(send-mail-function 'smtpmail-send-it)
  '(sentence-end-double-space t)
  '(session-set-file-name-exclude-regexp
-   "\\.session\\|News/\\|/\\(usr\\|opt/.+\\)/include/\\|~/\\.mozilla.*itsalltext.*\\|.*COMMIT_EDITMSG\\|/tmp/\\(mutt-\\|alot\\.\\).*")
+   "\\.session\\|/\\(usr\\|opt/.+\\)/include/\\|*COMMIT_EDITMSG\\|/tmp/\\(mutt-\\|alot\\.\\).*")
  '(session-use-package t nil (session))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
@@ -177,30 +148,19 @@
  '(sp-base-key-bindings 'sp)
  '(speedbar-use-images nil)
  '(tramp-default-method "ssh")
+ '(tramp-use-connection-share nil)
  '(tramp-use-ssh-controlmaster-options nil)
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(uniquify-buffer-name-style 'post-forward nil (uniquify))
  '(user-mail-address "fatkasuvayu+linux@gmail.com")
  '(vc-annotate-color-map
-   '((20 . "#00AF00")
-     (40 . "#00AF5F")
-     (60 . "#00875F")
-     (80 . "#008700")
-     (100 . "#005F00")
-     (120 . "#005F87")
-     (140 . "#005FAF")
-     (160 . "#005FD7")
-     (180 . "#005FFF")
-     (200 . "#0000FF")
-     (220 . "#0000D7")
-     (240 . "#0000AF")
-     (260 . "#000087")
-     (280 . "#00005F")
-     (300 . "#080808")
-     (320 . "#1C1C1C")
-     (340 . "#303030")
-     (360 . "#444444")))
+   '((20 . "#00AF00") (40 . "#00AF5F") (60 . "#00875F") (80 . "#008700")
+     (100 . "#005F00") (120 . "#005F87") (140 . "#005FAF")
+     (160 . "#005FD7") (180 . "#005FFF") (200 . "#0000FF")
+     (220 . "#0000D7") (240 . "#0000AF") (260 . "#000087")
+     (280 . "#00005F") (300 . "#080808") (320 . "#1C1C1C")
+     (340 . "#303030") (360 . "#444444")))
  '(vc-handled-backends '(Git SVN Hg))
  '(warning-suppress-types '((comp)))
  '(windmove-wrap-around t))
