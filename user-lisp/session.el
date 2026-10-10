@@ -1447,7 +1447,7 @@ using \\[save-buffers-kill-emacs] with prefix argument 0."
 			 (check-coding-system session-save-file-coding-system)
 		       (error nil)))))
 	   (when coding-system-for-write
-	     (insert (format ";;; -*- coding: %S; -*-\n"
+	     (insert (format ";;; -*- coding: %S; lexical-binding: nil; -*-\n"
 			     session-save-file-coding-system)))
 	   (insert ";;; Automatically generated on " (current-time-string)
 		   "\n;;; Invoked by " (user-login-name) "@" (system-name)
