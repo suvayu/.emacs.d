@@ -1,4 +1,4 @@
-;;; flyc-config.el --- Flycheck config
+;;; flyc-config.el --- Flycheck config  -*- lexical-binding: nil; -*-
 
 ;;; Commentary:
 

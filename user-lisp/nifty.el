@@ -1,4 +1,4 @@
-;;; nifty --- nifty lisp functions for convenience.
+;;; nifty --- nifty lisp functions for convenience.  -*- lexical-binding: nil; -*-
 
 ;;; Commentary:
 ;; This file contains some nifty Lisp functions I wrote for my

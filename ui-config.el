@@ -1,4 +1,4 @@
-;;; ui-config.el --- Emacs UI config
+;;; ui-config.el --- Emacs UI config  -*- lexical-binding: nil; -*-
 
 ;;; Commentary:
 

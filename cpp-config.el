@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: nil; -*-
 ;;; Code: C/C++ customisations
 ;; associate arduino sketches to c-mode
 (add-to-list 'auto-mode-alist (cons "\\.ino\\'" 'c-mode))

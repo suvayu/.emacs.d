@@ -1,4 +1,4 @@
-;;; org-search-goto.el --- Use search to go to locations in your org buffers
+;;; org-search-goto.el --- Use search to go to locations in your org buffers  -*- lexical-binding: nil; -*-
 
 ;; Copyright (C) 2011
 

@@ -1,4 +1,4 @@
-;;; minimal-init.el -- for minimal emacs configuration
+;;; minimal-init.el -- for minimal emacs configuration  -*- lexical-binding: nil; -*-
 
 ;;; Code:
 (setq debug-on-error t

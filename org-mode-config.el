@@ -1,4 +1,4 @@
-;;; org-mode-config.el --- `org-mode' settings and customisations.
+;;; org-mode-config.el --- `org-mode' settings and customisations.  -*- lexical-binding: nil; -*-
 
 (require 'org)
 (require 'org-tempo)

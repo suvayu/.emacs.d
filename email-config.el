@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: nil; -*-
 ;;; email-comfig.el --- on bhishma
 
 ;;; Code:

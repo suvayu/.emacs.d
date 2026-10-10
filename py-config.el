@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: nil; -*-
 
 ;; ;; for special navigation commands
 ;; (require 'nifty)

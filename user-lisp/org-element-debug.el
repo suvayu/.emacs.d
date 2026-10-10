@@ -1,4 +1,4 @@
-;;; element-debug-mode by Nicolas, see:
+;;; element-debug-mode by Nicolas, see:  -*- lexical-binding: nil; -*-
 ;;
 ;; (notmuch-show "id:87d21dsvox.fsf@nicolasgoaziou.fr")
 ;; <http://mid.gmane.org/87d21dsvox.fsf@nicolasgoaziou.fr>

@@ -1,4 +1,4 @@
-;;; lsp-config.el --- LSP customisations
+;;; lsp-config.el --- LSP customisations  -*- lexical-binding: nil; -*-
 
 ;;; Commentary:
 

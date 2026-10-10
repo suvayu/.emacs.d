@@ -1,4 +1,4 @@
-;;; keybindings.el --- my keybindings
+;;; keybindings.el --- my keybindings  -*- lexical-binding: nil; -*-
 
 ;;; Commentary:
 

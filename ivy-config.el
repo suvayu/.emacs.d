@@ -1,4 +1,4 @@
-;;; ivy-config.el --- completion config
+;;; ivy-config.el --- completion config  -*- lexical-binding: nil; -*-
 
 ;;; Commentary:
 ;; Source: https://gitlab.com/protesilaos/dotfiles/-/blob/master/emacs/.emacs.d/prot-lisp/prot-ivy-deprecated-conf.el

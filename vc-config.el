@@ -1,4 +1,4 @@
-;;; vc-config.el --- Version control configuration
+;;; vc-config.el --- Version control configuration  -*- lexical-binding: nil; -*-
 
 ;;; Commentary:
 

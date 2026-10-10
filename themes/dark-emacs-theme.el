@@ -1,4 +1,4 @@
-;;; dark-emacs-theme.el --- A dark theme that also works in a TTY
+;;; dark-emacs-theme.el --- A dark theme that also works in a TTY  -*- lexical-binding: nil; -*-
 
 ;;; Commentary:
 

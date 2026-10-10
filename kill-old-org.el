@@ -1,4 +1,4 @@
-;;
+;;  -*- lexical-binding: nil; -*-
 ;; Kill any old org remnants (thanks to Achim)
 ;;
 ;; From: org-mode.git/testing/org-batch-test-init.el

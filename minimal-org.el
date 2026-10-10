@@ -1,4 +1,4 @@
-;;; Minimal setup to load latest `org-mode'
+;;; Minimal setup to load latest `org-mode'  -*- lexical-binding: nil; -*-
 
 ;;; Code
 (load-file "~/.emacs.d/minimal-init.el")

@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: nil; -*-
 ;;; minimal-email.el
 ;; Minimal settings for composing emails or messages from browsers
 

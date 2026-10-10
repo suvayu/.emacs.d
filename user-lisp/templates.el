@@ -1,4 +1,4 @@
-;;; templates.el
+;;; templates.el  -*- lexical-binding: nil; -*-
 
 ;;; C/C++ skeleton commands
 ;; for loop

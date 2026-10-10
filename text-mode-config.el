@@ -1,4 +1,4 @@
-;;; text-mode-settings.el --- settings and customisations for `text-mode'.
+;;; text-mode-settings.el --- settings and customisations for `text-mode'.  -*- lexical-binding: nil; -*-
 
 ;;; Code:
 (require 'orgalist)

@@ -1,4 +1,4 @@
-;;; init.el --- my uber kewl init.el
+;;; init.el --- my uber kewl init.el  -*- lexical-binding: nil; -*-
 
 ;;; Commentary:
 

@@ -1,4 +1,4 @@
-;;; minimal.el --- Minimalist Emacs appearance
+;;; minimal.el --- Minimalist Emacs appearance  -*- lexical-binding: nil; -*-
 
 ;; Copyright (C) 2010  Dan Davison
 
