@@ -70,8 +70,6 @@
 
 (load-file "~/.emacs.d/lsp-config.el")
 
-;; (load-file "~/.emacs.d/copilot-config.el")
-
 ;; Version control related customisations
 (load-file "~/.emacs.d/vc-config.el")
 
