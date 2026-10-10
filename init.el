@@ -82,9 +82,6 @@
 (load-file "~/.emacs.d/org-mode-config.el")
 (load-file "~/.emacs.d/text-mode-config.el") ; has some org dependence
 
-;; use with mutt, ItsAllText and eml files
-(load-file "~/.emacs.d/email-config.el") ; has some org dependence
-
 ;; mode to edit markdown files (e.g. StackOverflow answers with ItsAllText)
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
